@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Plan Estudio AIF-C01 · 30 días genérico · Francisco Escobar</title>
+<style>
+:root{
+  --o:#D85A30;--ol:rgba(216,90,48,.12);--od:#993C1D;
+  --b:#185FA5;--bl:rgba(24,95,165,.12);
+  --t:#0F6E56;--tl:rgba(15,110,86,.12);
+  --p:#534AB7;--pl:rgba(83,74,183,.12);--pd:#3C3489;
+  --g:#3B6D11;--gl:rgba(59,109,17,.12);
+  --a:#BA7517;--al:rgba(186,117,23,.12);
+  --r:#A32D2D;--rl:rgba(162,45,45,.1);
+  --tx:#1a1a18;--tx2:#5f5e5a;--tx3:#9c9a92;
+  --bg:#fff;--bg2:#f7f6f2;--bg3:#f1efe8;
+  --bd:rgba(0,0,0,.1);--bd2:rgba(0,0,0,.18);
+  --rad:8px;--radl:12px;
+}
+@media(prefers-color-scheme:dark){
+  :root{--tx:#e8e6de;--tx2:#b4b2a9;--tx3:#73726c;--bg:#1c1c1a;--bg2:#242420;--bg3:#2c2c28;--bd:rgba(255,255,255,.1);--bd2:rgba(255,255,255,.18);--ol:rgba(216,90,48,.22);--bl:rgba(24,95,165,.22);--tl:rgba(15,110,86,.22);--pl:rgba(83,74,183,.22);--gl:rgba(59,109,17,.22);--al:rgba(186,117,23,.22);--rl:rgba(162,45,45,.2);}
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);font-size:15px;line-height:1.6;}
+.header{background:linear-gradient(135deg,#7a2e12 0%,#D85A30 60%,#BA7517 100%);padding:28px 32px 24px;}
+.header h1{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;}
+.header p{font-size:14px;color:rgba(255,255,255,.85);}
+.badge{display:inline-block;background:rgba(255,255,255,.18);border-radius:20px;padding:3px 10px;font-size:12px;color:#fff;margin:6px 4px 0 0;}
+.container{max-width:900px;margin:0 auto;padding:28px 24px 60px;}
+.section-title{font-size:18px;font-weight:700;margin:32px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--bd);}
+.plan-notice{background:var(--ol);border:1px solid rgba(216,90,48,.25);border-radius:var(--radl);padding:12px 16px;font-size:13px;margin:0 0 20px;}
+.plan-notice strong{color:var(--od);}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+.metric{background:var(--bg2);border-radius:var(--rad);padding:12px;text-align:center;}
+.metric-num{font-size:22px;font-weight:700;}
+.metric-lbl{font-size:11px;color:var(--tx3);margin-top:2px;}
+.dom-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.dom-name{font-size:12px;width:240px;color:var(--tx2);flex-shrink:0;}
+.dom-track{flex:1;height:7px;border-radius:4px;background:var(--bg3);overflow:hidden;}
+.dom-fill{height:7px;border-radius:4px;}
+.dom-pct{font-size:12px;width:32px;text-align:right;font-weight:700;}
+.phase-bar{display:flex;border-radius:var(--rad);overflow:hidden;margin:20px 0;font-size:12px;}
+.phase-seg{padding:10px 8px;text-align:center;font-weight:700;flex:1;}
+.tab-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.tab-btn{background:none;border:1px solid var(--bd2);border-radius:var(--rad);padding:8px 14px;font-size:12px;cursor:pointer;color:var(--tx2);transition:all .15s;line-height:1.3;text-align:center;}
+.tab-btn.active{background:var(--o);border-color:var(--o);color:#fff;font-weight:700;}
+.tab-btn:hover:not(.active){background:var(--bg2);}
+.tab-btn .wn{display:block;font-weight:700;font-size:13px;}
+.tab-btn .wd{display:block;font-size:10px;opacity:.7;}
+.panel{display:none;}.panel.active{display:block;}
+.card{border:1px solid var(--bd);border-radius:var(--radl);padding:14px 16px;margin-bottom:12px;background:var(--bg);}
+.card-label{font-size:11px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+.topic-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--bd);font-size:13px;}
+.topic-row:last-child{border-bottom:none;}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:1px;}
+.d1{background:var(--bl);color:var(--b);}
+.d2{background:var(--tl);color:var(--t);}
+.d3{background:var(--pl);color:var(--pd);}
+.d4{background:var(--gl);color:var(--g);}
+.d5{background:var(--al);color:var(--a);}
+.td{color:var(--tx2);font-size:12px;margin-top:3px;}
+.day-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+.day-card{background:var(--bg2);border-radius:var(--rad);padding:10px 12px;font-size:13px;}
+.day-label{font-weight:700;font-size:11px;color:var(--tx3);margin-bottom:4px;text-transform:uppercase;}
+.day-sub{font-size:11px;color:var(--tx3);margin-top:3px;}
+.tip{border-left:3px solid var(--o);background:var(--ol);border-radius:0 var(--rad) var(--rad) 0;padding:10px 14px;font-size:13px;margin:12px 0;}
+.warn{border-left:3px solid var(--a);background:var(--al);border-radius:0 var(--rad) var(--rad) 0;padding:10px 14px;font-size:13px;margin:12px 0;}
+.trap-box{border-left:3px solid #E24B4A;background:var(--rl);border-radius:0 var(--rad) var(--rad) 0;padding:10px 14px;font-size:13px;margin:10px 0;}
+.trap-box strong{color:var(--r);}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.svc-card{border:1px solid var(--bd);border-radius:var(--radl);padding:12px 14px;}
+.svc-name{font-size:14px;font-weight:700;margin-bottom:4px;}
+.svc-use{font-size:12px;color:var(--tx2);}
+.svc-trampa{font-size:11px;color:var(--od);margin-top:6px;font-style:italic;border-top:1px solid var(--bd);padding-top:6px;}
+.res-card{border:1px solid var(--bd);border-radius:var(--rad);padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.res-name{font-weight:700;font-size:14px;margin-bottom:2px;}
+.res-name a{color:inherit;text-decoration:none;}
+.res-desc{font-size:12px;color:var(--tx2);}
+.res-tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:20px;background:var(--ol);color:var(--od);font-weight:700;white-space:nowrap;}
+.free-tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:20px;background:var(--gl);color:var(--g);font-weight:700;white-space:nowrap;margin-left:4px;}
+.mock-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.mock-lbl{font-size:12px;width:130px;color:var(--tx2);}
+.mock-track{flex:1;height:8px;border-radius:4px;background:var(--bg3);overflow:hidden;}
+.mock-fill{height:8px;border-radius:4px;}
+.mock-pct{font-size:12px;width:50px;text-align:right;font-weight:700;}
+.exam-box{background:var(--ol);border:1px solid rgba(216,90,48,.35);border-radius:var(--radl);padding:16px 18px;text-align:center;margin-top:16px;}
+.eb-title{font-size:16px;font-weight:700;color:var(--od);margin-bottom:8px;}
+.eb-detail{font-size:13px;color:var(--tx2);}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.f-btn{background:none;border:1px solid var(--bd2);border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;color:var(--tx2);transition:all .15s;display:flex;align-items:center;}
+.f-btn.on{background:var(--o);border-color:var(--o);color:#fff;font-weight:700;}
+.f-btn:hover:not(.on){background:var(--bg2);}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;}
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.p-card{border:1px solid var(--bd);border-radius:var(--radl);padding:14px 16px;cursor:pointer;transition:border-color .15s,background .15s;background:var(--bg);}
+.p-card:hover{border-color:var(--bd2);background:var(--bg2);}
+.p-card.open{border-color:var(--o);}
+.p-num{font-size:11px;font-weight:700;color:var(--tx3);margin-bottom:3px;display:flex;align-items:center;gap:4px;}
+.p-name{font-size:14px;font-weight:700;margin-bottom:6px;}
+.p-kw{font-size:11px;color:var(--tx3);line-height:1.5;}
+.detail-panel{display:none;grid-column:1/-1;border:1px solid var(--bd2);border-radius:var(--radl);padding:18px 20px;background:var(--bg);margin-top:-2px;}
+.detail-panel.open{display:block;}
+.detail-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.detail-title{font-size:15px;font-weight:700;}
+.close-btn{font-size:12px;color:var(--tx3);background:none;border:1px solid var(--bd2);border-radius:var(--rad);padding:4px 10px;cursor:pointer;}
+.sec-lbl{font-size:11px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin:12px 0 6px;}
+.svc-pill{display:inline-block;font-size:11px;padding:3px 8px;border-radius:20px;background:var(--bl);color:var(--b);margin:2px 3px 2px 0;font-weight:500;}
+.kw-pill{display:inline-block;font-size:11px;padding:3px 8px;border-radius:20px;background:var(--gl);color:var(--g);margin:2px 3px 2px 0;}
+.linkedin-link{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.5);}
+footer{text-align:center;font-size:12px;color:var(--tx3);padding:20px;border-top:1px solid var(--bd);margin-top:40px;}
+footer a{color:var(--o);text-decoration:none;}
+@media(max-width:600px){.metrics{grid-template-columns:repeat(2,1fr);}.day-grid,.svc-grid,.p-grid{grid-template-columns:1fr;}.dom-name{width:160px;}.phase-bar{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Plan Estudio AIF-C01: AWS Certified AI Practitioner</h1>
+  <p>Francisco Escobar · <a class="linkedin-link" href="https://www.linkedin.com/in/franciscojeg/" target="_blank">linkedin.com/in/franciscojeg</a></p>
+  <p style="margin-top:2px;">Plan genérico de 30 días · Día 1 a Día 30</p>
+  <span class="badge">Nivel Foundational</span>
+  <span class="badge">AWS Community Builder · Networking &amp; Content Delivery</span>
+  <span class="badge">Sin certificaciones previas</span>
+</div>
+
+<div class="container">
+
+<div class="plan-notice">
+  <strong>Plan desde cero:</strong> este plan no asume ninguna certificación AWS previa ni experiencia previa en IA o machine learning. El Dominio 1 recibe una semana completa porque es la base conceptual de todos los demás dominios. Si ya tienes background en AWS o en AI/ML, puedes comprimir la semana 1 y avanzar más rápido.
+</div>
+
+<div class="metrics">
+  <div class="metric"><div class="metric-num" style="color:var(--o)">30</div><div class="metric-lbl">días de estudio</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--t)">700</div><div class="metric-lbl">score mínimo /1000</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--a)">90</div><div class="metric-lbl">minutos examen</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--p)">65</div><div class="metric-lbl">preguntas (50+15)</div></div>
+</div>
+
+<div style="margin-bottom:8px;">
+  <div class="dom-row"><span class="dom-name">D3 Aplicaciones de modelos fundacionales (28%)</span><div class="dom-track"><div class="dom-fill" style="width:28%;background:#534AB7;"></div></div><span class="dom-pct" style="color:#534AB7;">28%</span></div>
+  <div class="dom-row"><span class="dom-name">D2 Fundamentos de IA generativa (24%)</span><div class="dom-track"><div class="dom-fill" style="width:24%;background:#0F6E56;"></div></div><span class="dom-pct" style="color:#0F6E56;">24%</span></div>
+  <div class="dom-row"><span class="dom-name">D1 Fundamentos de IA y ML (20%)</span><div class="dom-track"><div class="dom-fill" style="width:20%;background:#185FA5;"></div></div><span class="dom-pct" style="color:#185FA5;">20%</span></div>
+  <div class="dom-row"><span class="dom-name">D4 Pautas para una IA responsable (14%)</span><div class="dom-track"><div class="dom-fill" style="width:14%;background:#3B6D11;"></div></div><span class="dom-pct" style="color:#3B6D11;">14%</span></div>
+  <div class="dom-row"><span class="dom-name">D5 Seguridad, cumplimiento y gobernanza (14%)</span><div class="dom-track"><div class="dom-fill" style="width:14%;background:#BA7517;"></div></div><span class="dom-pct" style="color:#BA7517;">14%</span></div>
+</div>
+
+<div class="phase-bar">
+  <div class="phase-seg" style="background:var(--bl);color:var(--b);">S1 · Días 1-7<br>D1 Fundamentos</div>
+  <div class="phase-seg" style="background:var(--tl);color:var(--t);">S2 · Días 8-14<br>D2 IA generativa</div>
+  <div class="phase-seg" style="background:var(--pl);color:var(--pd);">S3 · Días 15-21<br>D3 Aplicaciones FM (1/2)</div>
+  <div class="phase-seg" style="background:var(--gl);color:var(--g);">S4 · Días 22-28<br>D3 (2/2) + D4 + D5</div>
+  <div class="phase-seg" style="background:var(--al);color:var(--a);">S5 · Días 29-30<br>Repaso y examen</div>
+</div>
+
+<div class="section-title">Plan semana a semana</div>
+<div class="tab-row">
+  <button class="tab-btn active" onclick="showW(0,this)"><span class="wn">Semana 1</span><span class="wd">Días 1-7</span></button>
+  <button class="tab-btn" onclick="showW(1,this)"><span class="wn">Semana 2</span><span class="wd">Días 8-14</span></button>
+  <button class="tab-btn" onclick="showW(2,this)"><span class="wn">Semana 3</span><span class="wd">Días 15-21</span></button>
+  <button class="tab-btn" onclick="showW(3,this)"><span class="wn">Semana 4</span><span class="wd">Días 22-28</span></button>
+  <button class="tab-btn" onclick="showW(4,this)"><span class="wn">Semana 5</span><span class="wd">Días 29-30</span></button>
+</div>
+
+<div id="w0" class="panel active">
+  <div class="card"><div class="card-label">Semana 1 · D1: Fundamentos de IA y ML (desde cero)</div>
+    <div class="topic-row"><span class="pill d1">D1 · 20%</span><div><strong>Terminología y conceptos fundamentales</strong><div class="td">IA frente a Machine Learning frente a Deep Learning: jerarquía y diferencias. Redes neuronales, visión artificial, procesamiento del lenguaje natural (NLP), modelos, algoritmos, entrenamiento e inferencia, sesgo, equidad, adecuación y modelo de lenguaje de gran tamaño (LLM). Tipos de inferencia: por lotes o en tiempo real. Tipos de datos: etiquetados y sin etiquetar, tabulares, series temporales, imágenes, texto, estructurados y no estructurados.</div></div></div>
+    <div class="topic-row"><span class="pill d1">D1 · 20%</span><div><strong>Tipos de aprendizaje y casos de uso de IA</strong><div class="td">Aprendizaje supervisado (clasificación, regresión), no supervisado (agrupamiento, detección de anomalías) y por refuerzo. Cuándo la IA aporta valor (escalabilidad, automatización, apoyo a decisiones) y cuándo no es apropiada (análisis costo-beneficio, resultados deterministas). Ejemplos reales: visión artificial, NLP, reconocimiento de voz, sistemas de recomendación, detección de fraude y pronósticos.</div></div></div>
+    <div class="topic-row"><span class="pill d1">D1 · 20%</span><div><strong>Servicios de IA y machine learning administrados por AWS</strong><div class="td">Catálogo completo: Amazon SageMaker, Rekognition, Textract, Transcribe, Translate, Polly, Lex, Kendra, Comprehend, Personalize, Forecast y Fraud Detector. Memoriza el "título de trabajo" de cada servicio antes de entrar en detalle técnico.</div></div></div>
+    <div class="topic-row"><span class="pill d1">D1 · 20%</span><div><strong>Ciclo de vida del desarrollo de machine learning</strong><div class="td">Componentes de una canalización: recopilación de datos, análisis exploratorio (EDA), procesamiento previo, ingeniería de características, entrenamiento, ajuste de hiperparámetros, evaluación, implementación y supervisión. Fuentes de modelos: preentrenados de código abierto o entrenamiento personalizado. Aspectos básicos de MLOps. Métricas de rendimiento (exactitud, AUC, F1) y métricas de negocio (costo por usuario, ROI).</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Día 1-2</div>Terminología AI/ML/DL + tipos de aprendizaje (supervisado, no supervisado, refuerzo) + tipos de datos e inferencia<div class="day-sub">4h · base conceptual de todo el examen, no avances si algo no queda claro</div></div>
+    <div class="day-card"><div class="day-label">Día 3-4</div>Casos de uso de IA + catálogo de servicios managed AWS<div class="day-sub">4h · 12 servicios, crea una tarjeta Anki por servicio desde hoy</div></div>
+    <div class="day-card"><div class="day-label">Día 5-6</div>Ciclo de vida ML, MLOps y métricas de evaluación (accuracy, precision, recall, F1, AUC-ROC)<div class="day-sub">4h · diferencia métricas de modelo de métricas de negocio</div></div>
+    <div class="day-card"><div class="day-label">Día 7</div>Repaso semana 1 + mini quiz 25 preguntas D1<div class="day-sub">2h · 20% del examen depende de esta semana</div></div>
+  </div>
+  <div class="warn">Si esta es tu primera incursión en IA o en AWS, esta semana define tu ritmo para las siguientes cuatro. No avances al Dominio 2 sin tener clara la diferencia entre aprendizaje supervisado, no supervisado y por refuerzo. Tampoco avances sin reconocer el "título de trabajo" de cada servicio managed.</div>
+</div>
+
+<div id="w1" class="panel">
+  <div class="card"><div class="card-label">Semana 2 · D2: Fundamentos de IA generativa</div>
+    <div class="topic-row"><span class="pill d2">D2 · 24%</span><div><strong>Conceptos básicos de IA generativa</strong><div class="td">Tokens, fragmentación (chunking), incrustaciones (embeddings), vectores, ingeniería de peticiones, LLM basados en transformadores, modelos fundacionales, modelos multimodales y modelos de difusión. Ciclo de vida del modelo fundacional: selección de datos, selección del modelo, entrenamiento previo, ajuste, evaluación, implementación y retroalimentación.</div></div></div>
+    <div class="topic-row"><span class="pill d2">D2 · 24%</span><div><strong>Casos de uso de IA generativa</strong><div class="td">Generación de imágenes, video y audio. Resumen de texto, chatbots, traducción, generación de código, agentes de servicio al cliente, motores de búsqueda y sistemas de recomendación.</div></div></div>
+    <div class="topic-row"><span class="pill d2">D2 · 24%</span><div><strong>Capacidades, limitaciones y selección de modelos</strong><div class="td">Ventajas de la IA generativa: adaptabilidad, capacidad de respuesta y simplicidad. Desventajas: alucinaciones, interpretabilidad, inexactitud y falta de determinismo. Factores de selección de modelos: tipo de modelo, requisitos de rendimiento, capacidades, restricciones y cumplimiento. Valor de negocio: rendimiento entre dominios, eficiencia, tasa de conversión, ingresos medios por usuario y valor del ciclo de vida del cliente.</div></div></div>
+    <div class="topic-row"><span class="pill d2">D2 · 24%</span><div><strong>Infraestructura y tecnologías AWS para IA generativa</strong><div class="td">Amazon Bedrock (API administrada para modelos fundacionales), SageMaker JumpStart (ajuste y despliegue de modelos preentrenados), PartyRock (zona de juego sin código sobre Bedrock) y Amazon Q (asistente generativo empresarial). Ventajas de los servicios de AWS: accesibilidad, menor barrera de entrada, eficiencia, rentabilidad y velocidad de comercialización.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Día 8-9</div>Conceptos básicos de GenAI (tokens, embeddings, transformers, modelos multimodales y de difusión) + casos de uso<div class="day-sub">4h · base de los dominios 2 y 3</div></div>
+    <div class="day-card"><div class="day-label">Día 10</div>Ventajas, desventajas y criterios de selección de modelos fundacionales<div class="day-sub">2h · memoriza costo, modalidad, latencia, multilingüe, tamaño, complejidad, personalización, longitud de entrada y salida</div></div>
+    <div class="day-card"><div class="day-label">Día 11-12</div>Infraestructura AWS: Amazon Bedrock, SageMaker JumpStart y Amazon Q<div class="day-sub">4h · Bedrock es el servicio más mencionado del examen</div></div>
+    <div class="day-card"><div class="day-label">Día 13</div>Práctica hands-on en PartyRock<div class="day-sub">1.5h · gratis y sin código, el examen pregunta sobre PartyRock directamente</div></div>
+    <div class="day-card"><div class="day-label">Día 14</div>Repaso semana 2 + mini quiz 25 preguntas D2<div class="day-sub">2h · segundo dominio con más peso del examen</div></div>
+  </div>
+  <div class="tip">PartyRock es gratuito y aparece directamente en el examen. Crear una app simple en 20 a 30 minutos hace que las preguntas sobre Bedrock, prompts y modelos fundacionales se vuelvan mucho más intuitivas.</div>
+</div>
+
+<div id="w2" class="panel">
+  <div class="card"><div class="card-label">Semana 3 · D3: Aplicaciones de modelos fundacionales (parte 1)</div>
+    <div class="topic-row"><span class="pill d3">D3 · 28%</span><div><strong>Consideraciones de diseño y selección de modelos fundacionales</strong><div class="td">Criterios de selección de modelos preentrenados: costo, modalidad, latencia, capacidad multilingüe, tamaño, complejidad, personalización y longitud de entrada y salida. Efecto de los parámetros de inferencia en las respuestas: temperatura y longitud de entrada y salida.</div></div></div>
+    <div class="topic-row"><span class="pill d3">D3 · 28%</span><div><strong>RAG, bases de datos vectoriales y agentes</strong><div class="td">Generación aumentada por recuperación (RAG) y sus aplicaciones empresariales con bases de conocimiento de Amazon Bedrock. Servicios de AWS para almacenar incrustaciones: Amazon OpenSearch Service, Aurora, Neptune, DocumentDB y RDS para PostgreSQL. Compensaciones de costos entre entrenamiento previo, ajuste, aprendizaje en contexto y RAG. Rol de los agentes para Amazon Bedrock en tareas de varios pasos.</div></div></div>
+    <div class="topic-row"><span class="pill d3">D3 · 28%</span><div><strong>Ingeniería de peticiones (prompt engineering)</strong><div class="td">Conceptos: contexto, instrucción, peticiones negativas y espacio latente del modelo. Técnicas: plantillas de cadena de pensamiento, cero intentos, un intento y pocos intentos. Beneficios y mejores prácticas: mejora de la calidad de respuesta, experimentación, barreras de protección, especificidad y concisión. Riesgos: exposición, intoxicación, apropiación (hijacking) y jailbreak.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Día 15-16</div>Criterios de selección de modelos preentrenados + parámetros de inferencia (temperatura, top-p, longitud de salida)<div class="day-sub">4h · el examen describe restricciones de negocio y pide elegir el modelo correcto</div></div>
+    <div class="day-card"><div class="day-label">Día 17-18</div>RAG, bases de datos vectoriales, bases de conocimiento y agentes para Amazon Bedrock<div class="day-sub">4h · el dominio 3 es el de mayor peso, RAG aparece en múltiples formas</div></div>
+    <div class="day-card"><div class="day-label">Día 19-20</div>Ingeniería de peticiones completa: técnicas, buenas prácticas y riesgos<div class="day-sub">4h · diferencia jailbreak, apropiación, exposición e intoxicación de datos</div></div>
+    <div class="day-card"><div class="day-label">Día 21</div>Repaso semana 3 + Simulacro diagnóstico 1 (65 preguntas)<div class="day-sub">3h · define el énfasis de la semana 4</div></div>
+  </div>
+  <div class="warn">El simulacro 1 es diagnóstico, no nota. Si vienes de cero, un puntaje de 55 a 65% en este punto es completamente normal. Anota los dominios y conceptos donde fallaste para reforzarlos en la semana 4.</div>
+</div>
+
+<div id="w3" class="panel">
+  <div class="card"><div class="card-label">Semana 4 · D3 (parte 2) + D4 + D5</div>
+    <div class="topic-row"><span class="pill d3">D3 · 28%</span><div><strong>Entrenamiento, ajuste y evaluación de modelos fundacionales</strong><div class="td">Elementos clave del entrenamiento: entrenamiento previo, ajuste y entrenamiento previo continuo. Métodos de ajuste: ajuste de instrucciones, adaptación a dominios específicos y aprendizaje por transferencia. Preparación de datos: selección, gobernanza, tamaño, etiquetado, representatividad y aprendizaje por refuerzo a partir de retroalimentación humana (RLHF). Evaluación: evaluación humana frente a conjuntos de datos de referencia. Métricas: ROUGE, BLEU y BERTScore.</div></div></div>
+    <div class="topic-row"><span class="pill d4">D4 · 14%</span><div><strong>Pautas para una IA responsable</strong><div class="td">Características: sesgo, equidad, inclusividad, solidez, seguridad y veracidad. Barreras de protección para Amazon Bedrock (Guardrails). Riesgos legales de la IA generativa: infracción de propiedad intelectual, resultados sesgados, pérdida de confianza y alucinaciones. Características de los conjuntos de datos: inclusividad, datos curados y balanceados. Herramientas de detección de sesgo: SageMaker Clarify, Model Monitor y Amazon A2I.</div></div></div>
+    <div class="topic-row"><span class="pill d4">D4 · 14%</span><div><strong>Transparencia y explicabilidad</strong><div class="td">Diferencias entre modelos transparentes y explicables frente a modelos de caja negra. Herramientas: tarjetas modelo de SageMaker, modelos de código abierto, datos y licencias. Compensación entre seguridad y transparencia del modelo. Principios del diseño centrado en el ser humano para IA explicable.</div></div></div>
+    <div class="topic-row"><span class="pill d5">D5 · 14%</span><div><strong>Seguridad de sistemas de IA</strong><div class="td">Servicios para proteger sistemas de IA: roles, políticas y permisos de IAM, cifrado con AWS KMS, Amazon Macie y AWS PrivateLink, todo bajo el modelo de responsabilidad compartida. Citación de fuentes y linaje de datos. Prácticas de ingeniería de datos segura: calidad de datos, tecnologías que mejoran la privacidad, control de acceso e integridad de datos. Consideraciones de seguridad: detección de amenazas, inyección de peticiones, cifrado en reposo y en tránsito.</div></div></div>
+    <div class="topic-row"><span class="pill d5">D5 · 14%</span><div><strong>Gobernanza y cumplimiento normativo</strong><div class="td">Estándares de conformidad: ISO, Controles de Organización y Servicio (SOC) y leyes de responsabilidad algorítmica. Servicios de AWS: Config, Inspector, Audit Manager, Artifact, CloudTrail y Trusted Advisor. Estrategias de gobernanza de datos: registro, residencia, supervisión, retención y ciclos de vida. Marcos de trabajo como la Generative AI Security Scoping Matrix.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Día 22</div>Entrenamiento y ajuste de modelos fundacionales: pre-training, fine-tuning, RLHF<div class="day-sub">2h · preparación de datos para fine-tuning: selección, gobernanza, etiquetado, representatividad</div></div>
+    <div class="day-card"><div class="day-label">Día 23</div>Evaluación de modelos fundacionales: ROUGE, BLEU y BERTScore<div class="day-sub">2h · material nuevo si vienes de cero, memoriza para qué tarea se usa cada métrica</div></div>
+    <div class="day-card"><div class="day-label">Día 24-25</div>IA responsable completa: bias, Clarify, Model Monitor, A2I, Guardrails y Model Cards<div class="day-sub">4h · 14% del examen con varios pares de decisión que se confunden fácilmente</div></div>
+    <div class="day-card"><div class="day-label">Día 26-27</div>Seguridad y gobernanza: IAM, KMS, Macie, PrivateLink, Config, Audit Manager, Artifact, CloudTrail<div class="day-sub">4h · otro 14%, diferencia Config (configuración) de CloudTrail (llamadas API)</div></div>
+    <div class="day-card"><div class="day-label">Día 28</div>Repaso D3 a D5 + Simulacro 2 (65 preguntas)<div class="day-sub">3h · meta 75% o más, revisión detallada de cada error</div></div>
+  </div>
+  <div class="tip">ROUGE, BLEU y BERTScore suelen ser el material más nuevo para quien viene de cero. Crea tarjetas Anki específicas para esas tres métricas y para los pares de decisión D4/D5: Clarify frente a Model Monitor frente a A2I, además de Config frente a CloudTrail frente a Audit Manager frente a Artifact.</div>
+</div>
+
+<div id="w4" class="panel">
+  <div class="card"><div class="card-label">Semana 5 · Repaso final y examen</div>
+    <div class="topic-row"><span style="font-size:12px;width:64px;flex-shrink:0;color:var(--tx3);font-weight:700;">Día 29</span><div><strong>Repaso de pares de decisión débiles + Simulacro 3 (opcional)</strong><div class="td">Si superas 80% en el simulacro 2, el simulacro 3 es opcional. Repasa las tarjetas Anki de los 30 servicios del catálogo y de los 12 escenarios de decisión de este plan. Enfócate en los pares que más te cuesten distinguir.</div></div></div>
+    <div class="topic-row"><span style="font-size:12px;width:64px;flex-shrink:0;color:var(--o);font-weight:700;">Día 30</span><div><strong>Repaso ligero, descanso y logística del examen</strong><div class="td">Máximo 1 hora de repaso, sin contenido nuevo. Confirma la modalidad (online o centro de pruebas), identificación requerida y haz la prueba técnica si es online. Duerme al menos 7 horas la noche anterior.</div></div></div>
+  </div>
+  <div style="margin-top:12px;">
+    <div class="mock-row"><span class="mock-lbl">Simulacro 1 (día 21)</span><div class="mock-track"><div class="mock-fill" style="width:60%;background:#EF9F27;"></div></div><span class="mock-pct" style="color:#BA7517;">~60%</span></div>
+    <div class="mock-row"><span class="mock-lbl">Simulacro 2 (día 28)</span><div class="mock-track"><div class="mock-fill" style="width:75%;background:#EF9F27;"></div></div><span class="mock-pct" style="color:#BA7517;">~75%</span></div>
+    <div class="mock-row"><span class="mock-lbl">Simulacro 3 (opcional)</span><div class="mock-track"><div class="mock-fill" style="width:82%;background:#3B6D11;"></div></div><span class="mock-pct" style="color:#3B6D11;">~82%</span></div>
+    <div class="mock-row"><span class="mock-lbl">Examen real</span><div class="mock-track"><div class="mock-fill" style="width:85%;background:var(--o);"></div></div><span class="mock-pct" style="color:var(--o);font-weight:700;">PASS</span></div>
+  </div>
+  <div class="exam-box">
+    <div class="eb-title">Día 30 · Examen AIF-C01</div>
+    <div class="eb-detail">90 minutos · 65 preguntas (50 puntuadas + 15 sin puntuar) · Score mínimo 700/1000<br>Incluye preguntas tipo caso práctico: un escenario de negocio con dos o más preguntas relacionadas. Lee el escenario completo una sola vez e identifica el problema, las restricciones y el tipo de IA que se necesita antes de responder.</div>
+  </div>
+  <div class="warn">No estudies contenido nuevo en estos dos últimos días. El cerebro consolida mejor con repaso ligero y descanso que con lectura nueva de último momento.</div>
+</div>
+
+<div class="section-title">Escenarios de decisión · los esenciales</div>
+<p style="font-size:13px;color:var(--tx2);margin-bottom:12px;">El examen describe un escenario de negocio y espera que identifiques el concepto o servicio correcto. Filtra por dominio y haz clic en cada tarjeta para ver el detalle, las palabras clave del enunciado, la trampa clásica y un tip.</p>
+
+<div id="patwrap">
+<div class="filter-row">
+  <button class="f-btn on" onclick="filterPat('all',this)">Todos</button>
+  <button class="f-btn" onclick="filterPat('d1',this)"><span class="dot" style="background:#185FA5;margin-right:4px;"></span>D1</button>
+  <button class="f-btn" onclick="filterPat('d2',this)"><span class="dot" style="background:#0F6E56;margin-right:4px;"></span>D2</button>
+  <button class="f-btn" onclick="filterPat('d3',this)"><span class="dot" style="background:#3C3489;margin-right:4px;"></span>D3</button>
+  <button class="f-btn" onclick="filterPat('d4',this)"><span class="dot" style="background:#3B6D11;margin-right:4px;"></span>D4</button>
+  <button class="f-btn" onclick="filterPat('d5',this)"><span class="dot" style="background:#BA7517;margin-right:4px;"></span>D5</button>
+</div>
+
+<div class="p-grid" id="pgrid">
+
+  <div class="p-card" data-dom="d1" onclick="toggleP(0,this)">
+    <div class="p-num"><span class="dot" style="background:#185FA5;"></span>D1</div>
+    <div class="p-name">Elegir el tipo de aprendizaje ML correcto</div>
+    <div class="p-kw">predict a category · predict a continuous value · group similar items · no labeled data · reward and penalty</div>
+  </div>
+  <div class="p-card" data-dom="d1" onclick="toggleP(1,this)">
+    <div class="p-num"><span class="dot" style="background:#185FA5;"></span>D1</div>
+    <div class="p-name">Elegir el servicio AWS managed AI correcto</div>
+    <div class="p-kw">extract text from invoices · analyze image content · speech to text · text to speech · build a chatbot · detect fraud</div>
+  </div>
+  <div class="detail-panel" id="dp0">
+    <div class="detail-head"><span class="detail-title">Elegir el tipo de aprendizaje ML correcto</span><button class="close-btn" onclick="closeP(0,event)">cerrar</button></div>
+    <div class="sec-lbl">Conceptos</div>
+    <div><span class="svc-pill">Supervised: clasificación</span><span class="svc-pill">Supervised: regresión</span><span class="svc-pill">Unsupervised: clustering</span><span class="svc-pill">Unsupervised: detección de anomalías</span><span class="svc-pill">Reinforcement learning</span></div>
+    <div class="sec-lbl">Palabras clave del examen</div>
+    <div><span class="kw-pill">labeled data</span><span class="kw-pill">predict category</span><span class="kw-pill">predict numeric value</span><span class="kw-pill">group without labels</span><span class="kw-pill">reward and penalty</span></div>
+    <div class="trap-box"><strong>Trampa clásica:</strong> si el escenario menciona "predecir un valor numérico continuo" (precio, temperatura, demanda) es regresión, no clasificación. Si menciona "categorías predefinidas" (spam o no spam) es clasificación.</div>
+    <div class="tip">"Sin datos etiquetados" más "agrupar clientes similares" es clustering (no supervisado). "Maximizar una recompensa a través de prueba y error" es reinforcement learning.</div>
+  </div>
+  <div class="detail-panel" id="dp1">
+    <div class="detail-head"><span class="detail-title">Elegir el servicio AWS managed AI correcto</span><button class="close-btn" onclick="closeP(1,event)">cerrar</button></div>
+    <div class="sec-lbl">Servicios</div>
+    <div><span class="svc-pill">Rekognition</span><span class="svc-pill">Textract</span><span class="svc-pill">Transcribe</span><span class="svc-pill">Translate</span><span class="svc-pill">Polly</span><span class="svc-pill">Lex</span><span class="svc-pill">Kendra</span><span class="svc-pill">Comprehend</span><span class="svc-pill">Personalize</span><span class="svc-pill">Forecast</span><span class="svc-pill">Fraud Detector</span><span class="svc-pill">A2I</span></div>
+    <div class="sec-lbl">Palabras clave del examen</div>
+    <div><span class="kw-pill">extract text from documents</span><span class="kw-pill">analyze image or video</span><span class="kw-pill">speech to text</span><span class="kw-pill">text to speech</span><span class="kw-pill">search internal documents</span><span class="kw-pill">detect fraud</span><span class="kw-pill">forecast demand</span></div>
+    <div class="trap-box"><strong>Trampa clásica:</strong> Rekognition analiza QUÉ hay en la imagen o video (objetos, caras, escenas). Textract extrae TEXTO y estructura de documentos (facturas, formularios, tablas). No son intercambiables.</div>
+    <div class="tip">Pipeline típico de accesibilidad: Transcribe (audio a texto) seguido de Translate (idioma A a idioma B) seguido de Polly (texto a audio).</div>
+  </div>
+
+  <div class="p-card" data-dom="d2" onclick="toggleP(2,this)">
+    <div class="p-num"><span class="dot" style="background:#0F6E56;"></span>D2</div>
+    <div class="p-name">RAG vs Fine-tuning vs Pre-training vs Few-shot</div>
+    <div class="p-kw">knowledge changes frequently · change model behavior · examples in the prompt · train from scratch</div>
+  </div>
+  <div class="p-card" data-dom="d2" onclick="toggleP(3,this)">
+    <div class="p-num"><span class="dot" style="background:#0F6E56;"></span>D2</div>
+    <div class="p-name">Elegir el servicio de infraestructura GenAI de AWS</div>
+    <div class="p-kw">production API for FMs · no-code playground · fine-tune and deploy · enterprise assistant</div>
+  </div>
+  <div class="detail-panel" id="dp2">
+    <div class="detail-head"><span class="detail-title">RAG vs Fine-tuning vs Pre-training vs Few-shot</span><button class="close-btn" onclick="closeP(2,event)">cerrar</button></div>
+    <div class="sec-lbl">Conceptos</div>
+    <div><span class="svc-pill">RAG (Bedrock Knowledge Bases)</span><span class="svc-pill">Fine-tuning</span><span class="svc-pill">Few-shot / in-context</span><span class="svc-pill">Pre-training</span></div>
+    <div class="sec-lbl">Palabras clave del examen</div>
+    <div><span class="kw-pill">knowledge changes frequently</span><span class="kw-pill">external data sources</span><span class="kw-pill">change behavior or style</span><span class="kw-pill">examples in the prompt</span><span class="kw-pill">train from scratch with proprietary data</span></div>
+    <div class="trap-box"><strong>Trampa clásica:</strong> "El modelo necesita acceso a información que cambia diario" apunta a RAG, no a fine-tuning. Reentrenar el modelo cada vez que cambian los datos es ineficiente y costoso.</div>
+    <div class="tip">Si el escenario menciona "sin modificar los pesos del modelo" y "agregar contexto en tiempo de consulta", la respuesta es RAG o few-shot, nunca fine-tuning ni pre-training.</div>
+  </div>
+  <div class="detail-panel" id="dp3">
+    <div class="detail-head"><span class="detail-title">Elegir el servicio de infraestructura GenAI de AWS</span><button class="close-btn" onclick="closeP(3,event)">cerrar</button></div>
+    <div class="sec-lbl">Servicios</div>
+    <div><span class="svc-pill">Amazon Bedrock</span><span class="svc-pill">PartyRock</span><span class="svc-pill">SageMaker JumpStart</span><span class="svc-pill">Amazon Q</span></div>
+    <div class="sec-lbl">Palabras clave del examen</div>
+    <div><span class="kw-pill">production API for foundation models</span><span class="kw-pill">no-code playground to test prompts</span><span class="kw-pill">fine-tune and deploy custom models</span><span class="kw-pill">enterprise assistant for employees</span></div>
+    <div class="trap-box"><strong>Trampa clásica:</strong> PartyRock es para EXPERIMENTACIÓN rápida sin código, no para producción. Si el escenario describe una "production-ready API" la respuesta es Bedrock.</div>
+    <div class="tip">Amazon Q Business responde preguntas sobre datos internos de la empresa. Amazon Q Developer ayuda a escribir y entender código. El examen distingue ambos por el rol del usuario descrito en el escenario.</div>
+  </div>
+
+  <div class="p-card" data-dom="d3" onclick="toggleP(4,this)">
+    <div class="p-num"><span class="dot" style="background:#3C3489;"></span>D3</div>
+    <div class="p-name">Base de datos vectorial para RAG</div>
+    <div class="p-kw">store embeddings · vector search · semantic search · knowledge base</div>
+  </div>
+  <div class="p-card" data-dom="d3" onclick="toggleP(5,this)">
+    <div class="p-num"><span class="dot" style="background:#3C3489;"></span>D3</div>
+    <div class="p-name">Técnica de prompt engineering correcta</div>
+    <div class="p-kw">no examples · one example · few examples · step by step reasoning</div>
+  </div>
+  <div class="p-card" data-dom="d3" onclick="toggleP(6,this)">
+    <div class="p-num"><span class="dot" style="background:#3C3489;"></span>D3</div>
+    <div class="p-name">Riesgo de seguridad en prompt engineering</div>
+    <div class="p-kw">ignore previous instructions · hidden instructions in input · reveals system prompt · manipulated training data</div>
+  </div>
+  <div class="p-card" data-dom="d3" onclick="toggleP(7,this)">
+    <div class="p-num"><span class="dot" style="background:#3C3489;"></span>D3</div>
+    <div class="p-name">Métrica de evaluación de modelo fundacional</div>
+    <div class="p-kw">evaluate summary · evaluate translation · evaluate semantic similarity</div>
+  </div>
+  <div class="detail-panel" id="dp4">
+    <div class="detail-head"><span class="detail-title">Base de datos vectorial para RAG</span><button class="close-btn" onclick="closeP(4,event)">cerrar</button></div>
+    <div class="sec-lbl">Servicios</div>
+    <div><span class="svc-pill">Amazon OpenSearch Service</span><span class="svc-pill">Amazon Aurora (pgvector)</span><span class="svc-pill">Amazon Neptune</span><span class="svc-pill">Amazon DocumentDB</span><span class="svc-pill">Amazon RDS para PostgreSQL</span></div>
+    <div class="sec-lbl">Palabras clave del examen</div>
+    <div><span class="kw-pill">store embeddings</span><span class="kw-pill">vector search</span><span class="kw-pill">semantic search</span><span class="kw-pill">knowledge base for RAG</span></div>
+    <div class="trap-box"><strong>Trampa clásica:</strong> el examen no pide diferenciar profundamente entre estas bases, pero sí reconocer que todas son válidas como almacén vectorial detrás de Knowledge Bases para Amazon Bedrock.</div>
+    <div class="tip">Si el escenario menciona "grafo de relaciones", piensa en Neptune. Si menciona "ya usamos PostgreSQL", la respuesta natural es RDS para PostgreSQL con pgvector.</div>
+  </div>
+  <div class="detail-panel" id="dp5">
+    <div class="detail-head"><span class="detail-title">Técnica de prompt engineering correcta</span><button class="close-btn" onclick="closeP(5,event)">cerrar</button></div>
+    <div class="sec-lbl">Técnicas</div>
+    <div><span class="svc-pill">Zero-shot</span><span class="svc-pill">Single-shot</span><span class="svc-pill">Few-shot</span><span class="svc-pill">Chain-of-thought</span></div>
+    <div class="sec-lbl">Palabras clave del examen</div>
+    <div><span class="kw-pill">no examples provided</span><span class="kw-pill">one example</span><span class="kw-pill">few examples to guide format</span><span class="kw-pill">step by step reasoning</span></div>
+    <div class="trap-box"><strong>Trampa clásica:</strong> "mejorar la calidad de respuesta sin reentrenar el modelo" siempre apunta a prompt engineering, no a fine-tuning ni a RAG, salvo que el escenario mencione datos externos.</div>
+    <div class="tip">Si el problema requiere razonamiento matemático o lógico de varios pasos, chain-of-thought suele ser la técnica correcta.</div>
+  </div>
+  <div class="detail-panel" id="dp6">
+    <div class="detail-head"><span class="detail-title">Riesgo de seguridad en prompt engineering</span><button class="close-btn" onclick="closeP(6,event)">cerrar</button></div>
+    <div class="sec-lbl">Conceptos</div>
+    <div><span class="svc-pill">Jailbreak</span><span class="svc-pill">Prompt injection / hijacking</span><span class="svc-pill">Exposición</span><span class="svc-pill">Intoxicación (poisoning)</span></div>
+    <div class="sec-lbl">Palabras clave del examen</div>
+    <div><span class="kw-pill">user tricks the model</span><span class="kw-pill">hidden instructions in input data</span><span class="kw-pill">model reveals system prompt</span><span class="kw-pill">manipulated training data</span></div>
+    <div class="trap-box"><strong>Trampa clásica:</strong> jailbreak y prompt injection se confunden con frecuencia. Jailbreak es cuando el atacante busca que el modelo rompa sus propias reglas. Prompt injection son instrucciones maliciosas insertadas dentro del contenido que el modelo procesa, como un documento.</div>
+    <div class="tip">Bedrock Guardrails ayuda a mitigar varios de estos riesgos filtrando contenido de entrada y salida del modelo.</div>
+  </div>
+  <div class="detail-panel" id="dp7">
+    <div class="detail-head"><span class="detail-title">Métrica de evaluación de modelo fundacional</span><button class="close-btn" onclick="closeP(7,event)">cerrar</button></div>
+    <div class="sec-lbl">Métricas</div>
+    <div><span class="svc-pill">ROUGE</span><span class="svc-pill">BLEU</span><span class="svc-pill">BERTScore</span><span class="svc-pill">Evaluación humana</span></div>
+    <div class="sec-lbl">Palabras clave del examen</div>
+    <div><span class="kw-pill">evaluate summary quality</span><span class="kw-pill">evaluate translation quality</span><span class="kw-pill">evaluate semantic similarity</span></div>
+    <div class="trap-box"><strong>Trampa clásica:</strong> ROUGE y BLEU se basan en n-gramas pero para tareas distintas. ROUGE evalúa resúmenes orientado a recall (cuánto del texto de referencia aparece en el resumen). BLEU evalúa traducciones orientado a precisión (cuánto del texto generado coincide con la referencia).</div>
+    <div class="tip">Si el escenario pide medir "significado" más que "palabras exactas", BERTScore es la respuesta porque usa embeddings semánticos en lugar de coincidencia de n-gramas.</div>
+  </div>
+
+  <div class="p-card" data-dom="d4" onclick="toggleP(8,this)">
+    <div class="p-num"><span class="dot" style="background:#3B6D11;"></span>D4</div>
+    <div class="p-name">Detectar y mitigar bias o baja confianza</div>
+    <div class="p-kw">detect bias before deployment · monitor data drift · low-confidence predictions need review</div>
+  </div>
+  <div class="p-card" data-dom="d4" onclick="toggleP(9,this)">
+    <div class="p-num"><span class="dot" style="background:#3B6D11;"></span>D4</div>
+    <div class="p-name">Transparencia y explicabilidad de modelos</div>
+    <div class="p-kw">document model limitations · explain individual predictions · interpretable vs black-box</div>
+  </div>
+  <div class="detail-panel" id="dp8">
+    <div class="detail-head"><span class="detail-title">Detectar y mitigar bias o baja confianza</span><button class="close-btn" onclick="closeP(8,event)">cerrar</button></div>
+    <div class="sec-lbl">Servicios</div>
+    <div><span class="svc-pill">SageMaker Clarify</span><span class="svc-pill">SageMaker Model Monitor</span><span class="svc-pill">Amazon A2I</span></div>
+    <div class="sec-lbl">Palabras clave del examen</div>
+    <div><span class="kw-pill">detect bias before deployment</span><span class="kw-pill">monitor data drift in production</span><span class="kw-pill">low-confidence predictions need human review</span></div>
+    <div class="trap-box"><strong>Trampa clásica:</strong> Clarify detecta sesgo en el modelo de forma global, antes y después del despliegue. Model Monitor detecta cuándo los datos de producción cambian respecto a los de entrenamiento. A2I interviene en predicciones individuales.</div>
+    <div class="tip">"Antes de lanzar el modelo, verificar que no discrimine por grupo demográfico" apunta a Clarify. "Después de lanzar, detectar si la distribución de datos cambió" apunta a Model Monitor.</div>
+  </div>
+  <div class="detail-panel" id="dp9">
+    <div class="detail-head"><span class="detail-title">Transparencia y explicabilidad de modelos</span><button class="close-btn" onclick="closeP(9,event)">cerrar</button></div>
+    <div class="sec-lbl">Conceptos y herramientas</div>
+    <div><span class="svc-pill">SageMaker Model Cards</span><span class="svc-pill">Modelos open source</span><span class="svc-pill">Partial Dependence Plots (Clarify)</span></div>
+    <div class="sec-lbl">Palabras clave del examen</div>
+    <div><span class="kw-pill">document model limitations</span><span class="kw-pill">explain individual predictions</span><span class="kw-pill">interpretable vs black-box</span></div>
+    <div class="trap-box"><strong>Trampa clásica:</strong> mayor transparencia o interpretabilidad puede implicar menor rendimiento. El examen puede preguntar directamente por esa compensación entre seguridad, rendimiento y transparencia.</div>
+    <div class="tip">"Diseño centrado en el ser humano" significa que las explicaciones del modelo deben ser comprensibles para el usuario final, no solo para el equipo de machine learning.</div>
+  </div>
+
+  <div class="p-card" data-dom="d5" onclick="toggleP(10,this)">
+    <div class="p-num"><span class="dot" style="background:#BA7517;"></span>D5</div>
+    <div class="p-name">Proteger datos y sistemas de IA</div>
+    <div class="p-kw">encrypt training data · private access to endpoints · detect PII in S3 · control who can invoke the model</div>
+  </div>
+  <div class="p-card" data-dom="d5" onclick="toggleP(11,this)">
+    <div class="p-num"><span class="dot" style="background:#BA7517;"></span>D5</div>
+    <div class="p-name">Cumplimiento y gobernanza de sistemas de IA</div>
+    <div class="p-kw">audit evidence · track configuration changes · download compliance reports · log all API calls</div>
+  </div>
+  <div class="detail-panel" id="dp10">
+    <div class="detail-head"><span class="detail-title">Proteger datos y sistemas de IA</span><button class="close-btn" onclick="closeP(10,event)">cerrar</button></div>
+    <div class="sec-lbl">Servicios</div>
+    <div><span class="svc-pill">IAM</span><span class="svc-pill">AWS KMS</span><span class="svc-pill">AWS PrivateLink</span><span class="svc-pill">Amazon Macie</span><span class="svc-pill">Cifrado en tránsito (TLS)</span></div>
+    <div class="sec-lbl">Palabras clave del examen</div>
+    <div><span class="kw-pill">encrypt training data</span><span class="kw-pill">private access to model endpoints</span><span class="kw-pill">detect PII in S3</span><span class="kw-pill">control who can invoke the model</span></div>
+    <div class="trap-box"><strong>Trampa clásica:</strong> Comprehend detecta PII en texto en tiempo real durante el procesamiento. Macie detecta PII en datos ya almacenados en S3. Son complementarios, no intercambiables.</div>
+    <div class="tip">"Acceso privado sin exponer el endpoint a internet" siempre apunta a PrivateLink, igual que en escenarios generales de networking en AWS.</div>
+  </div>
+  <div class="detail-panel" id="dp11">
+    <div class="detail-head"><span class="detail-title">Cumplimiento y gobernanza de sistemas de IA</span><button class="close-btn" onclick="closeP(11,event)">cerrar</button></div>
+    <div class="sec-lbl">Servicios</div>
+    <div><span class="svc-pill">AWS Audit Manager</span><span class="svc-pill">AWS Artifact</span><span class="svc-pill">AWS Config</span><span class="svc-pill">AWS CloudTrail</span><span class="svc-pill">AWS Trusted Advisor</span></div>
+    <div class="sec-lbl">Palabras clave del examen</div>
+    <div><span class="kw-pill">audit evidence for compliance</span><span class="kw-pill">track configuration changes</span><span class="kw-pill">download compliance reports</span><span class="kw-pill">log all API calls</span></div>
+    <div class="trap-box"><strong>Trampa clásica:</strong> Config rastrea la configuración de los recursos a lo largo del tiempo. CloudTrail rastrea las llamadas a la API, es decir, quién hizo qué. Ambos son de auditoría pero no son lo mismo.</div>
+    <div class="tip">"Documentos de cumplimiento listos para descargar para un auditor externo" apunta a Artifact. Audit Manager genera y recolecta la evidencia, mientras que Artifact entrega reportes ya preparados por AWS.</div>
+  </div>
+
+</div>
+</div>
+
+<div class="section-title">Catálogo de servicios IA/ML de AWS · referencia rápida</div>
+<p style="font-size:13px;color:var(--tx2);margin-bottom:12px;">Filtra por dominio para repasar solo los servicios que necesitas en cada semana. Aprende el "título de trabajo" de cada uno antes de profundizar en detalles técnicos.</p>
+
+<div id="svcwrap">
+<div class="filter-row">
+  <button class="f-btn on" onclick="filterSvc('all',this)">Todos</button>
+  <button class="f-btn" onclick="filterSvc('d1',this)"><span class="dot" style="background:#185FA5;margin-right:4px;"></span>D1</button>
+  <button class="f-btn" onclick="filterSvc('d2',this)"><span class="dot" style="background:#0F6E56;margin-right:4px;"></span>D2</button>
+  <button class="f-btn" onclick="filterSvc('d3',this)"><span class="dot" style="background:#3C3489;margin-right:4px;"></span>D3</button>
+  <button class="f-btn" onclick="filterSvc('d4',this)"><span class="dot" style="background:#3B6D11;margin-right:4px;"></span>D4</button>
+  <button class="f-btn" onclick="filterSvc('d5',this)"><span class="dot" style="background:#BA7517;margin-right:4px;"></span>D5</button>
+</div>
+
+<div class="svc-grid" id="svcgrid">
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--b)">Amazon SageMaker</div><div class="svc-use">Plataforma completa para construir, entrenar, ajustar y desplegar modelos de machine learning propios. El servicio central del Dominio 1.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--b)">Amazon Rekognition</div><div class="svc-use">Analiza contenido de imágenes y video: objetos, rostros, escenas, actividades y texto en imágenes.</div><div class="svc-trampa">vs Textract: Rekognition analiza QUÉ hay en la imagen. Textract extrae TEXTO y estructura.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--b)">Amazon Textract</div><div class="svc-use">Extrae texto, tablas y formularios de documentos escaneados y PDFs, detectando la estructura del documento.</div><div class="svc-trampa">Escenario típico: "automatizar la extracción de datos de facturas o contratos".</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--b)">Amazon Transcribe</div><div class="svc-use">Convierte voz a texto. Subtítulos automáticos, transcripción de llamadas, accesibilidad de audio y video.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--b)">Amazon Translate</div><div class="svc-use">Traduce texto entre idiomas a escala, sin lingüistas. Localización de contenido y aplicaciones multilenguaje.</div><div class="svc-trampa">No hace audio, solo texto a texto. Para audio: Transcribe primero, luego Translate.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--b)">Amazon Polly</div><div class="svc-use">Convierte texto a voz con voces naturales en múltiples idiomas. Accesibilidad, contenido de audio, IVR.</div><div class="svc-trampa">Polly es texto a audio. Transcribe es audio a texto: lo opuesto.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--b)">Amazon Lex</div><div class="svc-use">Construye chatbots e interfaces de voz con comprensión del lenguaje natural (NLU), la misma tecnología detrás de Alexa.</div><div class="svc-trampa">vs Kendra: Lex es CONVERSACIÓN con flujos de diálogo. Kendra es BÚSQUEDA en documentos.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--b)">Amazon Kendra</div><div class="svc-use">Búsqueda empresarial inteligente que indexa documentos internos y responde preguntas en lenguaje natural.</div><div class="svc-trampa">vs Bedrock: Kendra RECUPERA información existente. Bedrock GENERA información nueva.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--b)">Amazon Comprehend</div><div class="svc-use">NLP para extracción de entidades, análisis de sentimiento, frases clave y detección de PII en texto a escala.</div><div class="svc-trampa">vs Macie: Comprehend analiza PII en texto en tiempo real. Macie detecta PII en datos almacenados en S3.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--b)">Amazon Personalize</div><div class="svc-use">Motor de recomendaciones personalizado, la misma tecnología que usa Amazon.com para retail, media y streaming.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--b)">Amazon Forecast</div><div class="svc-use">Pronósticos de series de tiempo para demanda de inventario, consumo energético, tráfico web e ingresos.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--b)">Amazon Fraud Detector</div><div class="svc-use">Detección de fraude en tiempo real con machine learning, para cuentas fraudulentas y transacciones sospechosas.</div></div>
+
+  <div class="svc-card" data-dom="d2"><div class="svc-name" style="color:var(--t)">Amazon Bedrock</div><div class="svc-use">API administrada para acceder a múltiples modelos fundacionales de distintos proveedores. El servicio más mencionado del examen.</div></div>
+  <div class="svc-card" data-dom="d2"><div class="svc-name" style="color:var(--t)">SageMaker JumpStart</div><div class="svc-use">Hub de modelos preentrenados con opciones de ajuste fino y despliegue dentro de SageMaker.</div></div>
+  <div class="svc-card" data-dom="d2"><div class="svc-name" style="color:var(--t)">PartyRock</div><div class="svc-use">Zona de juego sin código sobre Amazon Bedrock para crear aplicaciones generativas en minutos.</div><div class="svc-trampa">Para experimentación rápida, no para producción.</div></div>
+  <div class="svc-card" data-dom="d2"><div class="svc-name" style="color:var(--t)">Amazon Q</div><div class="svc-use">Asistente generativo empresarial: Amazon Q Business para datos de la empresa, Amazon Q Developer para código.</div></div>
+
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--pd)">Agents para Amazon Bedrock</div><div class="svc-use">Orquestan tareas de varios pasos: el modelo decide qué herramientas o APIs invocar para cumplir un objetivo.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--pd)">Knowledge Bases para Amazon Bedrock</div><div class="svc-use">RAG administrado: conecta un modelo fundacional con fuentes de datos propias mediante un almacén vectorial.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--pd)">Amazon OpenSearch Service</div><div class="svc-use">Motor de búsqueda y analítica que también funciona como almacén vectorial para embeddings en arquitecturas RAG.</div></div>
+
+  <div class="svc-card" data-dom="d4"><div class="svc-name" style="color:var(--g)">SageMaker Clarify</div><div class="svc-use">Detecta sesgo en datos y en modelos, además de explicar predicciones mediante Partial Dependence Plots.</div></div>
+  <div class="svc-card" data-dom="d4"><div class="svc-name" style="color:var(--g)">SageMaker Model Monitor</div><div class="svc-use">Detecta data drift y degradación de calidad del modelo una vez en producción.</div></div>
+  <div class="svc-card" data-dom="d4"><div class="svc-name" style="color:var(--g)">Amazon A2I</div><div class="svc-use">Inserta revisión humana para predicciones de baja confianza con alto impacto: documentos médicos, moderación de contenido, compliance.</div></div>
+  <div class="svc-card" data-dom="d4"><div class="svc-name" style="color:var(--g)">SageMaker Model Cards</div><div class="svc-use">Documentan propósito, limitaciones, datos de entrenamiento y métricas de un modelo para transparencia y gobernanza.</div></div>
+  <div class="svc-card" data-dom="d4"><div class="svc-name" style="color:var(--g)">Bedrock Guardrails</div><div class="svc-use">Barreras de protección configurables para filtrar contenido de entrada y salida de modelos fundacionales.</div></div>
+
+  <div class="svc-card" data-dom="d5"><div class="svc-name" style="color:var(--a)">AWS IAM</div><div class="svc-use">Roles, políticas y permisos para controlar quién puede invocar y administrar recursos de SageMaker y Bedrock.</div></div>
+  <div class="svc-card" data-dom="d5"><div class="svc-name" style="color:var(--a)">AWS KMS</div><div class="svc-use">Cifrado en reposo de datos de entrenamiento, modelos y artefactos de inferencia.</div></div>
+  <div class="svc-card" data-dom="d5"><div class="svc-name" style="color:var(--a)">AWS PrivateLink</div><div class="svc-use">Acceso privado a endpoints de servicios de IA sin pasar por internet pública.</div></div>
+  <div class="svc-card" data-dom="d5"><div class="svc-name" style="color:var(--a)">Amazon Macie</div><div class="svc-use">Detecta y clasifica información sensible (PII) almacenada en buckets de Amazon S3.</div></div>
+  <div class="svc-card" data-dom="d5"><div class="svc-name" style="color:var(--a)">AWS Config + CloudTrail</div><div class="svc-use">Config rastrea la configuración de recursos en el tiempo. CloudTrail registra cada llamada a la API: quién hizo qué y cuándo.</div></div>
+  <div class="svc-card" data-dom="d5"><div class="svc-name" style="color:var(--a)">AWS Audit Manager + Artifact</div><div class="svc-use">Audit Manager recolecta evidencia de cumplimiento de forma continua. Artifact entrega reportes de cumplimiento ya preparados (SOC, ISO) para descargar.</div></div>
+  <div class="svc-card" data-dom="d5"><div class="svc-name" style="color:var(--a)">AWS Trusted Advisor</div><div class="svc-use">Recomendaciones automáticas de mejores prácticas en costo, seguridad, rendimiento y resiliencia.</div></div>
+</div>
+</div>
+
+<div class="section-title">Recursos para 30 días</div>
+<div class="res-card"><div><div class="res-name"><a href="https://skillbuilder.aws/exam-prep/ai-practitioner" target="_blank">AWS Skill Builder · AI Practitioner Exam Prep ↗</a></div><div class="res-desc">Plan guiado de 4 pasos: guía del examen, preguntas oficiales de práctica, pretest diagnóstico y cursos digitales para llenar vacíos de conocimiento. Punto de partida recomendado para el Dominio 1 si vienes de cero.</div></div><div style="display:flex;gap:4px;"><span class="res-tag">Oficial</span><span class="free-tag">CB gratis</span></div></div>
+<div class="res-card"><div><div class="res-name"><a href="https://youtu.be/WZeZZ8_W-M4" target="_blank">Andrew Brown (ExamPro) en freeCodeCamp ↗</a></div><div class="res-desc">Curso completo de 15 horas en YouTube. Cobertura amplia de fundamentos de IA y ML, GenAI, Bedrock, SageMaker y servicios managed. Ideal como base si no tienes experiencia previa en AWS ni en IA.</div></div><span class="free-tag">100% gratuito</span></div>
+<div class="res-card"><div><div class="res-name"><a href="https://www.udemy.com/course/aws-ai-practitioner-certified/" target="_blank">Stephane Maarek · Ultimate AWS Certified AI Practitioner (Udemy) ↗</a></div><div class="res-desc">Curso específico para AIF-C01, actualizado a la guía de examen vigente. Pensado para principiantes en AWS e IA. Incluye examen de práctica con explicaciones al final del curso.</div></div><span class="res-tag">Curso principal</span></div>
+<div class="res-card"><div><div class="res-name"><a href="https://partyrock.aws/" target="_blank">PartyRock (Amazon Bedrock Playground) ↗</a></div><div class="res-desc">Crea una app generativa en 20 a 30 minutos sin escribir código. El examen pregunta sobre PartyRock directamente. Haberlo usado hace que esas preguntas sean intuitivas.</div></div><span class="free-tag">100% gratuito</span></div>
+<div class="res-card"><div><div class="res-name"><a href="https://portal.tutorialsdojo.com/product/aws-certified-ai-practitioner-aif-c01-practice-exams/" target="_blank">Tutorials Dojo · AIF-C01 Practice Exams ↗</a></div><div class="res-desc">135 preguntas en modos cronometrado, revisión y por sección, con explicaciones detalladas y enlaces de referencia. Los simulacros más parecidos al examen real.</div></div><span class="res-tag">Simulacros</span></div>
+<div class="res-card"><div><div class="res-name"><a href="https://portal.tutorialsdojo.com/product/free-aws-certified-ai-practitioner-practice-exams-aif-c01-sampler/" target="_blank">Tutorials Dojo · Sampler gratuito ↗</a></div><div class="res-desc">20 preguntas gratuitas en modo cronometrado y de revisión, con explicaciones. Útil para probar el formato antes de comprar el set completo.</div></div><span class="free-tag">100% gratuito</span></div>
+<div class="res-card"><div><div class="res-name"><a href="https://apps.ankiweb.net/" target="_blank">Anki (flashcards) ↗</a></div><div class="res-desc">Crea una tarjeta por cada servicio del catálogo y por cada escenario de decisión desde el día 1. 15 minutos de repaso diario equivalen a más de 100 repeticiones por semana.</div></div><span class="res-tag">Repaso diario</span></div>
+
+</div><!-- /container -->
+
+<footer>
+  Plan de estudio AIF-C01 (genérico, 30 días)<br>
+  Francisco Escobar · AWS Community Builder · Networking &amp; Content Delivery<br>
+  <a href="https://www.linkedin.com/in/franciscojeg/" target="_blank">linkedin.com/in/franciscojeg</a>
+</footer>
+
+<script>
+function showW(i,b){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('w'+i).classList.add('active');
+  b.classList.add('active');
+}
+
+let openPattern=-1;
+function toggleP(idx,card){
+  const dp=document.getElementById('dp'+idx);
+  if(openPattern===idx){
+    dp.classList.remove('open');
+    card.classList.remove('open');
+    openPattern=-1;
+    return;
+  }
+  document.querySelectorAll('.detail-panel').forEach(d=>d.classList.remove('open'));
+  document.querySelectorAll('.p-card').forEach(c=>c.classList.remove('open'));
+  dp.classList.add('open');
+  card.classList.add('open');
+  openPattern=idx;
+  setTimeout(()=>dp.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
+function closeP(idx,e){
+  e.stopPropagation();
+  document.getElementById('dp'+idx).classList.remove('open');
+  document.querySelectorAll('.p-card').forEach(c=>c.classList.remove('open'));
+  openPattern=-1;
+}
+function filterPat(dom,btn){
+  document.querySelectorAll('#patwrap .f-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('#pgrid .p-card').forEach(c=>{
+    c.style.display=(dom==='all'||c.dataset.dom===dom)?'':'none';
+  });
+  document.querySelectorAll('.detail-panel').forEach(d=>d.classList.remove('open'));
+  document.querySelectorAll('.p-card').forEach(c=>c.classList.remove('open'));
+  openPattern=-1;
+}
+function filterSvc(dom,btn){
+  document.querySelectorAll('#svcwrap .f-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('#svcgrid .svc-card').forEach(c=>{
+    c.style.display=(dom==='all'||c.dataset.dom===dom)?'':'none';
+  });
+}
+</script>
+</body>
+</html>
