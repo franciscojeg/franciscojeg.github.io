@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Material de Estudio: AWS SAA-C03</title>
+<style>
+  :root{
+    --aws-orange:#FF9900;
+    --aws-dark:#232F3E;
+    --bg:#f4f6f8;
+    --card:#ffffff;
+    --text:#1c2530;
+    --text-muted:#5b6b7a;
+    --border:#e1e6eb;
+    --alta:#d93025; --alta-bg:#fce8e6;
+    --media:#b7791f; --media-bg:#fef3e0;
+    --baja:#1a73e8; --baja-bg:#e8f0fe;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--text); margin:0; line-height:1.55;
+  }
+  header{
+    background:var(--aws-dark); color:#fff; padding:22px 24px; text-align:center;
+  }
+  header h1{margin:0 0 4px;font-size:22px;}
+  header p{margin:0;color:#c8d1db;font-size:13.5px;}
+  .layout{display:flex; max-width:1200px; margin:0 auto;}
+  nav#toc{
+    width:270px; flex-shrink:0; padding:20px 14px; position:sticky; top:0; align-self:flex-start;
+    max-height:100vh; overflow-y:auto; font-size:13px; border-right:1px solid var(--border); background:#fff;
+  }
+  nav#toc h4{margin:14px 0 6px;color:var(--aws-dark);font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
+  nav#toc h4:first-child{margin-top:0;}
+  nav#toc a{display:block;color:var(--text-muted);text-decoration:none;padding:3px 0 3px 6px;border-left:2px solid transparent;}
+  nav#toc a:hover{color:var(--aws-dark);border-left-color:var(--aws-orange);}
+  main{flex:1; padding:24px 32px 80px; min-width:0;}
+  .part{margin-bottom:44px;}
+  .part-title{
+    background:var(--aws-dark); color:#fff; padding:12px 18px; border-radius:8px; margin-bottom:6px;
+    font-size:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;
+  }
+  .part-title .weight{background:var(--aws-orange);color:var(--aws-dark);font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;}
+  .intro{color:var(--text-muted); font-size:14px; margin:10px 0 18px; padding:12px 16px; background:#fff8ef; border-left:4px solid var(--aws-orange); border-radius:0 6px 6px 0;}
+  h3.sub{font-size:15px; margin:22px 0 8px; color:var(--aws-dark); border-bottom:2px solid var(--border); padding-bottom:4px;}
+  .table-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:20px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.06); background:#fff;}
+  table{width:100%; min-width:640px; table-layout:fixed; border-collapse:collapse; font-size:13px; background:#fff;}
+  th:first-child, td.servicio{width:22%; word-wrap:break-word; overflow-wrap:break-word;}
+  th,td{padding:9px 11px; text-align:left; vertical-align:top; border-bottom:1px solid var(--border);}
+  th{background:#eef1f4; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--text-muted);}
+  tr:last-child td{border-bottom:none;}
+  td.servicio{font-weight:700;}
+  .prio{display:inline-block; font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap;}
+  .prio-alta{background:var(--alta-bg); color:var(--alta);}
+  .prio-media{background:var(--media-bg); color:var(--media);}
+  .prio-baja{background:var(--baja-bg); color:var(--baja);}
+  .top-link{font-size:11.5px; color:var(--baja); text-decoration:none;}
+  .callout{background:#fff; border:1px solid var(--border); border-left:4px solid var(--baja); border-radius:0 8px 8px 0; padding:12px 16px; font-size:13.5px; margin:14px 0;}
+  .callout.warn{border-left-color:var(--media); }
+  .checklist{list-style:none; padding:0; margin:0;}
+  .checklist li{padding:6px 0 6px 26px; position:relative; font-size:14px; border-bottom:1px dashed var(--border);}
+  .checklist li:before{content:"☐"; position:absolute; left:0; color:var(--aws-orange); font-size:16px;}
+  code{background:#eef1f4; padding:1px 5px; border-radius:4px; font-size:12px;}
+  .keyword{background:var(--aws-dark); color:#fff; padding:2px 8px; border-radius:5px; font-weight:700; font-size:12px;}
+  .toc-toggle{display:none;}
+  @media (max-width: 900px){
+    .toc-toggle{
+      display:block; margin:14px 14px 0; background:var(--aws-orange); color:var(--aws-dark);
+      border:none; padding:12px 16px; border-radius:8px; font-weight:700; font-size:14px;
+      cursor:pointer; width:calc(100% - 28px);
+    }
+    .layout{flex-direction:column;}
+    nav#toc{
+      display:none; width:100%; position:static; max-height:none;
+      border-right:none; border-bottom:1px solid var(--border);
+    }
+    nav#toc.open{display:block;}
+    main{padding:18px 14px 60px;}
+    table{font-size:12px; min-width:560px;}
+    th,td{padding:7px 8px;}
+    header h1{font-size:19px;}
+    .part-title{font-size:16px; padding:10px 14px;}
+  }
+  @media (max-width: 480px){
+    header{padding:16px 14px;}
+    header h1{font-size:17px;}
+    main{padding:14px 10px 50px;}
+    .part-title{font-size:14.5px; flex-direction:column; align-items:flex-start; gap:4px;}
+    table{font-size:11.5px; min-width:520px;}
+    th,td{padding:6px 7px;}
+    .intro, .callout{font-size:13px; padding:10px 12px;}
+  }
+</style>
+</head>
+<body>
+<div style="background:#14141f;padding:9px 20px;text-align:center;"><a href="../index.html" style="color:#fff;font-size:12.5px;text-decoration:none;font-weight:600;letter-spacing:.02em;">&larr; Volver al inicio &middot; franciscojeg.github.io</a></div>
+
+
+<header>
+  <h1>📘 Material de Estudio: AWS Certified Solutions Architect Associate (SAA-C03)</h1>
+  <p>Preparado por Francisco Escobar, AWS Community Builder (Networking & Content Delivery) · Organizado por dominios oficiales del examen</p>
+  <p style="margin-top:6px;"><a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" style="color:#FF9900;text-decoration:none;font-weight:600;">linkedin.com/in/franciscojeg</a></p>
+</header>
+
+<button class="toc-toggle" id="tocToggle" aria-expanded="false" aria-controls="toc">☰ Ver índice</button>
+
+<div class="layout">
+<nav id="toc">
+  <h4>Navegación</h4>
+  <a href="#fundamentos">0. Fundamentos previos</a>
+  <a href="#dominio1">1. Seguridad (30%)</a>
+  <a href="#dominio2">2. Resiliencia (26%)</a>
+  <a href="#dominio3">3. Alto rendimiento (24%)</a>
+  <a href="#dominio4">4. Costos (20%)</a>
+  <a href="#gestion">5. Gestión y gobernanza</a>
+  <a href="#analytics">6. Analítica y Big Data</a>
+  <a href="#integracion">7. Integración de aplicaciones</a>
+  <a href="#migracion">8. Migración y transferencia</a>
+  <a href="#frontend">9. Frontend web y móvil</a>
+  <a href="#ml">10. Machine Learning</a>
+  <a href="#devtools">11. Dev Tools y Multimedia</a>
+  <a href="#comparaciones">12. Comparaciones críticas</a>
+  <a href="#senales">13. Palabras gatillo</a>
+  <a href="#checklist">14. Checklist final</a>
+</nav>
+
+<main>
+
+<section id="fundamentos" class="part">
+  <div class="part-title">0. Fundamentos que debes tener automatizados</div>
+  <div class="intro">Antes de estudiar servicio por servicio, estos conceptos son la base de casi todas las preguntas del examen. Si algo aquí no te sale de memoria, repásalo primero.</div>
+
+  <div class="callout">
+    <strong>¿Qué es el Well-Architected Framework y por qué existe?</strong><br><br>
+    Piensa en el Well-Architected Framework como una lista para revisar si una "casa" tecnológica está bien construida. Una aplicación puede funcionar hoy, pero AWS te ayuda a preguntarte: ¿está protegida?, ¿qué ocurre si algo falla?, ¿se vuelve lenta con más usuarios?, ¿estamos pagando de más?, ¿podemos operarla y mejorarla fácilmente?
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Pilar</th><th>Explicación simple</th><th>Pregunta que responde</th><th>Ejemplo</th></tr>
+    <tr>
+      <td class="servicio">Excelencia Operacional</td>
+      <td>Operar, monitorear y mejorar la aplicación continuamente.</td>
+      <td>"¿Podemos detectar y corregir problemas rápido?"</td>
+      <td>CloudWatch crea una alarma cuando sube el uso de CPU. Infrastructure as Code permite repetir cambios sin errores manuales.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Seguridad</td>
+      <td>Proteger datos, sistemas y accesos.</td>
+      <td>"¿Quién puede entrar y qué puede hacer?"</td>
+      <td>Usar IAM Roles en vez de credenciales guardadas en código. Cifrar datos con KMS.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Confiabilidad</td>
+      <td>La aplicación resiste fallas y se recupera.</td>
+      <td>"¿Seguirá funcionando si falla un servidor o una zona?"</td>
+      <td>Ejecutar instancias en varias Availability Zones con Auto Scaling y Load Balancer.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Eficiencia de Rendimiento</td>
+      <td>Usar recursos adecuados para responder rápido y escalar.</td>
+      <td>"¿Mantendrá buen rendimiento cuando aumente la demanda?"</td>
+      <td>Usar CloudFront para entregar contenido cerca del usuario, o ElastiCache para reducir lecturas a la base de datos.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Optimización de Costos</td>
+      <td>Entregar lo necesario sin pagar por recursos desperdiciados.</td>
+      <td>"¿Hay una forma más económica de cumplir el mismo requisito?"</td>
+      <td>Usar S3 Lifecycle para mover archivos poco usados a una clase más barata.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Sostenibilidad</td>
+      <td>Reducir el consumo de recursos y el impacto ambiental.</td>
+      <td>"¿Podemos entregar el resultado usando menos recursos?"</td>
+      <td>Apagar recursos sin uso, usar serverless para cargas intermitentes y dimensionar correctamente las instancias.</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="callout">
+    <strong>Para el examen no necesitas memorizar definiciones largas. Aprende a detectar la intención detrás de cada frase:</strong>
+    <ul style="margin:10px 0 0; padding-left:20px;">
+      <li style="margin-bottom:6px;">"Monitorear, automatizar despliegues, responder incidentes" → <span class="keyword">Excelencia Operacional</span></li>
+      <li style="margin-bottom:6px;">"Permisos, cifrado, MFA, secretos, accesos" → <span class="keyword">Seguridad</span></li>
+      <li style="margin-bottom:6px;">"Failover, Multi-AZ, backups, recuperación ante desastres" → <span class="keyword">Confiabilidad</span></li>
+      <li style="margin-bottom:6px;">"Latencia, caché, escalabilidad, throughput" → <span class="keyword">Eficiencia de Rendimiento</span></li>
+      <li style="margin-bottom:6px;">"Más económico, eliminar desperdicio, right-sizing" → <span class="keyword">Optimización de Costos</span></li>
+      <li>"Reducir consumo, apagar recursos, uso energético" → <span class="keyword">Sostenibilidad</span></li>
+    </ul>
+    <br>
+    <strong>La clave:</strong> una decisión puede apoyar varios pilares a la vez, pero el enunciado normalmente destaca una prioridad. Por ejemplo, mover datos de S3 Standard a Glacier busca principalmente Optimización de Costos; desplegar la aplicación en dos Availability Zones busca principalmente Confiabilidad.
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Concepto</th><th>Qué debes saber</th><th>Prioridad</th></tr>
+    <tr>
+      <td class="servicio">Well-Architected Framework</td>
+      <td>Es un framework, no un servicio: 6 pilares que ayudan a evaluar si un diseño está bien construido (ver tabla completa arriba). Nota: los 4 dominios oficiales y con peso del examen SAA-C03 (Seguridad, Resiliencia, Rendimiento, Costos) no incluyen un dominio propio de Sostenibilidad, así que probablemente pese menos en preguntas directas, pero forma parte del framework oficial vigente.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Modelo de Responsabilidad Compartida</td>
+      <td>AWS es responsable de la seguridad <em>de</em> la nube (hardware, infraestructura global, virtualización). El cliente es responsable de la seguridad <em>en</em> la nube (datos, IAM, configuración de OS/red, cifrado).</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Region / AZ / Edge Location</td>
+      <td>Región = área geográfica con ≥2 AZs. AZ = uno o más datacenters físicamente separados dentro de una región. Edge Location = punto de presencia para CloudFront/Route 53 (no ejecuta cómputo general).</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Escalado vertical vs horizontal</td>
+      <td>Vertical = subir el tamaño de una instancia (tiene techo). Horizontal = agregar más instancias (Auto Scaling, DynamoDB). AWS casi siempre prefiere horizontal cuando hay opción.</td>
+      <td><span class="prio prio-media">Media</span></td>
+    </tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="dominio1" class="part">
+  <div class="part-title">1. Diseño de Arquitecturas Seguras <span class="weight">30% del examen</span></div>
+  <div class="intro">Es el dominio con más peso individual. Enfócate en IAM (siempre aparece), cifrado con KMS y en distinguir bien Security Groups de NACLs y User Pools de Identity Pools: son las confusiones más comunes.</div>
+
+  <h3 class="sub">Identidad y acceso</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">AWS IAM</td>
+      <td>Control de acceso a recursos AWS mediante usuarios, grupos, roles y políticas.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Orden de evaluación: <strong>Explicit Deny &gt; Explicit Allow &gt; Implicit Deny</strong>. Los roles son identidades temporales asumibles, distintas de los usuarios. Nunca hardcodear credenciales: siempre usar Roles para servicios AWS.</td>
+      <td>Si la pregunta menciona "acceso temporal", "sin almacenar credenciales" o "servicio a servicio" → <span class="keyword">IAM Role</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon Cognito</td>
+      <td>Autenticación, autorización y gestión de usuarios para apps web/móviles.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td><strong>User Pools</strong>: autenticación (directorio de usuarios, sign-up/sign-in, MFA). <strong>Identity Pools</strong>: autorización (credenciales temporales de AWS vía STS para acceder a recursos como S3/DynamoDB directamente desde el cliente).</td>
+      <td>"Login social (Google/Facebook) con acceso directo a S3 desde el móvil" → <span class="keyword">Identity Pools</span>. "Sign-up/sign-in propio de la app" → <span class="keyword">User Pools</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Directory Service</td>
+      <td>Integra Microsoft Active Directory con servicios AWS.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>AWS Managed Microsoft AD soporta trust relationships con AD on-premises. AD Connector es solo un proxy/redirector (requiere VPN o Direct Connect). No soporta MFA nativo ni LDAPS.</td>
+      <td>"Extender AD on-premises a AWS" o "SSO con Office 365" → <span class="keyword">Directory Service</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS RAM</td>
+      <td>Resource Access Manager: comparte recursos AWS entre cuentas o dentro de una Organization.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Evita duplicar recursos (ej. subnets, Transit Gateway) entre cuentas. No cobra por compartir, solo por el recurso.</td>
+      <td>"Compartir un recurso entre cuentas sin duplicarlo" → <span class="keyword">RAM</span>.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Cifrado y gestión de secretos</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">AWS KMS</td>
+      <td>Servicio para crear y gestionar claves de cifrado (CMKs), integrado con S3, EBS y RDS.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Rotación automática anual de claves gestionadas por el cliente. <strong>Envelope encryption</strong>: cifra el dato con una data key y esta se cifra con la master key. Claves regionales salvo Multi-Region Keys.</td>
+      <td>KMS es cifrado gestionado multi-tenant. Si piden hardware dedicado con FIPS 140-2 nivel 3 → <span class="keyword">CloudHSM</span> (no KMS).</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Secrets Manager</td>
+      <td>Almacena, rota y recupera credenciales sensibles (passwords, API keys, tokens).</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Rotación automática nativa para RDS/Aurora/Redshift/DocumentDB. Se integra con KMS para cifrado en reposo.</td>
+      <td>Secrets Manager ofrece rotación automática pero es más caro. <strong>Parameter Store</strong> (dentro de Systems Manager) es gratis en su nivel estándar, sin rotación nativa. "Rotación automática de contraseñas de base de datos" → <span class="keyword">Secrets Manager</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Certificate Manager (ACM)</td>
+      <td>Provisiona, gestiona y renueva certificados SSL/TLS.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Los certificados públicos de ACM son <strong>gratis</strong> cuando se usan con servicios integrados (ELB, CloudFront, API Gateway). ACM Private CA sí tiene costo, para PKI interno.</td>
+      <td>"HTTPS gratis en un ALB o CloudFront" → <span class="keyword">ACM</span>.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Detección de amenazas y compliance</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">Amazon GuardDuty</td>
+      <td>Detección inteligente de amenazas mediante ML, analizando CloudTrail, VPC Flow Logs y DNS logs.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>No requiere agentes. Detección continua y de bajo impacto. Genera findings con nivel de severidad.</td>
+      <td>"Detectar actividad anómala o comportamiento malicioso automáticamente" → <span class="keyword">GuardDuty</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon Inspector</td>
+      <td>Escaneo automatizado de vulnerabilidades en EC2, imágenes ECR y funciones Lambda.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Usa la base de datos CVE. Evalúa exposición de red además de vulnerabilidades de software.</td>
+      <td>"Escanear vulnerabilidades conocidas (CVE) en mis instancias" → <span class="keyword">Inspector</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon Macie</td>
+      <td>Detección de datos sensibles (PII) en S3 usando ML.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Se enfoca específicamente en S3. Genera alertas de exposición de datos sensibles.</td>
+      <td>"Encontrar información personal identificable (PII) en mis buckets" → <span class="keyword">Macie</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Security Hub</td>
+      <td>Vista centralizada de alertas de seguridad y estado de cumplimiento (agrega GuardDuty, Inspector, Macie e IAM Access Analyzer).</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Verificaciones automáticas contra PCI DSS y CIS AWS Foundations Benchmark. Requiere habilitarse por región.</td>
+      <td>"Panel único de seguridad multi-servicio" → <span class="keyword">Security Hub</span> (no confundir con GuardDuty, que solo detecta amenazas).</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Seguridad de red (VPC)</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">Security Groups</td>
+      <td>Firewall virtual a nivel de instancia/ENI.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td><strong>Stateful</strong>: el tráfico de retorno se permite automáticamente. Solo permite reglas allow, no puede denegar explícitamente. Por defecto todo el tráfico saliente está permitido y el entrante denegado.</td>
+      <td>Clásico: SG a nivel de instancia y stateful; NACL a nivel de subred y stateless. Es de las comparaciones más preguntadas del examen.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Network ACLs (NACLs)</td>
+      <td>Firewall a nivel de subred.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td><strong>Stateless</strong>: hay que definir reglas de entrada y salida explícitamente. Permite reglas allow y deny. Se evalúan en orden numérico de regla.</td>
+      <td>Una NACL custom deniega todo por defecto; la NACL default permite todo por defecto (al revés que los Security Groups custom).</td>
+    </tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="dominio2" class="part">
+  <div class="part-title">2. Diseño de Arquitecturas Resilientes <span class="weight">26% del examen</span></div>
+  <div class="intro">Aquí se prueba tu criterio de alta disponibilidad y desacoplamiento. La confusión más común es Multi-AZ contra Read Replicas, y también SQS contra SNS. Domínalas y tienes gran parte del dominio resuelto.</div>
+
+  <h3 class="sub">Alta disponibilidad de cómputo</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">EC2 Auto Scaling</td>
+      <td>Ajusta automáticamente la cantidad de instancias EC2 según demanda o calendario.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Tipos de política: <strong>Target Tracking</strong> (mantener métrica objetivo), <strong>Step Scaling</strong>, <strong>Scheduled</strong>, <strong>Predictive</strong> (ML). <strong>Lifecycle Hooks</strong> pausan la instancia para ejecutar acciones custom antes de entrar o salir de servicio.</td>
+      <td>Casi siempre es parte de la respuesta correcta cuando la pregunta pide alta disponibilidad más elasticidad.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Elastic Load Balancing (ELB)</td>
+      <td>Distribuye tráfico entrante entre múltiples targets a través de AZs.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Ver comparación ALB/NLB/GWLB en el Dominio 3 (ahí pesa más por rendimiento), pero recuerda: siempre multi-AZ, con health checks que sacan targets no saludables automáticamente.</td>
+      <td>ELB junto con Auto Scaling Group es el combo estándar de alta disponibilidad.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Elastic Beanstalk</td>
+      <td>PaaS que despliega y escala apps web automáticamente, con EC2, ELB y Auto Scaling gestionados por AWS.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Tú controlas el código, AWS controla la infraestructura subyacente. Estrategias de despliegue: All at once, Rolling, Rolling with batch, Immutable, Blue/Green. Es gratis, solo pagas los recursos.</td>
+      <td>"Desplegar rápido sin experiencia DevOps pero con acceso a los recursos subyacentes" → <span class="keyword">Elastic Beanstalk</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Outposts</td>
+      <td>Hardware físico de AWS instalado en tu datacenter on-premises.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Mismas APIs y servicios AWS localmente. Se usa para baja latencia crítica o residencia de datos.</td>
+      <td>"Necesito servicios AWS pero los datos no pueden salir de mi datacenter" → <span class="keyword">Outposts</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Wavelength</td>
+      <td>Cómputo y storage en el edge de redes 5G.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Latencia ultra baja, menor a 10 ms, para dispositivos 5G.</td>
+      <td>"Gaming móvil o AR/VR con latencia ultra baja sobre 5G" → <span class="keyword">Wavelength</span>.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Bases de datos resilientes</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">RDS Multi-AZ</td>
+      <td>Réplica sincrónica en otra AZ con failover automático.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Mantiene el mismo endpoint tras el failover, ya que el DNS se actualiza automáticamente. El objetivo es alta disponibilidad, no performance.</td>
+      <td>La confusión número uno del examen: <strong>Multi-AZ es HA</strong> (replicación síncrona, failover automático) mientras que <strong>Read Replicas es performance de lectura</strong> (replicación asíncrona, promoción manual, endpoint distinto).</td>
+    </tr>
+    <tr>
+      <td class="servicio">RDS Read Replicas</td>
+      <td>Réplicas de solo lectura para escalar lecturas.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Hasta 5 en RDS estándar y hasta 15 en Aurora. La replicación es asíncrona, por lo que puede haber lag. Pueden ubicarse cross-region.</td>
+      <td>Si la pregunta pide "reducir carga de lectura en la base de datos" → <span class="keyword">Read Replicas</span>. Si pide "que sobreviva a la caída de una AZ" → <span class="keyword">Multi-AZ</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon Aurora</td>
+      <td>Motor relacional compatible con MySQL/PostgreSQL, 5 veces más rápido que MySQL y 3 veces más rápido que PostgreSQL.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>6 copias de datos en 3 AZs automáticamente. Hasta 15 read replicas con lag menor a 100 ms (contra 5 en RDS). <strong>Aurora Global Database</strong> replica cross-region en menos de 1 segundo para DR. <strong>Backtrack</strong> permite viajar en el tiempo sin un restore completo.</td>
+      <td>Cuando la pregunta pide máxima resiliencia junto con performance en relacional, casi siempre la respuesta es Aurora sobre RDS estándar.</td>
+    </tr>
+    <tr>
+      <td class="servicio">DynamoDB Global Tables</td>
+      <td>Replicación activa-activa multi-región de tablas DynamoDB.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Replicación en milisegundos; todas las regiones aceptan lectura y escritura.</td>
+      <td>"NoSQL con recuperación ante desastre multi-región activo-activo" → <span class="keyword">Global Tables</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">DynamoDB Streams</td>
+      <td>Captura cambios de items en tiempo real, con retención de 24 horas.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Se consume vía Lambda o Kinesis Client Library. Habilita arquitecturas event-driven sobre cambios de datos.</td>
+      <td>"Reaccionar en tiempo real a cambios en una tabla DynamoDB" → <span class="keyword">DynamoDB Streams con Lambda</span>.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Almacenamiento resiliente y desacoplamiento</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">Amazon S3</td>
+      <td>Almacenamiento de objetos con durabilidad de 99.999999999% (11 nueves).</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Replicado automáticamente entre 3 o más AZs, salvo la clase One Zone-IA. El versionado protege contra borrado accidental. Existe replicación cross-region (CRR) y same-region (SRR).</td>
+      <td>Ver clases de almacenamiento en el Dominio 4, donde pesan más por costo.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon EFS</td>
+      <td>Sistema de archivos NFS compartido, con replicación multi-AZ automática.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Accesible simultáneamente desde miles de instancias EC2 en distintas AZs. Solo funciona en Linux.</td>
+      <td>"Sistema de archivos compartido entre múltiples instancias en distintas AZs" → <span class="keyword">EFS</span> (no EBS, que está limitado a una sola AZ).</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Backup</td>
+      <td>Automatiza y centraliza backups de recursos AWS como EC2, RDS, EFS y DynamoDB.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Las políticas se basan en tags. Soporta backup cross-account y cross-region para DR.</td>
+      <td>"Centralizar y automatizar backups de múltiples servicios con una sola política" → <span class="keyword">AWS Backup</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon SQS</td>
+      <td>Colas de mensajes para desacoplamiento asíncrono.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td><strong>Standard</strong>: throughput ilimitado, orden best-effort, entrega al menos una vez. <strong>FIFO</strong>: orden estricto, exactly-once, hasta 3000 msg/s con batching. Dead Letter Queue (DLQ) para mensajes fallidos. El visibility timeout evita procesamiento duplicado.</td>
+      <td>"Desacoplar productor y consumidor de forma asíncrona" → <span class="keyword">SQS</span> es casi siempre la primera opción a considerar.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon SNS</td>
+      <td>Servicio pub/sub para notificaciones y fan-out a múltiples suscriptores.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Un mensaje llega a múltiples destinos: email, SMS, Lambda, SQS, HTTP. El message filtering permite que cada suscriptor reciba solo lo relevante.</td>
+      <td>Patrón muy preguntado: <strong>SNS con SQS (fan-out)</strong>: un publisher y múltiples colas SQS, cada una con su propio consumidor, para que cada sistema procese a su ritmo sin perder mensajes.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon EventBridge</td>
+      <td>Bus de eventos serverless con enrutamiento basado en reglas.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Es la evolución de CloudWatch Events. Ofrece más de 100 integraciones con AWS y partners SaaS. Soporta event replay y schema registry.</td>
+      <td>Úsalo cuando necesites routing de eventos complejo, con múltiples reglas, orígenes y destinos, algo más avanzado que un simple SNS/SQS.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Step Functions</td>
+      <td>Orquestación visual de flujos de trabajo serverless mediante state machines.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td><strong>Standard</strong>: hasta 1 año de duración, exactly-once. <strong>Express</strong>: menos de 5 minutos, at-least-once, más barato. Los reintentos y el manejo de errores están integrados.</td>
+      <td>"Orquestar múltiples pasos o microservicios con lógica de reintentos y ramificación" → <span class="keyword">Step Functions</span>.</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="callout">
+    <strong>Estrategias de Disaster Recovery, de menor a mayor costo:</strong>
+    Backup and Restore (RTO/RPO altos, muy barato) → Pilot Light (recursos mínimos siempre activos) → Warm Standby (versión reducida siempre corriendo) → Multi-Site Active-Active (todas las regiones sirviendo tráfico, RTO/RPO casi cero, el más caro).
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="dominio3" class="part">
+  <div class="part-title">3. Diseño de Arquitecturas de Alto Rendimiento <span class="weight">24% del examen</span></div>
+  <div class="intro">Aquí se evalúa que sepas elegir el servicio o tipo correcto según el patrón de acceso o de carga. Domina bien los tipos de EBS, los tipos de ELB y cuándo usar caché con CloudFront, ElastiCache o DAX.</div>
+
+  <h3 class="sub">Cómputo</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">Amazon EC2 (familias)</td>
+      <td>Máquinas virtuales en la nube.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td><strong>General Purpose (T, M)</strong>: balance. <strong>Compute Optimized (C)</strong>: CPU intensivo. <strong>Memory Optimized (R, X, z)</strong>: bases de datos en memoria. <strong>Storage Optimized (I, D, H)</strong>: I/O intensivo. <strong>Accelerated (P, G, F)</strong>: GPU/ML.</td>
+      <td>Si la pregunta describe la carga, por ejemplo "procesamiento intensivo de CPU", la familia correcta suele ser la respuesta directa.</td>
+    </tr>
+    <tr>
+      <td class="servicio">EC2 Placement Groups</td>
+      <td>Estrategias de ubicación física de instancias.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td><strong>Cluster</strong>: baja latencia entre instancias, ideal para HPC. <strong>Spread</strong>: máxima disponibilidad, instancias en hardware distinto. <strong>Partition</strong>: apps distribuidas como Hadoop o Kafka.</td>
+      <td>"Latencia de red mínima entre instancias" → <span class="keyword">Cluster Placement Group</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Lambda</td>
+      <td>Cómputo serverless activado por eventos.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Timeout máximo de <strong>15 minutos</strong>. Memoria de 128 MB a 10 GB, con la CPU escalando proporcionalmente. Cold starts en la primera invocación. Concurrencia default de 1000, ajustable. Layers para código compartido, máximo 5.</td>
+      <td>"Event-driven, menos de 15 minutos, sin gestionar servidores" → <span class="keyword">Lambda</span> es casi siempre la respuesta serverless por defecto.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Fargate</td>
+      <td>Cómputo serverless para contenedores, usado con ECS o EKS.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Sin gestión de instancias EC2. Pago por vCPU y memoria usada. Cada tarea tiene kernel, memoria y ENI dedicados para aislamiento.</td>
+      <td>Fargate es serverless pero más caro; el launch type EC2 da control total y ahorro con Spot.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon ECS</td>
+      <td>Orquestador de contenedores nativo de AWS.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Las Task Definitions son el blueprint del contenedor y los Services mantienen N tasks corriendo, con integración nativa con ALB, IAM y CloudWatch.</td>
+      <td>Es más simple que EKS; ideal si no necesitas el ecosistema estándar de Kubernetes.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon EKS</td>
+      <td>Kubernetes completamente gestionado.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>El control plane está administrado en alta disponibilidad multi-AZ, y es compatible con Kubernetes estándar (CNCF).</td>
+      <td>"Necesito Kubernetes estándar o portabilidad multi-cloud" → <span class="keyword">EKS</span> por sobre ECS.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon ECR</td>
+      <td>Registro privado de imágenes de contenedor.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Integrado con IAM, cifrado con KMS y con escaneo de vulnerabilidades integrado.</td>
+      <td>Es el equivalente privado y seguro de Docker Hub, integrado nativamente con ECS, EKS y Lambda.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Batch</td>
+      <td>Ejecuta miles de trabajos batch sin gestionar infraestructura.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Corre sobre EC2, incluyendo Spot, o sobre Fargate. Gestiona Job Queues, Job Definitions y Compute Environments.</td>
+      <td>"Procesamiento masivo por lotes, tolerante a fallos, con dependencias entre jobs" → <span class="keyword">AWS Batch</span>.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Almacenamiento de alto rendimiento</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">EBS gp2/gp3</td>
+      <td>SSD de propósito general.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Entre 3000 y 16000 IOPS. Ideal para boot volumes, dev/test y apps de latencia baja o media.</td>
+      <td>Es la opción por defecto cuando no se especifica una necesidad extrema de IOPS.</td>
+    </tr>
+    <tr>
+      <td class="servicio">EBS io1/io2</td>
+      <td>SSD Provisioned IOPS.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Hasta 64000 IOPS, consistentes. Soporta <strong>Multi-Attach</strong> (varias instancias sobre el mismo volumen). Ideal para bases de datos transaccionales críticas.</td>
+      <td>"IOPS altos y consistentes para una base de datos crítica" → <span class="keyword">io1/io2</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">EBS st1 / sc1</td>
+      <td>HDD throughput-optimized (st1) y cold (sc1).</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>st1 sirve para big data, data warehouse y streaming, por su throughput secuencial. sc1 es para datos fríos, de menor costo y no apto para boot.</td>
+      <td>"Bajo costo, acceso poco frecuente, sin necesidad de IOPS" → <span class="keyword">sc1</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">EBS contra Instance Store</td>
+      <td>Comparación de almacenamiento de bloques.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Instance Store es efímero: se pierde al detener o crashear la instancia, no soporta snapshots, pero ofrece mayor IOPS. EBS es persistente, soporta snapshots y se puede desconectar/reconectar entre instancias.</td>
+      <td>"Datos que deben persistir tras detener la instancia" → <span class="keyword">EBS</span>, nunca Instance Store.</td>
+    </tr>
+    <tr>
+      <td class="servicio">EFS: modos de performance y throughput</td>
+      <td>Configuraciones de rendimiento de EFS.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Performance: General Purpose (baja latencia) contra Max I/O (alto throughput, mayor latencia). Throughput: Bursting (default), Provisioned y Elastic.</td>
+      <td>Si hay miles de conexiones concurrentes con más tolerancia a latencia → <span class="keyword">Max I/O</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon FSx for Windows</td>
+      <td>Sistema de archivos SMB gestionado para cargas Windows.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Integración nativa con Active Directory. Despliegue multi-AZ con failover automático.</td>
+      <td>"Compartir archivos con protocolo SMB para apps Windows" → <span class="keyword">FSx for Windows</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon FSx for Lustre</td>
+      <td>Sistema de archivos paralelo de altísimo rendimiento, orientado a HPC.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Latencias sub-milisegundo y millones de IOPS. Integración directa con S3, procesando objetos como archivos.</td>
+      <td>"HPC, machine learning a gran escala o procesamiento masivo paralelo" → <span class="keyword">FSx for Lustre</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">FSx for NetApp ONTAP y OpenZFS</td>
+      <td>Sistemas de archivos gestionados compatibles con NetApp y con ZFS.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>ONTAP soporta multi-protocolo (NFS, SMB, iSCSI). OpenZFS está pensado para migración desde ZFS on-premises.</td>
+      <td>Aparecen poco en el examen; basta con reconocer el nombre y su propósito general.</td>
+    </tr>
+    <tr>
+      <td class="servicio">S3 Transfer Acceleration</td>
+      <td>Acelera subidas y bajadas usando la red edge de CloudFront.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Es útil cuando los usuarios están geográficamente lejos de la región del bucket.</td>
+      <td>"Subir archivos grandes rápido desde ubicaciones remotas" → <span class="keyword">S3 Transfer Acceleration</span>.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Bases de datos y caché de alto rendimiento</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">Amazon DynamoDB</td>
+      <td>Base de datos NoSQL serverless, con latencia de milisegundos de un dígito.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Partition Key o Partition Key más Sort Key. GSI (índice con distinta partition/sort key) contra LSI (misma partition key, distinta sort key, se define al crear la tabla). Capacidad on-demand contra provisioned.</td>
+      <td>"NoSQL serverless con escalado ilimitado y latencia de milisegundos" → <span class="keyword">DynamoDB</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">DynamoDB Accelerator (DAX)</td>
+      <td>Caché en memoria administrada específica para DynamoDB.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Reduce la latencia de milisegundos a <strong>microsegundos</strong>. Es solo para DynamoDB, no confundir con ElastiCache.</td>
+      <td>"Reducir al máximo la latencia de lecturas de DynamoDB" → <span class="keyword">DAX</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon ElastiCache</td>
+      <td>Caché en memoria administrado, con motores Redis o Memcached.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td><strong>Redis</strong> ofrece persistencia, replicación multi-AZ, estructuras complejas y pub/sub. <strong>Memcached</strong> es simple, multi-threaded, sin persistencia ni replicación, solo con sharding horizontal.</td>
+      <td>Sesiones de usuario que necesitan alta disponibilidad → <span class="keyword">Redis</span>. Cache simple de queries en multi-core → <span class="keyword">Memcached</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon Aurora (rendimiento)</td>
+      <td>Ver también el Dominio 2 para su rol en resiliencia.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td><strong>Aurora Replicas</strong> tienen lag menor a 10 ms para escalar lectura. <strong>Parallel Query</strong> acelera analítica sobre datos transaccionales. <strong>Cloning</strong> rápido, tipo copy-on-write, sirve para entornos de prueba.</td>
+      <td>Es superior a RDS estándar en casi cualquier escenario de performance, salvo cuando el costo es la prioridad principal.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon Redshift</td>
+      <td>Data warehouse columnar para OLAP a escala de petabytes.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Usa MPP (Massively Parallel Processing). <strong>Redshift Spectrum</strong> permite consultar S3 sin cargar los datos. La compresión columnar llega a ser de aproximadamente 10 veces.</td>
+      <td>RDS y Aurora son para OLTP transaccional. Redshift es para OLAP analítico, con queries complejas sobre grandes volúmenes.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Streaming e ingestión en tiempo real</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">Kinesis Data Streams</td>
+      <td>Streaming de datos en tiempo real con control total.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Shards escalables manualmente. Retención configurable de 1 a 365 días. Consumidores personalizados vía KCL.</td>
+      <td>Si necesitas procesamiento custom y reproceso de eventos → <span class="keyword">Data Streams</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Kinesis Data Firehose</td>
+      <td>Carga automática de streaming hacia S3, Redshift, OpenSearch o Splunk.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Es completamente gestionado, casi en tiempo real, con un buffer de aproximadamente 60 segundos. No requiere gestión de shards.</td>
+      <td>Si solo necesitas ingerir y entregar sin procesamiento custom → <span class="keyword">Firehose</span> (más simple que Data Streams).</td>
+    </tr>
+    <tr>
+      <td class="servicio">Kinesis Video Streams</td>
+      <td>Ingesta y almacenamiento de streams de video para análisis con ML.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Se integra con Rekognition Video.</td>
+      <td>Cualquier escenario que mencione "streaming de video para análisis" → <span class="keyword">Kinesis Video Streams</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon MSK</td>
+      <td>Apache Kafka completamente administrado.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Úsalo cuando ya existe un ecosistema Kafka, por su compatibilidad de API nativa, no como reemplazo genérico de Kinesis.</td>
+      <td>"Migrar un Kafka on-premises existente a AWS" → <span class="keyword">MSK</span>. Para una app nueva sin atadura a Kafka, Kinesis suele ser más simple.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Redes de alto rendimiento</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">Application Load Balancer (ALB)</td>
+      <td>ELB de Capa 7, para HTTP/HTTPS.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Routing por path, host, headers o query string. Los targets pueden ser EC2, IP o Lambda. Soporta WebSocket.</td>
+      <td>Cualquier escenario web HTTP/HTTPS con routing avanzado → <span class="keyword">ALB</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Network Load Balancer (NLB)</td>
+      <td>ELB de Capa 4, para TCP/UDP, de ultra performance.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Soporta millones de solicitudes por segundo. Ofrece IP estática por AZ y preserva la IP de origen del cliente.</td>
+      <td>"Necesito una IP estática" o "gaming/IoT de altísimo throughput" → <span class="keyword">NLB</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Gateway Load Balancer (GWLB)</td>
+      <td>ELB de Capa 3, para appliances de terceros.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Está diseñado para insertar firewalls, IDS o IPS de terceros de forma transparente en el flujo de tráfico.</td>
+      <td>"Insertar un appliance de seguridad de un partner en la ruta del tráfico" → <span class="keyword">GWLB</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon CloudFront</td>
+      <td>CDN global con más de 450 edge locations.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td><strong>Cachea</strong> contenido estático y dinámico. Signed URLs y Signed Cookies para contenido privado. Lambda@Edge para lógica en el edge. Origin failover para alta disponibilidad.</td>
+      <td>Reduce la latencia global y descarga el origen. Ver comparación con Global Accelerator más abajo.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Global Accelerator</td>
+      <td>Dos IPs Anycast estáticas que enrutan por la red privada de AWS.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td><strong>No cachea</strong>: es un proxy inteligente, no una CDN. El failover ocurre en menos de 30 segundos. Es útil para apps no HTTP, como TCP o UDP.</td>
+      <td>"Necesito IPs estáticas globales" o "mejorar rendimiento de protocolos no HTTP" → <span class="keyword">Global Accelerator</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon API Gateway</td>
+      <td>Crea, publica y gestiona APIs REST, HTTP y WebSocket.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td><strong>REST API</strong>: completa, con caching y transformación. <strong>HTTP API</strong>: más simple, más barata y de menor latencia. <strong>WebSocket API</strong>: comunicación bidireccional.</td>
+      <td>Es la puerta de entrada estándar para arquitecturas serverless con Lambda detrás.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Direct Connect</td>
+      <td>Conexión de red dedicada entre on-premises y AWS.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Ofrece 1, 10 o 100 Gbps. No está cifrado por defecto, se puede usar VPN sobre DX si se requiere. El setup toma semanas.</td>
+      <td>"Conexión consistente y de alto ancho de banda" → <span class="keyword">Direct Connect</span>. Si se necesita un setup rápido → Site-to-Site VPN.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Transit Gateway</td>
+      <td>Hub central para interconectar VPCs y redes on-premises.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Usa arquitectura hub-and-spoke, simplificando topologías de malla compleja de VPC Peering. Soporta multicast.</td>
+      <td>"Conectar decenas o cientos de VPCs sin una malla de peerings" → <span class="keyword">Transit Gateway</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS PrivateLink</td>
+      <td>Conectividad privada entre VPCs y servicios AWS, sin pasar por internet público.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td><strong>Interface Endpoints</strong>: ENI con IP privada, para la mayoría de servicios. <strong>Gateway Endpoints</strong>: solo para S3 y DynamoDB, vía route table, sin costo por hora.</td>
+      <td>"Acceder a S3/DynamoDB desde una subred privada sin salir a internet ni usar NAT" → <span class="keyword">Gateway Endpoint</span> (más barato que Interface Endpoint).</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon VPC (componentes)</td>
+      <td>Red virtual aislada.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Una subnet pública tiene ruta a un Internet Gateway; una subnet privada usa un NAT Gateway para su salida. El NAT Gateway está gestionado y es escalable; la NAT Instance es manual y ya se considera legado.</td>
+      <td>Es el fundamento de casi cualquier diagrama de arquitectura del examen; repásalo hasta que sea automático.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Route 53 (routing por latencia y geo)</td>
+      <td>Ver también el Dominio 2 para failover.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td><strong>Latency-based</strong>: enruta al endpoint de menor latencia. <strong>Geolocation</strong>: por ubicación del usuario, útil para cumplimiento normativo. <strong>Geoproximity</strong>: por proximidad con bias ajustable. <strong>Weighted</strong>: distribución porcentual, ideal para blue/green.</td>
+      <td>Memoriza qué política corresponde a cada palabra clave del enunciado (ver la sección de Palabras Gatillo).</td>
+    </tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="dominio4" class="part">
+  <div class="part-title">4. Diseño de Arquitecturas Optimizadas en Costos <span class="weight">20% del examen</span></div>
+  <div class="intro">Es el dominio más "matemático": se trata de reconocer el modelo de precio correcto según el patrón de uso, ya sea predecible, interrumpible o variable. Memoriza bien las clases de S3 y los modelos de compra de EC2.</div>
+
+  <h3 class="sub">Modelos de precio de cómputo</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">EC2 On-Demand</td>
+      <td>Pago por segundo, sin compromiso.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Ofrece máxima flexibilidad, con el mayor costo por hora. Es ideal para cargas nuevas o impredecibles a corto plazo.</td>
+      <td>Es el punto de partida de comparación para todos los demás modelos.</td>
+    </tr>
+    <tr>
+      <td class="servicio">EC2 Reserved Instances (RI)</td>
+      <td>Compromiso de 1 o 3 años, con hasta 75% de descuento.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Las Standard están atadas a familia de instancia y región; las Convertible ofrecen algo de flexibilidad.</td>
+      <td>"Carga predecible y estable a largo plazo" → <span class="keyword">RI</span> o Savings Plans, según cuánta flexibilidad se requiera.</td>
+    </tr>
+    <tr>
+      <td class="servicio">EC2 Spot Instances</td>
+      <td>Hasta 90% de descuento, interrumpible con 2 minutos de aviso.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Es ideal para cargas <strong>fault-tolerant</strong>: batch, rendering, big data, CI/CD.</td>
+      <td>"Menor costo posible" junto con "tolera interrupciones" → <span class="keyword">Spot</span> es casi siempre la respuesta.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Dedicated Hosts y Dedicated Instances</td>
+      <td>Hardware físico dedicado o aislado.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Es la opción más cara. Se usa por requisitos de licenciamiento (BYOL) o compliance estricto, no para optimizar costo.</td>
+      <td>Si la pregunta menciona "licencias existentes por socket o core" → <span class="keyword">Dedicated Host</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Savings Plans (Compute contra EC2 Instance)</td>
+      <td>Descuento por compromiso de uso, de 1 a 3 años, medido en dólares por hora.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td><strong>Compute Savings Plans</strong>: hasta 66% de descuento, aplica a EC2, Fargate y Lambda en cualquier región, familia u OS (máxima flexibilidad). <strong>EC2 Instance Savings Plans</strong>: hasta 72%, pero atado a una familia de instancia y región específica.</td>
+      <td>"Compromiso estable pero necesito flexibilidad entre EC2, Fargate y Lambda" → <span class="keyword">Compute Savings Plans</span>.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Almacenamiento optimizado en costo</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">S3 Standard</td>
+      <td>Acceso frecuente, para uso general.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Ofrece 99.99% de disponibilidad, sin mínimo de días de almacenamiento.</td>
+      <td>Es el punto de partida; se optimiza moviendo datos a otras clases según antigüedad o frecuencia de acceso.</td>
+    </tr>
+    <tr>
+      <td class="servicio">S3 Standard-IA y One Zone-IA</td>
+      <td>Clases para acceso infrecuente.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Requieren un mínimo de 30 días de almacenamiento. One Zone-IA vive en una sola AZ, es más barato pero menos duradero ante la pérdida de una AZ, y solo sirve para datos recreables.</td>
+      <td>"Datos accedidos pocas veces al mes pero críticos" → <span class="keyword">Standard-IA</span>. "Datos no críticos y recreables" → <span class="keyword">One Zone-IA</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">S3 Intelligent-Tiering</td>
+      <td>Mueve automáticamente los datos entre tiers según su patrón de acceso.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Es ideal cuando <strong>no conoces</strong> el patrón de acceso de los datos.</td>
+      <td>"No sé cómo se van a acceder los datos a futuro" → <span class="keyword">Intelligent-Tiering</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">S3 Glacier Instant y Flexible Retrieval</td>
+      <td>Clases para archivado de largo plazo.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Instant Retrieval responde en milisegundos. Flexible Retrieval responde en minutos u horas: Expedited de 1 a 5 minutos, Standard de 3 a 5 horas y Bulk de 5 a 12 horas.</td>
+      <td>"Archivo que rara vez se consulta pero a veces se necesita rápido" → <span class="keyword">Glacier Instant Retrieval</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">S3 Glacier Deep Archive</td>
+      <td>La clase de almacenamiento más barata de todas.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>El retrieval toma horas, incluso más de 12. Requiere un mínimo de 180 días de almacenamiento. Está pensado para compliance de varios años.</td>
+      <td>"Retención regulatoria de 7 años o más, casi sin accesos" → <span class="keyword">Glacier Deep Archive</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">S3 Lifecycle Policies</td>
+      <td>Automatiza la transición entre clases de almacenamiento.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Un ejemplo típico: Standard entre 0 y 30 días, Standard-IA entre 30 y 90 días, Glacier a partir de 90 días y Deep Archive a partir de 180 días. Se configuran a nivel de bucket o de prefix.</td>
+      <td>Cualquier pregunta sobre optimizar el costo de almacenamiento a largo plazo de forma automática → <span class="keyword">Lifecycle Policy</span>.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Bases de datos y monitoreo de costos</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">Aurora Serverless</td>
+      <td>Aurora con auto-scaling de capacidad y pausa automática.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>El pago es por ACU (Aurora Capacity Unit) por segundo. La versión 2 escala en fracciones de segundo.</td>
+      <td>"Carga de base de datos intermitente o impredecible, a veces sin tráfico" → <span class="keyword">Aurora Serverless</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">DynamoDB On-Demand contra Provisioned</td>
+      <td>Modos de capacidad de DynamoDB.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>On-Demand cobra por el uso real y es ideal para tráfico impredecible. Provisioned es más barato si el tráfico es predecible y constante.</td>
+      <td>"No sé cuánto tráfico voy a tener" → <span class="keyword">On-Demand</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Cost Explorer</td>
+      <td>Herramienta visual para analizar costo y uso.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Muestra hasta 12 meses históricos y un forecast de 12 meses, además de recomendaciones de RI y Savings Plans.</td>
+      <td>"Visualizar tendencias de costo y proyectar gasto futuro" → <span class="keyword">Cost Explorer</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Budgets</td>
+      <td>Presupuestos personalizados con alertas.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Envía alertas por email o SNS al superar umbrales, y puede incluir acciones automáticas como detener recursos o aplicar SCPs.</td>
+      <td>"Recibir una alerta automática si el gasto supera cierto monto" → <span class="keyword">AWS Budgets</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Cost and Usage Report (CUR)</td>
+      <td>Reporte detallado de costo y uso a nivel granular.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Se entrega a S3 y se analiza con Athena o QuickSight. Es el más detallado de todos los reportes de billing.</td>
+      <td>"Análisis financiero profundo o chargebacks internos" → <span class="keyword">CUR</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Trusted Advisor</td>
+      <td>Recomendaciones automáticas sobre costo, seguridad, rendimiento, fault tolerance y límites de servicio.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>El nivel Basic incluye 7 checks; Business/Enterprise incluyen todos los checks. Detecta recursos inactivos u ociosos.</td>
+      <td>"Detectar recursos no utilizados para reducir costo" → <span class="keyword">Trusted Advisor</span>, en su categoría de Cost Optimization.</td>
+    </tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="gestion" class="part">
+  <div class="part-title">5. Gestión, Monitoreo y Gobernanza</div>
+  <div class="intro">Estos servicios cruzan los 4 dominios: aparecen tanto en preguntas de seguridad (auditoría) como de resiliencia (monitoreo) y de costos (compliance). Todos tienen probabilidad media o alta de aparecer.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">Amazon CloudWatch</td>
+      <td>Monitoreo de métricas, logs y alarmas.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Las métricas llegan cada 5 minutos gratis o cada 1 minuto en modo custom/detailed. CloudWatch Logs Insights permite hacer queries sobre logs. Las Alarms disparan acciones, por ejemplo Auto Scaling o SNS.</td>
+      <td><span class="keyword">CloudWatch</span> responde "qué tan bien está funcionando" (performance y salud). <span class="keyword">CloudTrail</span> responde "quién hizo qué" (auditoría). No los confundas.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS CloudTrail</td>
+      <td>Auditoría de todas las llamadas API en la cuenta.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Registra quién hizo qué, cuándo y desde dónde. El event history de la consola dura 90 días gratis; para retención mayor hay que enviarlo a S3. CloudTrail Insights detecta anomalías de API.</td>
+      <td>Siempre que la pregunta diga "compliance", "auditoría" o "trazabilidad de acciones" → <span class="keyword">CloudTrail</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Config</td>
+      <td>Audita y evalúa configuraciones de recursos a lo largo del tiempo.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Las Config Rules verifican compliance, ya sean managed o custom con Lambda. Los Aggregators consolidan datos multi-cuenta y multi-región.</td>
+      <td>"Verificar que mis recursos cumplan una configuración específica de forma continua" → <span class="keyword">AWS Config</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Organizations</td>
+      <td>Gestión centralizada de múltiples cuentas AWS.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Las <strong>Service Control Policies (SCPs)</strong> limitan, y no otorgan, el máximo de permisos posibles en las cuentas miembro. La facturación consolidada da descuentos por volumen.</td>
+      <td>"Aplicar un límite de seguridad a todas las cuentas de la organización" → <span class="keyword">SCP</span> vía Organizations.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Systems Manager</td>
+      <td>Suite de gestión operacional a escala.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td><strong>Session Manager</strong>: acceso seguro sin SSH ni RDP y sin bastion hosts. <strong>Parameter Store</strong>: config y secretos gratis en su nivel estándar. <strong>Patch Manager</strong>: gestión de parches a escala.</td>
+      <td>"Eliminar la necesidad de bastion hosts" → <span class="keyword">Session Manager</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS CloudFormation</td>
+      <td>Infraestructura como código.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Usa templates JSON o YAML declarativos. Los <strong>Change Sets</strong> permiten previsualizar cambios. Los <strong>StackSets</strong> despliegan en múltiples cuentas y regiones. El <strong>Drift Detection</strong> detecta cambios manuales fuera de la plantilla.</td>
+      <td>"Reproducir infraestructura de forma consistente y automatizada" → <span class="keyword">CloudFormation</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Control Tower</td>
+      <td>Extiende Organizations con un Landing Zone de mejores prácticas.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Ofrece OUs preconfiguradas para Security, Sandbox y Production, junto con guardrails preventivos vía SCP y detectivos vía Config.</td>
+      <td>"Configurar gobernanza multi-cuenta desde cero con mejores prácticas ya definidas" → <span class="keyword">Control Tower</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS License Manager</td>
+      <td>Gestiona licencias de software BYOL.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Aplica reglas de licenciamiento con límites duros o blandos.</td>
+      <td>Se combina típicamente con Dedicated Hosts para licencias por socket o core.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Health Dashboard</td>
+      <td>Eventos de servicio en tiempo real y notificaciones de cuenta.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Se integra con EventBridge para automatizar respuestas a eventos de AWS que afectan tus recursos.</td>
+      <td>"Recibir alertas proactivas sobre incidentes de AWS que afectan mis recursos" → <span class="keyword">AWS Health Dashboard</span>.</td>
+    </tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="analytics" class="part">
+  <div class="part-title">6. Analítica y Big Data</div>
+  <div class="intro">Probabilidad baja o media de examen, pero cuando aparecen suelen ser preguntas de "elige el servicio correcto según el formato o necesidad de los datos".</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">Amazon Athena</td>
+      <td>Consultas SQL interactivas serverless directamente sobre S3.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>El pago es por TB escaneado. Usa formatos columnares como Parquet u ORC para reducir el costo. Se integra con el Glue Data Catalog.</td>
+      <td>"Consultar datos en S3 con SQL sin cargarlos a una base de datos" → <span class="keyword">Athena</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Glue</td>
+      <td>ETL serverless completamente administrado.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>El <strong>Data Catalog</strong> centraliza metadatos, y también lo usan Athena, EMR y Redshift Spectrum. Los <strong>Crawlers</strong> descubren esquemas automáticamente.</td>
+      <td>Es la primera opción para ETL serverless sin gestionar infraestructura.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon EMR</td>
+      <td>Big data administrado, con Hadoop, Spark, Presto o Hive.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Los clusters corren en EC2 y soportan Spot para ahorro. Es mejor que Glue cuando necesitas procesamiento batch masivo y control fino del framework.</td>
+      <td>"Procesamiento masivo con Spark o Hadoop, necesitando control del cluster" → <span class="keyword">EMR</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Lake Formation</td>
+      <td>Construye y asegura data lakes sobre S3.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Ofrece permisos granulares a nivel de columna, y usa el Glue Data Catalog para metadatos.</td>
+      <td>"Gobernanza empresarial de un data lake con seguridad a nivel de columna" → <span class="keyword">Lake Formation</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon OpenSearch Service</td>
+      <td>Búsqueda y análisis de logs, antes conocido como Elasticsearch.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Se integra con Kinesis Firehose y con CloudWatch Logs, e incluye Dashboards para visualización.</td>
+      <td>"Búsqueda de texto completo o SIEM sobre logs" → <span class="keyword">OpenSearch</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon QuickSight</td>
+      <td>Business Intelligence serverless.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Usa el motor SPICE, in-memory, para performance, con pago por usuario o sesión.</td>
+      <td>"Dashboards de BI conectados a múltiples fuentes de datos" → <span class="keyword">QuickSight</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Data Pipeline</td>
+      <td>Orquestación de movimiento y transformación de datos, de tipo legacy.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Considera Glue como alternativa serverless más moderna.</td>
+      <td>Basta con reconocer el nombre; rara vez es la respuesta correcta frente a Glue.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Data Exchange</td>
+      <td>Marketplace para suscribirse a datasets de terceros.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Ofrece actualización automática de datasets externos.</td>
+      <td>"Obtener datos externos, como financieros, de clima o demografía, para enriquecer análisis" → <span class="keyword">Data Exchange</span>.</td>
+    </tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="integracion" class="part">
+  <div class="part-title">7. Integración de Aplicaciones (complementario)</div>
+  <div class="intro">SNS, SQS, EventBridge y Step Functions ya se cubrieron a fondo en el Dominio 2 por su rol en resiliencia. Aquí solo van los servicios de integración que faltan.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">AWS AppSync</td>
+      <td>APIs GraphQL serverless administradas.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Ofrece real-time subscriptions vía WebSocket automático, y soporta sincronización offline para apps móviles.</td>
+      <td>"API GraphQL con sincronización en tiempo real y soporte offline" → <span class="keyword">AppSync</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon AppFlow</td>
+      <td>Integración segura entre aplicaciones SaaS, como Salesforce, SAP o Slack, y AWS.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Permite transferencia bidireccional con transformación y filtrado de datos.</td>
+      <td>"Sincronizar datos de un CRM SaaS hacia S3 o Redshift" → <span class="keyword">AppFlow</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon MQ</td>
+      <td>Message broker administrado, compatible con ActiveMQ y RabbitMQ.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>No es serverless. Sirve solo para migrar apps existentes que ya usan estos protocolos, como JMS, AMQP o MQTT.</td>
+      <td>Para apps nuevas usa SQS o SNS, que son serverless. MQ es solo por compatibilidad con sistemas legados.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon SWF</td>
+      <td>Coordinación de flujos de trabajo complejos y distribuidos, de tipo legacy.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Es el predecesor de Step Functions; en el examen, Step Functions es casi siempre la respuesta preferida hoy en día.</td>
+      <td>Basta con reconocer el nombre; en escenarios nuevos, la respuesta correcta suele ser Step Functions.</td>
+    </tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="migracion" class="part">
+  <div class="part-title">8. Migración y Transferencia</div>
+  <div class="intro">Suele aparecer una o dos preguntas. La clave está en elegir la herramienta según el tipo de dato: servidor completo, base de datos, archivos, o volumen masivo offline.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">AWS Application Migration Service (MGN)</td>
+      <td>Migración lift-and-shift automatizada de servidores.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Ofrece replicación continua con cutover rápido y testing sin impacto en el origen.</td>
+      <td>"Migrar servidores físicos o virtuales completos, tipo rehost" → <span class="keyword">MGN</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Database Migration Service (DMS)</td>
+      <td>Migra bases de datos con downtime mínimo.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td>Soporta migraciones homogéneas y heterogéneas, con el Schema Conversion Tool. La replicación continua (CDC) permite que el origen siga activo durante la migración.</td>
+      <td>Cualquier pregunta sobre migrar una base de datos con mínimo downtime → <span class="keyword">DMS</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS DataSync</td>
+      <td>Transferencia automatizada de archivos entre on-premises y AWS.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>Es hasta 10 veces más rápido que herramientas tradicionales, preserva permisos y verifica integridad. No necesita agente para transferencias AWS a AWS.</td>
+      <td>"Movimiento recurrente y automatizado de grandes volúmenes de archivos" → <span class="keyword">DataSync</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Application Discovery Service</td>
+      <td>Identifica servidores, VMs y dependencias en datacenters on-premises.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Puede ser agentless (básico) o agent-based (detallado), y alimenta a AWS Migration Hub.</td>
+      <td>Es el paso previo a una migración, para planificarla.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Migration Hub</td>
+      <td>Plataforma centralizada para descubrir, planificar y rastrear migraciones.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Es gratis para descubrimiento, planificación y rastreo; se pagan solo las herramientas de migración usadas.</td>
+      <td>"Visibilidad centralizada del progreso de migración de múltiples apps" → <span class="keyword">Migration Hub</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Snow Family</td>
+      <td>Dispositivos físicos para transferir datos masivos offline.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+      <td><strong>Snowcone</strong>: de 8 a 14 TB, portable. <strong>Snowball Edge</strong>: de 42 a 80 TB, en versiones Storage o Compute Optimized. <strong>Snowmobile</strong>: 100 PB, en un contenedor de camión.</td>
+      <td>Regla rápida: más de 10 TB conviene usar Snow Family en vez de la red; más de 10 PB conviene Snowmobile.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Transfer Family</td>
+      <td>Transferencia de archivos con protocolos estándar: SFTP, FTPS, FTP y AS2.</td>
+      <td><span class="prio prio-media">Media</span></td>
+      <td>El backend puede estar en S3 o en EFS. Es útil cuando partners o clientes ya usan FTP tradicional y no puedes cambiar su forma de trabajar.</td>
+      <td>"Mis clientes usan SFTP y no puedo cambiar su tooling" → <span class="keyword">Transfer Family</span>.</td>
+    </tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="frontend" class="part">
+  <div class="part-title">9. Frontend Web y Móvil</div>
+  <div class="intro">Baja probabilidad de examen, pero fácil de responder si reconoces el nombre y su propósito principal.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Debes memorizar</th><th>Tip / Comparación clave</th></tr>
+    <tr>
+      <td class="servicio">AWS Amplify</td>
+      <td>Framework full-stack para apps web y móviles.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Ofrece hosting con CI/CD y backend serverless automático, incluyendo auth, storage y APIs.</td>
+      <td>"Desarrollo rápido de una app moderna serverless de punta a punta" → <span class="keyword">Amplify</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS Device Farm</td>
+      <td>Testing de apps en dispositivos móviles y navegadores reales.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Ofrece testing automatizado en paralelo, con logs y videos de las pruebas.</td>
+      <td>"Probar mi app en dispositivos reales sin comprarlos" → <span class="keyword">Device Farm</span>.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Amazon Pinpoint</td>
+      <td>Motor de engagement y campañas multicanal.</td>
+      <td><span class="prio prio-baja">Baja</span></td>
+      <td>Cubre email, SMS, push y voz, con segmentación de usuarios y A/B testing de campañas.</td>
+      <td>"Campañas de marketing multicanal segmentadas" → <span class="keyword">Pinpoint</span>.</td>
+    </tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="ml" class="part">
+  <div class="part-title">10. Machine Learning</div>
+  <div class="intro">El examen SAA-C03 no profundiza en ML, ya que eso corresponde al examen de ML Specialty, pero sí espera que reconozcas qué servicio usar según el tipo de dato: imagen, texto, voz o series de tiempo. Memoriza la tabla completa, son preguntas de identificación directa.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Función</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Amazon Rekognition</td><td>Análisis de imágenes y video: rostros, objetos, texto, contenido inapropiado.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Amazon Comprehend</td><td>NLP: sentimiento, entidades, idioma, tópicos, detección de PII en texto.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Amazon Translate</td><td>Traducción automática entre idiomas en tiempo real.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Amazon Lex</td><td>Chatbots conversacionales, con la misma tecnología que Alexa.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Amazon Polly</td><td>Texto a voz (text-to-speech), con voces neurales.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Amazon Transcribe</td><td>Voz a texto (speech-to-text), en batch o en tiempo real.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Amazon Textract</td><td>OCR: extrae texto, tablas y formularios de documentos escaneados.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Amazon Personalize</td><td>Motor de recomendaciones personalizadas.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Amazon Forecast</td><td>Predicción de series de tiempo con ML.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Amazon Kendra</td><td>Búsqueda empresarial inteligente y semántica.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Amazon Fraud Detector</td><td>Detección de fraude en pagos y cuentas.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Amazon SageMaker</td><td>Plataforma completa para construir, entrenar y desplegar modelos ML custom.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Amazon Bedrock y SageMaker JumpStart</td><td>Acceso a modelos fundacionales pre-entrenados para IA generativa.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+  </table>
+  </div>
+
+  <div class="callout">
+    <strong>Regla mnemotécnica:</strong> si el enunciado menciona el tipo de dato de entrada, el servicio suele saltar a la vista. Imagen o video apunta a Rekognition; texto apunta a Comprehend; documentos escaneados o formularios apuntan a Textract; voz apunta a Transcribe o Polly; series de tiempo apuntan a Forecast; recomendaciones apuntan a Personalize.
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="devtools" class="part">
+  <div class="part-title">11. Dev Tools y Multimedia</div>
+  <div class="intro">Probabilidad baja de examen. Basta con reconocer el propósito de cada uno.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Qué es</th><th>Prioridad</th><th>Tip clave</th></tr>
+    <tr><td class="servicio">AWS CodeBuild</td><td>Servicio CI gestionado para compilar y probar código.</td><td><span class="prio prio-baja">Baja</span></td><td>Se auto-escala, sin gestionar servidores de build.</td></tr>
+    <tr><td class="servicio">AWS CodeDeploy</td><td>Automatiza despliegues a EC2, Lambda, ECS y on-premises.</td><td><span class="prio prio-baja">Baja</span></td><td>Soporta despliegues sin downtime, como blue/green.</td></tr>
+    <tr><td class="servicio">AWS X-Ray</td><td>Tracing distribuido para depurar arquitecturas de microservicios.</td><td><span class="prio prio-media">Media</span></td><td>"Identificar cuellos de botella en una arquitectura de microservicios" → <span class="keyword">X-Ray</span>.</td></tr>
+    <tr><td class="servicio">Amazon Elastic Transcoder</td><td>Transcodificación de archivos de video y audio entre formatos.</td><td><span class="prio prio-baja">Baja</span></td><td>Convierte formatos y genera thumbnails.</td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="comparaciones" class="part">
+  <div class="part-title">12. Comparaciones críticas (memorizar sí o sí)</div>
+  <div class="intro">Estas son las comparaciones que más se repiten en preguntas del examen real, según los patrones de tus guías. Si te sabes esta sección de memoria, resuelves gran parte de las preguntas "trampa".</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Comparación</th><th>Diferencia clave</th></tr>
+    <tr><td class="servicio">RDS Multi-AZ contra Read Replicas</td><td>Multi-AZ es alta disponibilidad: síncrono, failover automático, mismo endpoint. Read Replicas es performance de lectura: asíncrono, promoción manual, endpoint distinto.</td></tr>
+    <tr><td class="servicio">RDS, DynamoDB, Redshift y Aurora</td><td>RDS y Aurora son OLTP relacional. DynamoDB es NoSQL key-value serverless. Redshift es OLAP, un data warehouse a escala de petabytes.</td></tr>
+    <tr><td class="servicio">S3, EBS, EFS y FSx</td><td>S3 es almacenamiento de objetos, ilimitado y global. EBS es de bloques, en una sola AZ, atado a una instancia. EFS es de archivos NFS compartidos multi-AZ, solo Linux. FSx son sistemas de archivos gestionados especializados, como Windows o Lustre.</td></tr>
+    <tr><td class="servicio">ALB, NLB y GWLB</td><td>ALB es Capa 7, HTTP/HTTPS, con routing avanzado. NLB es Capa 4, TCP/UDP, con IP estática y máximo throughput. GWLB es Capa 3, para appliances de terceros.</td></tr>
+    <tr><td class="servicio">CloudFront contra Global Accelerator</td><td>CloudFront cachea contenido, funcionando como CDN. Global Accelerator no cachea: es un proxy de red que mejora el enrutamiento y da IPs estáticas, útil para tráfico no HTTP.</td></tr>
+    <tr><td class="servicio">Direct Connect contra Site-to-Site VPN</td><td>Direct Connect es una conexión dedicada, con mayor ancho de banda, sin cifrado nativo y semanas de setup. VPN va sobre internet público, con cifrado IPsec automático y minutos de setup.</td></tr>
+    <tr><td class="servicio">Security Groups contra NACLs</td><td>SG es stateful, a nivel de instancia, solo con reglas allow. NACL es stateless, a nivel de subred, con reglas allow y deny.</td></tr>
+    <tr><td class="servicio">KMS, CloudHSM y Secrets Manager</td><td>KMS es cifrado gestionado multi-tenant para uso general. CloudHSM es hardware dedicado, FIPS 140-2 nivel 3. Secrets Manager gestiona credenciales con rotación automática.</td></tr>
+    <tr><td class="servicio">Cognito User Pools contra Identity Pools</td><td>User Pools es autenticación, un directorio de usuarios. Identity Pools es autorización, con credenciales temporales de AWS.</td></tr>
+    <tr><td class="servicio">SNS, SQS y EventBridge</td><td>SNS es pub/sub con fan-out inmediato. SQS es una cola de mensajes para desacoplamiento y buffer. EventBridge es enrutamiento de eventos complejo con múltiples reglas y orígenes.</td></tr>
+    <tr><td class="servicio">Kinesis Data Streams contra Firehose</td><td>Data Streams da control total, con shards manuales y reproceso de eventos. Firehose entrega de forma automática y simple a un destino, sin gestión de shards.</td></tr>
+    <tr><td class="servicio">EC2, Lambda y Fargate</td><td>EC2 da control total, para cargas de larga duración. Lambda es serverless, event-driven, con un máximo de 15 minutos. Fargate son contenedores serverless, sin gestionar EC2.</td></tr>
+    <tr><td class="servicio">On-Demand, Reserved, Spot y Savings Plans</td><td>On-Demand es flexible pero caro. RI y Savings Plans convienen para cargas predecibles. Spot es interrumpible y da el máximo ahorro para cargas fault-tolerant.</td></tr>
+    <tr><td class="servicio">Route 53: Failover, Weighted, Latency y Geolocation</td><td>Failover es activo-pasivo con health check. Weighted distribuye por porcentaje, ideal para blue/green. Latency busca la menor latencia posible. Geolocation enruta según la ubicación del usuario, por cumplimiento normativo.</td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="senales" class="part">
+  <div class="part-title">13. Palabras gatillo: qué buscar en el enunciado</div>
+  <div class="intro">Esta tabla, expandida de tu Guía Completa, es tu traductor rápido: lee la palabra clave del enunciado y salta directo al servicio correcto. Úsala en el simulacro final para practicar velocidad de reconocimiento.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Si el enunciado dice...</th><th>Piensa primero en...</th></tr>
+    <tr><td class="servicio">"Menor costo posible"</td><td>Lambda, Spot Instances, Savings Plans, S3 IA o Glacier, Aurora Serverless, DynamoDB On-Demand, VPC Endpoints para evitar NAT</td></tr>
+    <tr><td class="servicio">"Alta disponibilidad"</td><td>Multi-AZ en RDS/EFS/ELB, Auto Scaling multi-AZ, Aurora con 6 copias en 3 AZ, Route 53 failover</td></tr>
+    <tr><td class="servicio">"Mínima latencia"</td><td>CloudFront, ElastiCache, DAX, Aurora Read Replicas, Global Accelerator, Direct Connect, Placement Groups</td></tr>
+    <tr><td class="servicio">"Desacoplamiento" o "asíncrono"</td><td>SQS, SNS, EventBridge, Step Functions, Kinesis</td></tr>
+    <tr><td class="servicio">"Serverless"</td><td>Lambda, Fargate, S3, DynamoDB, Aurora Serverless, API Gateway, Athena, Glue</td></tr>
+    <tr><td class="servicio">"Migración rápida"</td><td>Servidores completos usan MGN. Bases de datos usan DMS. Archivos usan DataSync. Datos masivos offline usan Snow Family</td></tr>
+    <tr><td class="servicio">"Integración on-premises"</td><td>Direct Connect, Site-to-Site VPN, Storage Gateway, DataSync, Outposts</td></tr>
+    <tr><td class="servicio">"Compliance o auditoría"</td><td>CloudTrail para quién hizo qué, Config para configuración, GuardDuty para amenazas, Macie para PII, Inspector para vulnerabilidades, Security Hub como panel centralizado</td></tr>
+    <tr><td class="servicio">"Tiempo real"</td><td>Kinesis Data Streams, DynamoDB Streams, SNS, API Gateway WebSocket, AppSync</td></tr>
+    <tr><td class="servicio">"Big data o analítica"</td><td>EMR para procesamiento, Glue para ETL, Athena para consulta SQL sobre S3, Redshift como warehouse, Kinesis o MSK para streaming, QuickSight para visualización</td></tr>
+    <tr><td class="servicio">"Sin gestionar servidores" o "managed"</td><td>AWS siempre prefiere el servicio managed sobre el self-managed cuando ambos aplican</td></tr>
+    <tr><td class="servicio">"Tolerante a fallos o a interrupciones"</td><td>Spot Instances</td></tr>
+    <tr><td class="servicio">"Carga de trabajo predecible y estable"</td><td>Reserved Instances o Savings Plans</td></tr>
+    <tr><td class="servicio">"No sé el patrón de tráfico o de acceso futuro"</td><td>S3 Intelligent-Tiering, DynamoDB On-Demand, Aurora Serverless</td></tr>
+    <tr><td class="servicio">"Licencias existentes (BYOL)"</td><td>Dedicated Hosts junto con License Manager</td></tr>
+    <tr><td class="servicio">"Multi-región activo-activo"</td><td>DynamoDB Global Tables, Aurora Global Database, Route 53 con routing por latencia o weighted</td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="checklist" class="part">
+  <div class="part-title">14. Checklist final de repaso</div>
+  <div class="intro">Marca mentalmente, o imprimiendo esta página, lo que ya domines. Lo que quede sin marcar es tu lista de repaso prioritaria antes del examen.</div>
+
+  <h3 class="sub">Conceptos fundamentales</h3>
+  <ul class="checklist">
+    <li>Los 6 pilares del Well-Architected Framework, de memoria</li>
+    <li>Diferencia entre Region, AZ y Edge Location</li>
+    <li>Modelo de responsabilidad compartida: qué es de AWS y qué es tuyo</li>
+    <li>Cuándo usar cada servicio de cómputo: EC2, Lambda, Fargate, ECS o EKS</li>
+    <li>VPC completo: subnets, route tables, NAT, IGW, endpoints</li>
+    <li>IAM: roles, policies, y la evaluación de permisos donde el deny explícito siempre gana</li>
+  </ul>
+
+  <h3 class="sub">Servicios clave que debes saber sin dudar</h3>
+  <ul class="checklist">
+    <li>EC2: modelos de compra, familias, placement groups</li>
+    <li>S3: clases de almacenamiento, lifecycle, versionado, replicación</li>
+    <li>RDS y Aurora: Multi-AZ contra Read Replica, backups, cifrado</li>
+    <li>DynamoDB: keys, índices GSI y LSI, streams, capacidad</li>
+    <li>Lambda: límites, triggers, cold starts</li>
+    <li>Route 53: las 7 políticas de routing y cuándo usar cada una</li>
+    <li>CloudWatch para monitoreo contra CloudTrail para auditoría, sin confundirlos</li>
+    <li>KMS: cifrado en reposo y en tránsito, envelope encryption</li>
+  </ul>
+
+  <h3 class="sub">Comparaciones críticas ya dominadas</h3>
+  <ul class="checklist">
+    <li>RDS, DynamoDB, Redshift y Aurora</li>
+    <li>S3, EBS, EFS y FSx</li>
+    <li>ALB, NLB y GWLB</li>
+    <li>Direct Connect, VPN y PrivateLink</li>
+    <li>CloudFront contra Global Accelerator</li>
+    <li>SNS, SQS y EventBridge</li>
+    <li>Multi-AZ contra Read Replicas</li>
+  </ul>
+
+  <h3 class="sub">Estrategia el día del examen</h3>
+  <ul class="checklist">
+    <li>65 preguntas en 130 minutos, aproximadamente 2 minutos por pregunta, y 720 de 1000 puntos para aprobar</li>
+    <li>Identificar la palabra clave del enunciado: menor costo, alta disponibilidad, mínima latencia</li>
+    <li>Eliminar primero las opciones obviamente incorrectas</li>
+    <li>Marcar y continuar en preguntas difíciles, revisando al final</li>
+    <li>Responder todas las preguntas, ya que no hay penalización por respuesta incorrecta</li>
+    <li>Cuidado con preguntas que piden la opción "incorrecta" o "no adecuada"; conviene leerlas dos veces</li>
+  </ul>
+
+  <div class="callout warn">
+    <strong>Siguiente paso sugerido:</strong> usa el simulador interactivo <code>simulador-aws-saa-c03.html</code> para practicar con preguntas de estas mismas áreas y detectar en qué dominio necesitas reforzar más, según tu propio desempeño.
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+</main>
+</div>
+<script>
+  (function(){
+    var toggle = document.getElementById('tocToggle');
+    var toc = document.getElementById('toc');
+    if(!toggle || !toc) return;
+    toggle.addEventListener('click', function(){
+      var isOpen = toc.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    var links = toc.querySelectorAll('a');
+    for(var i=0;i<links.length;i++){
+      links[i].addEventListener('click', function(){
+        toc.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    }
+  })();
+</script>
+</body>
+</html>

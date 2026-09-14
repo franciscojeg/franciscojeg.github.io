@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan Estudio AIP-C01 GenAI — Francisco Escobar</title>
+<style>
+  :root {
+    --purple:#534AB7;--purple-d:#3C3489;--purple-l:rgba(83,74,183,.12);
+    --teal:#0F6E56;--teal-l:rgba(15,110,86,.12);
+    --blue:#185FA5;--blue-l:rgba(24,95,165,.12);
+    --amber:#BA7517;--amber-l:rgba(186,117,23,.12);
+    --coral:#993C1D;--coral-l:rgba(153,60,29,.12);
+    --green:#3B6D11;--green-l:rgba(59,109,17,.12);
+    --red:#A32D2D;--red-l:rgba(162,45,45,.1);
+    --text:#1a1a18;--text2:#5f5e5a;--text3:#9c9a92;
+    --bg:#fff;--bg2:#f7f6f2;--bg3:#f1efe8;
+    --border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);
+    --r:8px;--rl:12px;
+    --geo-purple:#7B5EA7;
+  }
+  @media(prefers-color-scheme:dark){
+    :root{
+      --text:#e8e6de;--text2:#b4b2a9;--text3:#73726c;
+      --bg:#1c1c1a;--bg2:#242420;--bg3:#2c2c28;
+      --border:rgba(255,255,255,.1);--border2:rgba(255,255,255,.18);
+      --purple-l:rgba(83,74,183,.2);--teal-l:rgba(15,110,86,.2);
+      --blue-l:rgba(24,95,165,.2);--amber-l:rgba(186,117,23,.2);
+      --coral-l:rgba(153,60,29,.2);--green-l:rgba(59,109,17,.2);--red-l:rgba(162,45,45,.2);
+    }
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6;}
+  .header{background:linear-gradient(135deg,#3C3489 0%,#534AB7 100%);padding:28px 32px 24px;}
+  @media(prefers-color-scheme:dark){.header{background:linear-gradient(135deg,#26215C 0%,#3C3489 100%);}}
+  .header h1{font-size:22px;font-weight:600;color:#fff;margin-bottom:4px;}
+  .header p{font-size:14px;color:rgba(255,255,255,.8);}
+  .badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:12px;color:#fff;margin:6px 4px 0 0;}
+  .dual-notice{background:rgba(83,74,183,.1);border:1px solid rgba(83,74,183,.25);border-radius:var(--rl);padding:12px 16px;font-size:13px;margin:20px 0 16px;color:var(--text);}
+  .dual-notice strong{color:var(--purple-d);}
+  .container{max-width:900px;margin:0 auto;padding:28px 24px 60px;}
+  .section-title{font-size:18px;font-weight:600;margin:32px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+  .metric{background:var(--bg2);border-radius:var(--r);padding:12px;text-align:center;}
+  .metric-num{font-size:22px;font-weight:600;}
+  .metric-lbl{font-size:11px;color:var(--text3);margin-top:2px;}
+  .dom-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+  .dom-name{font-size:12px;width:230px;color:var(--text2);flex-shrink:0;}
+  .dom-track{flex:1;height:7px;border-radius:4px;background:var(--bg3);overflow:hidden;}
+  .dom-fill{height:7px;border-radius:4px;}
+  .dom-pct{font-size:12px;width:32px;text-align:right;font-weight:600;}
+  .tab-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+  .tab-btn{background:none;border:1px solid var(--border2);border-radius:var(--r);padding:8px 14px;font-size:12px;cursor:pointer;color:var(--text2);transition:all .15s;line-height:1.3;text-align:center;}
+  .tab-btn.active{background:var(--purple);border-color:var(--purple);color:#fff;font-weight:500;}
+  .tab-btn:hover:not(.active){background:var(--bg2);}
+  .tab-btn .wnum{display:block;font-weight:500;font-size:13px;}
+  .tab-btn .wdate{display:block;font-size:10px;opacity:.7;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .card{border:1px solid var(--border);border-radius:var(--rl);padding:14px 16px;margin-bottom:12px;background:var(--bg);}
+  .card-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+  .topic-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;}
+  .topic-row:last-child{border-bottom:none;}
+  .pill{display:inline-block;font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:1px;}
+  .d1{background:var(--blue-l);color:var(--blue);}
+  .d2{background:var(--teal-l);color:var(--teal);}
+  .d3{background:var(--purple-l);color:var(--purple-d);}
+  .d4{background:var(--amber-l);color:var(--amber);}
+  .d5{background:var(--coral-l);color:var(--coral);}
+  .td{color:var(--text2);font-size:12px;margin-top:3px;}
+  .day-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+  .day-card{background:var(--bg2);border-radius:var(--r);padding:10px 12px;font-size:13px;}
+  .day-label{font-weight:600;font-size:11px;color:var(--text3);margin-bottom:4px;text-transform:uppercase;}
+  .day-sub{font-size:11px;color:var(--text3);margin-top:3px;}
+  .tip-box{border-left:3px solid var(--purple);background:var(--purple-l);border-radius:0 var(--r) var(--r) 0;padding:10px 14px;font-size:13px;margin:12px 0;}
+  .warn-box{border-left:3px solid var(--amber);background:var(--amber-l);border-radius:0 var(--r) var(--r) 0;padding:10px 14px;font-size:13px;margin:12px 0;}
+  .trap-box{border-left:3px solid #E24B4A;background:var(--red-l);border-radius:0 var(--r) var(--r) 0;padding:10px 14px;font-size:13px;margin:10px 0;}
+  .trap-box strong{color:var(--red);}
+  .alert-box{border-left:3px solid #E24B4A;background:var(--red-l);border-radius:0 var(--r) var(--r) 0;padding:10px 14px;font-size:13px;margin:12px 0;}
+  .mock-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .mock-label{font-size:12px;width:100px;color:var(--text2);}
+  .mock-track{flex:1;height:8px;border-radius:4px;background:var(--bg3);overflow:hidden;}
+  .mock-fill{height:8px;border-radius:4px;}
+  .mock-pct{font-size:12px;width:50px;text-align:right;}
+  .p-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .p-card{border:1px solid var(--border);border-radius:var(--rl);padding:14px 16px;cursor:pointer;background:var(--bg);transition:border-color .15s;}
+  .p-card:hover{border-color:var(--border2);background:var(--bg2);}
+  .p-card.open{border-color:var(--purple);}
+  .p-num{font-size:11px;font-weight:600;color:var(--text3);margin-bottom:3px;}
+  .p-name{font-size:14px;font-weight:600;margin-bottom:5px;}
+  .p-kw{font-size:11px;color:var(--text3);line-height:1.5;}
+  .detail-panel{display:none;grid-column:1/-1;border:1px solid var(--border2);border-radius:var(--rl);padding:18px 20px;background:var(--bg);margin-top:-2px;}
+  .detail-panel.open{display:block;}
+  .dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .dh span{font-size:15px;font-weight:600;}
+  .close-btn{background:none;border:1px solid var(--border);border-radius:6px;cursor:pointer;color:var(--text2);padding:3px 8px;font-size:12px;}
+  .close-btn:hover{background:var(--bg2);}
+  .sec-lbl{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin:12px 0 6px;}
+  .svc-pill{display:inline-block;font-size:11px;padding:3px 8px;border-radius:20px;background:var(--purple-l);color:var(--purple-d);margin:2px 3px 2px 0;font-weight:500;}
+  .kw-pill{display:inline-block;font-size:11px;padding:3px 8px;border-radius:20px;background:var(--teal-l);color:var(--teal);margin:2px 3px 2px 0;}
+  .arch-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0;}
+  .arch-box{font-size:11px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:4px 8px;white-space:nowrap;}
+  .arch-arr{color:var(--text3);font-size:13px;}
+  .res-card{border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+  .res-name{font-weight:600;font-size:14px;margin-bottom:2px;}
+  .res-desc{font-size:12px;color:var(--text2);}
+  .res-tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:20px;background:var(--purple-l);color:var(--purple-d);font-weight:500;white-space:nowrap;}
+  .overlap-tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:20px;background:var(--teal-l);color:var(--teal);font-weight:500;white-space:nowrap;margin-left:4px;}
+  .final-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;}
+  .final-row:last-child{border-bottom:none;}
+  .final-date{font-size:12px;width:68px;flex-shrink:0;color:var(--text3);font-weight:600;}
+  footer{text-align:center;font-size:12px;color:var(--text3);padding:20px;border-top:1px solid var(--border);margin-top:40px;}
+  @media(max-width:600px){.metrics{grid-template-columns:repeat(2,1fr);}.day-grid{grid-template-columns:1fr;}.p-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div style="background:#14141f;padding:9px 20px;text-align:center;"><a href="../index.html" style="color:#fff;font-size:12.5px;text-decoration:none;font-weight:600;letter-spacing:.02em;">&larr; Volver al inicio &middot; franciscojeg.github.io</a></div>
+
+
+<div class="header">
+  <h1>Plan Estudio AIP-C01 — AWS Certified Generative AI Developer</h1>
+  <p>Francisco Escobar — Examen: 29 de mayo de 2026</p>
+  <span class="badge">AWS Community Builder · Networking &amp; Content Delivery</span>
+  <span class="badge">SAA-C03: 30 mayo (dia siguiente)</span>
+</div>
+
+<div class="container">
+
+<div class="dual-notice">
+  <strong>Examen doble en dias consecutivos:</strong> AIP-C01 el 29 mayo (205 min) y SAA-C03 el 30 mayo (130 min). Lambda, Step Functions, API Gateway, IAM y CloudWatch aparecen en AMBOS — estudiarlos una sola vez en semana 3. La semana final dosifica carga entre los dos examenes.
+</div>
+
+<div class="metrics">
+  <div class="metric"><div class="metric-num" style="color:var(--purple)">38</div><div class="metric-lbl">dias al examen</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--teal)">750</div><div class="metric-lbl">score minimo /1000</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--amber)">205</div><div class="metric-lbl">minutos examen</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--coral)">75</div><div class="metric-lbl">preguntas (65+10)</div></div>
+</div>
+
+<div style="margin-bottom:24px;">
+  <div class="dom-row"><span class="dom-name">D1 Foundation Model + Data (31%)</span><div class="dom-track"><div class="dom-fill" style="width:31%;background:#185FA5;"></div></div><span class="dom-pct" style="color:#185FA5;">31%</span></div>
+  <div class="dom-row"><span class="dom-name">D2 Implementation + Integration (26%)</span><div class="dom-track"><div class="dom-fill" style="width:26%;background:#0F6E56;"></div></div><span class="dom-pct" style="color:#0F6E56;">26%</span></div>
+  <div class="dom-row"><span class="dom-name">D3 AI Safety, Security, Governance (20%)</span><div class="dom-track"><div class="dom-fill" style="width:20%;background:#534AB7;"></div></div><span class="dom-pct" style="color:#534AB7;">20%</span></div>
+  <div class="dom-row"><span class="dom-name">D4 Eficiencia y optimizacion (12%)</span><div class="dom-track"><div class="dom-fill" style="width:12%;background:#BA7517;"></div></div><span class="dom-pct" style="color:#BA7517;">12%</span></div>
+  <div class="dom-row"><span class="dom-name">D5 Testing y validacion (11%)</span><div class="dom-track"><div class="dom-fill" style="width:11%;background:#993C1D;"></div></div><span class="dom-pct" style="color:#993C1D;">11%</span></div>
+</div>
+
+<!-- PLAN SEMANAL -->
+<div class="section-title">Plan semana a semana</div>
+<div class="tab-row">
+  <button class="tab-btn active" onclick="showW(0,this)"><span class="wnum">Semana 1</span><span class="wdate">21–27 abr</span></button>
+  <button class="tab-btn" onclick="showW(1,this)"><span class="wnum">Semana 2</span><span class="wdate">28 abr–4 may</span></button>
+  <button class="tab-btn" onclick="showW(2,this)"><span class="wnum">Semana 3</span><span class="wdate">5–11 may</span></button>
+  <button class="tab-btn" onclick="showW(3,this)"><span class="wnum">Semana 4</span><span class="wdate">12–18 may</span></button>
+  <button class="tab-btn" onclick="showW(4,this)"><span class="wnum">Semana 5</span><span class="wdate">19–25 may</span></button>
+  <button class="tab-btn" onclick="showW(5,this)"><span class="wnum">Final dual</span><span class="wdate">26–30 may</span></button>
+</div>
+
+<!-- S1 -->
+<div id="w0" class="panel active">
+  <div class="card"><div class="card-label">Semana 1 — Foundation Models + Amazon Bedrock core</div>
+    <div class="topic-row"><span class="pill d1">D1 · 31%</span><div><strong>Foundation Models: conceptos clave</strong><div class="td">Tipos de FM (LLM, multimodal, embedding). Context window, tokenizacion, temperatura, top-p, top-k. Capacidades vs limitaciones. Cuando FM vs ML clasico.</div></div></div>
+    <div class="topic-row"><span class="pill d1">D1 · 31%</span><div><strong>Amazon Bedrock core</strong><div class="td">Catalogo de modelos (Claude, Titan, Llama, Mistral). InvokeModel API. On-demand vs Provisioned Throughput vs Batch Inference. Bedrock Prompt Management.</div></div></div>
+    <div class="topic-row"><span class="pill d1">D1 · 31%</span><div><strong>Seleccion y configuracion de FMs</strong><div class="td">Elegir modelo segun benchmarks, capacidades y costo. Dynamic model selection con Lambda + AppConfig. Cross-Region Inference para disponibilidad. Graceful degradation strategies.</div></div></div>
+    <div class="topic-row"><span class="pill d1">D1 · 31%</span><div><strong>Prompt engineering basico y avanzado</strong><div class="td">Zero-shot, few-shot, chain-of-thought. System prompts, role definitions. Bedrock Prompt Flows para chaining. Structured outputs con JSON Schema. Feedback loops para mejora iterativa.</div></div></div>
+    <div class="topic-row"><span class="pill d1">D1 · 31%</span><div><strong>Data pipelines para FMs</strong><div class="td">Validacion: AWS Glue Data Quality, SageMaker Data Wrangler. Procesamiento multimodal: Transcribe (audio), Bedrock multimodal. Formateo JSON para Bedrock API. Amazon Comprehend para extraccion de entidades.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Lun–Mar</div>FM concepts + Bedrock core API<div class="day-sub">3h — base de todo lo demas</div></div>
+    <div class="day-card"><div class="day-label">Mie–Jue</div>Prompt engineering + Bedrock Prompt Management<div class="day-sub">3h — el area con mas preguntas de D1</div></div>
+    <div class="day-card"><div class="day-label">Vie</div>Seleccion de modelos + repaso D1<div class="day-sub">1.5h — "when to use which model"</div></div>
+    <div class="day-card"><div class="day-label">Sab–Dom</div>Data pipelines + mini quiz + AWS Skill Builder labs<div class="day-sub">6h — activa Exam Prep Plan oficial</div></div>
+  </div>
+  <div class="tip-box">Activa el <strong>Exam Prep Plan oficial en AWS Skill Builder</strong> ahora — tienes acceso gratuito como Community Builder. Tiene el curso estructurado por dominio, labs practicos y practice questions oficiales de AWS.</div>
+</div>
+
+<!-- S2 -->
+<div id="w1" class="panel">
+  <div class="card"><div class="card-label">Semana 2 — RAG + Vector Stores + Embeddings + Knowledge Bases</div>
+    <div class="topic-row"><span class="pill d1">D1 · 31%</span><div><strong>Arquitectura RAG completa</strong><div class="td">Flujo: ingestion → chunking → embedding → vector store → retrieval → augmentation → generation. Cuando RAG vs fine-tuning vs prompt-only. Amazon Bedrock Knowledge Bases como RAG gestionado.</div></div></div>
+    <div class="topic-row"><span class="pill d1">D1 · 31%</span><div><strong>Embeddings y vector stores</strong><div class="td">Amazon Titan Embeddings (dimensionalidad, casos). Vector databases: OpenSearch Service (Neural plugin), Aurora pgvector, DynamoDB + vector. Similarity: cosine, dot product, euclidean.</div></div></div>
+    <div class="topic-row"><span class="pill d1">D1 · 31%</span><div><strong>Estrategias de chunking</strong><div class="td">Fixed-size, hierarchical, semantic chunking. Overlap entre chunks. Como el tamano del chunk afecta calidad de retrieval. Bedrock chunking capabilities nativas.</div></div></div>
+    <div class="topic-row"><span class="pill d1">D1 · 31%</span><div><strong>Busqueda avanzada y reranking</strong><div class="td">Hybrid search (keywords + vectores) supera a solo-vector. Amazon Bedrock reranker models. Query expansion y decomposition con Lambda. Metadata filtering para precisar resultados.</div></div></div>
+    <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>Mantenimiento del vector store</strong><div class="td">Incremental updates, real-time change detection, refresh pipelines. Monitoring con CloudWatch. Index optimization en OpenSearch. Sharding strategies para escala.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Lun–Mar</div>RAG end-to-end + Bedrock Knowledge Bases<div class="day-sub">3h — dibuja el flujo completo en papel</div></div>
+    <div class="day-card"><div class="day-label">Mie–Jue</div>Embeddings + vector stores + busqueda<div class="day-sub">3h — diferencias OpenSearch vs Aurora vs DynamoDB</div></div>
+    <div class="day-card"><div class="day-label">Vie</div>Chunking + hybrid search + repaso<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Sab–Dom</div>Lab RAG con Bedrock KB + quiz 30 preguntas D1<div class="day-sub">6h — lab practico AWS Skill Builder</div></div>
+  </div>
+  <div class="warn-box"><strong>Diferencia critica RAG vs fine-tuning:</strong> RAG = datos que cambian frecuentemente o acceso a fuentes externas (knowledge base, documentos). Fine-tuning = cambiar el comportamiento/estilo del modelo, no el conocimiento. El examen pregunta esto directamente.</div>
+</div>
+
+<!-- S3 -->
+<div id="w2" class="panel">
+  <div class="card"><div class="card-label">Semana 3 — Agentic AI + Implementacion + Integracion (overlap SAA-C03)</div>
+    <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>Bedrock Agents</strong><div class="td">Action groups, knowledge bases, lambda tools. ReAct pattern (Reasoning + Acting). Strands Agents y AWS Agent Squad para multi-agent. Stopping conditions, timeout mechanisms. Human-in-the-loop con approval workflows.</div></div></div>
+    <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>MCP (Model Context Protocol)</strong><div class="td">MCP servers estateless en Lambda, complejos en ECS. MCP client libraries para acceso estandarizado. Funcion: dar a FMs acceso estandar a herramientas externas.</div></div></div>
+    <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>Step Functions + Lambda para GenAI</strong><div class="td">Circuit breaker patterns. Prompt chaining. ReAct implementation. Manejo de errores y retries. — Estos servicios tambien aparecen en SAA-C03, estudiarlos una sola vez.</div></div></div>
+    <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>FM API integrations: streaming</strong><div class="td">Bedrock Streaming APIs para real-time. WebSockets vs Server-Sent Events (SSE). API Gateway para chunked transfer encoding. Exponential backoff con AWS SDK. X-Ray para tracing.</div></div></div>
+    <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>Model deployment y fine-tuning</strong><div class="td">On-demand vs Provisioned Throughput vs SageMaker. Fine-tuning en Bedrock: cuando usarlo. LoRA/adapters (parameter-efficient). SageMaker Model Registry. CI/CD para modelos con CodePipeline.</div></div></div>
+    <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>Amazon Q Developer + Q Business</strong><div class="td">Q Developer: asistente de codigo, generacion, refactor. Q Business: chatbot empresarial con fuentes internas. Bedrock Data Automation para workflows. Enterprise integration con EventBridge.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Lun–Mar</div>Bedrock Agents + MCP + multi-agent<div class="day-sub">3h — patron mas frecuente de D2</div></div>
+    <div class="day-card"><div class="day-label">Mie</div>Step Functions + Lambda (overlap SAA-C03)<div class="day-sub">1.5h — util para ambos examenes</div></div>
+    <div class="day-card"><div class="day-label">Jue</div>Streaming + API integrations + deployment<div class="day-sub">1.5h — sync vs async vs streaming</div></div>
+    <div class="day-card"><div class="day-label">Sab–Dom</div>Q Developer + fine-tuning + quiz D1+D2 (40 preguntas)<div class="day-sub">6h — primer quiz multidomain</div></div>
+  </div>
+  <div class="tip-box">Step Functions, Lambda, API Gateway, IAM y CloudWatch aparecen tanto en AIP-C01 como en SAA-C03. Estudiarlos esta semana ahorra tiempo para ambos examenes.</div>
+</div>
+
+<!-- S4 -->
+<div id="w3" class="panel">
+  <div class="card"><div class="card-label">Semana 4 — AI Safety + Security + Governance + Optimizacion</div>
+    <div class="topic-row"><span class="pill d3">D3 · 20%</span><div><strong>Amazon Bedrock Guardrails</strong><div class="td">Content filters (violence, hate, sexual). Topic denial policies. PII detection y redaccion. Grounding checks para reducir hallucinations. Input AND output guardrails en capas. Defense-in-depth.</div></div></div>
+    <div class="topic-row"><span class="pill d3">D3 · 20%</span><div><strong>Prompt injection y adversarial inputs</strong><div class="td">Que es prompt injection en FMs. Deteccion con Comprehend + Lambda validators. Jailbreak detection. Input sanitization. Automated adversarial testing workflows.</div></div></div>
+    <div class="topic-row"><span class="pill d3">D3 · 20%</span><div><strong>PII y privacidad de datos</strong><div class="td">Amazon Comprehend para PII en texto real-time. Amazon Macie para PII en S3. Data masking y anonimizacion. VPC endpoints para Bedrock. Lake Formation para granular access.</div></div></div>
+    <div class="topic-row"><span class="pill d3">D3 · 20%</span><div><strong>Responsible AI: fairness, transparencia, bias</strong><div class="td">Model cards con SageMaker AI. Fairness metrics en CloudWatch. Bedrock agent tracing para razonamiento explicable. LLM-as-a-judge. A/B testing para bias. Auditoria con CloudTrail.</div></div></div>
+    <div class="topic-row"><span class="pill d4">D4 · 12%</span><div><strong>Optimizacion de costos y tokens</strong><div class="td">Token efficiency: context pruning, prompt compression, response limiting. Semantic caching para evitar invocaciones repetidas. Model tiering por complejidad. Batch inference. Provisioned Throughput para workloads predecibles.</div></div></div>
+    <div class="topic-row"><span class="pill d4">D4 · 12%</span><div><strong>Monitoring GenAI con CloudWatch</strong><div class="td">Bedrock Model Invocation Logs para analisis detallado. CloudWatch: token usage, hallucination rates, latency. X-Ray para tracing FM. Anomaly detection para drift. Custom dashboards.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Lun–Mar</div>Bedrock Guardrails completo + prompt injection<div class="day-sub">3h — servicio mas preguntado de D3</div></div>
+    <div class="day-card"><div class="day-label">Mie</div>PII + Responsible AI + governance<div class="day-sub">1.5h — Comprehend vs Macie: cuando cada uno</div></div>
+    <div class="day-card"><div class="day-label">Jue</div>Token optimization + semantic caching + monitoring<div class="day-sub">1.5h — clave para D4</div></div>
+    <div class="day-card"><div class="day-label">Sab</div><strong style="color:var(--purple);">SIMULACRO 1 completo AIP-C01</strong><div class="day-sub">AWS Skill Builder official pretest + revision incorrectas</div></div>
+  </div>
+  <div class="warn-box">Regla de oro para D3: "harmful content / toxic outputs / restrict topics" → Bedrock Guardrails. "PII en texto real-time" → Comprehend. "PII en datos S3" → Macie. No confundas estos tres caminos.</div>
+</div>
+
+<!-- S5 -->
+<div id="w4" class="panel">
+  <div class="card"><div class="card-label">Semana 5 — Testing, evaluacion + simulacros</div>
+    <div class="topic-row"><span class="pill d5">D5 · 11%</span><div><strong>Amazon Bedrock Model Evaluations</strong><div class="td">Automatic vs human evaluation. Metricas: relevance, faithfulness, coherence, fluency. LLM-as-a-judge. A/B testing y canary testing. Multi-model evaluation. Cost-performance analysis.</div></div></div>
+    <div class="topic-row"><span class="pill d5">D5 · 11%</span><div><strong>Hallucination detection y golden datasets</strong><div class="td">Golden datasets para deteccion de regresiones. Output diffing para consistencia. Grounding verification con Bedrock KB. Confidence scoring y semantic similarity para verificacion.</div></div></div>
+    <div class="topic-row"><span class="pill d5">D5 · 11%</span><div><strong>Feedback loops y mejora continua</strong><div class="td">User rating systems para model outputs. Annotation workflows. CloudWatch Logs Insights para analisis prompts/responses. Reasoning path tracing para errores logicos.</div></div></div>
+    <div class="topic-row"><span class="pill d4">D4 · 12%</span><div><strong>Performance optimization avanzado</strong><div class="td">Latency-cost tradeoffs: pre-computation, parallel requests, response streaming. Retrieval performance: index optimization, query preprocessing. Temperatura y top-k/top-p para casos especificos.</div></div></div>
+  </div>
+  <div style="margin-bottom:16px;">
+    <div class="mock-row"><span class="mock-label">Simulacro 1</span><div class="mock-track"><div class="mock-fill" style="width:60%;background:#EF9F27;"></div></div><span class="mock-pct" style="color:#BA7517;">~600/1000</span></div>
+    <div class="mock-row"><span class="mock-label">Simulacro 2</span><div class="mock-track"><div class="mock-fill" style="width:70%;background:#EF9F27;"></div></div><span class="mock-pct" style="color:#BA7517;">~700/1000</span></div>
+    <div class="mock-row"><span class="mock-label">Simulacro 3</span><div class="mock-track"><div class="mock-fill" style="width:78%;background:#3B6D11;"></div></div><span class="mock-pct" style="color:#3B6D11;">750+ meta</span></div>
+    <div class="mock-row"><span class="mock-label">Examen real</span><div class="mock-track"><div class="mock-fill" style="width:80%;background:#534AB7;"></div></div><span class="mock-pct" style="color:var(--purple);font-weight:600;">PASS</span></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Lun–Mar</div>D5 completo + repaso areas debiles simulacro 1<div class="day-sub">3h</div></div>
+    <div class="day-card"><div class="day-label">Mie</div>Repaso D3 (Guardrails, Responsible AI)<div class="day-sub">1.5h — mayor impacto en puntaje</div></div>
+    <div class="day-card"><div class="day-label">Jue</div><strong style="color:var(--purple);">Simulacro 2 AIP-C01</strong><div class="day-sub">3h examen + revision errores</div></div>
+    <div class="day-card"><div class="day-label">Vie</div>Revision errores simulacro 2 + Anki<div class="day-sub">1.5h — solo tarjetas</div></div>
+    <div class="day-card"><div class="day-label">Sab</div><strong style="color:var(--purple);">Simulacro 3 AIP-C01</strong><div class="day-sub">3h — meta: superar 750/1000</div></div>
+    <div class="day-card"><div class="day-label">Dom</div>Repaso pares "when to use" AIP-C01<div class="day-sub">2h — sin nuevo contenido</div></div>
+  </div>
+  <div class="tip-box">Cuatro pares de decision que aparecen una y otra vez: RAG vs fine-tuning · Guardrails vs Comprehend vs Macie · Bedrock Agents vs Step Functions · Knowledge Bases vs OpenSearch directo.</div>
+</div>
+
+<!-- FINAL -->
+<div id="w5" class="panel">
+  <div class="card"><div class="card-label">Semana final — Doble examen 29 y 30 de mayo</div>
+    <div class="final-row"><span class="final-date">Mar 26</span><div><strong>Repaso AIP-C01: pares de decision</strong><div class="td">RAG vs fine-tuning · Guardrails vs Comprehend · Bedrock Agents vs Step Functions · Knowledge Bases vs OpenSearch · Semantic cache vs invocacion directa · On-demand vs Provisioned Throughput.</div></div></div>
+    <div class="final-row"><span class="final-date">Mie 27</span><div><strong>Repaso SAA-C03: pares de decision</strong><div class="td">Multi-AZ vs Read Replica · VPC Endpoint Gateway vs Interface · CloudFront vs Global Accelerator · SQS standard vs FIFO. Solo 1.5h — no saturar.</div></div></div>
+    <div class="final-row"><span class="final-date">Jue 28</span><div><strong>Repaso ligero AIP-C01 + descanso activo</strong><div class="td">Maximo 45 min de Anki AIP-C01. El examen de manana es 205 min, el mas largo. Duerme 8h. Cerebro fresco > ultima hora de estudio.</div></div></div>
+    <div class="final-row"><span class="final-date" style="color:var(--purple);">Vie 29</span><div><strong style="color:var(--purple);">Examen AIP-C01 — AWS Certified Generative AI Developer Professional</strong><div class="td">205 minutos, 75 preguntas. Score minimo: 750/1000. Hay preguntas de tipo ordering y matching — no solo multiple choice. Reserva 15 min al final para revision. Despues: descansa, NO estudies SAA-C03.</div></div></div>
+    <div class="final-row"><span class="final-date" style="color:var(--blue);">Sab 30</span><div><strong style="color:var(--blue);">Examen SAA-C03 — Solutions Architect Associate</strong><div class="td">130 minutos, 65 preguntas. Llegas con ventaja: Lambda, Step Functions, CloudWatch, IAM ya los dominaste para AIP-C01.</div></div></div>
+  </div>
+  <div class="alert-box"><strong>Estrategia de tiempo en AIP-C01:</strong> 205 min / 75 preguntas = 2.7 min/pregunta. Las preguntas ordering y matching toman mas tiempo. Si una es dificil, marcala y vuelve al final.</div>
+</div>
+
+<!-- PATRONES -->
+<div class="section-title">Patrones de arquitectura GenAI — los 6 esenciales</div>
+<div class="p-grid" id="pgrid">
+  <div class="p-card" data-idx="0" onclick="toggleP(0,this)"><div class="p-num">D1+D2 · 57%</div><div class="p-name">RAG con Bedrock Knowledge Bases</div><div class="p-kw">retrieval augmented · grounding · reduce hallucinations · dynamic data · semantic search</div></div>
+  <div class="p-card" data-idx="1" onclick="toggleP(1,this)"><div class="p-num">D2 · 26%</div><div class="p-name">Agentic AI con Bedrock Agents</div><div class="p-kw">autonomous · tool use · ReAct · action groups · multi-step reasoning · human-in-the-loop</div></div>
+  <div class="detail-panel" id="dp0">
+    <div class="dh"><span>RAG con Bedrock Knowledge Bases</span><button class="close-btn" onclick="closeP(0,event)">cerrar</button></div>
+    <div class="sec-lbl">Servicios</div>
+    <div><span class="svc-pill">Bedrock Knowledge Bases</span><span class="svc-pill">Amazon Titan Embeddings</span><span class="svc-pill">OpenSearch Service</span><span class="svc-pill">Aurora pgvector</span><span class="svc-pill">S3 (data source)</span><span class="svc-pill">Bedrock reranker</span></div>
+    <div class="sec-lbl">Flujo</div>
+    <div class="arch-row"><div class="arch-box">User query</div><span class="arch-arr">→</span><div class="arch-box">Embed query</div><span class="arch-arr">→</span><div class="arch-box">Vector search</div><span class="arch-arr">→</span><div class="arch-box">Rerank</div><span class="arch-arr">→</span><div class="arch-box">FM + context</div><span class="arch-arr">→</span><div class="arch-box">Grounded response</div></div>
+    <div class="sec-lbl">Keywords del examen</div>
+    <div><span class="kw-pill">retrieval augmented generation</span><span class="kw-pill">reduce hallucinations</span><span class="kw-pill">ground responses</span><span class="kw-pill">dynamic knowledge</span><span class="kw-pill">semantic search</span></div>
+    <div class="trap-box"><strong>Trampa critica:</strong> Bedrock Knowledge Bases (RAG gestionado, menos control) vs OpenSearch directo (mayor control, mayor operacion). Si el enunciado pide "minimal operational overhead", es Knowledge Bases. Si pide "custom chunking strategy", puede ser OpenSearch directo.</div>
+    <div class="tip-box">Hybrid search (keyword + vector) siempre supera a solo-vector. "Mejorar precision del retrieval" → hybrid search + reranker.</div>
+  </div>
+  <div class="detail-panel" id="dp1">
+    <div class="dh"><span>Agentic AI con Bedrock Agents</span><button class="close-btn" onclick="closeP(1,event)">cerrar</button></div>
+    <div class="sec-lbl">Servicios</div>
+    <div><span class="svc-pill">Bedrock Agents</span><span class="svc-pill">Lambda (action groups)</span><span class="svc-pill">Step Functions</span><span class="svc-pill">Strands Agents</span><span class="svc-pill">AWS Agent Squad</span><span class="svc-pill">MCP</span></div>
+    <div class="sec-lbl">Flujo (ReAct)</div>
+    <div class="arch-row"><div class="arch-box">User input</div><span class="arch-arr">→</span><div class="arch-box">Agent (reason)</div><span class="arch-arr">→</span><div class="arch-box">Tool call (Lambda)</div><span class="arch-arr">→</span><div class="arch-box">Observe result</div><span class="arch-arr">→</span><div class="arch-box">Next action / response</div></div>
+    <div class="sec-lbl">Keywords del examen</div>
+    <div><span class="kw-pill">autonomous agent</span><span class="kw-pill">tool use</span><span class="kw-pill">multi-step reasoning</span><span class="kw-pill">action groups</span><span class="kw-pill">human approval</span></div>
+    <div class="trap-box"><strong>Trampa:</strong> Bedrock Agents (autonomo, decide que herramientas usar) vs Step Functions (orquestacion deterministica, TU defines el flujo). "Agent decides" → Bedrock Agents. "Fixed workflow" → Step Functions.</div>
+  </div>
+
+  <div class="p-card" data-idx="2" onclick="toggleP(2,this)"><div class="p-num">D3 · 20%</div><div class="p-name">Pipeline de seguridad con Guardrails</div><div class="p-kw">harmful content · topic restrictions · PII redaction · jailbreak · responsible AI</div></div>
+  <div class="p-card" data-idx="3" onclick="toggleP(3,this)"><div class="p-num">D4 · 12%</div><div class="p-name">Optimizacion de costos con semantic caching</div><div class="p-kw">reduce costs · semantic cache · token efficiency · model tiering · batch inference</div></div>
+  <div class="detail-panel" id="dp2">
+    <div class="dh"><span>Pipeline de seguridad con Guardrails</span><button class="close-btn" onclick="closeP(2,event)">cerrar</button></div>
+    <div class="sec-lbl">Servicios</div>
+    <div><span class="svc-pill">Bedrock Guardrails</span><span class="svc-pill">Amazon Comprehend</span><span class="svc-pill">Lambda (validation)</span><span class="svc-pill">API Gateway</span><span class="svc-pill">Amazon Macie</span></div>
+    <div class="sec-lbl">Flujo defense-in-depth</div>
+    <div class="arch-row"><div class="arch-box">Input</div><span class="arch-arr">→</span><div class="arch-box">Comprehend pre-filter</div><span class="arch-arr">→</span><div class="arch-box">Guardrails (input)</div><span class="arch-arr">→</span><div class="arch-box">FM</div><span class="arch-arr">→</span><div class="arch-box">Guardrails (output)</div><span class="arch-arr">→</span><div class="arch-box">Lambda post-validation</div></div>
+    <div class="sec-lbl">Keywords del examen</div>
+    <div><span class="kw-pill">harmful content</span><span class="kw-pill">restrict topics</span><span class="kw-pill">PII redaction</span><span class="kw-pill">jailbreak protection</span><span class="kw-pill">grounding check</span></div>
+    <div class="trap-box"><strong>Trampa critica:</strong> Guardrails (controla inputs/outputs del FM) vs Comprehend (analiza texto: PII, entidades, sentimiento) vs Macie (PII en S3). "Datos en S3" → Macie. "Texto en flujo real-time del FM" → Comprehend o Guardrails.</div>
+  </div>
+  <div class="detail-panel" id="dp3">
+    <div class="dh"><span>Optimizacion de costos con semantic caching</span><button class="close-btn" onclick="closeP(3,event)">cerrar</button></div>
+    <div class="sec-lbl">Servicios</div>
+    <div><span class="svc-pill">ElastiCache (semantic cache)</span><span class="svc-pill">Bedrock Provisioned Throughput</span><span class="svc-pill">Lambda (routing)</span><span class="svc-pill">CloudWatch (cost)</span></div>
+    <div class="sec-lbl">Flujo</div>
+    <div class="arch-row"><div class="arch-box">Query</div><span class="arch-arr">→</span><div class="arch-box">Semantic cache check</div><span class="arch-arr">→ hit →</span><div class="arch-box">Response (sin FM)</div></div>
+    <div class="arch-row" style="margin-top:4px;"><div class="arch-box">Query</div><span class="arch-arr">→ miss →</span><div class="arch-box">Model tier routing</div><span class="arch-arr">→</span><div class="arch-box">FM small/large</div><span class="arch-arr">→</span><div class="arch-box">Cache result</div></div>
+    <div class="trap-box"><strong>Trampa:</strong> Semantic caching usa embeddings para queries SIMILARES (no identicas). Si el enunciado dice "reduce costs for similar but not identical queries", es semantic caching, no caching tradicional.</div>
+  </div>
+
+  <div class="p-card" data-idx="4" onclick="toggleP(4,this)"><div class="p-num">D2 · 26%</div><div class="p-name">Streaming real-time con Bedrock + API Gateway</div><div class="p-kw">real-time responses · low latency UX · streaming API · WebSockets · SSE · incremental</div></div>
+  <div class="p-card" data-idx="5" onclick="toggleP(5,this)"><div class="p-num">D5 · 11%</div><div class="p-name">Evaluacion de modelos (LLM-as-a-judge)</div><div class="p-kw">model evaluation · hallucination · A/B testing · faithfulness · golden dataset · canary</div></div>
+  <div class="detail-panel" id="dp4">
+    <div class="dh"><span>Streaming real-time con Bedrock + API Gateway</span><button class="close-btn" onclick="closeP(4,event)">cerrar</button></div>
+    <div class="sec-lbl">Servicios</div>
+    <div><span class="svc-pill">Bedrock Streaming API</span><span class="svc-pill">API Gateway (WebSocket/HTTP)</span><span class="svc-pill">Lambda</span><span class="svc-pill">AWS Amplify (UI)</span></div>
+    <div class="sec-lbl">Flujo</div>
+    <div class="arch-row"><div class="arch-box">Frontend (Amplify)</div><span class="arch-arr">→ WebSocket →</span><div class="arch-box">API Gateway</div><span class="arch-arr">→</span><div class="arch-box">Lambda</div><span class="arch-arr">→ streaming →</span><div class="arch-box">Bedrock InvokeModelStream</div></div>
+    <div class="sec-lbl">Keywords del examen</div>
+    <div><span class="kw-pill">real-time text generation</span><span class="kw-pill">incremental response</span><span class="kw-pill">improve UX</span><span class="kw-pill">low perceived latency</span></div>
+    <div class="trap-box"><strong>Trampa:</strong> WebSockets (bidireccional) vs SSE (unidireccional servidor→cliente). Para streaming de texto FM, SSE es mas simple y suficiente. WebSockets si necesitas bidireccionalidad real (ej. chat con interrupciones del usuario).</div>
+  </div>
+  <div class="detail-panel" id="dp5">
+    <div class="dh"><span>Evaluacion con LLM-as-a-judge</span><button class="close-btn" onclick="closeP(5,event)">cerrar</button></div>
+    <div class="sec-lbl">Servicios</div>
+    <div><span class="svc-pill">Bedrock Model Evaluations</span><span class="svc-pill">CloudWatch</span><span class="svc-pill">Lambda (custom eval)</span><span class="svc-pill">SageMaker AI (model cards)</span></div>
+    <div class="sec-lbl">Flujo</div>
+    <div class="arch-row"><div class="arch-box">FM outputs</div><span class="arch-arr">→</span><div class="arch-box">Judge FM</div><span class="arch-arr">→</span><div class="arch-box">Metricas: relevance, faithfulness, fluency</div><span class="arch-arr">→</span><div class="arch-box">CloudWatch dashboard</div></div>
+    <div class="sec-lbl">Keywords del examen</div>
+    <div><span class="kw-pill">evaluate FM quality</span><span class="kw-pill">detect hallucinations</span><span class="kw-pill">A/B test models</span><span class="kw-pill">golden dataset</span><span class="kw-pill">canary deployment</span></div>
+    <div class="trap-box"><strong>Trampa:</strong> LLM-as-judge (otro FM evalua, escala bien, flexible) vs Golden datasets (respuestas de referencia conocidas, mas preciso para casos deterministas). El examen pregunta cual usar: LLM-as-judge para evaluacion semantica, golden datasets para regresiones.</div>
+  </div>
+</div>
+
+<!-- RECURSOS -->
+<div class="section-title">Recursos esenciales</div>
+<div class="res-card"><div><div class="res-name">AWS Skill Builder — Exam Prep Plan AIP-C01</div><div class="res-desc">Recurso mas importante. Curso estructurado por dominio, labs practicos y practice questions oficiales de AWS.</div></div><div style="display:flex;gap:4px;flex-wrap:wrap;"><span class="res-tag">Oficial</span><span class="overlap-tag">CB gratis</span></div></div>
+<div class="res-card"><div><div class="res-name">Tutorials Dojo AIP-C01 Practice Exams</div><div class="res-desc">Sets de practica con explicaciones detalladas. Busca el set especifico para AIP-C01. Los mas parecidos al examen real.</div></div><span class="res-tag">Simulacros</span></div>
+<div class="res-card"><div><div class="res-name">Amazon Bedrock User Guide (documentacion oficial)</div><div class="res-desc">La fuente de verdad. Especialmente: Knowledge Bases, Agents, Guardrails, Model Evaluation y Prompt Management.</div></div><span class="res-tag">Referencia</span></div>
+<div class="res-card"><div><div class="res-name">AWS re:Invent sessions — AIM track (YouTube)</div><div class="res-desc">Sesiones AIM de re:Invent 2024 y 2025. Cubren RAG, Agents y Guardrails con profundidad tecnica real y casos de uso practicos.</div></div><span class="res-tag">Profundidad</span></div>
+<div class="res-card"><div><div class="res-name">Amazon Q Developer (practica directa)</div><div class="res-desc">Usarlo para tu trabajo en GeoVictoria es la mejor practica. Las preguntas de Q Developer en el examen son conceptuales, no de sintaxis.</div></div><span class="overlap-tag">Practica real</span></div>
+
+</div>
+
+<footer>
+  Plan de estudio AIP-C01 — AWS Certified Generative AI Developer Professional<br>
+  Francisco Escobar · AWS Community Builder · Networking &amp; Content Delivery · Generado el 21 de abril de 2026
+</footer>
+
+<script>
+function showW(i,b){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('w'+i).classList.add('active');
+  b.classList.add('active');
+}
+let openP=-1;
+function toggleP(i,card){
+  const dp=document.getElementById('dp'+i);
+  if(openP===i){dp.classList.remove('open');card.classList.remove('open');openP=-1;return;}
+  document.querySelectorAll('.detail-panel').forEach(d=>d.classList.remove('open'));
+  document.querySelectorAll('.p-card').forEach(c=>c.classList.remove('open'));
+  dp.classList.add('open');card.classList.add('open');openP=i;
+  setTimeout(()=>dp.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
+function closeP(i,e){
+  e.stopPropagation();
+  document.getElementById('dp'+i).classList.remove('open');
+  document.querySelectorAll('.p-card').forEach(c=>c.classList.remove('open'));
+  openP=-1;
+}
+</script>
+</body>
+</html>

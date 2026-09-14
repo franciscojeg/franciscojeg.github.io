@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Material de Estudio: AWS AIP-C01</title>
+<style>
+  :root{
+    --aws-orange:#FF9900;
+    --aws-dark:#232F3E;
+    --bg:#f4f6f8;
+    --card:#ffffff;
+    --text:#1c2530;
+    --text-muted:#5b6b7a;
+    --border:#e1e6eb;
+    --alta:#d93025; --alta-bg:#fce8e6;
+    --media:#b7791f; --media-bg:#fef3e0;
+    --baja:#1a73e8; --baja-bg:#e8f0fe;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--text); margin:0; line-height:1.55;
+  }
+  header{
+    background:var(--aws-dark); color:#fff; padding:22px 24px; text-align:center;
+  }
+  header h1{margin:0 0 4px;font-size:22px;}
+  header p{margin:0;color:#c8d1db;font-size:13.5px;}
+  .layout{display:flex; max-width:1200px; margin:0 auto;}
+  nav#toc{
+    width:270px; flex-shrink:0; padding:20px 14px; position:sticky; top:0; align-self:flex-start;
+    max-height:100vh; overflow-y:auto; font-size:13px; border-right:1px solid var(--border); background:#fff;
+  }
+  nav#toc h4{margin:14px 0 6px;color:var(--aws-dark);font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
+  nav#toc h4:first-child{margin-top:0;}
+  nav#toc a{display:block;color:var(--text-muted);text-decoration:none;padding:3px 0 3px 6px;border-left:2px solid transparent;}
+  nav#toc a:hover{color:var(--aws-dark);border-left-color:var(--aws-orange);}
+  main{flex:1; padding:24px 32px 80px; min-width:0;}
+  .part{margin-bottom:44px;}
+  .part-title{
+    background:var(--aws-dark); color:#fff; padding:12px 18px; border-radius:8px; margin-bottom:6px;
+    font-size:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;
+  }
+  .part-title .weight{background:var(--aws-orange);color:var(--aws-dark);font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;}
+  .intro{color:var(--text-muted); font-size:14px; margin:10px 0 18px; padding:12px 16px; background:#fff8ef; border-left:4px solid var(--aws-orange); border-radius:0 6px 6px 0;}
+  h3.sub{font-size:15px; margin:22px 0 8px; color:var(--aws-dark); border-bottom:2px solid var(--border); padding-bottom:4px;}
+  h4.subsub{font-size:13.5px; margin:16px 0 6px; color:var(--text);}
+  .table-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:20px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.06); background:#fff;}
+  table{width:100%; min-width:640px; table-layout:fixed; border-collapse:collapse; font-size:13px; background:#fff;}
+  th:first-child, td.servicio{width:22%; word-wrap:break-word; overflow-wrap:break-word;}
+  th,td{padding:9px 11px; text-align:left; vertical-align:top; border-bottom:1px solid var(--border);}
+  th{background:#eef1f4; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--text-muted);}
+  tr:last-child td{border-bottom:none;}
+  td.servicio{font-weight:700;}
+  .prio{display:inline-block; font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap;}
+  .prio-alta{background:var(--alta-bg); color:var(--alta);}
+  .prio-media{background:var(--media-bg); color:var(--media);}
+  .prio-baja{background:var(--baja-bg); color:var(--baja);}
+  .top-link{font-size:11.5px; color:var(--baja); text-decoration:none;}
+  .callout{background:#fff; border:1px solid var(--border); border-left:4px solid var(--baja); border-radius:0 8px 8px 0; padding:12px 16px; font-size:13.5px; margin:14px 0;}
+  .callout.warn{border-left-color:var(--media); }
+  .checklist{list-style:none; padding:0; margin:0;}
+  .checklist li{padding:6px 0 6px 26px; position:relative; font-size:14px; border-bottom:1px dashed var(--border);}
+  .checklist li:before{content:"☐"; position:absolute; left:0; color:var(--aws-orange); font-size:16px;}
+  code{background:#eef1f4; padding:1px 5px; border-radius:4px; font-size:12px;}
+  .keyword{background:var(--aws-dark); color:#fff; padding:2px 8px; border-radius:5px; font-weight:700; font-size:12px;}
+  .toc-toggle{display:none;}
+  @media (max-width: 900px){
+    .toc-toggle{
+      display:block; margin:14px 14px 0; background:var(--aws-orange); color:var(--aws-dark);
+      border:none; padding:12px 16px; border-radius:8px; font-weight:700; font-size:14px;
+      cursor:pointer; width:calc(100% - 28px);
+    }
+    .layout{flex-direction:column;}
+    nav#toc{
+      display:none; width:100%; position:static; max-height:none;
+      border-right:none; border-bottom:1px solid var(--border);
+    }
+    nav#toc.open{display:block;}
+    main{padding:18px 14px 60px;}
+    table{font-size:12px; min-width:560px;}
+    th,td{padding:7px 8px;}
+    header h1{font-size:19px;}
+    .part-title{font-size:16px; padding:10px 14px;}
+  }
+  @media (max-width: 480px){
+    header{padding:16px 14px;}
+    header h1{font-size:17px;}
+    main{padding:14px 10px 50px;}
+    .part-title{font-size:14.5px; flex-direction:column; align-items:flex-start; gap:4px;}
+    table{font-size:11.5px; min-width:520px;}
+    th,td{padding:6px 7px;}
+    .intro, .callout{font-size:13px; padding:10px 12px;}
+  }
+</style>
+</head>
+<body>
+<div style="background:#14141f;padding:9px 20px;text-align:center;"><a href="../index.html" style="color:#fff;font-size:12.5px;text-decoration:none;font-weight:600;letter-spacing:.02em;">&larr; Volver al inicio &middot; franciscojeg.github.io</a></div>
+
+
+<header>
+  <h1>📘 Material de Estudio: AWS Certified Generative AI Developer Professional (AIP-C01)</h1>
+  <p>Preparado por Francisco Escobar, AWS Community Builder (Networking & Content Delivery) · Organizado por dominios oficiales del examen</p>
+  <p style="margin-top:6px;"><a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" style="color:#FF9900;text-decoration:none;font-weight:600;">linkedin.com/in/franciscojeg</a></p>
+</header>
+
+<button class="toc-toggle" id="tocToggle" aria-expanded="false" aria-controls="toc">☰ Ver índice</button>
+
+<div class="layout">
+<nav id="toc">
+  <h4>Navegación</h4>
+  <a href="#fundamentos">0. Fundamentos del examen</a>
+  <a href="#dominio1">1. Foundation Model Integration, Data Management y Compliance (31%)</a>
+  <a href="#dominio2">2. Implementation and Integration (26%)</a>
+  <a href="#dominio3">3. AI Safety, Security y Governance (20%)</a>
+  <a href="#dominio4">4. Operational Efficiency y Optimization (12%)</a>
+  <a href="#dominio5">5. Testing, Validation y Troubleshooting (11%)</a>
+  <a href="#comparaciones">6. Comparaciones críticas</a>
+  <a href="#senales">7. Patrones de escenario (palabras gatillo)</a>
+  <a href="#checklist">8. Checklist final</a>
+</nav>
+
+<main>
+
+<section id="fundamentos" class="part">
+  <div class="part-title">0. Antes de empezar: cómo es este examen</div>
+  <div class="intro">Este es un examen de nivel Profesional, no fundacional: no pregunta "qué es un embedding", sino "dado este escenario de negocio con estas restricciones, qué arquitectura de AWS implementarías". AWS lanzó esta certificación en noviembre de 2025, así que es una de las más nuevas del catálogo, y cubre capacidades muy recientes como Bedrock AgentCore y el protocolo MCP.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Dato</th><th>Valor</th></tr>
+    <tr><td class="servicio">Código del examen</td><td>AIP-C01</td></tr>
+    <tr><td class="servicio">Preguntas</td><td>75, combinando opción múltiple, respuesta múltiple, ordenamiento, emparejamiento y preguntas de caso de estudio (un escenario con 2 o más preguntas relacionadas)</td></tr>
+    <tr><td class="servicio">Duración</td><td>180 minutos</td></tr>
+    <tr><td class="servicio">Puntaje</td><td>De 100 a 1000, con 750 como mínimo para aprobar, usando un modelo de puntuación compensatorio: no necesitas aprobar cada dominio por separado, pero sí el puntaje total</td></tr>
+    <tr><td class="servicio">Costo</td><td>300 USD por intento, sin límite de intentos, pero con 14 días de espera obligatoria entre intentos si no apruebas</td></tr>
+    <tr><td class="servicio">Prerrequisitos</td><td>Ninguno formal, aunque está pensado para personas con al menos 1 año de experiencia práctica con Bedrock, SageMaker AI y otras herramientas de IA generativa</td></tr>
+  </table>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Dominio</th><th>Contenido</th><th>Peso</th></tr>
+    <tr><td class="servicio">Dominio 1</td><td>Foundation Model Integration, Data Management, and Compliance</td><td><span class="prio prio-alta">31%, el de mayor peso</span></td></tr>
+    <tr><td class="servicio">Dominio 2</td><td>Implementation and Integration</td><td><span class="prio prio-alta">26%</span></td></tr>
+    <tr><td class="servicio">Dominio 3</td><td>AI Safety, Security, and Governance</td><td><span class="prio prio-media">20%</span></td></tr>
+    <tr><td class="servicio">Dominio 4</td><td>Operational Efficiency and Optimization for Generative AI Applications</td><td><span class="prio prio-baja">12%</span></td></tr>
+    <tr><td class="servicio">Dominio 5</td><td>Testing, Validation, and Troubleshooting</td><td><span class="prio prio-baja">11%</span></td></tr>
+  </table>
+  </div>
+
+  <div class="callout">
+    <strong>Cómo pensar este examen frente al AIF-C01:</strong> si ya estudiaste el AIF-C01 (nivel fundacional), piensa en el AIP-C01 como su continuación práctica. El AIF-C01 te preguntaba "¿qué es RAG?". Este examen te da un escenario completo, con restricciones de negocio, regulación, presupuesto y escala, y te pide diseñar, implementar, asegurar, optimizar y depurar la solución completa. Vas a ver los mismos conceptos base (RAG, fine-tuning, embeddings, prompt engineering) pero llevados a arquitecturas de producción reales: múltiples regiones, CI/CD, observabilidad, gobernanza y sistemas multi-agente.
+  </div>
+
+  <div class="callout warn">
+    <strong>Nota sobre vigencia:</strong> por ser una certificación recién lanzada, los servicios y capacidades que cubre (especialmente todo lo relacionado con IA agéntica, Bedrock AgentCore y el protocolo MCP) están evolucionando muy rápido. Verifica siempre el Exam Guide oficial y la documentación más reciente de Bedrock antes de tu examen.
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="dominio1" class="part">
+  <div class="part-title">1. Foundation Model Integration, Data Management y Compliance <span class="weight">31% del examen</span></div>
+  <div class="intro">El dominio más grande del examen. Cubre desde el diseño arquitectónico inicial de una solución GenAI hasta las bases de datos vectoriales y la ingeniería de prompts. Si dominas bien este dominio, tienes casi un tercio del examen resuelto.</div>
+
+  <h3 class="sub">1.1 Analizar requisitos y diseñar soluciones GenAI</h3>
+  <div class="callout">
+    <strong>La decisión de diseño más fundamental de todo el examen: FM API directa contra RAG.</strong> Cuando conectas tu aplicación directamente a la API de un modelo fundacional (por ejemplo, invocando Bedrock directamente), el modelo solo responde con lo que aprendió durante su entrenamiento. Cuando agregas una arquitectura RAG (documentos propios → embeddings → base vectorial → recuperación de contexto → prompt enriquecido → modelo), el modelo puede responder con información actualizada y específica de tu empresa. La pregunta clave para elegir entre ambas: ¿la respuesta depende de conocimiento privado o actualizado que el modelo no tiene? Si sí, necesitas RAG.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr>
+      <td class="servicio">Diseños arquitectónicos para soluciones GenAI</td>
+      <td>Diseñar un asistente RAG típico combinando Amazon Bedrock (modelo e invocación), API Gateway (exponer la app como API) y CloudWatch (observabilidad del flujo completo).</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Niveles de Proof of Concept (PoC)</td>
+      <td>Distintos niveles de madurez de una prueba de concepto GenAI, desde experimentar en el Bedrock Playground o un notebook de SageMaker AI, hasta un PoC medible con métricas de CloudWatch antes de pasar a producción.</td>
+      <td><span class="prio prio-media">Media</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Componentes técnicos estandarizados</td>
+      <td>Convertir patrones de invocación de Bedrock en componentes reutilizables mediante CloudFormation o CDK, evaluados contra el AWS Well-Architected Tool, y gestionando prompts de forma centralizada con Bedrock Prompt Management, para que distintos equipos no reinventen la rueda cada vez.</td>
+      <td><span class="prio prio-media">Media</span></td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">1.2 Seleccionar y configurar Foundation Models</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr>
+      <td class="servicio">Evaluación y selección de modelos</td>
+      <td>Comparar modelos disponibles en el catálogo de Bedrock según costo, modalidad, latencia y calidad de respuesta para un caso de uso concreto, como un asistente de chat.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Arquitecturas de enrutamiento flexible de modelos</td>
+      <td>Diseñar sistemas que eligen dinámicamente qué modelo invocar según reglas de negocio, por ejemplo usando AWS AppConfig para gestionar configuración externa y Lambda para ejecutar la lógica de enrutamiento, habilitando pruebas A/B entre modelos sin redesplegar código.</td>
+      <td><span class="prio prio-media">Media</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Diseño de sistemas de IA resilientes</td>
+      <td>Patrones de resiliencia específicos de GenAI: <strong>Fallback Model</strong> (si el modelo principal falla o se satura, redirigir a un modelo secundario), <strong>Multi-Region / Cross-Region Inference</strong> (servir el modelo desde múltiples regiones), y <strong>Circuit Breaker</strong> (dejar de invocar un servicio que está fallando repetidamente, en vez de insistir y saturarlo más). Se implementan con CloudWatch Alarms para detectar el problema, Route 53 health checks para desviar tráfico, y Step Functions para orquestar el fallback.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Ciclo de vida de personalización de FMs</td>
+      <td>Gestionar todo el ciclo de un modelo personalizado (por ejemplo, un modelo de resumen financiero especializado) usando SageMaker Model Registry para versionarlo, configuración de endpoints de SageMaker para desplegarlo, y AWS CodePipeline para automatizar el paso de una versión a otra.</td>
+      <td><span class="prio prio-media">Media</span></td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">1.3 Implementar validación y procesamiento de datos para consumo de FMs</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr>
+      <td class="servicio">Flujos de validación de datos</td>
+      <td>Actúan como "portón de entrada" antes de que un documento llegue a un pipeline de RAG: por ejemplo, usar AWS Glue Data Quality para verificar la calidad de documentos en S3 antes de indexarlos, con métricas en CloudWatch.</td>
+      <td><span class="prio prio-media">Media</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Procesamiento de tipos de datos complejos (multimodal)</td>
+      <td>Pipelines que combinan varios tipos de datos, como resumir llamadas de soporte usando Amazon Transcribe (audio a texto) seguido de Bedrock (resumen), orquestado con un SageMaker Processing Job.</td>
+      <td><span class="prio prio-media">Media</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Formateo de datos de entrada para inferencia</td>
+      <td>La orquestación de backend completa desde que llega la solicitud del usuario hasta que se invoca el modelo, incluyendo el uso de plantillas de prompt (prompt templating) para preguntas y respuestas basadas en RAG.</td>
+      <td><span class="prio prio-alta">Alta</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Mejora de la calidad del dato de entrada</td>
+      <td>Normalizar consultas de usuarios con ruido, errores tipográficos o formato inconsistente, antes de enviarlas al modelo, para mejorar la calidad de la respuesta generada.</td>
+      <td><span class="prio prio-media">Media</span></td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">1.4 Diseñar e implementar soluciones de base de datos vectorial</h3>
+  <div class="callout">
+    <strong>Las tres arquitecturas de vector store en AWS, explicadas desde cero:</strong> una base de datos vectorial guarda embeddings (vectores numéricos que representan significado) para poder buscar "por significado" en vez de por palabra exacta. AWS ofrece tres formas principales de implementar esto:
+    <ol style="margin:10px 0 0; padding-left:20px;">
+      <li style="margin-bottom:8px;"><strong>RAG gestionado con Amazon Bedrock Knowledge Bases:</strong> la opción más simple. Tú apuntas a tus documentos (por ejemplo en S3) y Bedrock gestiona automáticamente el chunking, los embeddings y la búsqueda vectorial por debajo.</li>
+      <li style="margin-bottom:8px;"><strong>Arquitectura basada en OpenSearch:</strong> usas Amazon OpenSearch Service como motor de búsqueda vectorial, con más control sobre la configuración del índice y el algoritmo de búsqueda (como k-NN), a cambio de más trabajo de configuración.</li>
+      <li><strong>Patrón RDS/DynamoDB más vector store externo:</strong> mantienes tus datos transaccionales en una base relacional o NoSQL ya existente, y le agregas capacidad vectorial, por ejemplo con la extensión pgvector sobre Amazon Aurora PostgreSQL. Útil cuando necesitas combinar filtros relacionales estrictos (como metadatos clínicos) con búsqueda semántica en la misma consulta.</li>
+    </ol>
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Frameworks de metadatos para mejor búsqueda</td><td>Diseñar esquemas de metadatos (por ejemplo, categoría, fecha, departamento) que se guardan junto a cada embedding, para poder filtrar resultados antes o después de la búsqueda semántica.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Arquitecturas vectoriales de alto rendimiento</td><td>Optimizar un vector store para escalar a millones de embeddings sin degradar la latencia de búsqueda.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Integración con sistemas de datos existentes</td><td>Conectar el vector store con fuentes de datos y sistemas de conocimiento que la empresa ya tiene, en vez de crear un silo de datos aislado.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Mantenimiento y actualización de vector stores</td><td>Diseñar sistemas para mantener los embeddings sincronizados cuando los documentos originales cambian, se agregan o se eliminan.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">1.5 Diseñar mecanismos de recuperación para aumentar el FM</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Segmentación de documentos (chunking)</td><td>Definir cómo dividir documentos largos en fragmentos, balanceando fragmentos muy pequeños (pierden contexto) contra muy grandes (diluyen la relevancia y consumen más tokens).</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Selección y configuración de embeddings</td><td>Elegir el modelo de embeddings correcto según idioma, dominio y dimensión del vector, ya que no todos los modelos de embeddings son intercambiables entre sí.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Despliegue y configuración de búsqueda vectorial</td><td>Configurar el motor de búsqueda vectorial elegido (Knowledge Bases, OpenSearch o pgvector) para producción.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Búsqueda híbrida y reranking</td><td>Combinar búsqueda por palabra clave (léxica) con búsqueda semántica (vectorial) para obtener mejores resultados que cualquiera de las dos por separado, y luego usar un modelo de reranking para reordenar los resultados por relevancia real antes de enviarlos al FM.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Manejo sofisticado de consultas</td><td>Reescribir o descomponer preguntas complejas de usuarios en sub-consultas más efectivas para la búsqueda vectorial.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Mecanismos de acceso consistentes (MCP)</td><td>Usar el Model Context Protocol para exponer el vector store como una herramienta estandarizada que cualquier agente puede consultar de forma consistente, en vez de una integración a medida por cada cliente.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">1.6 Implementar estrategias de prompt engineering y gobernanza</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Frameworks de instrucción del modelo</td><td>Estructurar system prompts claros y consistentes que definan el rol, el tono y los límites del modelo.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Contexto y memoria en sistemas interactivos</td><td>Mantener el hilo de una conversación de varios turnos, decidiendo qué parte del historial conservar dentro de la ventana de contexto y qué resumir o descartar.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Gestión y gobernanza de prompts</td><td>Versionar, aprobar y controlar el acceso a los prompts de producción de forma centralizada, típicamente con Bedrock Prompt Management, para evitar que cualquiera edite un prompt crítico sin revisión.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Aseguramiento de calidad para prompts</td><td>Probar sistemáticamente los prompts contra casos de prueba antes de desplegarlos, similar a pruebas unitarias pero para prompts.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Técnicas avanzadas de prompting</td><td>Zero-shot, few-shot, chain-of-thought y otras técnicas para mejorar la calidad de la respuesta sin cambiar el modelo (heredadas del AIF-C01, pero aplicadas aquí a escenarios de producción más complejos).</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Sistemas de prompts complejos (Prompt Flows)</td><td>Encadenar múltiples prompts y pasos de procesamiento en un flujo visual, donde la salida de un paso alimenta al siguiente, típicamente con Bedrock Prompt Flows.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="dominio2" class="part">
+  <div class="part-title">2. Implementation and Integration <span class="weight">26% del examen</span></div>
+  <div class="intro">El segundo dominio en peso, y el más nuevo conceptualmente: cubre IA agéntica (agentes que razonan y ejecutan acciones), el protocolo MCP y patrones de integración empresarial. Si el AIF-C01 no cubrió agentes en profundidad, este es el dominio donde te vas a topar con más terminología nueva.</div>
+
+  <h3 class="sub">2.1 Implementar soluciones de IA agéntica e integraciones de herramientas</h3>
+  <div class="callout">
+    <strong>Chain-of-Thought contra ReAct, la distinción central de este dominio:</strong> Chain-of-Thought (CoT) es una técnica de prompting donde le pides al modelo que "piense paso a paso" antes de responder, pero todo ocurre dentro de una sola llamada al modelo, sin que el modelo interactúe con el mundo exterior. <strong>ReAct (Reasoning and Acting)</strong> es distinto: es un verdadero bucle agéntico, donde el agente repite un ciclo de <em>Thought</em> (razona qué hacer), <em>Action</em> (decide qué herramienta invocar y con qué parámetros) y <em>Observation</em> (recibe el resultado de esa herramienta), repitiendo el ciclo hasta resolver el objetivo. Como este bucle es propenso a fallos y de larga duración, el examen apunta específicamente a <strong>AWS Step Functions</strong> como la forma robusta de implementarlo, en vez de manejarlo dentro de una sola función Lambda, que sería frágil.
+  </div>
+  <div class="callout">
+    <strong>Model Context Protocol (MCP), explicado en simple:</strong> es un protocolo estandarizado que separa al agente (el "cliente MCP") de las herramientas que invoca (el "servidor MCP"), como APIs o bases de datos. En vez de programar una integración a medida cada vez que un agente necesita usar una herramienta nueva, MCP define una forma común de conectarse, haciendo el ecosistema de herramientas más modular y reutilizable entre distintos agentes.
+  </div>
+  <div class="callout">
+    <strong>Orquestación multi-agente con Amazon Bedrock AgentCore:</strong> cuando un problema es demasiado complejo para un solo agente, se puede dividir el trabajo entre varios agentes especializados. AgentCore actúa como la capa de razonamiento y orquestación: recibe un objetivo complejo, lo descompone en sub-tareas, y las enruta a agentes especializados (por ejemplo, un "agente de investigación" y un "agente de redacción"), manteniendo el contexto de la sesión con un almacén como Amazon DynamoDB.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Sistemas autónomos inteligentes</td><td>Fundamentos de qué hace a un sistema "agéntico": capacidad de planear, actuar y adaptarse sin instrucciones paso a paso explícitas para cada acción.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Sistemas avanzados de resolución de problemas</td><td>Chain-of-Thought contra ReAct, ya explicado arriba.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Flujos de trabajo de IA con salvaguardas</td><td>Agregar puntos de control y validación dentro del bucle agéntico, para que un agente no ejecute acciones irreversibles sin verificación.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Sistemas sofisticados de coordinación de modelos</td><td>Orquestación multi-agente con AgentCore, y frameworks relacionados para construir agentes especialistas y coordinarlos entre sí.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Sistemas colaborativos (Human-in-the-Loop)</td><td>Insertar un punto de revisión humana dentro del flujo del agente antes de ejecutar una acción sensible, como aprobar un reembolso.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Integraciones inteligentes de herramientas</td><td>Conectar agentes con APIs, bases de datos y otros sistemas externos como "herramientas" que el agente puede invocar.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Frameworks de extensión de modelos (servidores MCP)</td><td>Construir servidores MCP propios, por ejemplo para exponer una base de datos SQL legacy como una herramienta estandarizada que cualquier agente pueda usar.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">2.2 Implementar estrategias de despliegue de modelos</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Desplegar FMs según necesidades de la aplicación</td><td>Elegir entre inferencia en tiempo real, serverless, por lotes o asíncrona en SageMaker, según el patrón de tráfico y la tolerancia a latencia de la aplicación.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Desafíos únicos del despliegue de LLMs</td><td>Problemas específicos de modelos de lenguaje grandes: tiempos de carga largos, alto consumo de memoria de GPU, y cold starts costosos comparados con modelos de ML tradicionales.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Despliegue optimizado (balance performance/costo)</td><td>Técnicas para servir un modelo grande de forma más económica sin sacrificar demasiada calidad, tema que se profundiza en el Dominio 4.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">2.3 Diseñar e implementar arquitecturas de integración empresarial</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Soluciones de conectividad empresarial</td><td>Integrar la solución GenAI con sistemas empresariales existentes (ERPs, CRMs) usando patrones estándar de integración.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Capacidades de IA integradas</td><td>Incorporar capacidades generativas dentro de aplicaciones de negocio ya existentes, en vez de construir una aplicación GenAI aislada.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Frameworks de acceso seguro</td><td>Controlar de forma segura quién y qué sistemas pueden invocar los componentes de IA generativa dentro de la arquitectura empresarial.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Soluciones de IA multi-entorno</td><td>Arquitecturas híbridas que conectan cargas de trabajo de IA en la nube con sistemas on-premises.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">CI/CD y GenAI Gateway</td><td>Automatizar el ciclo de vida de despliegue de componentes GenAI con pipelines de CI/CD, y centralizar el acceso a distintos modelos y proveedores a través de un gateway común.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">2.4 Implementar integraciones de la API de Foundation Models</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Sistemas flexibles de interacción con modelos</td><td>Diseñar la capa de integración de forma que cambiar de un modelo o proveedor a otro no requiera reescribir toda la aplicación.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Sistemas de interacción en tiempo real</td><td>Streaming de respuestas token por token para reducir la latencia percibida por el usuario en aplicaciones de chat.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Sistemas FM resilientes</td><td>Aplicar los mismos patrones de resiliencia del Dominio 1 (fallback, multi-región, circuit breaker) específicamente a nivel de integración de API.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Sistemas inteligentes de enrutamiento de modelos</td><td>Enrutar dinámicamente cada solicitud al modelo más adecuado según el tipo de tarea, costo o carga actual.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">2.5 Implementar patrones de integración de aplicaciones y herramientas de desarrollo</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Interfaces de API para FMs</td><td>Diseñar la capa de API que expone las capacidades generativas hacia otros sistemas o equipos.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Interfaces de IA accesibles</td><td>Construir interfaces de usuario para las soluciones GenAI que sean utilizables por personas con distintas capacidades.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Mejoras a sistemas de negocio</td><td>Casos de uso concretos donde GenAI mejora un proceso de negocio existente, como automatizar resúmenes o clasificación de tickets.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Productividad del desarrollador</td><td>Herramientas y prácticas que aceleran el desarrollo de aplicaciones GenAI, como asistentes de código.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Aplicaciones GenAI avanzadas</td><td>Patrones de aplicación más sofisticados que combinan varias de las capacidades anteriores.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Eficiencia en troubleshooting</td><td>Herramientas y prácticas para diagnosticar problemas en aplicaciones GenAI más rápido (se profundiza en el Dominio 5).</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="dominio3" class="part">
+  <div class="part-title">3. AI Safety, Security y Governance <span class="weight">20% del examen</span></div>
+  <div class="intro">Este dominio extiende los principios de IA responsable del AIF-C01 hacia controles técnicos concretos: guardrails, verificación de alucinaciones, cumplimiento normativo y trazabilidad.</div>
+
+  <h3 class="sub">3.1 Implementar controles de seguridad de entrada y salida</h3>
+  <div class="callout">
+    <strong>Guardrails contra Automated Reasoning Checks:</strong> los guardrails de Bedrock filtran contenido de entrada y salida según políticas (bloquear temas, filtrar PII, evitar toxicidad). Los <strong>automated reasoning checks</strong> van un paso más allá: verifican matemáticamente que una afirmación generada por el modelo sea consistente con reglas o hechos conocidos, útil en dominios de alta regulación donde una alucinación no puede simplemente "sonar razonable", sino que debe ser verificable, por ejemplo validando que una respuesta sobre reglas de cumplimiento normativo no contradiga la política real de la empresa.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Sistemas de seguridad de contenido</td><td>Filtrar contenido dañino, tóxico o fuera de política antes de que llegue al usuario final, típicamente con Bedrock Guardrails.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Frameworks de mitigación en la salida</td><td>Estrategias para corregir o bloquear una respuesta ya generada antes de entregarla, cuando la validación previa no fue suficiente.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Sistemas de verificación para reducir alucinaciones</td><td>Automated reasoning checks y otras técnicas de verificación de hechos sobre las respuestas del modelo antes de entregarlas, especialmente en dominios regulados como finanzas o salud.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Sistemas de seguridad en profundidad (defense-in-depth)</td><td>Combinar múltiples capas de control (guardrails, validación de entrada, revisión humana, monitoreo) en vez de depender de un solo mecanismo de seguridad.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Detección de amenazas y defensa contra adversarios</td><td>Identificar y mitigar intentos de prompt injection, jailbreaking y otros ataques dirigidos específicamente a manipular el comportamiento del modelo.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.2 Implementar controles de seguridad y privacidad de datos</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Entornos de IA protegidos</td><td>Aislar y proteger la infraestructura donde corren los modelos y se procesan los datos, usando IAM, VPC y cifrado, igual que en cualquier carga de trabajo sensible de AWS.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Sistemas que preservan la privacidad</td><td>Técnicas para que los datos sensibles usados por el sistema de IA no se expongan innecesariamente, incluyendo detección de PII con Amazon Macie o Amazon Comprehend.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Arquitecturas centradas en privacidad</td><td>Diseñar el flujo de datos completo pensando en minimizar qué datos sensibles tocan cada componente del sistema.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.3 Implementar gobernanza de IA y mecanismos de cumplimiento</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Marcos de cumplimiento y documentación</td><td>Alinear la solución con marcos regulatorios relevantes, como GDPR, HIPAA o SOC 2, y documentar cómo se cumplen.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Trazabilidad y atribución de fuentes</td><td>Poder rastrear de qué documento o fuente salió la información usada para generar una respuesta (especialmente crítico en RAG), y citar esa fuente cuando sea necesario.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Sistemas de gobernanza organizacional</td><td>Procesos internos, como comités de revisión, para aprobar y supervisar nuevos casos de uso de IA generativa antes de su lanzamiento.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Monitoreo continuo y remediación</td><td>Vigilar de forma constante el cumplimiento de las políticas de gobernanza, y corregir desviaciones apenas se detectan, en vez de auditar solo periódicamente.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.4 Implementar principios de IA responsable</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Sistemas de IA transparentes en las salidas del FM</td><td>Comunicar claramente cuándo una respuesta viene de un modelo generativo, y qué tan confiable es esa respuesta.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Evaluaciones de equidad para salidas no sesgadas</td><td>Probar sistemáticamente que las respuestas del modelo no perjudiquen de forma desproporcionada a ningún grupo, herramienta típica: Amazon SageMaker Clarify.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Sistemas de IA conformes con políticas</td><td>Asegurar que el comportamiento del sistema, no solo el modelo en sí, se mantenga dentro de las políticas de IA responsable definidas por la organización.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="dominio4" class="part">
+  <div class="part-title">4. Operational Efficiency y Optimization para GenAI <span class="weight">12% del examen</span></div>
+  <div class="intro">Este dominio se trata de que la solución GenAI no solo funcione, sino que sea rápida y económica a escala. Domina especialmente quantization y distillation, y la diferencia entre optimizar costo y optimizar performance, porque a veces van en direcciones opuestas.</div>
+
+  <h3 class="sub">4.1 Implementar optimización de costos y eficiencia de recursos</h3>
+  <div class="callout">
+    <strong>Quantization contra Distillation, las dos técnicas de optimización más preguntadas:</strong> la <strong>quantization</strong> (cuantización) reduce la precisión numérica con la que se almacenan los pesos del modelo (por ejemplo, de 32 bits a 8 bits), haciendo el modelo más pequeño y rápido de ejecutar, con una pérdida de precisión generalmente pequeña. Es la técnica indicada cuando minimizar el costo de cómputo es el KPI principal, o cuando necesitas desplegar en un dispositivo con memoria limitada (cámaras, robots, edge). La <strong>distillation</strong> (destilación) entrena un modelo más pequeño ("estudiante") para imitar el comportamiento de un modelo grande ("maestro"), obteniendo un modelo más liviano que conserva buena parte de la capacidad del original.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Sistemas de eficiencia de tokens</td><td>Reducir el número de tokens enviados y recibidos por invocación (prompts más concisos, respuestas acotadas), ya que el costo de la mayoría de los modelos generativos se factura por token.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Frameworks de selección de modelos costo-efectivos</td><td>Elegir el modelo más barato que aún cumpla el nivel de calidad requerido para la tarea, en vez de usar por defecto el modelo más grande disponible.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Sistemas FM de alto rendimiento (costo)</td><td>Aplicar quantization y distillation para reducir el costo de cómputo sin descartar el modelo por completo.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Sistemas de caché inteligente</td><td>Cachear respuestas a preguntas frecuentes o resultados de búsqueda vectorial repetidos, para evitar invocar el modelo o la base vectorial de nuevo cuando la respuesta ya se conoce.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">4.2 Optimizar el rendimiento de la aplicación</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Sistemas de IA responsivos</td><td>Técnicas para reducir la latencia percibida por el usuario, como streaming de respuestas token por token.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Mejora del rendimiento de recuperación (RAG)</td><td>Optimizar la velocidad de la búsqueda vectorial y la recuperación de contexto, que suele ser el cuello de botella de latencia en sistemas RAG.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Optimización de throughput de FMs</td><td>Aumentar la cantidad de solicitudes que el sistema puede procesar por segundo, por ejemplo usando Provisioned Throughput en Bedrock para cargas constantes y predecibles.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Mejora del rendimiento por configuración del modelo</td><td>Ajustar parámetros de inferencia (como longitud máxima de respuesta o temperatura) para balancear velocidad y calidad.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Sistemas de asignación eficiente de recursos</td><td>Dimensionar correctamente el cómputo asignado a cada componente del sistema, sin sobreaprovisionar ni quedarse corto.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Optimización a través de todo el flujo</td><td>Ver el rendimiento del sistema de punta a punta, no optimizar un componente de forma aislada si eso solo mueve el cuello de botella a otro lugar.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">4.3 Implementar sistemas de monitoreo para aplicaciones GenAI</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Sistemas de observabilidad holística</td><td>Monitorear el sistema GenAI completo (modelo, recuperación, herramientas, infraestructura) como un todo, no solo cada pieza por separado.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Monitoreo integral de GenAI</td><td>Métricas específicas de IA generativa además de las métricas de infraestructura tradicionales: latencia de inferencia, tasa de alucinación detectada, calidad de las respuestas.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Soluciones de observabilidad integradas</td><td>Unificar el monitoreo de GenAI con las herramientas de observabilidad ya usadas por el resto de la organización, como CloudWatch.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Frameworks de rendimiento de herramientas</td><td>Monitorear específicamente qué tan bien están funcionando las herramientas que un agente invoca (tiempos de respuesta, tasa de error de cada herramienta).</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Gestión operacional de vector stores</td><td>Monitorear la salud, latencia y frescura de los datos del vector store en producción.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Frameworks de troubleshooting específicos de FMs</td><td>Metodologías para diagnosticar rápidamente si un problema viene del modelo, del prompt, de la recuperación o de la infraestructura (se profundiza en el Dominio 5).</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="dominio5" class="part">
+  <div class="part-title">5. Testing, Validation y Troubleshooting <span class="weight">11% del examen</span></div>
+  <div class="intro">El dominio más pequeño, pero con un concepto clave que no existe en exámenes tradicionales de AWS: cómo evaluar la calidad de algo tan subjetivo como una respuesta generada por un modelo.</div>
+
+  <h3 class="sub">5.1 Implementar sistemas de evaluación para GenAI</h3>
+  <div class="callout">
+    <strong>LLM-as-a-Judge, un concepto que no aparece en el AIF-C01:</strong> evaluar manualmente miles de respuestas generadas no escala. La técnica de LLM-as-a-Judge usa un segundo modelo de lenguaje, generalmente más grande o especializado, para calificar automáticamente las respuestas del primer modelo contra criterios definidos (precisión, relevancia, tono), acelerando la evaluación a gran escala sin depender solo de revisión humana.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Frameworks de evaluación sistemática de modelos</td><td>Definir criterios objetivos y repetibles para comparar el desempeño de distintos modelos o versiones de un mismo modelo.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Evaluación Human-in-the-Loop centrada en el usuario</td><td>Complementar la evaluación automática con revisión humana real, especialmente para juzgar calidad subjetiva.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Validación de despliegue y aseguramiento de calidad</td><td>Verificar que una nueva versión del sistema cumple los estándares de calidad antes de reemplazar la versión en producción.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Procesos sistemáticos de QA</td><td>Estandarizar el proceso de control de calidad para que sea repetible en cada nueva iteración del sistema, no un esfuerzo manual ad hoc.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Evaluación integral para RAG y LLM-as-a-Judge</td><td>Evaluar no solo la respuesta final, sino también la calidad de lo que se recuperó del vector store antes de llegar al modelo.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Pruebas de calidad de recuperación</td><td>Medir específicamente si el sistema de búsqueda vectorial está devolviendo los fragmentos correctos y relevantes, independientemente de qué tan bien responda el modelo después.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Frameworks de rendimiento de agentes</td><td>Evaluar específicamente si un agente completó correctamente una tarea de varios pasos, no solo si generó texto coherente.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Sistemas de reportes integrales</td><td>Consolidar los resultados de evaluación en reportes claros para distintos públicos, desde el equipo técnico hasta el negocio.</td><td><span class="prio prio-baja">Baja</span></td></tr>
+    <tr><td class="servicio">Sistemas de validación de despliegue</td><td>Automatizar la verificación de calidad como parte del pipeline de CI/CD, antes de que un cambio llegue a producción.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">5.2 Depurar (troubleshoot) aplicaciones GenAI</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtema</th><th>Qué cubre</th><th>Prioridad</th></tr>
+    <tr><td class="servicio">Troubleshooting de contenido e integración</td><td>Diagnosticar si una respuesta de mala calidad viene del propio modelo, de la integración con otros sistemas, o de un error de configuración.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Troubleshooting de RAG y efectividad de recuperación</td><td>Determinar si un problema de calidad de respuesta viene de una mala recuperación de contexto (el chunk correcto nunca se encontró) en vez del modelo generativo en sí.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Troubleshooting de prompt engineering y mantenimiento</td><td>Identificar cuándo un prompt que funcionaba bien dejó de hacerlo, por ejemplo tras una actualización de modelo, y ajustar en consecuencia.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">Troubleshooting de problemas del sistema de recuperación</td><td>Diagnosticar fallas de infraestructura o configuración en el vector store mismo, como índices desactualizados o embeddings mal generados.</td><td><span class="prio prio-media">Media</span></td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="comparaciones" class="part">
+  <div class="part-title">6. Comparaciones críticas (memorizar sí o sí)</div>
+  <div class="intro">Estas son las distinciones que más se prestan a confusión en un examen de nivel profesional, donde varias opciones pueden sonar razonables a la vez.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Comparación</th><th>Punto de distinción</th></tr>
+    <tr><td class="servicio">FM API directa contra RAG</td><td>Responder solo con el conocimiento de entrenamiento del modelo, contra enriquecer la respuesta con contexto recuperado de tus propios documentos en el momento de la consulta.</td></tr>
+    <tr><td class="servicio">Chain-of-Thought contra ReAct</td><td>Razonamiento paso a paso dentro de una sola llamada al modelo, contra un bucle agéntico real que alterna entre pensar, actuar sobre herramientas externas y observar el resultado.</td></tr>
+    <tr><td class="servicio">Model Context Protocol (MCP) contra integración a medida</td><td>Un protocolo estandarizado y reutilizable para que cualquier agente use cualquier herramienta, contra una integración construida específicamente para un solo caso, difícil de reutilizar.</td></tr>
+    <tr><td class="servicio">Bedrock Guardrails contra Automated Reasoning Checks</td><td>Filtrar contenido de entrada y salida según políticas de contenido, contra verificar matemáticamente que una afirmación generada sea consistente con reglas o hechos conocidos.</td></tr>
+    <tr><td class="servicio">Quantization contra Distillation</td><td>Reducir la precisión numérica de los pesos de un mismo modelo para hacerlo más liviano, contra entrenar un modelo nuevo y más pequeño que imite el comportamiento de uno más grande.</td></tr>
+    <tr><td class="servicio">Fallback Model contra Circuit Breaker</td><td>Redirigir automáticamente a un modelo secundario cuando el principal falla, contra dejar de invocar por completo un servicio que está fallando repetidamente para no saturarlo más.</td></tr>
+    <tr><td class="servicio">Multi-Agent Orchestration contra un solo agente con herramientas</td><td>Dividir un objetivo complejo entre varios agentes especializados coordinados por un supervisor, contra un único agente que invoca varias herramientas por sí mismo.</td></tr>
+    <tr><td class="servicio">Provisioned Throughput contra pago por token (on-demand)</td><td>Capacidad reservada y garantizada para cargas constantes y predecibles, contra pago solo por lo que se consume, mejor para cargas variables.</td></tr>
+    <tr><td class="servicio">Búsqueda léxica contra búsqueda vectorial contra búsqueda híbrida</td><td>Coincidencia exacta de palabras, contra coincidencia por significado semántico, contra la combinación de ambas con reranking posterior para mejores resultados.</td></tr>
+    <tr><td class="servicio">LLM-as-a-Judge contra evaluación humana</td><td>Un modelo evalúa automáticamente las respuestas de otro modelo a gran escala, contra personas revisando manualmente una muestra de respuestas.</td></tr>
+    <tr><td class="servicio">Amazon Bedrock Knowledge Bases contra arquitectura vectorial en OpenSearch contra pgvector sobre Aurora/RDS</td><td>RAG gestionado con configuración mínima, contra más control sobre el motor de búsqueda vectorial, contra combinar datos relacionales existentes con capacidad vectorial en la misma base de datos.</td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="senales" class="part">
+  <div class="part-title">7. Patrones de escenario (palabras gatillo)</div>
+  <div class="intro">En un examen profesional, los escenarios son largos y con mucho ruido. Estos patrones, tomados de ejemplos reales de tus guías, te ayudan a identificar rápido qué arquitectura están describiendo.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Si el escenario describe...</th><th>Piensa primero en...</th></tr>
+    <tr><td class="servicio">"Búsqueda semántica a gran escala sobre millones de embeddings"</td><td>Amazon OpenSearch Service con el plugin k-NN</td></tr>
+    <tr><td class="servicio">"Respuestas más precisas usando datos privados de la empresa, sin reentrenar el modelo"</td><td>Amazon Bedrock Knowledge Bases (RAG gestionado)</td></tr>
+    <tr><td class="servicio">"Combinar metadatos relacionales estrictos con búsqueda por similitud, manteniendo consistencia transaccional"</td><td>Amazon Aurora PostgreSQL con pgvector</td></tr>
+    <tr><td class="servicio">"El modelo debe razonar en pasos claros, coordinando reintentos y manejo de errores de forma confiable"</td><td>AWS Step Functions orquestando un patrón ReAct</td></tr>
+    <tr><td class="servicio">"Prevenir que el modelo dé consejos incorrectos, filtre datos personales o sea manipulado por prompt injection en un dominio regulado"</td><td>Amazon Bedrock Guardrails con automated reasoning checks</td></tr>
+    <tr><td class="servicio">"Un asistente que razona, planea y ejecuta acciones manteniendo el contexto de la conversación"</td><td>Amazon Bedrock AgentCore con Amazon DynamoDB para persistencia de sesión</td></tr>
+    <tr><td class="servicio">"Ingerir documentos desde S3 y ofrecer búsqueda semántica empresarial lista para usar"</td><td>Amazon Kendra con el conector de S3</td></tr>
+    <tr><td class="servicio">"Transcribir audio con terminología especializada y traducir a varios idiomas"</td><td>Amazon Transcribe con vocabularios personalizados, seguido de Amazon Translate</td></tr>
+    <tr><td class="servicio">"Minimizar la factura de cómputo del modelo como KPI principal" o "desplegar en un dispositivo con memoria limitada"</td><td>Quantization</td></tr>
+    <tr><td class="servicio">"Obtener un modelo más pequeño que conserve la capacidad de uno más grande"</td><td>Distillation</td></tr>
+    <tr><td class="servicio">"Evaluar miles de respuestas generadas sin poder revisarlas todas manualmente"</td><td>LLM-as-a-Judge</td></tr>
+    <tr><td class="servicio">"La aplicación falla en cascada cuando el modelo principal se satura o falla"</td><td>Fallback Model o Circuit Breaker, con CloudWatch Alarms y Route 53 health checks</td></tr>
+    <tr><td class="servicio">"Un agente necesita usar distintas herramientas o APIs de forma modular y reutilizable"</td><td>Model Context Protocol (MCP)</td></tr>
+    <tr><td class="servicio">"Un objetivo demasiado complejo para un solo agente, que se descompone en sub-tareas"</td><td>Orquestación multi-agente (Bedrock AgentCore y frameworks relacionados)</td></tr>
+    <tr><td class="servicio">"Auditar de dónde salió la información usada para generar una respuesta"</td><td>Trazabilidad y atribución de fuentes (source citation)</td></tr>
+    <tr><td class="servicio">"Cambiar entre modelos o proveedores sin reescribir la aplicación"</td><td>Sistemas flexibles de interacción con modelos / GenAI Gateway</td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+<section id="checklist" class="part">
+  <div class="part-title">8. Checklist final de repaso</div>
+
+  <h3 class="sub">Conceptos fundamentales que este examen asume que ya dominas</h3>
+  <ul class="checklist">
+    <li>Todo lo del AIF-C01: tokens, embeddings, RAG, fine-tuning, prompt engineering básico</li>
+    <li>La diferencia entre Bedrock y SageMaker AI, y cuándo se combinan ambos en una misma solución</li>
+    <li>Los principios generales de seguridad de AWS: IAM, KMS, VPC, aplicados ahora a IA</li>
+  </ul>
+
+  <h3 class="sub">Conceptos nuevos específicos de este examen</h3>
+  <ul class="checklist">
+    <li>Las tres arquitecturas de vector store: Knowledge Bases gestionado, OpenSearch, y RDS/DynamoDB más vector store externo</li>
+    <li>Chain-of-Thought contra ReAct, y por qué ReAct se implementa con Step Functions</li>
+    <li>Qué es el Model Context Protocol (MCP) y la diferencia entre cliente y servidor MCP</li>
+    <li>Qué hace Amazon Bedrock AgentCore en una arquitectura multi-agente</li>
+    <li>Guardrails contra Automated Reasoning Checks</li>
+    <li>Quantization contra Distillation, y cuándo usar cada una</li>
+    <li>LLM-as-a-Judge como método de evaluación a escala</li>
+    <li>Los patrones de resiliencia específicos de GenAI: Fallback Model, Multi-Region Inference, Circuit Breaker</li>
+  </ul>
+
+  <h3 class="sub">Estrategia el día del examen</h3>
+  <ul class="checklist">
+    <li>75 preguntas en 180 minutos, con tipos de pregunta variados: opción múltiple, respuesta múltiple, ordenamiento, emparejamiento y casos de estudio</li>
+    <li>750 de 1000 puntos para aprobar, con puntuación compensatoria entre dominios: no necesitas aprobar cada dominio por separado</li>
+    <li>Los escenarios son largos: identifica primero qué restricción de negocio es la prioritaria (costo, latencia, cumplimiento regulatorio, resiliencia) antes de evaluar las opciones</li>
+    <li>En preguntas de caso de estudio, las siguientes preguntas del mismo caso pueden dar pistas adicionales sobre el escenario; léelas en conjunto si es posible</li>
+    <li>Ante dos soluciones técnicamente correctas, prioriza la que use el servicio administrado (managed) sobre la que requiere más código o infraestructura propia, salvo que el enunciado pida explícitamente más control</li>
+  </ul>
+
+  <div class="callout warn">
+    <strong>Recuerda:</strong> por ser una certificación tan nueva, el volumen de simulacros de terceros y experiencias reportadas por otros candidatos todavía es limitado comparado con certificaciones más establecidas como el SAA-C03. Complementa este material con la documentación oficial de Bedrock AgentCore, Guardrails y el Exam Guide más reciente antes de presentarte.
+  </div>
+  <a class="top-link" href="#toc">↑ volver al índice</a>
+</section>
+
+</main>
+</div>
+
+<script>
+  (function(){
+    var toggle = document.getElementById('tocToggle');
+    var toc = document.getElementById('toc');
+    if(!toggle || !toc) return;
+    toggle.addEventListener('click', function(){
+      var isOpen = toc.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    var links = toc.querySelectorAll('a');
+    for(var i=0;i<links.length;i++){
+      links[i].addEventListener('click', function(){
+        toc.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    }
+  })();
+</script>
+</body>
+</html>
