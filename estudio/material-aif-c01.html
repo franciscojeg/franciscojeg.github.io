@@ -417,6 +417,11 @@
   </table>
   </div>
 
+  <h3 class="sub">Cómo se detecta y mitiga una alucinación</h3>
+  <div class="callout">
+    Además de RAG, Bedrock ofrece dos mecanismos distintos y complementarios para reducir alucinaciones. El <strong>contextual grounding check</strong> de Bedrock Guardrails verifica que una respuesta esté fundamentada en una fuente de referencia entregada (grounding) y sea relevante para la pregunta del usuario (relevance); cada dimensión recibe un puntaje de confianza de 0 a 1, y una respuesta por debajo del umbral configurado se bloquea. Aplica a resumen, parafraseo y preguntas y respuestas, no a chatbots conversacionales completos. Los <strong>Automated Reasoning checks</strong>, en cambio, traducen las afirmaciones del modelo a lógica formal y las verifican matemáticamente con SMT solvers contra reglas de negocio codificadas en una política; a diferencia del grounding check, la etapa de validación final es determinística y no depende de otro LLM.
+  </div>
+
   <h3 class="sub">Amazon Bedrock</h3>
   <div class="callout">
     Bedrock es el servicio que da acceso, mediante una única API, a modelos fundacionales de distintos proveedores (Anthropic, Meta, Amazon y otros), sin necesidad de gestionar servidores ni infraestructura de cómputo propia. Piénsalo como una tienda con varias marcas de modelos ya entrenados, listos para usar de inmediato.
@@ -427,6 +432,7 @@
     <tr><td class="servicio">Knowledge Bases</td><td>Conecta un modelo fundacional con tus propios documentos para implementar RAG, sin construir tú mismo la base vectorial desde cero.</td><td><span class="prio prio-alta">Alta</span></td></tr>
     <tr><td class="servicio">Agents</td><td>Permite que el modelo ejecute tareas de varios pasos invocando herramientas externas, como funciones o APIs, en vez de solo responder texto.</td><td><span class="prio prio-media">Media</span></td></tr>
     <tr><td class="servicio">Guardrails</td><td>Aplica políticas de contenido y seguridad sobre las entradas y salidas del modelo, bloqueando temas no deseados o información sensible.</td><td><span class="prio prio-alta">Alta</span></td></tr>
+    <tr><td class="servicio">Prompt Management</td><td>Centraliza la creación, el versionado y las pruebas de prompts fuera del código de la aplicación: variables con doble llave, comparación de variantes lado a lado y despliegue de versiones inmutables sin tocar el código.</td><td><span class="prio prio-media">Media</span></td></tr>
     <tr><td class="servicio">PartyRock</td><td>Un entorno gratuito para experimentar y crear apps generativas simples sobre Bedrock sin necesidad de una cuenta AWS completa.</td><td><span class="prio prio-baja">Baja</span></td></tr>
   </table>
   </div>
@@ -491,6 +497,22 @@
   </table>
   </div>
 
+  <h3 class="sub">Agentic AI: agentes autónomos y protocolos de integración</h3>
+  <div class="callout">
+    Agentic AI es el paradigma donde el modelo no solo responde, sino que planifica, decide qué herramienta usar y ejecuta tareas de varios pasos hacia un objetivo, con memoria de lo ocurrido. <strong>Amazon Bedrock AgentCore</strong> es la plataforma administrada de AWS para llevar agentes a producción a escala: funciona con cualquier framework y se organiza en módulos independientes como Runtime (entorno serverless para ejecutar agentes), Memory (memoria de corto y largo plazo compartible entre sesiones), Gateway (convierte APIs y funciones Lambda en herramientas compatibles con MCP), Identity (autenticación segura del agente) y Observability (trazabilidad con OpenTelemetry).
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Herramienta</th><th>Qué es</th></tr>
+    <tr><td class="servicio">Strands Agents</td><td>SDK de código abierto creado por AWS para construir agentes en Python y TypeScript con pocas líneas de código; funciona con múltiples proveedores de modelos e incluye soporte nativo para MCP.</td></tr>
+    <tr><td class="servicio">Kiro</td><td>IDE agentic de AWS que aplica "spec-driven development": el agente planifica requisitos, diseño y tareas antes de generar código, en vez de escribir código directamente a partir de una instrucción suelta.</td></tr>
+    <tr><td class="servicio">Model Context Protocol (MCP)</td><td>Protocolo abierto que estandariza cómo un agente se conecta con herramientas, datos y otros servidores MCP, evitando construir una integración distinta por cada herramienta.</td></tr>
+  </table>
+  </div>
+  <div class="callout">
+    <strong>Context Engineering:</strong> es la práctica de diseñar sistemas que ensamblan dinámicamente el conjunto óptimo de información que un LLM necesita para una tarea, no solo el texto del prompt. Mientras el prompt engineering define qué preguntar, el context engineering define qué mostrarle al modelo: instrucciones de sistema, perfil del usuario, memoria de la conversación, definiciones de herramientas o MCP disponibles y contexto recuperado por RAG.
+  </div>
+
   <h3 class="sub">Formas de personalizar un modelo, de menor a mayor costo</h3>
   <div class="table-wrap">
   <table>
@@ -512,6 +534,12 @@
       <td>Reentrena y ajusta los pesos internos del modelo con tus propios datos etiquetados.</td>
       <td>Más costoso y lento que RAG.</td>
       <td>Necesitas que el modelo cambie su comportamiento de fondo, estilo o dominio de forma persistente, no solo su acceso a información puntual.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Model Distillation</td>
+      <td>Transfiere el conocimiento de un modelo maestro grande hacia un modelo estudiante más pequeño y económico, generando respuestas sintéticas con el maestro para ajustar al estudiante.</td>
+      <td>Más barato y rápido en inferencia que el maestro; la destilación en sí tiene un costo adicional puntual.</td>
+      <td>Necesitas la calidad de un modelo grande pero con menor costo y latencia para un caso de uso específico, sin usar datos propios etiquetados como en fine-tuning.</td>
     </tr>
     <tr>
       <td class="servicio">Pre-Training</td>
@@ -574,6 +602,7 @@
   <table>
     <tr><th>Método o métrica</th><th>Qué mide</th><th>Prioridad</th></tr>
     <tr><td class="servicio">Evaluación humana</td><td>Personas revisan y califican directamente las respuestas del modelo, útil para juzgar calidad subjetiva como tono o utilidad.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">LLM-as-a-Judge</td><td>Un modelo evaluador califica las respuestas de otro modelo generador según métricas predefinidas o personalizadas, y explica el puntaje asignado. Permite evaluar a escala de forma consistente, dejando la evaluación humana para casos subjetivos o críticos.</td><td><span class="prio prio-media">Media</span></td></tr>
     <tr><td class="servicio">Benchmark datasets</td><td>Conjuntos de datos estandarizados para comparar el desempeño de distintos modelos bajo las mismas condiciones.</td><td><span class="prio prio-media">Media</span></td></tr>
     <tr><td class="servicio">ROUGE</td><td>Mide qué tan bien un resumen generado por el modelo se superpone con un resumen de referencia escrito por humanos.</td><td><span class="prio prio-baja">Baja</span></td></tr>
     <tr><td class="servicio">BLEU</td><td>Mide la calidad de una traducción automática comparándola con una o más traducciones de referencia.</td><td><span class="prio prio-baja">Baja</span></td></tr>
@@ -581,7 +610,7 @@
   </table>
   </div>
   <div class="callout">
-    Además de las métricas técnicas, el examen puede preguntar sobre métricas de negocio: si el modelo aumenta la <strong>productividad</strong> del equipo, mejora el <strong>engagement</strong> de los usuarios, o si vale la pena rediseñar la tarea completa alrededor de las capacidades del modelo (task engineering) en vez de solo insertarlo en un proceso ya existente.
+    Además de las métricas técnicas, el examen puede preguntar sobre métricas de negocio: si el modelo aumenta la <strong>productividad</strong> del equipo, mejora el <strong>engagement</strong> de los usuarios, o si vale la pena rediseñar la tarea completa alrededor de las capacidades del modelo (task engineering) en vez de solo insertarlo en un proceso ya existente. La versión más reciente del exam guide agrega métricas específicas de alineación con el objetivo de negocio: <strong>tasa de finalización de tareas</strong> (task completion rate), <strong>satisfacción del usuario</strong> (user satisfaction) y <strong>costo por interacción</strong> (cost per interaction).
   </div>
 
   <h3 class="sub">Servicios de IA especializados (AI Services)</h3>
@@ -603,6 +632,7 @@
     <tr><td class="servicio">Amazon Augmented AI (A2I)</td><td>Inserta revisión humana en el flujo de predicciones de un modelo, cuando la confianza de la predicción es baja o el caso es crítico.</td><td><span class="prio prio-media">Media</span></td></tr>
     <tr><td class="servicio">Amazon Connect</td><td>Centro de contacto en la nube que integra capacidades de IA, como Transcribe y Lex, para atención al cliente.</td><td><span class="prio prio-baja">Baja</span></td></tr>
     <tr><td class="servicio">Amazon Q</td><td>Asistente generativo para negocio y para desarrolladores dentro del ecosistema AWS.</td><td><span class="prio prio-media">Media</span></td></tr>
+    <tr><td class="servicio">AWS Transform</td><td>Usa agentes de IA para modernizar aplicaciones e infraestructura: migración de mainframes (IBM z/OS, Fujitsu GS21), migración de servidores VMware o Hyper-V a EC2, modernización de aplicaciones .NET y containerización hacia ECS o EKS.</td><td><span class="prio prio-baja">Baja</span></td></tr>
   </table>
   </div>
   <a class="top-link" href="#toc">↑ volver al índice</a>
@@ -798,6 +828,9 @@
     <tr><td class="servicio">SageMaker Clarify contra Bedrock Guardrails</td><td>Detecta sesgo y explica predicciones de un modelo propio, contra filtra contenido de entrada y salida en un modelo generativo consumido.</td></tr>
     <tr><td class="servicio">Modelo transparente contra modelo opaco</td><td>Fácil de interpretar cómo llega a sus decisiones, contra funciona como una caja negra difícil de explicar.</td></tr>
     <tr><td class="servicio">Inferencia en tiempo real contra por lotes</td><td>Respuesta inmediata para un caso individual, contra procesamiento masivo de muchos datos sin necesidad de respuesta instantánea.</td></tr>
+    <tr><td class="servicio">Fine-tuning contra Model Distillation</td><td>Reentrenar el modelo con tus propios datos etiquetados, contra transferir el conocimiento de un modelo maestro grande a uno estudiante más chico y barato.</td></tr>
+    <tr><td class="servicio">Contextual grounding check contra Automated Reasoning checks</td><td>Verifica que la respuesta esté respaldada por un documento fuente y sea relevante a la pregunta, contra verifica matemáticamente que la respuesta cumpla reglas de negocio codificadas como lógica formal.</td></tr>
+    <tr><td class="servicio">LLM-as-a-Judge contra evaluación humana</td><td>Un modelo evalúa a otro modelo a escala y de forma consistente, contra personas revisando calidad subjetiva como tono o utilidad.</td></tr>
   </table>
   </div>
   <a class="top-link" href="#toc">↑ volver al índice</a>
@@ -829,6 +862,12 @@
     <tr><td class="servicio">"Más económico para una tarea simple"</td><td>Un modelo más pequeño, prompting simple, o RAG en vez de fine-tuning</td></tr>
     <tr><td class="servicio">"Auditar quién invocó qué modelo y cuándo"</td><td>AWS CloudTrail</td></tr>
     <tr><td class="servicio">"El modelo empeora con el tiempo en producción"</td><td>Drift, monitoreado con SageMaker Model Monitor</td></tr>
+    <tr><td class="servicio">"El agente debe planificar, usar herramientas y ejecutar varios pasos de forma autónoma"</td><td>Agentic AI con Amazon Bedrock AgentCore</td></tr>
+    <tr><td class="servicio">"Evitar que el modelo invente algo que no está en el documento fuente"</td><td>Contextual grounding check de Bedrock Guardrails</td></tr>
+    <tr><td class="servicio">"Verificar matemáticamente que la respuesta cumple una política de negocio"</td><td>Automated Reasoning checks</td></tr>
+    <tr><td class="servicio">"Reducir el costo y la latencia de un modelo grande sin perder mucha precisión"</td><td>Model Distillation</td></tr>
+    <tr><td class="servicio">"Versionar y probar variantes de un prompt sin tocar el código de la aplicación"</td><td>Amazon Bedrock Prompt Management</td></tr>
+    <tr><td class="servicio">"Modernizar mainframes o aplicaciones .NET legacy con IA"</td><td>AWS Transform</td></tr>
   </table>
   </div>
   <a class="top-link" href="#toc">↑ volver al índice</a>
@@ -868,6 +907,7 @@
     <li>Qué son tokens, embeddings, ventana de contexto y temperatura</li>
     <li>El flujo completo de RAG, paso a paso, sin saltarse ninguno</li>
     <li>Las técnicas de prompt engineering: zero-shot, few-shot, chain-of-thought como mínimo</li>
+    <li>Qué es Agentic AI y cómo encajan Amazon Bedrock AgentCore, Strands Agents, Kiro y el Model Context Protocol (MCP) en una arquitectura de agentes</li>
   </ul>
 
   <h3 class="sub">Servicios clave que debes saber sin dudar</h3>
@@ -877,6 +917,8 @@
     <li>Bedrock Guardrails contra SageMaker Clarify</li>
     <li>Precision contra Recall, y en qué escenario cada una importa más</li>
     <li>RAG contra Fine-tuning contra Pre-training, en orden de costo</li>
+    <li>Contextual grounding check contra Automated Reasoning checks para prevenir alucinaciones</li>
+    <li>Model Distillation contra fine-tuning, y Bedrock Prompt Management para versionar prompts</li>
   </ul>
 
   <h3 class="sub">Estrategia el día del examen</h3>

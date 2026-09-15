@@ -417,6 +417,11 @@
   </table>
   </div>
 
+  <h3 class="sub">How a hallucination gets detected and mitigated</h3>
+  <div class="callout">
+    Beyond RAG, Bedrock offers two distinct, complementary mechanisms for reducing hallucinations. The <strong>contextual grounding check</strong> in Bedrock Guardrails verifies that a response is grounded in a supplied reference source (grounding) and is relevant to the user's question (relevance); each dimension gets a confidence score from 0 to 1, and a response below the configured threshold gets blocked. It applies to summarization, paraphrasing, and question answering, not to full conversational chatbots. <strong>Automated Reasoning checks</strong>, on the other hand, translate the model's claims into formal logic and mathematically verify them with SMT solvers against business rules encoded in a policy; unlike the grounding check, the final validation step is deterministic and doesn't depend on another LLM.
+  </div>
+
   <h3 class="sub">Amazon Bedrock</h3>
   <div class="callout">
     Bedrock is the service that gives you access, through a single API, to foundation models from different providers (Anthropic, Meta, Amazon, and others), without having to manage servers or your own compute infrastructure. Think of it as a store carrying several brands of already-trained models, ready to use right away.
@@ -427,6 +432,7 @@
     <tr><td class="servicio">Knowledge Bases</td><td>Connects a foundation model to your own documents to implement RAG, without building the vector store yourself from scratch.</td><td><span class="prio prio-alta">High</span></td></tr>
     <tr><td class="servicio">Agents</td><td>Lets the model carry out multi-step tasks by invoking external tools, such as functions or APIs, instead of only replying with text.</td><td><span class="prio prio-media">Medium</span></td></tr>
     <tr><td class="servicio">Guardrails</td><td>Applies content and safety policies to the model's inputs and outputs, blocking unwanted topics or sensitive information.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Prompt Management</td><td>Centralizes prompt creation, versioning, and testing outside the application code: double-curly-brace variables, side-by-side variant comparison, and deploying immutable versions without touching the code.</td><td><span class="prio prio-media">Medium</span></td></tr>
     <tr><td class="servicio">PartyRock</td><td>A free environment for experimenting with and building simple generative apps on top of Bedrock, no full AWS account required.</td><td><span class="prio prio-baja">Low</span></td></tr>
   </table>
   </div>
@@ -491,6 +497,22 @@
   </table>
   </div>
 
+  <h3 class="sub">Agentic AI: autonomous agents and integration protocols</h3>
+  <div class="callout">
+    Agentic AI is the paradigm where the model doesn't just respond, it plans, decides which tool to use, and carries out multi-step tasks toward a goal, with memory of what happened. <strong>Amazon Bedrock AgentCore</strong> is AWS's managed platform for taking agents to production at scale: it works with any framework and is organized into independent modules such as Runtime (a serverless environment for running agents), Memory (short and long-term memory shareable across sessions), Gateway (turns APIs and Lambda functions into MCP-compatible tools), Identity (secure agent authentication), and Observability (tracing with OpenTelemetry).
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Tool</th><th>What it is</th></tr>
+    <tr><td class="servicio">Strands Agents</td><td>Open-source SDK built by AWS for building agents in Python and TypeScript in a few lines of code; works with multiple model providers and includes native MCP support.</td></tr>
+    <tr><td class="servicio">Kiro</td><td>AWS's agentic IDE that applies "spec-driven development": the agent plans requirements, design, and tasks before generating code, instead of writing code straight from a loose instruction.</td></tr>
+    <tr><td class="servicio">Model Context Protocol (MCP)</td><td>Open protocol that standardizes how an agent connects to tools, data, and other MCP servers, avoiding a separate custom integration for every tool.</td></tr>
+  </table>
+  </div>
+  <div class="callout">
+    <strong>Context Engineering:</strong> the practice of designing systems that dynamically assemble the optimal set of information an LLM needs for a task, not just the prompt text. While prompt engineering is about what to ask, context engineering is about what to show the model: system instructions, user profile, conversation memory, tool or MCP definitions available, and context retrieved through RAG.
+  </div>
+
   <h3 class="sub">Ways to customize a model, from lowest to highest cost</h3>
   <div class="table-wrap">
   <table>
@@ -512,6 +534,12 @@
       <td>Retrains and adjusts the model's internal weights using your own labeled data.</td>
       <td>More expensive and slower than RAG.</td>
       <td>You need the model to persistently change its underlying behavior, style, or domain, not just its access to specific information.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Model Distillation</td>
+      <td>Transfers knowledge from a large teacher model to a smaller, cheaper student model, generating synthetic responses with the teacher to fine-tune the student.</td>
+      <td>Cheaper and faster at inference than the teacher; distillation itself has a one-time extra cost.</td>
+      <td>You need the quality of a large model but at lower cost and latency for a specific use case, without using your own labeled data the way fine-tuning does.</td>
     </tr>
     <tr>
       <td class="servicio">Pre-Training</td>
@@ -574,6 +602,7 @@
   <table>
     <tr><th>Method or metric</th><th>What it measures</th><th>Priority</th></tr>
     <tr><td class="servicio">Human evaluation</td><td>People directly review and rate the model's responses, useful for judging subjective quality like tone or usefulness.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">LLM-as-a-Judge</td><td>An evaluator model scores another generator model's responses against predefined or custom metrics, and explains the score it assigned. It scales evaluation consistently, leaving human evaluation for subjective or critical cases.</td><td><span class="prio prio-media">Medium</span></td></tr>
     <tr><td class="servicio">Benchmark datasets</td><td>Standardized datasets for comparing the performance of different models under the same conditions.</td><td><span class="prio prio-media">Medium</span></td></tr>
     <tr><td class="servicio">ROUGE</td><td>Measures how well a summary generated by the model overlaps with a human-written reference summary.</td><td><span class="prio prio-baja">Low</span></td></tr>
     <tr><td class="servicio">BLEU</td><td>Measures the quality of a machine translation by comparing it against one or more reference translations.</td><td><span class="prio prio-baja">Low</span></td></tr>
@@ -581,7 +610,7 @@
   </table>
   </div>
   <div class="callout">
-    Beyond technical metrics, the exam may ask about business metrics: whether the model increases team <strong>productivity</strong>, improves user <strong>engagement</strong>, or whether it's worth redesigning the whole task around the model's capabilities (task engineering) instead of just inserting it into an already existing process.
+    Beyond technical metrics, the exam may ask about business metrics: whether the model increases team <strong>productivity</strong>, improves user <strong>engagement</strong>, or whether it's worth redesigning the whole task around the model's capabilities (task engineering) instead of just inserting it into an already existing process. The latest version of the exam guide adds specific business-alignment metrics: <strong>task completion rate</strong>, <strong>user satisfaction</strong>, and <strong>cost per interaction</strong>.
   </div>
 
   <h3 class="sub">Specialized AI Services</h3>
@@ -603,6 +632,7 @@
     <tr><td class="servicio">Amazon Augmented AI (A2I)</td><td>Inserts human review into a model's prediction flow, when prediction confidence is low or the case is critical.</td><td><span class="prio prio-media">Medium</span></td></tr>
     <tr><td class="servicio">Amazon Connect</td><td>Cloud contact center that integrates AI capabilities, like Transcribe and Lex, for customer service.</td><td><span class="prio prio-baja">Low</span></td></tr>
     <tr><td class="servicio">Amazon Q</td><td>Generative assistant for business and for developers within the AWS ecosystem.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">AWS Transform</td><td>Uses AI agents to modernize applications and infrastructure: mainframe migration (IBM z/OS, Fujitsu GS21), migrating VMware or Hyper-V servers to EC2, .NET application modernization, and containerization to ECS or EKS.</td><td><span class="prio prio-baja">Low</span></td></tr>
   </table>
   </div>
   <a class="top-link" href="#toc">↑ back to index</a>
@@ -798,6 +828,9 @@
     <tr><td class="servicio">SageMaker Clarify vs. Bedrock Guardrails</td><td>Detects bias and explains predictions for your own model, vs. filters input and output content on a consumed generative model.</td></tr>
     <tr><td class="servicio">Transparent model vs. opaque model</td><td>Easy to interpret how it reaches its decisions, vs. works like a black box that's hard to explain.</td></tr>
     <tr><td class="servicio">Real-time vs. batch inference</td><td>Immediate response for an individual case, vs. massive processing of lots of data with no need for an instant response.</td></tr>
+    <tr><td class="servicio">Fine-tuning vs. Model Distillation</td><td>Retraining the model with your own labeled data, vs. transferring knowledge from a large teacher model to a smaller, cheaper student model.</td></tr>
+    <tr><td class="servicio">Contextual grounding check vs. Automated Reasoning checks</td><td>Verifies the response is backed by a source document and relevant to the question, vs. mathematically verifies the response complies with business rules encoded as formal logic.</td></tr>
+    <tr><td class="servicio">LLM-as-a-Judge vs. human evaluation</td><td>A model evaluates another model at scale and consistently, vs. people reviewing subjective quality like tone or usefulness.</td></tr>
   </table>
   </div>
   <a class="top-link" href="#toc">↑ back to index</a>
@@ -829,6 +862,12 @@
     <tr><td class="servicio">"Cheaper for a simple task"</td><td>A smaller model, simple prompting, or RAG instead of fine-tuning</td></tr>
     <tr><td class="servicio">"Audit who invoked which model and when"</td><td>AWS CloudTrail</td></tr>
     <tr><td class="servicio">"The model gets worse over time in production"</td><td>Drift, monitored with SageMaker Model Monitor</td></tr>
+    <tr><td class="servicio">"The agent needs to plan, use tools, and carry out several steps autonomously"</td><td>Agentic AI with Amazon Bedrock AgentCore</td></tr>
+    <tr><td class="servicio">"Prevent the model from making up something that isn't in the source document"</td><td>Contextual grounding check in Bedrock Guardrails</td></tr>
+    <tr><td class="servicio">"Mathematically verify the response complies with a business policy"</td><td>Automated Reasoning checks</td></tr>
+    <tr><td class="servicio">"Reduce the cost and latency of a large model without losing much accuracy"</td><td>Model Distillation</td></tr>
+    <tr><td class="servicio">"Version and test prompt variants without touching the application code"</td><td>Amazon Bedrock Prompt Management</td></tr>
+    <tr><td class="servicio">"Modernize mainframes or legacy .NET applications with AI"</td><td>AWS Transform</td></tr>
   </table>
   </div>
   <a class="top-link" href="#toc">↑ back to index</a>
@@ -868,6 +907,7 @@
     <li>What tokens, embeddings, context window, and temperature are</li>
     <li>The full RAG flow, step by step, without skipping any</li>
     <li>Prompt engineering techniques: zero-shot, few-shot, chain-of-thought at minimum</li>
+    <li>What Agentic AI is and how Amazon Bedrock AgentCore, Strands Agents, Kiro, and the Model Context Protocol (MCP) fit into an agent architecture</li>
   </ul>
 
   <h3 class="sub">Key services you should know without hesitation</h3>
@@ -877,6 +917,8 @@
     <li>Bedrock Guardrails vs. SageMaker Clarify</li>
     <li>Precision vs. Recall, and in which scenario each matters more</li>
     <li>RAG vs. Fine-tuning vs. Pre-training, in order of cost</li>
+    <li>Contextual grounding check vs. Automated Reasoning checks for preventing hallucinations</li>
+    <li>Model Distillation vs. fine-tuning, and Bedrock Prompt Management for versioning prompts</li>
   </ul>
 
   <h3 class="sub">Exam-day strategy</h3>
