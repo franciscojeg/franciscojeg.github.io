@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Material de Estudio: AWS AIB-C01</title>
+<style>
+  :root{
+    --aws-orange:#FF9900;
+    --aws-dark:#232F3E;
+    --bg:#f4f6f8;
+    --card:#ffffff;
+    --text:#1c2530;
+    --text-muted:#5b6b7a;
+    --border:#e1e6eb;
+    --alta:#d93025; --alta-bg:#fce8e6;
+    --media:#b7791f; --media-bg:#fef3e0;
+    --baja:#1a73e8; --baja-bg:#e8f0fe;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--text); margin:0; line-height:1.55;
+  }
+  header{
+    background:var(--aws-dark); color:#fff; padding:22px 24px; text-align:center;
+  }
+  header h1{margin:0 0 4px;font-size:22px;}
+  header p{margin:0;color:#c8d1db;font-size:13.5px;}
+  .layout{display:flex; max-width:1200px; margin:0 auto;}
+  nav#toc{
+    width:270px; flex-shrink:0; padding:20px 14px; position:sticky; top:0; align-self:flex-start;
+    max-height:100vh; overflow-y:auto; font-size:13px; border-right:1px solid var(--border); background:#fff;
+  }
+  nav#toc h4{margin:14px 0 6px;color:var(--aws-dark);font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
+  nav#toc h4:first-child{margin-top:0;}
+  nav#toc a{display:block;color:var(--text-muted);text-decoration:none;padding:3px 0 3px 6px;border-left:2px solid transparent;}
+  nav#toc a:hover{color:var(--aws-dark);border-left-color:var(--aws-orange);}
+  main{flex:1; padding:24px 32px 80px; min-width:0;}
+  .part{margin-bottom:44px;}
+  .part-title{
+    background:var(--aws-dark); color:#fff; padding:12px 18px; border-radius:8px; margin-bottom:6px;
+    font-size:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;
+  }
+  .part-title .weight{background:var(--aws-orange);color:var(--aws-dark);font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;}
+  .intro{color:var(--text-muted); font-size:14px; margin:10px 0 18px; padding:12px 16px; background:#fff8ef; border-left:4px solid var(--aws-orange); border-radius:0 6px 6px 0;}
+  h3.sub{font-size:15px; margin:22px 0 8px; color:var(--aws-dark); border-bottom:2px solid var(--border); padding-bottom:4px;}
+  h4.subsub{font-size:13.5px; margin:16px 0 6px; color:var(--text);}
+  .table-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:20px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.06); background:#fff;}
+  table{width:100%; min-width:640px; table-layout:fixed; border-collapse:collapse; font-size:13px; background:#fff;}
+  th:first-child, td.servicio{width:22%; word-wrap:break-word; overflow-wrap:break-word;}
+  th,td{padding:9px 11px; text-align:left; vertical-align:top; border-bottom:1px solid var(--border);}
+  th{background:#eef1f4; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--text-muted);}
+  tr:last-child td{border-bottom:none;}
+  td.servicio{font-weight:700;}
+  .prio{display:inline-block; font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap;}
+  .prio-alta{background:var(--alta-bg); color:var(--alta);}
+  .prio-media{background:var(--media-bg); color:var(--media);}
+  .prio-baja{background:var(--baja-bg); color:var(--baja);}
+  .top-link{font-size:11.5px; color:var(--baja); text-decoration:none;}
+  .callout{background:#fff; border:1px solid var(--border); border-left:4px solid var(--baja); border-radius:0 8px 8px 0; padding:12px 16px; font-size:13.5px; margin:14px 0;}
+  .callout.warn{border-left-color:var(--media); }
+  .checklist{list-style:none; padding:0; margin:0;}
+  .checklist li{padding:6px 0 6px 26px; position:relative; font-size:14px; border-bottom:1px dashed var(--border);}
+  .checklist li:before{content:"☐"; position:absolute; left:0; color:var(--aws-orange); font-size:16px;}
+  code{background:#eef1f4; padding:1px 5px; border-radius:4px; font-size:12px;}
+  .keyword{background:var(--aws-dark); color:#fff; padding:2px 8px; border-radius:5px; font-weight:700; font-size:12px;}
+  .toc-toggle{display:none;}
+  .beta-note{background:#fff4ce;border:1px solid #f0d375;border-radius:8px;padding:12px 16px;font-size:13.5px;margin:14px 0;color:#5c4a06;}
+  @media (max-width: 900px){
+    .toc-toggle{
+      display:block; margin:14px 14px 0; background:var(--aws-orange); color:var(--aws-dark);
+      border:none; padding:12px 16px; border-radius:8px; font-weight:700; font-size:14px;
+      cursor:pointer; width:calc(100% - 28px);
+    }
+    .layout{flex-direction:column;}
+    nav#toc{
+      display:none; width:100%; position:static; max-height:none;
+      border-right:none; border-bottom:1px solid var(--border);
+    }
+    nav#toc.open{display:block;}
+    main{padding:18px 14px 60px;}
+    table{font-size:12px; min-width:560px;}
+    th,td{padding:7px 8px;}
+    header h1{font-size:19px;}
+    .part-title{font-size:16px; padding:10px 14px;}
+  }
+  @media (max-width: 480px){
+    header{padding:16px 14px;}
+    header h1{font-size:17px;}
+    main{padding:14px 10px 50px;}
+    .part-title{font-size:14.5px; flex-direction:column; align-items:flex-start; gap:4px;}
+    table{font-size:11.5px; min-width:520px;}
+    th,td{padding:6px 7px;}
+    .intro, .callout{font-size:13px; padding:10px 12px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📘 Material de Estudio: AWS Certified AI Business Strategist (AIB-C01)</h1>
+  <p>Preparado por Francisco Escobar, AWS Community Builder (Networking &amp; Content Delivery) · Organizado por dominios oficiales del examen</p>
+  <p style="margin-top:6px;"><a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" style="color:#FF9900;text-decoration:none;font-weight:600;">linkedin.com/in/franciscojeg</a></p>
+</header>
+
+<button class="toc-toggle" id="tocToggle" aria-expanded="false" aria-controls="toc">☰ Ver índice</button>
+
+<div class="layout">
+<nav id="toc">
+  <h4>Navegación</h4>
+  <a href="#fundamentos">0. Fundamentos del examen</a>
+  <a href="#dominio1">1. AI Fundamentals and Literacy (24%)</a>
+  <a href="#dominio2">2. AI Strategy and Business Value Creation (28%)</a>
+  <a href="#dominio3">3. AI Governance and Responsible AI Leadership (24%)</a>
+  <a href="#dominio4">4. Business Readiness, Leadership y AI Transformation (24%)</a>
+  <a href="#servicios">5. Servicios AWS dentro y fuera de alcance</a>
+  <a href="#comparaciones">6. Comparaciones críticas</a>
+  <a href="#checklist">7. Checklist final</a>
+</nav>
+
+<main>
+
+<section id="fundamentos" class="part">
+  <div class="part-title">0. Antes de empezar: cómo es este examen</div>
+  <div class="intro">Este es un examen de nivel Business, no técnico. No pregunta cómo configurar Bedrock ni cómo entrenar un modelo: pregunta si, dado un escenario de negocio, sabes evaluar la estrategia de IA correcta, medir su valor, gobernarla de forma responsable y liderar la transformación que implica adoptarla. No se requiere experiencia en código ni en implementación práctica de AWS.</div>
+
+  <div class="beta-note"><strong>Nota sobre el estado del examen:</strong> AIB-C01 es una certificación muy nueva de AWS. La página de mercadeo de AWS indica una versión beta de 85 preguntas y 170 minutos a USD 50, mientras que la guía oficial de examen ya documenta el formato estándar de 130 minutos con un puntaje mínimo de 700/1000. Antes de programar tu examen, confirma en tu cuenta de AWS Certification cuál de las dos versiones te va a tocar rendir, ya que cambia el tiempo disponible por pregunta.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Dato</th><th>Valor</th></tr>
+    <tr><td class="servicio">Código del examen</td><td>AIB-C01</td></tr>
+    <tr><td class="servicio">Duración (guía oficial)</td><td>130 minutos · versión beta actual: 170 minutos</td></tr>
+    <tr><td class="servicio">Preguntas</td><td>Opción múltiple (1 correcta, 3 distractores) y respuesta múltiple (2 o más correctas de 5 o más opciones, se debe marcar todas para el punto) · versión beta: 85 preguntas</td></tr>
+    <tr><td class="servicio">Puntaje</td><td>De 100 a 1000, con 700 como mínimo para aprobar, con modelo compensatorio: no necesitas aprobar cada dominio por separado, solo el puntaje total</td></tr>
+    <tr><td class="servicio">Costo</td><td>USD 50 durante el período beta · USD 100 en su versión estándar</td></tr>
+    <tr><td class="servicio">Prerrequisitos</td><td>Ninguno formal. Se recomienda conocimiento básico de conceptos de IA y unos 6 meses de exposición a equipos que estén adoptando IA. No se requiere código ni experiencia implementando AWS</td></tr>
+    <tr><td class="servicio">Público objetivo</td><td>Product/program managers, profesionales de ventas y desarrollo de negocio, líderes de línea de negocio, consultores, analistas de negocio y marketing</td></tr>
+    <tr><td class="servicio">Idiomas</td><td>Inglés y japonés</td></tr>
+  </table>
+  </div>
+</section>
+
+<section id="dominio1" class="part">
+  <div class="part-title">1. AI Fundamentals and Literacy <span class="weight">24%</span></div>
+  <div class="intro">Vocabulario y conceptos base que sostienen todo lo demás: qué es IA, cómo se diferencia de ML y de GenAI, y qué hace que una solución de IA sea la adecuada para un problema de negocio.</div>
+
+  <h3 class="sub">1.1 Conceptos básicos de IA y terminología</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Concepto</th><th>En palabras simples</th></tr>
+    <tr><td class="servicio">IA vs ML vs GenAI</td><td>IA es el campo general. ML es un subconjunto que aprende patrones desde datos. GenAI es un subconjunto de ML que genera contenido nuevo (texto, imagen, código) a partir de esos patrones.</td></tr>
+    <tr><td class="servicio">Entrenamiento e inferencia</td><td>Entrenamiento es cuando el modelo aprende de datos históricos. Inferencia es cuando ese modelo ya entrenado produce una predicción o respuesta en producción.</td></tr>
+    <tr><td class="servicio">Datos estructurados vs no estructurados</td><td>Estructurados: filas y columnas, como una planilla o base de datos. No estructurados: texto libre, imágenes, audio. La calidad y el tipo de dato determinan qué tan buena puede ser una solución de IA.</td></tr>
+    <tr><td class="servicio">Marcos globales de vocabulario</td><td>Estándares como ISO/IEC 23053 (marco de ML) e ISO/IEC 42001 (sistema de gestión de IA) dan un lenguaje común entre organizaciones.</td></tr>
+  </table>
+  </div>
+  <div class="callout"><strong>Pista de examen:</strong> si el enunciado describe un sistema que "genera" contenido nuevo (redacta, dibuja, resume con lenguaje propio), es GenAI. Si solo predice una categoría o un número a partir de datos existentes, es ML tradicional.</div>
+
+  <h3 class="sub">1.2 Elegir el tipo de solución de IA correcto</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Situación</th><th>Qué reconocer</th></tr>
+    <tr><td class="servicio">Regla fija y predecible</td><td>Automatización basada en reglas (if/then) suele ser más simple, barata y explicable que IA. No todo problema necesita un modelo.</td></tr>
+    <tr><td class="servicio">Agente de IA</td><td>Un agente actúa con autonomía, usa herramientas y puede coordinarse con otros agentes (comunicación agente a agente, orquestación). Se distingue de un simple chatbot o de un modelo que solo responde una pregunta.</td></tr>
+    <tr><td class="servicio">Monitoreo continuo</td><td>Todo sistema de IA en producción necesita monitoreo y actualización para detectar <em>drift</em> (degradación del modelo con el tiempo) y cambios de desempeño.</td></tr>
+    <tr><td class="servicio">Shadow AI</td><td>Uso no autorizado de herramientas de IA por parte de empleados, fuera del control de la organización. Se mitiga con una clasificación transparente de herramientas: aprobadas, bloqueadas, en evaluación.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">1.3 Conceptos y técnicas de GenAI</h3>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li><strong>Prompt engineering básico:</strong> diseñar la instrucción para obtener el resultado deseado de un modelo generativo.</li>
+    <li><strong>Ventana de contexto y límite de tokens:</strong> cuánta información puede "recordar" el modelo en una sola interacción; si se supera, el sistema pierde contexto o falla.</li>
+    <li><strong>RAG (Retrieval Augmented Generation):</strong> el modelo busca información actualizada o propia de la empresa antes de responder, sin necesidad de reentrenarlo.</li>
+    <li><strong>Fine-tuning:</strong> ajustar el comportamiento del modelo de forma más permanente usando datos propios, cuando RAG no es suficiente.</li>
+  </ul>
+  <div class="callout warn"><strong>Trampa típica:</strong> RAG resuelve "el modelo no conoce mis datos actuales"; fine-tuning resuelve "el modelo no se comporta o no habla como yo necesito". No son intercambiables.</div>
+</section>
+
+<section id="dominio2" class="part">
+  <div class="part-title">2. AI Strategy and Business Value Creation <span class="weight">28%</span></div>
+  <div class="intro">El dominio con mayor peso. Es el corazón "de negocio" del examen: cómo decidir qué iniciativas de IA emprender, cómo medir si están funcionando, y cómo usarlas para ganar ventaja competitiva.</div>
+
+  <h3 class="sub">2.1 Desarrollar estrategias de IA alineadas al negocio</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Decisión</th><th>Qué evaluar</th></tr>
+    <tr><td class="servicio">Mapear casos de uso</td><td>Identificar dónde la IA genera más impacto: atención al cliente, ventas y marketing, investigación y desarrollo, desarrollo de software, y conectar cada capacidad de IA con un resultado de negocio concreto.</td></tr>
+    <tr><td class="servicio">Build vs buy vs partner</td><td>Construir, comprar o asociarse, evaluando presupuesto, plazos, capacidades internas, propuestas de proveedores y cumplimiento regulatorio.</td></tr>
+    <tr><td class="servicio">Priorizar iniciativas</td><td>Por valor de negocio, factibilidad, sostenibilidad y alineación estratégica, decidiendo si escalar, pausar o terminar cada iniciativa.</td></tr>
+    <tr><td class="servicio">Cuándo NO usar IA</td><td>Reconocer cuándo un problema de negocio no necesita IA como solución.</td></tr>
+    <tr><td class="servicio">Transiciones</td><td>Al migrar un proceso a una solución de IA, o entre plataformas de IA, considerar continuidad del negocio, costo, madurez de los datos e impacto en desempeño.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">2.2 Medir y demostrar el valor de negocio de la IA</h3>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li><strong>KPIs tangibles e intangibles:</strong> reducción de costos y crecimiento de ingresos son tangibles; satisfacción del cliente y productividad del empleado son intangibles, pero igual de válidos.</li>
+    <li><strong>Línea base (baseline):</strong> se mide antes de implementar la solución de IA, para poder atribuirle el efecto real después.</li>
+    <li><strong>ROI de IA:</strong> se calcula con marcos que consideran ahorro de tiempo, reducción de costos, crecimiento de ingresos y ganancias de productividad juntas, no una sola métrica aislada.</li>
+    <li><strong>Indicadores tempranos (leading indicators):</strong> señales que predicen el éxito de un proyecto de IA antes de ver el resultado final.</li>
+    <li><strong>Control de costos:</strong> planificación y optimización básica del gasto asociado a la implementación.</li>
+  </ul>
+
+  <h3 class="sub">2.3 Posicionar la IA como ventaja competitiva</h3>
+  <div class="callout"><strong>Pista de examen:</strong> cuando el enunciado pregunta "cómo debería la empresa decidir cuánto invertir en IA", la respuesta correcta casi siempre depende de la madurez de la industria y de la dinámica competitiva del sector, no de un monto fijo.</div>
+  <p style="font-size:13.5px;color:var(--text-muted);margin:0;">Incluye evaluar el panorama competitivo, identificar oportunidades de transformar el modelo de negocio con IA, y explicar cómo la IA crea ventajas sostenibles y mejoras operacionales reales, no solo percibidas.</p>
+</section>
+
+<section id="dominio3" class="part">
+  <div class="part-title">3. AI Governance and Responsible AI Leadership <span class="weight">24%</span></div>
+  <div class="intro">Cómo aplicar principios de IA responsable a decisiones de negocio, cómo estructurar la gobernanza, y cómo identificar y mitigar los riesgos que trae usar IA a escala empresarial.</div>
+
+  <h3 class="sub">3.1 Principios de IA responsable aplicados al negocio</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Principio</th><th>Qué cubre</th></tr>
+    <tr><td class="servicio">Equidad (fairness)</td><td>Que el sistema no perjudique injustamente a un grupo de personas.</td></tr>
+    <tr><td class="servicio">Explicabilidad</td><td>Poder explicar por qué el sistema llegó a un resultado determinado.</td></tr>
+    <tr><td class="servicio">Privacidad</td><td>Proteger los datos personales usados por el sistema.</td></tr>
+    <tr><td class="servicio">Seguridad (safety)</td><td>Que el sistema no cause daño, incluso ante entradas inesperadas.</td></tr>
+    <tr><td class="servicio">Transparencia</td><td>Comunicar con claridad qué hace el sistema y cuáles son sus límites.</td></tr>
+    <tr><td class="servicio">Robustez</td><td>Que el sistema siga funcionando de forma confiable ante variaciones en los datos de entrada.</td></tr>
+  </table>
+  </div>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li>Reconocer cuándo los objetivos de negocio entran en tensión con estos principios y cómo se negocia ese trade-off.</li>
+    <li>Integrar la IA responsable desde la planificación del proyecto ("governance by design"), no como un parche al final.</li>
+    <li>Identificar cuándo un sistema de IA necesita supervisión humana, y qué salvaguardas aplicar: detección de alucinaciones, guardrails, criterios claros de escalamiento.</li>
+  </ul>
+
+  <h3 class="sub">3.2 Estructuras de gobernanza y cumplimiento regulatorio</h3>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li>Gobernanza con representación multifuncional (legal, negocio, tecnología, cumplimiento) y responsabilidades claras.</li>
+    <li>Identificar riesgos regulatorios de los procesos de negocio que usan IA.</li>
+    <li>Definir controles de acceso y medidas de seguridad de datos adecuadas para sistemas de IA.</li>
+    <li>Aplicar marcos de clasificación de riesgo de IA para priorizar decisiones de gobernanza a lo largo de todo el ciclo de vida.</li>
+  </ul>
+
+  <h3 class="sub">3.3 Riesgos empresariales de IA y mitigación</h3>
+  <div class="callout warn"><strong>Trampa típica:</strong> el sesgo (bias) no aparece solo en el modelo entrenado; puede introducirse en cualquier etapa del ciclo de vida (datos, diseño, despliegue), por eso se requiere monitoreo continuo de "bias drift", no una sola revisión inicial.</div>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li>Controles de riesgo y monitoreo para sistemas de IA en producción.</li>
+    <li>Gestión de contenido dañino y de propiedad intelectual generado por IA.</li>
+    <li>Riesgos de confiabilidad: alucinaciones, degradación de la calidad de los datos, model drift.</li>
+  </ul>
+</section>
+
+<section id="dominio4" class="part">
+  <div class="part-title">4. Business Readiness, Leadership y AI Transformation <span class="weight">24%</span></div>
+  <div class="intro">El dominio de "gestión del cambio": qué tan lista está una organización para adoptar IA, cómo construir las bases de datos e infraestructura, y cómo liderar la transformación desde un piloto hasta el despliegue a escala.</div>
+
+  <h3 class="sub">4.1 Evaluar madurez y disposición para adoptar IA</h3>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li>Evaluar la disposición del negocio a través de dimensiones críticas: alineación de liderazgo, calidad de datos, preparación cultural, infraestructura técnica y marcos de gobernanza.</li>
+    <li>Aplicar modelos de madurez de IA para ubicar a la empresa en su recorrido: desde experimentación hasta despliegue a escala empresarial.</li>
+    <li>Identificar brechas de capacidad en personas, proceso, tecnología y gobernanza que frenan la transformación.</li>
+    <li>Priorizar inversiones de desarrollo y crear rutas de progresión según objetivos estratégicos y nivel de madurez actual.</li>
+  </ul>
+
+  <h3 class="sub">4.2 Bases de datos e infraestructura</h3>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li>Evaluar disponibilidad, calidad y accesibilidad de los datos, y el efecto de los silos de datos sobre las iniciativas de IA.</li>
+    <li>Explicar por qué importan la estrategia de datos, la propiedad de los datos y los marcos de intercambio de datos como base para la IA.</li>
+    <li>Evaluar requisitos fundacionales de tecnología e infraestructura para sostener las iniciativas.</li>
+  </ul>
+
+  <h3 class="sub">4.3 Liderar el cambio y construir capacidades en la fuerza laboral</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Frente</th><th>Qué implica</th></tr>
+    <tr><td class="servicio">Patrocinio ejecutivo</td><td>Alinear liderazgo y designar "campeones" de IA que sostengan el impulso en toda la organización.</td></tr>
+    <tr><td class="servicio">Equipos multifuncionales</td><td>Negocio, técnica, legal y cumplimiento, con responsabilidades claras.</td></tr>
+    <tr><td class="servicio">Comunicación transparente</td><td>Abordar las preocupaciones del equipo sobre plazos, expectativas de resultados y efectos en sus roles.</td></tr>
+    <tr><td class="servicio">Barreras culturales</td><td>Aversión al riesgo, resistencia al cambio, miedo al fracaso, y qué intervenciones de liderazgo las atienden.</td></tr>
+    <tr><td class="servicio">Desarrollo de capacidades</td><td>Programas de prueba de concepto (POC), hackathones, capacitación en IA responsable, para acelerar la alfabetización en IA de toda la empresa.</td></tr>
+    <tr><td class="servicio">Transición de roles</td><td>De operación manual a supervisión y colaboración con IA, balanceando fortalezas humanas (pensamiento crítico, empatía, creatividad) con las capacidades del sistema.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">4.4 Escalar de pilotos a despliegues empresariales</h3>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li>Fases iterativas de transformación: envisionar, experimentar, lanzar, escalar.</li>
+    <li>Empezar con victorias tempranas de corto plazo antes de escalar a toda la empresa.</li>
+    <li>Establecer centros de excelencia de IA (COE) y mecanismos de colaboración multifuncional.</li>
+    <li>Definir mecanismos de retroalimentación continua y métricas de éxito de largo plazo.</li>
+    <li>Gestionar la transición de lo experimental a lo productivo, incluyendo requisitos de gobernanza y operación.</li>
+    <li>Evaluar múltiples factores durante el escalamiento para asegurar continuidad del negocio y desempeño.</li>
+  </ul>
+</section>
+
+<section id="servicios" class="part">
+  <div class="part-title">5. Servicios AWS dentro y fuera de alcance</div>
+  <div class="intro">A diferencia de un examen técnico, aquí no se pregunta cómo configurar estos servicios: solo se espera reconocer para qué sirve cada uno a nivel estratégico.</div>
+
+  <h3 class="sub">Dentro de alcance (conocimiento estratégico, no de implementación)</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio o marco</th><th>Para qué sirve, a nivel de negocio</th></tr>
+    <tr><td class="servicio">Amazon Bedrock</td><td>Plataforma de GenAI administrada: niveles de precio, Guardrails y Knowledge Bases, a nivel conceptual.</td></tr>
+    <tr><td class="servicio">Amazon SageMaker AI</td><td>Cuándo tiene sentido una solución de ML personalizada frente a una solución ya administrada.</td></tr>
+    <tr><td class="servicio">Amazon Quick (BI)</td><td>Aplicación básica de inteligencia de negocio.</td></tr>
+    <tr><td class="servicio">AWS Cloud Adoption Framework (CAF)</td><td>Marco para guiar la transformación hacia la nube y, por extensión, hacia la IA.</td></tr>
+    <tr><td class="servicio">Modelo de responsabilidad compartida</td><td>Qué responsabilidades le corresponden a AWS y cuáles a la empresa en una carga de IA.</td></tr>
+    <tr><td class="servicio">AWS Well-Architected (Responsible AI Lens)</td><td>Buenas prácticas de IA responsable dentro del marco Well-Architected.</td></tr>
+    <tr><td class="servicio">AWS Pricing Calculator, Cost Explorer, Marketplace</td><td>Estimar y controlar el costo de las iniciativas de IA, y estructuras de precio (por consumo, por instancia, por asiento).</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Fuera de alcance</h3>
+  <div class="callout warn"><strong>No se espera que sepas:</strong> configurar, desplegar o administrar ningún servicio de AWS. Quedan fuera de alcance servicios de cómputo e infraestructura (Amazon EC2, AWS Lambda), redes (Amazon VPC, CloudFront), bases de datos y almacenamiento (Amazon RDS, Amazon S3), contenedores (ECS, EKS), DevOps (CodePipeline, CloudFormation), configuración de seguridad (políticas de IAM, AWS KMS), IoT y servicios de medios especializados. Tampoco se pregunta por desarrollo o código de modelos, ingeniería de datos, ajuste de hiperparámetros, ni análisis matemático o estadístico de modelos.</div>
+</section>
+
+<section id="comparaciones" class="part">
+  <div class="part-title">6. Comparaciones que deciden preguntas</div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Par</th><th>Decisión rápida</th></tr>
+    <tr><td>RAG vs fine-tuning</td><td>Dato externo o actualizable vs cambio persistente de comportamiento del modelo.</td></tr>
+    <tr><td>Build vs buy vs partner</td><td>Depende de presupuesto, plazos, capacidad interna y cumplimiento, no de una preferencia técnica.</td></tr>
+    <tr><td>KPI tangible vs intangible</td><td>Costo/ingreso vs satisfacción/productividad. Ambos son válidos para medir valor de IA.</td></tr>
+    <tr><td>Guardrails/supervisión humana vs gobernanza</td><td>Controles operativos sobre un sistema en uso vs estructura organizacional que decide y audita.</td></tr>
+    <tr><td>Piloto vs escala</td><td>Un piloto exitoso no se escala automáticamente: requiere COE, gobernanza y métricas de éxito antes de crecer.</td></tr>
+    <tr><td>Madurez de IA vs disposición (readiness)</td><td>Madurez es dónde está la empresa en su recorrido; disposición es si tiene las condiciones (datos, cultura, liderazgo) para avanzar.</td></tr>
+  </table>
+  </div>
+</section>
+
+<section id="checklist" class="part">
+  <div class="part-title">7. Checklist final antes del examen</div>
+  <ul class="checklist">
+    <li>Puedo diferenciar IA, ML y GenAI, y explicar RAG vs fine-tuning con un ejemplo de negocio.</li>
+    <li>Puedo justificar una decisión de build vs buy vs partner con al menos tres factores.</li>
+    <li>Puedo describir cómo se calcula el ROI de una iniciativa de IA usando más de un tipo de beneficio.</li>
+    <li>Puedo nombrar los seis principios de IA responsable y dar un ejemplo de tensión con objetivos de negocio.</li>
+    <li>Puedo explicar qué es un AI Center of Excellence y por qué aparece al escalar de piloto a producción.</li>
+    <li>Puedo distinguir qué servicios de AWS están dentro de alcance (Bedrock, SageMaker AI a nivel conceptual) de los que no lo están (EC2, S3, IAM, etc).</li>
+    <li>Confirmé si mi examen es la versión beta (170 min, 85 preguntas) o la estándar (130 min) antes de programarlo.</li>
+  </ul>
+</section>
+
+</main>
+</div>
+
+<script>
+document.getElementById('tocToggle')?.addEventListener('click', function(){
+  var nav = document.getElementById('toc');
+  var open = nav.classList.toggle('open');
+  this.setAttribute('aria-expanded', open ? 'true':'false');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan Estudio AIB-C01 · Francisco Escobar</title>
+<style>
+  :root {
+    --amber: #B7791F; --amber-light: #FBF0DC; --amber-mid: #D99B33;
+    --blue: #185FA5; --blue-light: #E6F1FB;
+    --green: #3B6D11; --green-light: #EAF3DE;
+    --red: #A32D2D; --red-light: #FCEBEB;
+    --purple: #534AB7; --purple-light: #EEEDFE;
+    --coral: #993C1D; --coral-light: #FAECE7;
+    --teal: #0F6E56; --teal-light: #E1F5EE;
+    --text: #1a1a18; --text2: #5f5e5a; --text3: #9c9a92;
+    --bg: #ffffff; --bg2: #f7f6f2; --bg3: #f1efe8;
+    --border: rgba(0,0,0,.1); --border2: rgba(0,0,0,.18);
+    --radius: 8px; --radius-lg: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text: #e8e6de; --text2: #b4b2a9; --text3: #73726c;
+      --bg: #1c1c1a; --bg2: #242420; --bg3: #2c2c28;
+      --border: rgba(255,255,255,.1); --border2: rgba(255,255,255,.18);
+      --amber-light: rgba(183,121,31,.2); --blue-light: rgba(24,95,165,.2);
+      --green-light: rgba(59,109,17,.2); --red-light: rgba(162,45,45,.2);
+      --purple-light: rgba(83,74,183,.2); --coral-light: rgba(153,60,29,.2);
+      --teal-light: rgba(15,110,86,.2);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+  .header { background: linear-gradient(135deg,#3a2c05 0%,#B7791F 100%); padding: 28px 32px 24px; }
+  .header h1 { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .header p { font-size: 14px; color: rgba(255,255,255,.85); }
+  .header .badge { display: inline-block; background: rgba(255,255,255,.2); border-radius: 20px; padding: 3px 10px; font-size: 12px; color: #fff; margin-top: 8px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 28px 24px 60px; }
+  .beta-notice{background:rgba(183,121,31,.1);border:1px solid rgba(183,121,31,.28);border-radius:var(--radius-lg);padding:12px 16px;font-size:13px;margin:0 0 20px;color:var(--text);}
+  .beta-notice strong{color:var(--amber);}
+  .section-title { font-size: 18px; font-weight: 600; color: var(--text); margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+  .metric { background: var(--bg2); border-radius: var(--radius); padding: 12px 14px; text-align: center; }
+  .metric-num { font-size: 22px; font-weight: 600; }
+  .metric-lbl { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .tab-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tab-btn { background: none; border: 1px solid var(--border2); border-radius: var(--radius); padding: 8px 14px; font-size: 12px; cursor: pointer; color: var(--text2); transition: all .15s; line-height: 1.3; text-align: center; }
+  .tab-btn.active { background: var(--amber); border-color: var(--amber); color: #fff; font-weight: 500; }
+  .tab-btn:hover:not(.active) { background: var(--bg2); }
+  .tab-btn .wnum { display: block; font-weight: 500; font-size: 13px; }
+  .tab-btn .wdate { display: block; font-size: 10px; opacity: .7; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 12px; background: var(--bg); }
+  .card-label { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 5px; }
+  .topic-row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .topic-row:last-child { border-bottom: none; }
+  .pill { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+  .pill-d1 { background: var(--blue-light); color: var(--blue); }
+  .pill-d2 { background: var(--amber-light); color: var(--amber); }
+  .pill-d3 { background: var(--purple-light); color: var(--purple); }
+  .pill-d4 { background: var(--teal-light); color: var(--teal); }
+  .topic-detail { color: var(--text2); font-size: 12px; margin-top: 3px; }
+  .day-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+  .day-card { background: var(--bg2); border-radius: var(--radius); padding: 10px 12px; font-size: 13px; }
+  .day-label { font-weight: 600; font-size: 11px; color: var(--text3); margin-bottom: 4px; text-transform: uppercase; }
+  .day-sub { font-size: 11px; color: var(--text3); margin-top: 3px; }
+  .tip-box { border-left: 3px solid var(--amber); background: var(--amber-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-size: 13px; margin: 12px 0; color: var(--text); }
+  .warn-box { border-left: 3px solid var(--coral); background: var(--coral-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-size: 13px; margin: 12px 0; color: var(--text); }
+  .trap-box { border-left: 3px solid #E24B4A; background: var(--red-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-size: 13px; margin: 10px 0; color: var(--text); }
+  .trap-box strong { color: var(--red); }
+  .mock-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .mock-label { font-size: 12px; width: 100px; color: var(--text2); }
+  .mock-track { flex: 1; height: 8px; border-radius: 4px; background: var(--bg3); overflow: hidden; }
+  .mock-fill { height: 8px; border-radius: 4px; }
+  .mock-pct { font-size: 12px; width: 50px; text-align: right; }
+  .res-card{border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+  .res-name{font-weight:600;font-size:14px;margin-bottom:2px;}
+  .res-desc{font-size:12px;color:var(--text2);}
+  .res-tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:20px;background:var(--amber-light);color:var(--amber);font-weight:500;white-space:nowrap;}
+  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 16px 32px; font-size: 12px; color: var(--text3); text-align: center; }
+  @media (max-width: 600px) {
+    .metrics { grid-template-columns: repeat(2,1fr); }
+    .day-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Plan Estudio AIB-C01 - AWS Certified AI Business Strategist</h1>
+  <p>Francisco Escobar, 5 semanas hacia la certificación</p>
+  <span class="badge">AWS Community Builder · Networking &amp; Content Delivery</span>
+  <span class="badge">Nivel Business · sin código ni implementación</span>
+</div>
+
+<div class="container">
+
+<div class="beta-notice"><strong>Antes de fijar fechas:</strong> AIB-C01 es una certificación nueva de AWS. La guía oficial documenta 130 minutos y 700/1000 como puntaje mínimo, pero AWS también ofrece actualmente una versión beta de 85 preguntas y 170 minutos a USD 50. Revisa en tu cuenta de AWS Certification cuál versión te corresponde antes de programar el examen; este plan es genérico (semana 1 a semana 5) para que lo ajustes a tu propia fecha.</div>
+
+<div class="metrics">
+  <div class="metric"><div class="metric-num" style="color:var(--amber)">5</div><div class="metric-lbl">semanas de plan</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--blue)">~25h</div><div class="metric-lbl">horas estimadas</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--teal)">700</div><div class="metric-lbl">puntaje mínimo /1000</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--coral)">80%</div><div class="metric-lbl">meta en simulacros</div></div>
+</div>
+
+<div class="section-title">Plan semana a semana</div>
+<div class="tab-row">
+  <button class="tab-btn active" onclick="showW(0,this)"><span class="wnum">Semana 1</span><span class="wdate">Dominio 1</span></button>
+  <button class="tab-btn" onclick="showW(1,this)"><span class="wnum">Semana 2</span><span class="wdate">Dominio 2</span></button>
+  <button class="tab-btn" onclick="showW(2,this)"><span class="wnum">Semana 3</span><span class="wdate">Dominio 3</span></button>
+  <button class="tab-btn" onclick="showW(3,this)"><span class="wnum">Semana 4</span><span class="wdate">Dominio 4</span></button>
+  <button class="tab-btn" onclick="showW(4,this)"><span class="wnum">Semana 5</span><span class="wdate">Repaso final</span></button>
+</div>
+
+<!-- S1 -->
+<div id="w0" class="panel active">
+  <div class="card"><div class="card-label">Semana 1 — Dominio 1: AI Fundamentals and Literacy (24%)</div>
+    <div class="topic-row"><span class="pill pill-d1">1.1</span><div><strong>Conceptos básicos y terminología</strong><div class="topic-detail">IA vs ML vs GenAI, entrenamiento e inferencia, datos estructurados vs no estructurados, por qué importa la calidad del dato, marcos globales como ISO/IEC 23053 y 42001.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d1">1.2</span><div><strong>Elegir el tipo de solución de IA</strong><div class="topic-detail">Automatización basada en reglas vs IA, qué distingue a un agente de IA (autonomía, uso de herramientas, comunicación agente a agente), monitoreo continuo y drift, clasificación de shadow AI.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d1">1.3</span><div><strong>Conceptos y técnicas de GenAI</strong><div class="topic-detail">Prompt engineering básico, ventana de contexto y límite de tokens, RAG vs fine-tuning para adaptar un modelo a necesidades de negocio.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Días 1–3</div>IA vs ML vs GenAI + tipos de solución<div class="day-sub">2h — la base de vocabulario de todo el examen</div></div>
+    <div class="day-card"><div class="day-label">Días 4–5</div>RAG, fine-tuning, prompt engineering básico<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Fin de semana</div>Repaso + AWS Skill Builder Exam Prep Plan<div class="day-sub">2h — activa el curso oficial gratuito de AWS</div></div>
+  </div>
+  <div class="tip-box">Activa el <strong>Exam Prep Plan oficial en AWS Skill Builder</strong> para AIB-C01 desde ahora. Tienes acceso gratuito como Community Builder, y trae el contenido estructurado por dominio.</div>
+</div>
+
+<!-- S2 -->
+<div id="w1" class="panel">
+  <div class="card"><div class="card-label">Semana 2 — Dominio 2: AI Strategy and Business Value Creation (28%, el más pesado)</div>
+    <div class="topic-row"><span class="pill pill-d2">2.1</span><div><strong>Estrategias de IA alineadas al negocio</strong><div class="topic-detail">Mapear casos de uso de alto impacto, decisiones build vs buy vs partner, priorizar iniciativas (escalar, pausar, terminar), reconocer cuándo la IA no es la solución, evaluar transiciones entre soluciones.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d2">2.2</span><div><strong>Medir y demostrar valor de negocio</strong><div class="topic-detail">KPIs tangibles e intangibles, líneas base antes de implementar, cálculo de ROI con marcos integrales, indicadores tempranos de éxito, control básico de costos.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d2">2.3</span><div><strong>Posicionar la IA como ventaja competitiva</strong><div class="topic-detail">Evaluar el panorama competitivo, transformar modelos de negocio con IA, ventajas sostenibles, nivel de inversión según madurez de la industria.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Días 1–2</div>Casos de uso, build vs buy vs partner<div class="day-sub">2h</div></div>
+    <div class="day-card"><div class="day-label">Días 3–4</div>KPIs, línea base y cálculo de ROI<div class="day-sub">2h — el tema más preguntado de este dominio</div></div>
+    <div class="day-card"><div class="day-label">Día 5</div>Ventaja competitiva y madurez de industria<div class="day-sub">1h</div></div>
+    <div class="day-card"><div class="day-label">Fin de semana</div>Repaso + mini quiz de 15 preguntas del dominio<div class="day-sub">2h</div></div>
+  </div>
+  <div class="warn-box">Este dominio pesa 28%, más que cualquier otro. Si tienes poco tiempo esta semana, prioriza ROI y KPIs por sobre el resto: aparecen una y otra vez en distintos escenarios.</div>
+</div>
+
+<!-- S3 -->
+<div id="w2" class="panel">
+  <div class="card"><div class="card-label">Semana 3 — Dominio 3: AI Governance and Responsible AI Leadership (24%)</div>
+    <div class="topic-row"><span class="pill pill-d3">3.1</span><div><strong>Principios de IA responsable</strong><div class="topic-detail">Equidad, explicabilidad, privacidad, seguridad, transparencia, robustez. Tensiones entre objetivos de negocio y estos principios. Cuándo se necesita supervisión humana: detección de alucinaciones, guardrails, criterios de escalamiento.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d3">3.2</span><div><strong>Gobernanza y cumplimiento regulatorio</strong><div class="topic-detail">Estructuras multifuncionales con responsabilidad clara, riesgos regulatorios de procesos con IA, controles de acceso y seguridad de datos, marcos de clasificación de riesgo por ciclo de vida.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d3">3.3</span><div><strong>Riesgos empresariales y mitigación</strong><div class="topic-detail">Controles y monitoreo en producción, sesgo en múltiples etapas del ciclo de vida y bias drift, contenido dañino y propiedad intelectual, alucinaciones y model drift.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Días 1–2</div>Los seis principios de IA responsable<div class="day-sub">1.5h — apréndelos de memoria</div></div>
+    <div class="day-card"><div class="day-label">Días 3–4</div>Gobernanza, cumplimiento y clasificación de riesgo<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Día 5</div>Sesgo, alucinaciones y contenido dañino<div class="day-sub">1h</div></div>
+    <div class="day-card"><div class="day-label">Fin de semana</div>Repaso + quiz combinado dominios 1 a 3<div class="day-sub">2h</div></div>
+  </div>
+  <div class="trap-box"><strong>Trampa recurrente:</strong> el sesgo no se detecta ni se corrige una sola vez al entrenar el modelo. El examen espera que reconozcas que requiere monitoreo continuo de "bias drift" durante toda la vida del sistema.</div>
+</div>
+
+<!-- S4 -->
+<div id="w3" class="panel">
+  <div class="card"><div class="card-label">Semana 4 — Dominio 4: Business Readiness, Leadership y AI Transformation (24%)</div>
+    <div class="topic-row"><span class="pill pill-d4">4.1</span><div><strong>Madurez y disposición para adoptar IA</strong><div class="topic-detail">Dimensiones de disposición (liderazgo, datos, cultura, infraestructura, gobernanza), modelos de madurez de IA, brechas de capacidad, priorización de inversiones.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d4">4.2</span><div><strong>Bases de datos e infraestructura</strong><div class="topic-detail">Calidad y accesibilidad de datos, silos de datos, estrategia y propiedad de los datos, requisitos fundacionales de infraestructura.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d4">4.3</span><div><strong>Liderar el cambio y capacidades de la fuerza laboral</strong><div class="topic-detail">Patrocinio ejecutivo, equipos multifuncionales, comunicación transparente, barreras culturales, programas de desarrollo (POC, hackathones), transición de roles humanos.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d4">4.4</span><div><strong>Escalar de pilotos a despliegues empresariales</strong><div class="topic-detail">Fases envisionar/experimentar/lanzar/escalar, victorias tempranas, centros de excelencia de IA (COE), feedback continuo, transición de experimental a productivo.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Días 1–2</div>Madurez, disposición y brechas de capacidad<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Días 3–4</div>Liderazgo del cambio y fuerza laboral<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Día 5</div>Escalar: de piloto a COE<div class="day-sub">1h</div></div>
+    <div class="day-card"><div class="day-label">Fin de semana</div><strong style="color:var(--amber);">Simulacro 1 completo</strong><div class="day-sub">AWS Skill Builder practice questions o Tutorials Dojo</div></div>
+  </div>
+  <div class="tip-box">Este dominio se confunde fácil con el 2: el 2 es "qué iniciativa de IA elegir y cómo medirla", el 4 es "qué tan lista está la organización para adoptarla y cómo se lidera ese cambio".</div>
+</div>
+
+<!-- S5 -->
+<div id="w4" class="panel">
+  <div class="card"><div class="card-label">Semana 5 — Repaso general, comparaciones y simulacros</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:10px;">Sin contenido nuevo. Esta semana es solo repaso activo, comparaciones y simulacros cronometrados.</p>
+  </div>
+  <div style="margin-bottom:16px;">
+    <div class="mock-row"><span class="mock-label">Simulacro 1</span><div class="mock-track"><div class="mock-fill" style="width:60%;background:#EF9F27;"></div></div><span class="mock-pct" style="color:var(--amber);">~600/1000</span></div>
+    <div class="mock-row"><span class="mock-label">Simulacro 2</span><div class="mock-track"><div class="mock-fill" style="width:72%;background:#EF9F27;"></div></div><span class="mock-pct" style="color:var(--amber);">~720/1000</span></div>
+    <div class="mock-row"><span class="mock-label">Simulacro 3</span><div class="mock-track"><div class="mock-fill" style="width:80%;background:#3B6D11;"></div></div><span class="mock-pct" style="color:var(--green);">750+ meta</span></div>
+    <div class="mock-row"><span class="mock-label">Examen real</span><div class="mock-track"><div class="mock-fill" style="width:82%;background:#B7791F;"></div></div><span class="mock-pct" style="color:var(--amber);font-weight:600;">PASS</span></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Días 1–2</div>Repaso comparaciones críticas (ver tabla más abajo)<div class="day-sub">2h</div></div>
+    <div class="day-card"><div class="day-label">Día 3</div><strong style="color:var(--amber);">Simulacro 2</strong><div class="day-sub">2.5h examen + revisión de errores</div></div>
+    <div class="day-card"><div class="day-label">Día 4</div>Repaso dirigido a los errores del simulacro 2<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Día 5</div><strong style="color:var(--amber);">Simulacro 3</strong><div class="day-sub">2.5h — meta: superar 750/1000</div></div>
+    <div class="day-card"><div class="day-label">Día previo al examen</div>Repaso ligero, sin contenido nuevo, dormir bien<div class="day-sub">45 min máximo</div></div>
+  </div>
+  <div class="tip-box"><strong>Comparaciones que deciden preguntas:</strong> RAG vs fine-tuning · build vs buy vs partner · KPI tangible vs intangible · gobernanza vs guardrails/supervisión humana · piloto vs escala (COE) · madurez de IA vs disposición (readiness).</div>
+</div>
+
+<div class="section-title">Recursos esenciales</div>
+<div class="res-card"><div><div class="res-name">AWS Skill Builder — Exam Prep Plan AIB-C01</div><div class="res-desc">Curso oficial estructurado por dominio, con preguntas de práctica oficiales de AWS. Es el recurso más confiable por ser el más nuevo de los cuatro.</div></div><span class="res-tag">Oficial</span></div>
+<div class="res-card"><div><div class="res-name">Guía oficial de examen (PDF, AIB-C01)</div><div class="res-desc">Documento de AWS Certification con los task statements y skills exactos de cada dominio. Vuelve a ella si una pregunta de práctica te deja dudas sobre el alcance.</div></div><span class="res-tag">Referencia</span></div>
+<div class="res-card"><div><div class="res-name">Tutorials Dojo — AIB-C01 Practice Exams</div><div class="res-desc">Sets de práctica de terceros con explicaciones, útiles una vez que ya dominas el contenido oficial.</div></div><span class="res-tag">Simulacros</span></div>
+
+</div>
+
+<footer>
+  Plan de estudio AIB-C01 — AWS Certified AI Business Strategist<br>
+  Francisco Escobar · AWS Community Builder · Networking &amp; Content Delivery
+</footer>
+
+<script>
+function showW(i,b){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('w'+i).classList.add('active');
+  b.classList.add('active');
+}
+</script>
+</body>
+</html>
