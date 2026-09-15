@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAA-C03 Study Plan - Francisco Escobar</title>
+<style>
+  :root {
+    --blue: #185FA5; --blue-light: #E6F1FB; --blue-mid: #378ADD;
+    --amber: #BA7517; --amber-light: #FAEEDA;
+    --green: #3B6D11; --green-light: #EAF3DE;
+    --red: #A32D2D; --red-light: #FCEBEB;
+    --purple: #534AB7; --purple-light: #EEEDFE;
+    --coral: #993C1D; --coral-light: #FAECE7;
+    --gray: #5F5E5A; --gray-light: #F1EFE8;
+    --teal: #0F6E56; --teal-light: #E1F5EE;
+    --text: #1a1a18; --text2: #5f5e5a; --text3: #9c9a92;
+    --bg: #ffffff; --bg2: #f7f6f2; --bg3: #f1efe8;
+    --border: rgba(0,0,0,.1); --border2: rgba(0,0,0,.18);
+    --radius: 8px; --radius-lg: 12px;
+    --accent-blue: #3AADE1; --accent-yellow: #FABB0C;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text: #e8e6de; --text2: #b4b2a9; --text3: #73726c;
+      --bg: #1c1c1a; --bg2: #242420; --bg3: #2c2c28;
+      --border: rgba(255,255,255,.1); --border2: rgba(255,255,255,.18);
+      --blue-light: rgba(24,95,165,.2); --amber-light: rgba(186,117,23,.2);
+      --green-light: rgba(59,109,17,.2); --red-light: rgba(162,45,45,.2);
+      --purple-light: rgba(83,74,183,.2); --coral-light: rgba(153,60,29,.2);
+      --gray-light: rgba(95,94,90,.2); --teal-light: rgba(15,110,86,.2);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+  .header { background: var(--accent-blue); padding: 28px 32px 24px; }
+  .header h1 { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .header p { font-size: 14px; color: rgba(255,255,255,.8); }
+  .header .badge { display: inline-block; background: rgba(255,255,255,.2); border-radius: 20px; padding: 3px 10px; font-size: 12px; color: #fff; margin-top: 8px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 28px 24px 60px; }
+  .section-title { font-size: 18px; font-weight: 600; color: var(--text); margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+  .metric { background: var(--bg2); border-radius: var(--radius); padding: 12px 14px; text-align: center; }
+  .metric-num { font-size: 22px; font-weight: 600; }
+  .metric-lbl { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .tab-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tab-btn { background: none; border: 1px solid var(--border2); border-radius: var(--radius); padding: 8px 14px; font-size: 12px; cursor: pointer; color: var(--text2); transition: all .15s; line-height: 1.3; text-align: center; }
+  .tab-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; font-weight: 500; }
+  .tab-btn:hover:not(.active) { background: var(--bg2); }
+  .tab-btn .wnum { display: block; font-weight: 500; font-size: 13px; }
+  .tab-btn .wdate { display: block; font-size: 10px; opacity: .7; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 12px; background: var(--bg); }
+  .card-label { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 5px; }
+  .card h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .topic-row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .topic-row:last-child { border-bottom: none; }
+  .pill { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+  .pill-sec { background: var(--purple-light); color: var(--purple); }
+  .pill-res { background: var(--teal-light); color: var(--teal); }
+  .pill-perf { background: var(--amber-light); color: var(--amber); }
+  .pill-cost { background: var(--coral-light); color: var(--coral); }
+  .pill-blue { background: var(--blue-light); color: var(--blue); }
+  .pill-green { background: var(--green-light); color: var(--green); }
+  .topic-detail { color: var(--text2); font-size: 12px; margin-top: 3px; }
+  .day-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+  .day-card { background: var(--bg2); border-radius: var(--radius); padding: 10px 12px; font-size: 13px; }
+  .day-label { font-weight: 600; font-size: 11px; color: var(--text3); margin-bottom: 4px; text-transform: uppercase; }
+  .day-sub { font-size: 11px; color: var(--text3); margin-top: 3px; }
+  .tip-box { border-left: 3px solid var(--blue); background: var(--blue-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-size: 13px; margin: 12px 0; color: var(--text); }
+  .warn-box { border-left: 3px solid var(--amber); background: var(--amber-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-size: 13px; margin: 12px 0; color: var(--text); }
+  .trap-box { border-left: 3px solid #E24B4A; background: var(--red-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-size: 13px; margin: 10px 0; color: var(--text); }
+  .trap-box strong { color: var(--red); }
+  .phase-bar { display: flex; border-radius: var(--radius); overflow: hidden; margin-bottom: 20px; font-size: 12px; }
+  .phase-seg { padding: 10px 14px; text-align: center; font-weight: 600; flex: 1; }
+  .mock-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .mock-label { font-size: 12px; width: 100px; color: var(--text2); }
+  .mock-track { flex: 1; height: 8px; border-radius: 4px; background: var(--bg3); overflow: hidden; }
+  .mock-fill { height: 8px; border-radius: 4px; }
+  .mock-pct { font-size: 12px; width: 50px; text-align: right; }
+  .tier-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin: 10px 0; }
+  .tier { border-radius: var(--radius); padding: 10px; font-size: 12px; }
+  .tier-name { font-weight: 600; font-size: 12px; margin-bottom: 4px; }
+  .arch-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+  .arch-box { font-size: 11px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; white-space: nowrap; }
+  .arch-arr { color: var(--text3); font-size: 13px; }
+  .svc-pill { display: inline-block; font-size: 11px; padding: 3px 8px; border-radius: 20px; background: var(--blue-light); color: var(--blue); margin: 2px 3px 2px 0; font-weight: 500; }
+  .kw-pill { display: inline-block; font-size: 11px; padding: 3px 8px; border-radius: 20px; background: var(--green-light); color: var(--green); margin: 2px 3px 2px 0; }
+  .p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .p-card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; cursor: pointer; transition: border-color .15s, background .15s; background: var(--bg); }
+  .p-card:hover { border-color: var(--border2); background: var(--bg2); }
+  .p-card.open { border-color: var(--blue); }
+  .p-num { font-size: 11px; font-weight: 600; color: var(--text3); margin-bottom: 3px; display: flex; align-items: center; gap: 4px; }
+  .p-name { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .p-kw { font-size: 11px; color: var(--text3); line-height: 1.5; }
+  .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
+  .detail-panel { display: none; grid-column: 1 / -1; border: 1px solid var(--border2); border-radius: var(--radius-lg); padding: 18px 20px; background: var(--bg); margin-top: -2px; }
+  .detail-panel.open { display: block; }
+  .detail-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .detail-title { font-size: 15px; font-weight: 600; }
+  .close-btn { font-size: 12px; color: var(--text3); background: none; border: 1px solid var(--border2); border-radius: var(--radius); padding: 4px 10px; cursor: pointer; }
+  .sec-lbl { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; margin: 12px 0 6px; }
+  .resource-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .res-name { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+  .res-desc { font-size: 12px; color: var(--text2); }
+  .res-tag { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 20px; background: var(--blue-light); color: var(--blue); font-weight: 500; white-space: nowrap; }
+  .res-tag-alt { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 20px; background: var(--green-light); color: var(--green); font-weight: 500; white-space: nowrap; }
+  .filter-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .f-btn { background: none; border: 1px solid var(--border2); border-radius: 20px; padding: 5px 12px; font-size: 12px; cursor: pointer; color: var(--text2); transition: all .15s; display: flex; align-items: center; }
+  .f-btn.on { background: var(--blue); border-color: var(--blue); color: #fff; font-weight: 500; }
+  .f-btn:hover:not(.on) { background: var(--bg2); }
+  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 16px 32px; font-size: 12px; color: var(--text3); text-align: center; }
+  .time-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .time-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .time-table td:first-child { color: var(--text3); font-size: 12px; width: 110px; white-space: nowrap; }
+  .bar { display: inline-block; border-radius: 4px; padding: 3px 10px; font-size: 12px; }
+  .bar-study { background: var(--blue-light); color: var(--blue); font-weight: 500; }
+  .bar-work { background: var(--gray-light); color: var(--gray); }
+  .bar-free { background: var(--bg3); color: var(--text3); }
+  .bar-commute { background: var(--teal-light); color: var(--teal); }
+  .bar-exercise { background: var(--green-light); color: var(--green); }
+  .bar-sleep { background: var(--purple-light); color: var(--purple); }
+  @media (max-width: 600px) {
+    .metrics { grid-template-columns: repeat(2,1fr); }
+    .day-grid { grid-template-columns: 1fr; }
+    .p-grid { grid-template-columns: 1fr; }
+    .tier-grid { grid-template-columns: repeat(2,1fr); }
+    .phase-bar { flex-direction: column; }
+  }
+
+  .mode-toggle{display:flex;gap:8px;margin-bottom:24px;background:var(--bg2);padding:4px;border-radius:var(--radius-lg);}
+  .mode-btn{flex:1;background:none;border:none;border-radius:var(--radius);padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--text2);}
+  .mode-btn.active{background:var(--bg);color:var(--accent-blue);box-shadow:0 1px 3px rgba(0,0,0,.12);}
+  .mode-panel{display:none;}
+  .mode-panel.active{display:block;}
+  .calc-row{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end;margin-bottom:16px;}
+  .calc-field{display:flex;flex-direction:column;gap:6px;}
+  .calc-field label{font-size:12px;font-weight:600;color:var(--text);}
+  .calc-field input{font-family:monospace;font-size:17px;padding:8px 10px;border:1.5px solid var(--border2);border-radius:6px;width:100px;background:var(--bg);color:var(--text);}
+  .calc-btn{background:var(--accent-blue);color:#fff;border:none;padding:10px 18px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;}
+  .calc-readout{display:flex;gap:24px;flex-wrap:wrap;background:var(--bg2);border-radius:var(--radius);padding:12px 16px;margin-bottom:18px;}
+  .calc-stat .num{font-family:monospace;font-weight:700;font-size:18px;color:var(--accent-blue);}
+  .calc-stat .lbl{font-size:11px;color:var(--text3);}
+  .dyn-week{border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:10px;}
+  .dyn-week-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .dyn-week-num{font-family:monospace;font-weight:700;font-size:14px;}
+  .dyn-week-hours{margin-left:auto;font-family:monospace;font-size:12px;color:var(--text3);}
+  .dyn-topic-list{margin:4px 0 0;padding-left:18px;font-size:12.5px;color:var(--text2);}
+  .pairs-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .pair-card{border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px;border-top:3px solid var(--accent-blue);}
+  .pair-head{font-size:14px;font-weight:600;margin-bottom:8px;}
+  .pair-opt{background:var(--bg2);border-radius:6px;padding:6px 10px;font-size:13px;margin-bottom:4px;}
+  .pair-opt strong{font-size:12px;display:block;margin-bottom:1px;}
+  .pair-opt span{font-size:11px;color:var(--text2);}
+  .pair-vs{font-size:12px;font-weight:600;color:var(--text3);margin:3px 0;text-align:center;}
+  .dom-accordion{border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:10px;overflow:hidden;}
+  .dom-acc-head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;cursor:pointer;font-weight:600;font-size:14px;background:var(--bg);}
+  .dom-acc-head:hover{background:var(--bg2);}
+  .dom-acc-panel{max-height:0;overflow:hidden;transition:max-height .25s ease;background:var(--bg2);}
+  .dom-acc-panel .inner{padding:4px 16px 16px;}
+  .dom-acc-panel p{font-size:13px;color:var(--text2);margin:0 0 10px;line-height:1.6;}
+  .dom-chev{transition:transform .2s ease;color:var(--text3);font-size:12px;}
+  .dom-chev.rot{transform:rotate(180deg);}
+  @media (max-width:600px){ .pairs-grid{grid-template-columns:1fr;} }
+  .lang-switch{display:inline-flex;background:rgba(255,255,255,.2);border-radius:20px;overflow:hidden;font-size:11px;font-weight:700;float:right;margin-top:2px;}
+  .lang-switch a{padding:4px 10px;color:rgba(255,255,255,.85);text-decoration:none;}
+  .lang-switch a.active{background:#fff;color:var(--accent-blue);}
+</style>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23232F3E'/%3E%3Ctext x='12' y='17' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='14' font-weight='700' fill='%23FF9900'%3EF%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div style="background:#14141f;padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px;">
+  <a href="../index-en.html" style="color:#fff;font-size:12.5px;text-decoration:none;font-weight:600;letter-spacing:.02em;">&larr; Back to home &middot; franciscojeg.github.io</a>
+  <span style="display:inline-flex;gap:8px;">
+    <a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A66C2"/><text x="12" y="16" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="700" fill="#fff">in</text></svg></a>
+    <a href="https://github.com/franciscojeg" target="_blank" rel="noopener" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#181717"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="8.5" font-weight="700" fill="#fff">GH</text></svg></a>
+    <a href="https://dev.to/franciscojeg78" target="_blank" rel="noopener" aria-label="dev.to"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A0A0A"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="6.5" font-weight="700" fill="#fff">DEV</text></svg></a>
+    <a href="https://builder.aws.com/community/@franciscojeg?tab=badges" target="_blank" rel="noopener" aria-label="AWS Builder Center"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF9900"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" fill="#232F3E">AWS</text></svg></a>
+    <a href="https://www.instagram.com/franciscojeg.tech/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24"><defs><linearGradient id="igg-bar" x1="0" y1="24" x2="24" y2="0"><stop offset="0%" stop-color="#FEDA75"/><stop offset="35%" stop-color="#D62976"/><stop offset="70%" stop-color="#962FBF"/><stop offset="100%" stop-color="#4F5BD5"/></linearGradient></defs><circle cx="12" cy="12" r="12" fill="url(#igg-bar)"/><rect x="6.5" y="7.5" width="11" height="10.5" rx="3" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="12" cy="12.7" r="2.7" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="15.2" cy="9.6" r="0.6" fill="#fff"/></svg></a>
+    <a href="https://www.youtube.com/@ugwelcomebuilders" target="_blank" rel="noopener" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF0000"/><path d="M9.5 8.5 L16 12 L9.5 15.5 Z" fill="#fff"/></svg></a>
+  </span>
+</div>
+
+
+<div class="header">
+  <div class="lang-switch"><a href="plan-estudio-saa-c03.html">ES</a><a href="plan-estudio-saa-c03-en.html" class="active">EN</a></div>
+  <h1>SAA-C03 Study Plan</h1>
+  <p>Francisco Escobar, 8 weeks to certification</p>
+  <span class="badge">AWS Community Builder · Networking &amp; Content Delivery</span>
+</div>
+
+<div class="container">
+
+<!-- METRICAS -->
+<div class="metrics">
+  <div class="metric"><div class="metric-num" style="color:var(--blue)">8</div><div class="metric-lbl">weeks of plan</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--green)">~110h</div><div class="metric-lbl">hours available</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--amber)">80%</div><div class="metric-lbl">practice-exam goal</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--coral)">65</div><div class="metric-lbl">exam questions</div></div>
+</div>
+
+<!-- FASE BAR -->
+<div class="phase-bar">
+  <div class="phase-seg" style="background:var(--blue-light);color:var(--blue);">W1–W2<br>Fundamentals</div>
+  <div class="phase-seg" style="background:var(--teal-light);color:var(--teal);">W3–W4<br>Networking + DB</div>
+  <div class="phase-seg" style="background:var(--green-light);color:var(--green);">W5–W6<br>Advanced</div>
+  <div class="phase-seg" style="background:var(--amber-light);color:var(--amber);">W7<br>Practice exams</div>
+  <div class="phase-seg" style="background:var(--purple-light);color:var(--purple);">W8<br>Final</div>
+</div>
+
+
+<div class="section-title">How do you want to generate your plan</div>
+<div class="mode-toggle">
+  <button class="mode-btn active" id="btn-static" onclick="setMode('static')">Suggested schedule (8 weeks)</button>
+  <button class="mode-btn" id="btn-dynamic" onclick="setMode('dynamic')">Custom planner</button>
+</div>
+<div class="mode-panel active" id="mode-static"><!-- ===== WEEKLY PLAN ===== -->
+<div class="section-title">Week-by-week plan</div>
+
+<div class="tab-row">
+  <button class="tab-btn active" onclick="showWeek(0,this)"><span class="wnum">Week 1</span><span class="wdate">IAM + Compute</span></button>
+  <button class="tab-btn" onclick="showWeek(1,this)"><span class="wnum">Week 2</span><span class="wdate">Storage</span></button>
+  <button class="tab-btn" onclick="showWeek(2,this)"><span class="wnum">Week 3</span><span class="wdate">Networking</span></button>
+  <button class="tab-btn" onclick="showWeek(3,this)"><span class="wnum">Week 4</span><span class="wdate">Databases</span></button>
+  <button class="tab-btn" onclick="showWeek(4,this)"><span class="wnum">Week 5</span><span class="wdate">HA + Serverless</span></button>
+  <button class="tab-btn" onclick="showWeek(5,this)"><span class="wnum">Week 6</span><span class="wdate">Security + CDN</span></button>
+  <button class="tab-btn" onclick="showWeek(6,this)"><span class="wnum">Week 7</span><span class="wdate">Practice exams</span></button>
+  <button class="tab-btn" onclick="showWeek(7,this)"><span class="wnum">Week 8</span><span class="wdate">Final</span></button>
+</div>
+
+<!-- W1 -->
+<div id="w0" class="panel active">
+  <div class="card"><div class="card-label">Week 1: Fundamentals: IAM + Compute</div>
+    <div class="topic-row"><span class="pill pill-sec">Security 30%</span><div><strong>IAM</strong><div class="topic-detail">Users, groups, roles, policies, SCP, permission boundaries, Access Analyzer, MFA</div></div></div>
+    <div class="topic-row"><span class="pill pill-perf">Performance 24%</span><div><strong>EC2</strong><div class="topic-detail">Instance types, AMI, user data, placement groups, Spot vs Reserved vs On-Demand, hibernate</div></div></div>
+    <div class="topic-row"><span class="pill pill-perf">Performance 24%</span><div><strong>EBS + EFS + Instance Store</strong><div class="topic-detail">gp2 vs gp3 vs io1/io2, st1, sc1. Snapshots, encryption, Multi-Attach. EFS vs EBS.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Mon–Tue</div>IAM in full, Maarek sections 1–4 / Cantrill IAM module<div class="day-sub">3h total (1.5h/night)</div></div>
+    <div class="day-card"><div class="day-label">Wed–Thu</div>EC2 + EBS, Maarek sections 5–7<div class="day-sub">3h total</div></div>
+    <div class="day-card"><div class="day-label">Fri</div>IAM + EC2 review, Anki flashcards<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Sat–Sun</div>EFS + full week 1 review + 30-question mini quiz<div class="day-sub">5h total</div></div>
+  </div>
+  <div class="tip-box">Install Anki from day one. Every new concept = a new card. Your commute is card review time, not new reading. Play Cantrill's or Maarek's audio during your commute.</div>
+</div>
+
+<!-- W2 -->
+<div id="w1" class="panel">
+  <div class="card"><div class="card-label">Week 2: Storage: S3 in full</div>
+    <div class="topic-row"><span class="pill pill-res">Resilience 26%</span><div><strong>S3 core</strong><div class="topic-detail">Storage classes, lifecycle, versioning, replication (CRR/SRR), encryption (SSE-S3/KMS/C), bucket policy vs ACL vs presigned URLs</div></div></div>
+    <div class="topic-row"><span class="pill pill-cost">Cost 20%</span><div><strong>Advanced S3 + costs</strong><div class="topic-detail">S3 Select, Object Lock (WORM), Requester Pays. When each storage class saves money.</div></div></div>
+    <div class="topic-row"><span class="pill pill-cost">Cost 20%</span><div><strong>Storage Gateway + Snow Family</strong><div class="topic-detail">File vs Volume vs Tape Gateway. Snowcone, Snowball Edge, Snowmobile. When to use each by data volume.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Mon–Tue</div>S3 core: classes, lifecycle, versioning, replication<div class="day-sub">3h, foundation for many exam questions</div></div>
+    <div class="day-card"><div class="day-label">Wed–Thu</div>Advanced S3: encryption, presigned URLs, Object Lock<div class="day-sub">3h, focus on SSE-S3 vs SSE-KMS vs SSE-C</div></div>
+    <div class="day-card"><div class="day-label">Fri</div>Storage Gateway + Snow Family<div class="day-sub">1.5h, when to use each option</div></div>
+    <div class="day-card"><div class="day-label">Sat–Sun</div>Full S3 review + 40-question mini quiz<div class="day-sub">5h, S3 carries a lot of weight on the exam</div></div>
+  </div>
+  <div class="warn-box">S3 Standard vs Intelligent-Tiering vs Glacier is one of the most repeated questions. Memorize the criteria: access frequency + retrieval cost + required latency.</div>
+</div>
+
+<!-- W3 -->
+<div id="w2" class="panel">
+  <div class="card"><div class="card-label">Week 3: Networking: VPC + Route 53</div>
+    <div class="topic-row"><span class="pill pill-sec">Security 30%</span><div><strong>VPC fundamentals</strong><div class="topic-detail">Public/private subnets, route tables, IGW, NAT Gateway vs NAT Instance. Security Groups (stateful) vs NACLs (stateless).</div></div></div>
+    <div class="topic-row"><span class="pill pill-res">Resilience 26%</span><div><strong>Advanced VPC</strong><div class="topic-detail">VPC Peering (non-transitive), Transit Gateway, VPC Endpoints (Gateway vs Interface), PrivateLink, Egress-Only IGW.</div></div></div>
+    <div class="topic-row"><span class="pill pill-res">Resilience 26%</span><div><strong>Route 53</strong><div class="topic-detail">Record types (A, AAAA, CNAME, Alias). Routing policies: simple, weighted, latency, geolocation, failover, multivalue.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Mon–Tue</div>VPC fundamentals + advanced<div class="day-sub">3h, the densest day of the week. Cantrill has the best VPC diagrams.</div></div>
+    <div class="day-card"><div class="day-label">Wed–Thu</div>Route 53 in full<div class="day-sub">3h, focus on routing policies and when to use Alias vs CNAME</div></div>
+    <div class="day-card"><div class="day-label">Fri</div>VPC review, draw architectures<div class="day-sub">1.5h, drawing helps more than rereading</div></div>
+    <div class="day-card"><div class="day-label">Sat–Sun</div>Full networking review + 40-question quiz<div class="day-sub">5h, VPC carries a lot of weight on the SAA</div></div>
+  </div>
+  <div class="warn-box">Most common mistake: confusing VPC Endpoint Gateway (S3/DynamoDB, free) with Interface (everything else, has a PrivateLink cost). Memorize that pair. And SG = stateful, NACL = stateless.</div>
+</div>
+
+<!-- W4 -->
+<div id="w3" class="panel">
+  <div class="card"><div class="card-label">Week 4: Databases: RDS + Aurora + DynamoDB + Cache</div>
+    <div class="topic-row"><span class="pill pill-res">Resilience 26%</span><div><strong>RDS + Aurora</strong><div class="topic-detail">Multi-AZ (sync, failover) vs Read Replicas (async, scaling). Aurora cluster, replicas, Global DB, Serverless v2.</div></div></div>
+    <div class="topic-row"><span class="pill pill-perf">Performance 24%</span><div><strong>DynamoDB</strong><div class="topic-detail">Partition key, sort key, LSI vs GSI, DAX, DynamoDB Streams, TTL. On-demand vs provisioned capacity.</div></div></div>
+    <div class="topic-row"><span class="pill pill-perf">Performance 24%</span><div><strong>ElastiCache + others</strong><div class="topic-detail">Redis (persistence, replication, Multi-AZ) vs Memcached. Redshift for analytics. Neptune for graphs.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Mon–Tue</div>RDS + Aurora in full<div class="day-sub">3h, Multi-AZ vs Read Replica is a recurring exam question</div></div>
+    <div class="day-card"><div class="day-label">Wed–Thu</div>DynamoDB in full + DAX<div class="day-sub">3h, focus on GSI vs LSI and when to use DAX vs ElastiCache</div></div>
+    <div class="day-card"><div class="day-label">Fri</div>ElastiCache + Redshift + review<div class="day-sub">1.5h, key differences between Redis vs Memcached</div></div>
+    <div class="day-card"><div class="day-label">Sat–Sun</div>Full database review + 40-question quiz<div class="day-sub">5h, get clear on the pattern for each DB</div></div>
+  </div>
+  <div class="warn-box">Multi-AZ = availability (synchronous failover). Read Replica = scaling reads (asynchronous replication). If the question says "read-heavy", the answer is Read Replica. Always.</div>
+</div>
+
+<!-- W5 -->
+<div id="w4" class="panel">
+  <div class="card"><div class="card-label">Week 5: High availability + Serverless + Messaging</div>
+    <div class="topic-row"><span class="pill pill-res">Resilience 26%</span><div><strong>ELB + Auto Scaling</strong><div class="topic-detail">ALB (layer 7, rules) vs NLB (layer 4, TCP) vs GWLB. ASG: launch templates, target tracking, cooldown, lifecycle hooks.</div></div></div>
+    <div class="topic-row"><span class="pill pill-perf">Performance 24%</span><div><strong>Lambda + API Gateway</strong><div class="topic-detail">Triggers, layers, concurrency (reserved vs provisioned), VPC integration, destinations. REST vs HTTP API, throttling, caching.</div></div></div>
+    <div class="topic-row"><span class="pill pill-res">Resilience 26%</span><div><strong>SQS + SNS + EventBridge</strong><div class="topic-detail">SQS standard vs FIFO, visibility timeout, DLQ. SNS fan-out with SQS. EventBridge: event buses, rules, targets.</div></div></div>
+    <div class="topic-row"><span class="pill pill-perf">Performance 24%</span><div><strong>Kinesis</strong><div class="topic-detail">Data Streams (real-time, shards) vs Firehose (delivery to S3/Redshift, near-real-time) vs Data Analytics (SQL over streams).</div></div></div>
+    <div class="topic-row"><span class="pill pill-perf">Performance 24%</span><div><strong>ECS + EKS + Fargate</strong><div class="topic-detail">Task definitions, services, EC2 vs Fargate launch type. When ECS vs EKS. App Runner for simplicity.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Mon–Tue</div>ELB + Auto Scaling<div class="day-sub">3h, draw the ALB-ASG-EC2 flow</div></div>
+    <div class="day-card"><div class="day-label">Wed</div>Lambda + API Gateway<div class="day-sub">1.5h, limits and VPC integration</div></div>
+    <div class="day-card"><div class="day-label">Thu</div>SQS + SNS + EventBridge<div class="day-sub">1.5h, decoupling patterns</div></div>
+    <div class="day-card"><div class="day-label">Sat–Sun</div>Kinesis + ECS/EKS + 50-question Tutorials Dojo quiz<div class="day-sub">6h, your first formal quiz, identify weak domains</div></div>
+  </div>
+  <div class="tip-box">This weekend, take your first Tutorials Dojo quiz (50 questions). The score doesn't matter, identify weak domains to prioritize in week 6.</div>
+</div>
+
+<!-- W6 -->
+<div id="w5" class="panel">
+  <div class="card"><div class="card-label">Week 6: Advanced security + CDN + Monitoring + Practice exam 1</div>
+    <div class="topic-row"><span class="pill pill-sec">Security 30%</span><div><strong>KMS + Secrets Manager + SSM</strong><div class="topic-detail">CMK vs AWS-managed, key policies, envelope encryption. Secrets Manager vs SSM Parameter Store. ACM for TLS.</div></div></div>
+    <div class="topic-row"><span class="pill pill-sec">Security 30%</span><div><strong>GuardDuty + Inspector + Macie + WAF + Shield</strong><div class="topic-detail">GuardDuty (threats), Inspector (EC2/Lambda vulnerabilities), Macie (sensitive S3 data), WAF (layer 7), Shield Standard vs Advanced.</div></div></div>
+    <div class="topic-row"><span class="pill pill-perf">Performance 24%</span><div><strong>CloudFront + Global Accelerator</strong><div class="topic-detail">OAC for private S3, behaviors, signed URLs, geo-restriction. CloudFront (layer 7, caches) vs GA (layer 4, Anycast, does not cache).</div></div></div>
+    <div class="topic-row"><span class="pill pill-res">Resilience 26%</span><div><strong>CloudWatch + CloudTrail + Config</strong><div class="topic-detail">Metrics, alarms, logs, Container Insights. CloudTrail: management vs data events. AWS Config: compliance, rules, remediations.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Mon–Tue</div>KMS + advanced security<div class="day-sub">3h, the domain with the most weight (30%)</div></div>
+    <div class="day-card"><div class="day-label">Wed–Thu</div>CloudFront + monitoring<div class="day-sub">3h, CloudFront vs Global Accelerator is a frequent trap</div></div>
+    <div class="day-card"><div class="day-label">Fri</div>Security review + OAC vs OAI<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Sat</div><strong style="color:var(--blue)">PRACTICE EXAM 1 in full (65 questions)</strong><div class="day-sub">3h exam + 1h reviewing wrong answers</div></div>
+  </div>
+  <div class="warn-box">Practice exam 1 is diagnostic, not a grade. A 60-65% at this point is completely normal. Note the domains where you struggle and adjust week 7.</div>
+</div>
+
+<!-- W7 -->
+<div id="w6" class="panel">
+  <div class="card"><div class="card-label">Week 7: Practice exams and consolidation</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">This week you don't study new topics. Only practice exams, error review, and exam patterns. The goal is a consistent 80%+.</p>
+    <div class="mock-row"><span class="mock-label">Practice exam 1</span><div class="mock-track"><div class="mock-fill" style="width:65%;background:#EF9F27;"></div></div><span class="mock-pct" style="color:var(--amber);">~65%</span></div>
+    <div class="mock-row"><span class="mock-label">Practice exam 2</span><div class="mock-track"><div class="mock-fill" style="width:72%;background:#EF9F27;"></div></div><span class="mock-pct" style="color:var(--amber);">~72%</span></div>
+    <div class="mock-row"><span class="mock-label">Practice exam 3</span><div class="mock-track"><div class="mock-fill" style="width:80%;background:#3B6D11;"></div></div><span class="mock-pct" style="color:var(--green);">+80%</span></div>
+    <div class="mock-row"><span class="mock-label">Real exam</span><div class="mock-track"><div class="mock-fill" style="width:83%;background:var(--blue);"></div></div><span class="mock-pct" style="color:var(--blue);font-weight:600;">PASS</span></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Mon–Tue</div>Review weak areas from practice exam 1<div class="day-sub">3h, focus on lowest-scoring domains</div></div>
+    <div class="day-card"><div class="day-label">Wed</div>Well-Architected Framework (6 pillars)<div class="day-sub">1.5h, frequent conceptual questions</div></div>
+    <div class="day-card"><div class="day-label">Thu</div><strong style="color:var(--blue)">Practice exam 2 in full</strong><div class="day-sub">3h exam + error review</div></div>
+    <div class="day-card"><div class="day-label">Fri</div>Review practice exam 2 errors<div class="day-sub">1.5h, question patterns</div></div>
+    <div class="day-card"><div class="day-label">Sat</div><strong style="color:var(--blue)">Practice exam 3 in full</strong><div class="day-sub">3h, if you pass 80%, you're ready</div></div>
+    <div class="day-card"><div class="day-label">Sun</div>Anki flashcard + notes review<div class="day-sub">2h, no new content</div></div>
+  </div>
+  <div class="tip-box">Tutorials Dojo gives detailed explanations for every wrong answer. That explanation is more valuable than rereading the original material.</div>
+</div>
+
+<!-- W8 FINAL -->
+<div id="w7" class="panel">
+  <div class="card"><div class="card-label">Week 8: Final week before the exam</div>
+    <div class="topic-row"><span style="font-size:12px;width:68px;flex-shrink:0;color:var(--text3);font-weight:600;">Mon</span><div><strong>Light practice exam 4 (optional)</strong><div class="topic-detail">Only if you need confirmation. If you're already consistently passing 80%, skip it. Review Tutorials Dojo cheat sheets.</div></div></div>
+    <div class="topic-row"><span style="font-size:12px;width:68px;flex-shrink:0;color:var(--text3);font-weight:600;">Tue</span><div><strong>Review "when to use" pairs</strong><div class="topic-detail">SQS vs SNS, Aurora vs RDS, CloudFront vs GA, Multi-AZ vs Read Replica, S3 Glacier instant vs flexible vs deep archive.</div></div></div>
+    <div class="topic-row"><span style="font-size:12px;width:68px;flex-shrink:0;color:var(--text3);font-weight:600;">Wed</span><div><strong>Light review + active rest</strong><div class="topic-detail">Maximum 1h of Anki. Sleep 8 hours. Your brain consolidates while you sleep, don't study into the early morning.</div></div></div>
+    <div class="topic-row"><span style="font-size:12px;width:68px;flex-shrink:0;color:var(--text3);font-weight:600;">Thu</span><div><strong>Day before the exam</strong><div class="topic-detail">Don't study. Confirm logistics: location, time, ID. Do a technical check if it's online. Eat well. Go to bed early.</div></div></div>
+    <div class="topic-row"><span style="font-size:12px;width:68px;flex-shrink:0;color:var(--blue);font-weight:600;">Fri</span><div><strong style="color:var(--blue)">SAA-C03 exam day</strong><div class="topic-detail">Eat a good breakfast. Arrive 30 min early if it's in person. Read ALL the options before answering. 65 questions, 130 minutes. If one is hard, flag it and move on, max 2 min per question.</div></div></div>
+  </div>
+  <div class="warn-box">If you run into a very hard question, flag it and move on. Don't spend more than 2 minutes on any single one. You have an average of 2 minutes per question.</div>
+</div>
+
+</div>
+<div class="mode-panel" id="mode-dynamic">
+<div class="section-title">Custom planner</div>
+<p style="font-size:13px;color:var(--text2);margin-bottom:16px;">Enter your actual available weeks and hours. The same syllabus (Fundamentals, Security 30%, Resilience 26%, Performance 24%, Cost 20%, and Practice exams) gets redistributed based on your real time, instead of the fixed 8-week schedule.</p>
+<div class="calc-row">
+  <div class="calc-field"><label>Weeks available</label><input type="number" id="dyn-weeks" min="1" max="26" value="8"></div>
+  <div class="calc-field"><label>Hours per week</label><input type="number" id="dyn-hours" min="1" max="60" value="14"></div>
+  <button class="calc-btn" onclick="generateDynamicPlan()">Generate plan</button>
+</div>
+<div class="calc-readout" id="dyn-readout" style="display:none;">
+  <div class="calc-stat"><div class="num" id="dyn-total"></div><div class="lbl">total hours</div></div>
+  <div class="calc-stat"><div class="num" id="dyn-weeksout"></div><div class="lbl">weeks</div></div>
+  <div class="calc-stat"><div class="num" id="dyn-hpw"></div><div class="lbl">hours/week</div></div>
+</div>
+<div id="dyn-weeks-container"></div>
+</div>
+<!-- ===== PATTERNS ===== -->
+<div class="section-title">The 8 essential architecture patterns</div>
+
+<div class="filter-row">
+  <button class="f-btn on" onclick="filterDom('all',this)">All</button>
+  <button class="f-btn" onclick="filterDom('res',this)"><span class="dot" style="background:#1D9E75;margin-right:4px;"></span>Resilience</button>
+  <button class="f-btn" onclick="filterDom('sec',this)"><span class="dot" style="background:#534AB7;margin-right:4px;"></span>Security</button>
+  <button class="f-btn" onclick="filterDom('perf',this)"><span class="dot" style="background:#BA7517;margin-right:4px;"></span>Performance</button>
+</div>
+
+<div class="p-grid" id="pgrid">
+  <div class="p-card" data-dom="res" onclick="toggleP(0,this)">
+    <div class="p-num"><span class="dot" style="background:#1D9E75;"></span>Resilience</div>
+    <div class="p-name">Multi-AZ high availability</div>
+    <div class="p-kw">highly available · fault tolerant · automatic failover · no single point of failure</div>
+  </div>
+  <div class="p-card" data-dom="res" onclick="toggleP(1,this)">
+    <div class="p-num"><span class="dot" style="background:#1D9E75;"></span>Resilience</div>
+    <div class="p-name">Decoupling with queues</div>
+    <div class="p-kw">decouple · asynchronous · buffer · peak loads · retry · dead-letter</div>
+  </div>
+  <div class="detail-panel" id="dp0">
+    <div class="detail-head"><span class="detail-title">Multi-AZ high availability</span><button class="close-btn" onclick="closeP(0,event)">close</button></div>
+    <div class="sec-lbl">Services</div>
+    <div><span class="svc-pill">ALB / NLB</span><span class="svc-pill">Auto Scaling Group</span><span class="svc-pill">EC2 multi-AZ</span><span class="svc-pill">RDS Multi-AZ</span><span class="svc-pill">Route 53 failover</span></div>
+    <div class="sec-lbl">Flow</div>
+    <div class="arch-row"><div class="arch-box">Users</div><span class="arch-arr">→</span><div class="arch-box">Route 53</div><span class="arch-arr">→</span><div class="arch-box">ALB</div><span class="arch-arr">→</span><div class="arch-box">ASG (AZ-a + AZ-b)</div><span class="arch-arr">→</span><div class="arch-box">RDS Multi-AZ</div></div>
+    <div class="sec-lbl">Exam keywords</div>
+    <div><span class="kw-pill">highly available</span><span class="kw-pill">fault tolerant</span><span class="kw-pill">no single point of failure</span><span class="kw-pill">automatic failover</span><span class="kw-pill">survive AZ failure</span></div>
+    <div class="trap-box"><strong>Classic trap:</strong> Multi-AZ in RDS is for availability (synchronous failover), NOT for scaling reads. If the question says "read-heavy", the answer is Read Replica, not Multi-AZ.</div>
+    <div class="tip-box">ALB = layer 7 (HTTP/HTTPS, rules). NLB = layer 4 (TCP, static IP, ultra-low latency). GWLB = network appliances (firewall, IDS).</div>
+  </div>
+  <div class="detail-panel" id="dp1">
+    <div class="detail-head"><span class="detail-title">Decoupling with queues</span><button class="close-btn" onclick="closeP(1,event)">close</button></div>
+    <div class="sec-lbl">Services</div>
+    <div><span class="svc-pill">SQS Standard/FIFO</span><span class="svc-pill">SNS</span><span class="svc-pill">Lambda</span><span class="svc-pill">EventBridge</span><span class="svc-pill">DLQ</span></div>
+    <div class="sec-lbl">Flow</div>
+    <div class="arch-row"><div class="arch-box">Producer</div><span class="arch-arr">→</span><div class="arch-box">SQS Queue</div><span class="arch-arr">→</span><div class="arch-box">Consumer (Lambda/EC2)</div><span class="arch-arr">→</span><div class="arch-box">DLQ (on failure)</div></div>
+    <div class="sec-lbl">Exam keywords</div>
+    <div><span class="kw-pill">decouple</span><span class="kw-pill">asynchronous</span><span class="kw-pill">buffer</span><span class="kw-pill">spike traffic</span><span class="kw-pill">retry logic</span></div>
+    <div class="trap-box"><strong>Classic trap:</strong> SQS Standard = at-least-once (can duplicate). FIFO = exactly-once but max 3,000 msg/s. If it asks for "exactly once" with high throughput, it's FIFO with batching enabled.</div>
+    <div class="tip-box">The visibility timeout must be longer than the consumer's processing time to avoid the message going back to the queue before it finishes.</div>
+  </div>
+
+  <div class="p-card" data-dom="perf" onclick="toggleP(2,this)">
+    <div class="p-num"><span class="dot" style="background:#BA7517;"></span>Performance</div>
+    <div class="p-name">Serverless event-driven</div>
+    <div class="p-kw">no infrastructure · variable traffic · cost-effective · event-driven · scale to zero</div>
+  </div>
+  <div class="p-card" data-dom="perf" onclick="toggleP(3,this)">
+    <div class="p-num"><span class="dot" style="background:#BA7517;"></span>Performance</div>
+    <div class="p-name">CDN and static hosting</div>
+    <div class="p-kw">global users · static content · low latency · reduce origin load · signed URLs</div>
+  </div>
+  <div class="detail-panel" id="dp2">
+    <div class="detail-head"><span class="detail-title">Serverless event-driven</span><button class="close-btn" onclick="closeP(2,event)">close</button></div>
+    <div class="sec-lbl">Services</div>
+    <div><span class="svc-pill">API Gateway</span><span class="svc-pill">Lambda</span><span class="svc-pill">DynamoDB</span><span class="svc-pill">S3 events</span><span class="svc-pill">Step Functions</span><span class="svc-pill">Cognito</span></div>
+    <div class="sec-lbl">Flow</div>
+    <div class="arch-row"><div class="arch-box">Client</div><span class="arch-arr">→</span><div class="arch-box">API Gateway</div><span class="arch-arr">→</span><div class="arch-box">Lambda</div><span class="arch-arr">→</span><div class="arch-box">DynamoDB</div></div>
+    <div class="sec-lbl">Exam keywords</div>
+    <div><span class="kw-pill">no servers to manage</span><span class="kw-pill">unpredictable traffic</span><span class="kw-pill">scale to zero</span><span class="kw-pill">pay per use</span></div>
+    <div class="trap-box"><strong>Classic trap:</strong> Lambda maximum timeout = 15 minutes. If the question describes a long process (batch, ETL, workflow), use Step Functions, ECS, or AWS Batch, not Lambda.</div>
+    <div class="tip-box">Lambda in a VPC adds cold start (~1s extra). If it asks for "low latency" + Lambda in a VPC, consider provisioned concurrency.</div>
+  </div>
+  <div class="detail-panel" id="dp3">
+    <div class="detail-head"><span class="detail-title">CDN and static hosting</span><button class="close-btn" onclick="closeP(3,event)">close</button></div>
+    <div class="sec-lbl">Services</div>
+    <div><span class="svc-pill">S3 static hosting</span><span class="svc-pill">CloudFront</span><span class="svc-pill">OAC</span><span class="svc-pill">ACM</span><span class="svc-pill">Route 53</span><span class="svc-pill">WAF</span></div>
+    <div class="sec-lbl">Flow</div>
+    <div class="arch-row"><div class="arch-box">Global users</div><span class="arch-arr">→</span><div class="arch-box">CloudFront (Edge)</div><span class="arch-arr">→</span><div class="arch-box">Private S3 (OAC)</div></div>
+    <div class="sec-lbl">Exam keywords</div>
+    <div><span class="kw-pill">global users</span><span class="kw-pill">static website</span><span class="kw-pill">low latency</span><span class="kw-pill">reduce origin load</span><span class="kw-pill">DDoS protection</span></div>
+    <div class="trap-box"><strong>Classic trap:</strong> OAI is deprecated, the exam expects OAC. S3 must be private with a bucket policy that only allows CloudFront's OAC. Never public S3 + CloudFront.</div>
+    <div class="tip-box">CloudFront vs Global Accelerator: CloudFront = layer 7, caches. GA = layer 4, Anycast, does not cache. "Gaming" or "pure TCP" → Global Accelerator.</div>
+  </div>
+
+  <div class="p-card" data-dom="res" onclick="toggleP(4,this)">
+    <div class="p-num"><span class="dot" style="background:#1D9E75;"></span>Resilience</div>
+    <div class="p-name">Disaster recovery (4 tiers)</div>
+    <div class="p-kw">RTO · RPO · business continuity · pilot light · warm standby · multi-site</div>
+  </div>
+  <div class="p-card" data-dom="sec" onclick="toggleP(5,this)">
+    <div class="p-num"><span class="dot" style="background:#534AB7;"></span>Security</div>
+    <div class="p-name">VPC with private subnets</div>
+    <div class="p-kw">private subnet · no internet · access S3 privately · minimize exposure</div>
+  </div>
+  <div class="detail-panel" id="dp4">
+    <div class="detail-head"><span class="detail-title">Disaster recovery: the 4 tiers</span><button class="close-btn" onclick="closeP(4,event)">close</button></div>
+    <div class="sec-lbl">RTO / RPO spectrum (higher cost = lower RTO)</div>
+    <div class="tier-grid">
+      <div class="tier" style="background:var(--red-light);"><div class="tier-name" style="color:var(--red);">Backup &amp; Restore</div><div style="font-size:11px;color:var(--red);">RTO: hours · RPO: hours<br>Cost: minimal</div></div>
+      <div class="tier" style="background:var(--amber-light);"><div class="tier-name" style="color:var(--amber);">Pilot Light</div><div style="font-size:11px;color:var(--amber);">RTO: minutes · RPO: min<br>Core DB active</div></div>
+      <div class="tier" style="background:var(--green-light);"><div class="tier-name" style="color:var(--green);">Warm Standby</div><div style="font-size:11px;color:var(--green);">RTO: minutes · RPO: sec<br>Scaled-down stack</div></div>
+      <div class="tier" style="background:var(--blue-light);"><div class="tier-name" style="color:var(--blue);">Multi-Site Active</div><div style="font-size:11px;color:var(--blue);">RTO: ~0 · RPO: ~0<br>Cost: maximum</div></div>
+    </div>
+    <div class="sec-lbl">Exam keywords</div>
+    <div><span class="kw-pill">RTO</span><span class="kw-pill">RPO</span><span class="kw-pill">disaster recovery</span><span class="kw-pill">cost-effective DR</span><span class="kw-pill">near-zero downtime</span></div>
+    <div class="trap-box"><strong>Classic trap:</strong> The question gives an RTO of 1 hour and a low budget. Answer: Backup &amp; Restore, not Pilot Light. Always read the RTO/RPO before picking a tier.</div>
+    <div class="tip-box">Mnemonic: "B.P.S.M." = Backup, Pilot, Standby, Multi-site. Cost and complexity rise left to right; RTO/RPO drop.</div>
+  </div>
+  <div class="detail-panel" id="dp5">
+    <div class="detail-head"><span class="detail-title">VPC with private subnets</span><button class="close-btn" onclick="closeP(5,event)">close</button></div>
+    <div class="sec-lbl">Services</div>
+    <div><span class="svc-pill">Private subnet</span><span class="svc-pill">NAT Gateway</span><span class="svc-pill">VPC Endpoint Gateway</span><span class="svc-pill">VPC Endpoint Interface</span><span class="svc-pill">Security Groups</span><span class="svc-pill">NACLs</span></div>
+    <div class="sec-lbl">Flow (accessing S3 from private)</div>
+    <div class="arch-row"><div class="arch-box">EC2 (private subnet)</div><span class="arch-arr">→</span><div class="arch-box">VPC Endpoint Gateway</div><span class="arch-arr">→</span><div class="arch-box">S3 (no internet)</div></div>
+    <div class="sec-lbl">Exam keywords</div>
+    <div><span class="kw-pill">private subnet</span><span class="kw-pill">no internet</span><span class="kw-pill">access S3 from EC2</span><span class="kw-pill">minimize data transfer cost</span></div>
+    <div class="trap-box"><strong>Critical trap (very frequent):</strong> VPC Endpoint Gateway (S3 and DynamoDB) is FREE and doesn't require NAT. VPC Endpoint Interface (other services) uses PrivateLink and has a cost. "Access S3 from private subnet cost-effectively" → always Gateway Endpoint.</div>
+    <div class="tip-box">SG = stateful (return traffic is auto-allowed). NACL = stateless (you must allow inbound AND outbound). SG operates at the instance level, NACL at the subnet level.</div>
+  </div>
+
+  <div class="p-card" data-dom="perf" onclick="toggleP(6,this)">
+    <div class="p-num"><span class="dot" style="background:#BA7517;"></span>Performance</div>
+    <div class="p-name">Read scaling with cache</div>
+    <div class="p-kw">read-heavy · reduce DB load · millisecond latency · in-memory · cache aside</div>
+  </div>
+  <div class="p-card" data-dom="res" onclick="toggleP(7,this)">
+    <div class="p-num"><span class="dot" style="background:#1D9E75;"></span>Resilience</div>
+    <div class="p-name">SNS + SQS fan-out</div>
+    <div class="p-kw">multiple consumers · same event · parallel processing · fan-out · pub/sub</div>
+  </div>
+  <div class="detail-panel" id="dp6">
+    <div class="detail-head"><span class="detail-title">Read scaling with cache</span><button class="close-btn" onclick="closeP(6,event)">close</button></div>
+    <div class="sec-lbl">Services</div>
+    <div><span class="svc-pill">RDS Read Replicas</span><span class="svc-pill">ElastiCache Redis</span><span class="svc-pill">ElastiCache Memcached</span><span class="svc-pill">DAX (DynamoDB)</span><span class="svc-pill">Aurora Read Replicas</span></div>
+    <div class="sec-lbl">Flow (cache-aside)</div>
+    <div class="arch-row"><div class="arch-box">App</div><span class="arch-arr">→</span><div class="arch-box">ElastiCache</div><span class="arch-arr">→ hit →</span><div class="arch-box">Fast response</div></div>
+    <div class="arch-row" style="margin-top:4px;"><div class="arch-box">App</div><span class="arch-arr">→ miss →</span><div class="arch-box">RDS (Read Replica)</div><span class="arch-arr">→</span><div class="arch-box">Cache + response</div></div>
+    <div class="sec-lbl">Exam keywords</div>
+    <div><span class="kw-pill">read-heavy workload</span><span class="kw-pill">reduce RDS load</span><span class="kw-pill">microsecond latency</span><span class="kw-pill">frequently accessed data</span><span class="kw-pill">session store</span></div>
+    <div class="trap-box"><strong>Classic trap:</strong> Read Replica has ASYNCHRONOUS replication, there can be lag. If the question requires full consistency, read from the primary. Redis supports Multi-AZ and persistence; Memcached does not.</div>
+    <div class="tip-box">DAX is the cache built specifically for DynamoDB (microseconds). If the question mentions DynamoDB + cache, the answer is DAX, not ElastiCache.</div>
+  </div>
+  <div class="detail-panel" id="dp7">
+    <div class="detail-head"><span class="detail-title">Fan-out with SNS + SQS</span><button class="close-btn" onclick="closeP(7,event)">close</button></div>
+    <div class="sec-lbl">Services</div>
+    <div><span class="svc-pill">SNS Topic</span><span class="svc-pill">SQS Queue (x N)</span><span class="svc-pill">Lambda</span><span class="svc-pill">EventBridge</span></div>
+    <div class="sec-lbl">Flow</div>
+    <div class="arch-row"><div class="arch-box">Event</div><span class="arch-arr">→</span><div class="arch-box">SNS Topic</div><span class="arch-arr">→</span><div class="arch-box">SQS A</div></div>
+    <div class="arch-row"><div style="width:48px;"></div><div style="width:16px;"></div><div class="arch-box" style="opacity:.4;">SNS Topic</div><span class="arch-arr">→</span><div class="arch-box">SQS B</div></div>
+    <div class="arch-row"><div style="width:48px;"></div><div style="width:16px;"></div><div class="arch-box" style="opacity:.4;">SNS Topic</div><span class="arch-arr">→</span><div class="arch-box">SQS C</div></div>
+    <div class="sec-lbl">Exam keywords</div>
+    <div><span class="kw-pill">multiple consumers</span><span class="kw-pill">same event to all</span><span class="kw-pill">parallel processing</span><span class="kw-pill">fan-out</span><span class="kw-pill">pub/sub</span></div>
+    <div class="trap-box"><strong>Classic trap:</strong> SNS directly to multiple Lambdas can lose messages if a Lambda fails. The correct pattern for reliable fan-out is SNS → SQS → Lambda. SQS acts as a buffer with guaranteed retry.</div>
+    <div class="tip-box">Everyone at once (fan-out) → SNS + SQS. One consumer at a time (load balancing) → SQS directly with multiple competing consumers.</div>
+  </div>
+</div>
+
+
+<div class="section-title">Critical decision pairs - quick reference</div>
+<div class="pairs-grid">
+  <div class="pair-card">
+    <div class="pair-head">ALB vs NLB vs Gateway Load Balancer</div>
+    <div class="pair-opt"><strong>ALB</strong><span>Layer 7 (HTTP/HTTPS), path- or host-based routing, ideal for microservices and containers</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>NLB</strong><span>Layer 4 (TCP/UDP), ultra-low latency, static IP, millions of requests per second</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>Gateway Load Balancer</strong><span>Layer 3, for transparently inserting third-party appliances (firewalls, IDS/IPS)</span></div>
+  </div>
+  <div class="pair-card">
+    <div class="pair-head">RDS vs Aurora vs DynamoDB</div>
+    <div class="pair-opt"><strong>RDS</strong><span>Managed relational (MySQL, PostgreSQL, etc.), control close to the original engine</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>Aurora</strong><span>AWS-native relational, higher performance and faster replicas, Global Database</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>DynamoDB</strong><span>NoSQL key-value, massive scale, single-digit millisecond latency</span></div>
+  </div>
+  <div class="pair-card">
+    <div class="pair-head">Reserved vs Savings Plans vs Spot</div>
+    <div class="pair-opt"><strong>Reserved Instances</strong><span>1-3 year commitment tied to a specific EC2 instance family/size</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>Savings Plans</strong><span>Spend commitment in USD/hour, flexible across EC2, Fargate, and Lambda</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>Spot Instances</strong><span>Up to 90% discount, can be interrupted, ideal for fault-tolerant batch jobs</span></div>
+  </div>
+  <div class="pair-card">
+    <div class="pair-head">S3 Storage Classes by access pattern</div>
+    <div class="pair-opt"><strong>Standard / Intelligent-Tiering</strong><span>Frequent or unpredictable access, no retrieval penalty</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>Standard-IA / One Zone-IA</strong><span>Infrequent access but fast when needed</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>Glacier (Instant / Flexible / Deep Archive)</strong><span>Archive, minutes to hours to retrieve, the cheapest for long-term retention</span></div>
+  </div>
+  <div class="pair-card">
+    <div class="pair-head">Route 53: routing policies</div>
+    <div class="pair-opt"><strong>Latency-based</strong><span>Routes to the region with the lowest network latency for the user</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>Geolocation</strong><span>Routes based on the user's actual geographic location, not latency</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>Weighted / Failover</strong><span>Distributes traffic by a fixed percentage, or switches to a backup site if the primary fails its health check</span></div>
+  </div>
+  <div class="pair-card">
+    <div class="pair-head">KMS vs Secrets Manager vs Parameter Store</div>
+    <div class="pair-opt"><strong>KMS</strong><span>Manages the encryption keys themselves (CMK), the foundation of encryption in AWS</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>Secrets Manager</strong><span>Stores secrets (passwords, API keys) with built-in automatic rotation</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>SSM Parameter Store</strong><span>Configuration and parameters, can store SecureString, no native rotation</span></div>
+  </div>
+  <div class="pair-card">
+    <div class="pair-head">CloudTrail vs Config vs CloudWatch</div>
+    <div class="pair-opt"><strong>CloudTrail</strong><span>Who made which API call and when, action auditing</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>AWS Config</strong><span>What configuration a resource has now and how it changed over time, compliance</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>CloudWatch</strong><span>Performance metrics, application logs, and operational alarms</span></div>
+  </div>
+  <div class="pair-card">
+    <div class="pair-head">IAM User vs IAM Role vs Resource Policy</div>
+    <div class="pair-opt"><strong>IAM User</strong><span>Long-term identity with its own credentials, for people or fixed apps</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>IAM Role</strong><span>Temporary identity that gets assumed, ideal for AWS services or cross-account access</span></div>
+    <div class="pair-vs">VS</div>
+    <div class="pair-opt"><strong>Resource Policy</strong><span>Attached to the resource (e.g. an S3 bucket), not the user, defines who can access it from outside</span></div>
+  </div>
+</div>
+
+<div class="section-title">Full content by domain</div>
+<p style="font-size:13px;color:var(--text2);margin-bottom:16px;">Full narrative coverage of each domain, to read in depth alongside the cards and patterns above.</p>
+<div id="dom-accordion-container"></div>
+<!-- RESOURCES -->
+<div class="section-title">Essential resources</div>
+<div class="resource-card"><div><div class="res-name"><a href="https://learn.cantrill.io/p/aws-certified-solutions-architect-associate-saa-c03" target="_blank" style="color:inherit;text-decoration:none;">Adrian Cantrill SAA-C03 ↗</a></div><div class="res-desc">The most in-depth course for understanding the "why" behind each service. Exceptional visual diagrams, ideal for VPC, IAM, and complex architectures. Includes hands-on labs. One-time price, no expiration ($40).</div></div><span class="res-tag-alt">Companion course</span></div>
+<div class="resource-card"><div><div class="res-name"><a href="https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03/" target="_blank" style="color:inherit;text-decoration:none;">Stephane Maarek SAA-C03 (Udemy) ↗</a></div><div class="res-desc">~27h of video. Faster pace, exam-oriented. Excellent for covering the breadth of services in less time. Pairs well with Cantrill: Maarek for speed, Cantrill for depth.</div></div><span class="res-tag">Main course</span></div>
+<div class="resource-card"><div><div class="res-name"><a href="https://portal.tutorialsdojo.com/product/aws-certified-solutions-architect-associate-practice-exams/" target="_blank" style="color:inherit;text-decoration:none;">Tutorials Dojo Practice Exams ↗</a></div><div class="res-desc">The closest to the real exam. 400+ questions, 6 sets of 65 + detailed explanations for every wrong answer. Timed, review, section-based, and topic-based modes.</div></div><span class="res-tag">Practice exams</span></div>
+<div class="resource-card"><div><div class="res-name"><a href="https://skillbuilder.aws/exam-prep/solutions-architect-associate" target="_blank" style="color:inherit;text-decoration:none;">AWS Skill Builder: SAA-C03 Exam Prep ↗</a></div><div class="res-desc">Access as an AWS Community Builder. Free official practice questions and exam readiness course. Guided 4-step plan with labs and official questions.</div></div><span class="res-tag">CB access</span></div>
+<div class="resource-card"><div><div class="res-name"><a href="https://apps.ankiweb.net/" target="_blank" style="color:inherit;text-decoration:none;">Anki (flashcards) ↗</a></div><div class="res-desc">Download a SAA-C03 deck or make your own. 15 min during your commute = 200+ reviews a week. Essential for retaining similar services.</div></div><span class="res-tag">Daily review</span></div>
+<div class="resource-card"><div><div class="res-name"><a href="https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03.html" target="_blank" style="color:inherit;text-decoration:none;">Official SAA-C03 Exam Guide ↗</a></div><div class="res-desc">The only document that accurately reflects domain weights and the exam's current scope. Use it as a checklist throughout your studying, not just at the start.</div></div><span class="res-tag">Official</span></div>
+
+</div><!-- /container -->
+
+<footer>
+  SAA-C03 study plan (8 weeks). Francisco Escobar · AWS Community Builder · Networking &amp; Content Delivery
+</footer>
+
+<script>
+function showWeek(idx, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('w' + idx).classList.add('active');
+  btn.classList.add('active');
+}
+
+let openPattern = -1;
+
+function toggleP(idx, card) {
+  const dp = document.getElementById('dp' + idx);
+  const allCards = document.querySelectorAll('.p-card');
+  const allDps = document.querySelectorAll('.detail-panel');
+
+  if (openPattern === idx) {
+    dp.classList.remove('open');
+    card.classList.remove('open');
+    openPattern = -1;
+    return;
+  }
+  allDps.forEach(d => d.classList.remove('open'));
+  allCards.forEach(c => c.classList.remove('open'));
+  dp.classList.add('open');
+  card.classList.add('open');
+  openPattern = idx;
+  setTimeout(() => dp.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+}
+
+function closeP(idx, e) {
+  e.stopPropagation();
+  document.getElementById('dp' + idx).classList.remove('open');
+  document.querySelectorAll('.p-card').forEach(c => c.classList.remove('open'));
+  openPattern = -1;
+}
+
+function filterDom(dom, btn) {
+  document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.p-card').forEach(c => {
+    c.style.display = (dom === 'all' || c.dataset.dom === dom) ? '' : 'none';
+  });
+  document.querySelectorAll('.detail-panel').forEach(d => d.classList.remove('open'));
+  document.querySelectorAll('.p-card').forEach(c => c.classList.remove('open'));
+  openPattern = -1;
+}
+
+
+const SAA_DYN_BUCKETS = [
+  { key:"fund", name:"Fundamentals and Mindset", pct:0.12, color:"#5F5E5A",
+    topics:[
+      "Mindset shift: from \"what is this service\" to \"what requirement does it solve and why\"",
+      "Exam format: 65 questions, 130 min, 4 domains, minimum 720/1000",
+      "Short keyword-chain notes per service",
+      "Initial hands-on: IAM, EC2, basic VPC",
+      "Cost management: check pricing before creating resources, AWS Budgets"
+    ]},
+  { key:"sec", name:"Security (30%)", pct:0.20, color:"#534AB7",
+    topics:[
+      "IAM: User, Role, Policy, Trust Policy, STS, cross-account, SCP",
+      "Network security: Security Group vs NACL, VPC Endpoint, PrivateLink",
+      "Hybrid connectivity: VPN vs Direct Connect vs Transit Gateway",
+      "Encryption: KMS, Secrets Manager vs Parameter Store, ACM",
+      "WAF, Shield, GuardDuty, Inspector, Macie, CloudTrail"
+    ]},
+  { key:"res", name:"Resilience (26%)", pct:0.18, color:"#0F6E56",
+    topics:[
+      "High Availability vs Disaster Recovery",
+      "Multi-AZ, ELB, Auto Scaling, Route 53 routing policies",
+      "Decoupling: SQS, SNS, EventBridge",
+      "RDS Multi-AZ vs Read Replica, Aurora, DynamoDB Global Tables",
+      "DR strategies: Backup and Restore, Pilot Light, Warm Standby, Multi-Site"
+    ]},
+  { key:"perf", name:"Performance (24%)", pct:0.18, color:"#BA7517",
+    topics:[
+      "Storage: S3 vs EBS vs EFS, S3 classes",
+      "Compute: EC2 vs Lambda vs containers (ECS/EKS/Fargate)",
+      "Database: RDS/Aurora vs DynamoDB, ElastiCache, DAX, RDS Proxy",
+      "Networking: CloudFront vs Global Accelerator",
+      "Data: Kinesis, Glue, Athena, EMR, Redshift, DMS"
+    ]},
+  { key:"cost", name:"Cost (20%)", pct:0.12, color:"#993C1D",
+    topics:[
+      "Compute pricing: On-Demand, Spot, Reserved, Savings Plans",
+      "Storage cost: choosing an S3 class based on real access patterns",
+      "Network cost: NAT Gateway vs Gateway Endpoint",
+      "Reviewing decision pairs to prepare for cost-related distractors"
+    ]},
+  { key:"prac", name:"Practice exams", pct:0.20, color:"#185FA5",
+    topics:[
+      "Practice questions by topic while still learning",
+      "Error log: topic, where you failed, what to remember",
+      "Full practice exams in real-exam mode",
+      "Final days: review recurring errors, no new content, rest"
+    ]}
+];
+
+function setMode(mode){
+  document.getElementById('mode-static').classList.toggle('active', mode==='static');
+  document.getElementById('mode-dynamic').classList.toggle('active', mode==='dynamic');
+  document.getElementById('btn-static').classList.toggle('active', mode==='static');
+  document.getElementById('btn-dynamic').classList.toggle('active', mode==='dynamic');
+}
+
+function generateDynamicPlan(){
+  const weeks = Math.max(1, Math.min(26, parseInt(document.getElementById('dyn-weeks').value) || 1));
+  const hpw = Math.max(1, Math.min(60, parseFloat(document.getElementById('dyn-hours').value) || 1));
+  document.getElementById('dyn-weeks').value = weeks;
+  document.getElementById('dyn-hours').value = hpw;
+  const totalHours = weeks * hpw;
+
+  let cursor = 0;
+  const buckets = SAA_DYN_BUCKETS.map(b=>{
+    const hours = totalHours * b.pct;
+    const span = hours / hpw;
+    const start = cursor, end = cursor + span;
+    cursor = end;
+    return Object.assign({}, b, { hours, start, end });
+  });
+
+  const weekData = [];
+  for(let w=1; w<=weeks; w++){
+    const wStart = w-1, wEnd = w;
+    const parts = [];
+    buckets.forEach(b=>{
+      const ovStart = Math.max(wStart, b.start);
+      const ovEnd = Math.min(wEnd, b.end);
+      if(ovEnd > ovStart + 0.0001){
+        parts.push({ bucket:b, hours:(ovEnd-ovStart)*hpw });
+      }
+    });
+    weekData.push({ week:w, parts });
+  }
+
+  const bucketWeekCount = {};
+  weekData.forEach(wd=>wd.parts.forEach(p=>{ bucketWeekCount[p.bucket.key]=(bucketWeekCount[p.bucket.key]||0)+1; }));
+  const chunkIdx = {}, chunks = {};
+  buckets.forEach(b=>{
+    const n = Math.max(1, bucketWeekCount[b.key]||1);
+    const per = Math.ceil(b.topics.length/n);
+    const arr = [];
+    for(let i=0;i<n;i++){ arr.push(b.topics.slice(i*per,(i+1)*per)); }
+    chunks[b.key]=arr; chunkIdx[b.key]=0;
+  });
+
+  const container = document.getElementById('dyn-weeks-container');
+  container.innerHTML = weekData.map(wd=>{
+    const blocks = wd.parts.map(p=>{
+      const idx = chunkIdx[p.bucket.key]++;
+      const topics = chunks[p.bucket.key][idx] || [];
+      return `<div style="margin-bottom:8px;">
+        <span class="pill" style="background:${p.bucket.color}22;color:${p.bucket.color};">${p.bucket.name} - ${p.hours.toFixed(1)}h</span>
+        <ul class="dyn-topic-list">${topics.map(t=>`<li>${t}</li>`).join('') || '<li>Review / continue</li>'}</ul>
+      </div>`;
+    }).join('');
+    const total = wd.parts.reduce((s,p)=>s+p.hours,0);
+    return `<div class="dyn-week">
+      <div class="dyn-week-head"><span class="dyn-week-num">Week ${wd.week}</span><span class="dyn-week-hours">${total.toFixed(1)} h assigned</span></div>
+      ${blocks}
+    </div>`;
+  }).join('');
+
+  document.getElementById('dyn-readout').style.display='flex';
+  document.getElementById('dyn-total').textContent = totalHours.toFixed(0);
+  document.getElementById('dyn-weeksout').textContent = weeks;
+  document.getElementById('dyn-hpw').textContent = hpw;
+}
+
+const SAA_DOMAINS = [
+{
+  title:"Mindset and study method",
+  paras:[
+    "The most important shift for the SAA isn't memorizing more services, it's changing how you approach them: moving from \"what is this service\" to \"what requirement does it solve and why is it the most suitable option compared to the alternatives\". Placing each service within a complete architecture (user, Load Balancer, Auto Scaling, database) helps far more than learning isolated definitions.",
+    "For notes, it helps to use short chains of keywords instead of copying the full material. For example, for SQS: queue, asynchronous, decouple, independent scaling, Visibility Timeout, DLQ, Standard or FIFO. That format lets you rebuild the full concept just by looking at a few words.",
+    "It helps to start solving practice questions by topic as soon as you finish each content block, instead of waiting to complete the whole syllabus. This lets you catch gaps in understanding early, while there's still time to reinforce them."
+  ]
+},
+{
+  title:"Security (30%)",
+  paras:[
+    "IAM is the foundation: users, groups, roles, identity-based and resource-based policies, trust policies, STS for temporary credentials, cross-account access, permission boundaries, and Service Control Policies at the AWS Organizations level. The real difficulty isn't in the definitions but in scenarios where a request crosses several layers of authorization at once: for example, an application in one account needs to read an S3 bucket in another account, and you have to check the principal, the assumed role, the trust policy, the bucket policy, a possible SCP, and even the KMS key policy if the object is encrypted.",
+    "In network security, the most repeated pair is Security Group (stateful, allow rules only, at the instance level) versus Network ACL (stateless, allow and deny rules, at the subnet level). For VPC Endpoints, the Gateway Endpoint (S3 and DynamoDB) is free and doesn't require a NAT Gateway, while the Interface Endpoint uses PrivateLink and has a cost, for the rest of the services.",
+    "In encryption, KMS manages the keys, Secrets Manager stores secrets with automatic rotation, and Parameter Store stores configuration and parameters with no native rotation. If the question asks for automatic credential rotation, the answer is almost always Secrets Manager."
+  ]
+},
+{
+  title:"Resilience (26%)",
+  paras:[
+    "High Availability means the system keeps working if a component or an availability zone fails. Disaster Recovery is a different question: how much data loss and how much recovery time are acceptable in the face of a major incident. The four DR strategies, in order of increasingly fast recovery and increasingly higher cost, are Backup and Restore, Pilot Light, Warm Standby, and Multi-Site Active-Active.",
+    "For decoupling, the core pattern is producer, SQS queue as buffer, consumer, so both sides can scale independently. SNS adds fan-out capability toward multiple queues or consumers at once. EventBridge lets you route events by rules between multiple sources and destinations.",
+    "The RDS Multi-AZ versus Read Replica pair is one of the most-asked: Multi-AZ is about availability and synchronous automatic failover, it doesn't help scale reads. Read Replica is about scaling reads with asynchronous replication. If the question says read-heavy, the answer is almost always Read Replica."
+  ]
+},
+{
+  title:"Performance (24%)",
+  paras:[
+    "In storage, the first question is whether the data needs object-type access (S3), block (EBS), or shared file (EFS), and whether it's accessed by a single resource or several at once. For S3 storage classes, the choice depends on access frequency, tolerable retrieval time, and durability requirements, not on memorizing list prices.",
+    "In compute, it helps to avoid the shortcut of assuming lower operational overhead automatically means Lambda. The right question is what execution environment the workload actually needs: short events and irregular traffic point to Lambda, while long-running processes or special dependencies point to EC2 or containers.",
+    "In databases, a useful pattern is: relational with transactions points to RDS or Aurora, key-value with massive scale and low latency points to DynamoDB, general caching points to ElastiCache, and DynamoDB-specific caching points to DAX. RDS Proxy comes into play when there are many concurrent connections, for example from a serverless workload with Lambda.",
+    "In networking, CloudFront operates at layer 7 for HTTP and HTTPS with content caching, while Global Accelerator operates at layer 4 with static Anycast IPs, built for gaming, VoIP, or global TCP or UDP connections that aren't cached."
+  ]
+},
+{
+  title:"Cost (20%)",
+  paras:[
+    "Optimizing cost doesn't mean always picking the cheapest option: the solution must first meet availability, performance, and security, and only then is cost optimized. In compute, Reserved Instances is a commitment tied to a specific EC2 configuration, while Savings Plans is a spend commitment in dollars per hour, more flexible across EC2, Fargate, and Lambda. Spot Instances offers large discounts in exchange for tolerating interruptions, ideal for batch jobs.",
+    "In storage, the key is looking at the real access pattern: data that's almost never accessed and can tolerate hours to restore points to Glacier Deep Archive, while an unpredictable access pattern points to Intelligent-Tiering.",
+    "In networking, the most repeated example is a private EC2 instance accessing S3 through a NAT Gateway, which generates processing cost; using an S3 Gateway Endpoint creates a private route without that extra cost."
+  ]
+},
+{
+  title:"Exam strategy",
+  paras:[
+    "For Choose TWO or Choose THREE questions, it helps to evaluate each option separately instead of hunting directly for the two correct ones, and always check the number of selected options before moving on. For multi-step solutions, it helps to break each option down into steps and discard it entirely if a single step fails.",
+    "When several answers are technically correct, first rule out the ones that don't meet the main requirement, then decide based on the exact constraint in the question: MOST cost-effective, LEAST operational overhead, MINIMUM changes, highest availability, or lowest latency.",
+    "A long question isn't necessarily a hard one: it helps to identify the current architecture, the problem, the requirement, and the constraint before rereading the whole paragraph. The simplest time rule: a question you're sure of, answer it; a doubtful question, flag it and move on, without letting a single question break the pace of the whole exam."
+  ]
+}
+];
+
+function buildDomAccordion(){
+  const c = document.getElementById('dom-accordion-container');
+  c.innerHTML = SAA_DOMAINS.map((d,i)=>`
+    <div class="dom-accordion">
+      <div class="dom-acc-head" onclick="toggleDomAcc(${i})">
+        <span>${d.title}</span><span class="dom-chev" id="dom-chev-${i}">&#9662;</span>
+      </div>
+      <div class="dom-acc-panel" id="dom-panel-${i}">
+        <div class="inner">${d.paras.map(p=>`<p>${p}</p>`).join('')}</div>
+      </div>
+    </div>
+  `).join('');
+}
+function toggleDomAcc(i){
+  const panel = document.getElementById('dom-panel-'+i);
+  const chev = document.getElementById('dom-chev-'+i);
+  const isOpen = panel.classList.toggle('open');
+  panel.style.maxHeight = isOpen ? panel.scrollHeight+'px' : '0';
+  chev.classList.toggle('rot');
+}
+buildDomAccordion();
+
+</script>
+</body>
+</html>

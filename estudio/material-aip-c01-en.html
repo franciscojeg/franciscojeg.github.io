@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Material: AWS AIP-C01</title>
+<style>
+  :root{
+    --aws-orange:#FF9900;
+    --aws-dark:#232F3E;
+    --bg:#f4f6f8;
+    --card:#ffffff;
+    --text:#1c2530;
+    --text-muted:#5b6b7a;
+    --border:#e1e6eb;
+    --alta:#d93025; --alta-bg:#fce8e6;
+    --media:#b7791f; --media-bg:#fef3e0;
+    --baja:#1a73e8; --baja-bg:#e8f0fe;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--text); margin:0; line-height:1.55;
+  }
+  header{
+    background:var(--aws-dark); color:#fff; padding:22px 24px; text-align:center;
+  }
+  header h1{margin:0 0 4px;font-size:22px;}
+  header p{margin:0;color:#c8d1db;font-size:13.5px;}
+  .lang-switch{position:absolute;top:14px;right:16px;display:flex;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;overflow:hidden;font-size:11px;font-weight:700;}
+  .lang-switch a{padding:4px 10px;color:rgba(255,255,255,.8);text-decoration:none;}
+  .lang-switch a.active{background:#fff;color:var(--aws-dark);}
+  header{position:relative;}
+  .layout{display:flex; max-width:1200px; margin:0 auto;}
+  nav#toc{
+    width:270px; flex-shrink:0; padding:20px 14px; position:sticky; top:0; align-self:flex-start;
+    max-height:100vh; overflow-y:auto; font-size:13px; border-right:1px solid var(--border); background:#fff;
+  }
+  nav#toc h4{margin:14px 0 6px;color:var(--aws-dark);font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
+  nav#toc h4:first-child{margin-top:0;}
+  nav#toc a{display:block;color:var(--text-muted);text-decoration:none;padding:3px 0 3px 6px;border-left:2px solid transparent;}
+  nav#toc a:hover{color:var(--aws-dark);border-left-color:var(--aws-orange);}
+  main{flex:1; padding:24px 32px 80px; min-width:0;}
+  .part{margin-bottom:44px;}
+  .part-title{
+    background:var(--aws-dark); color:#fff; padding:12px 18px; border-radius:8px; margin-bottom:6px;
+    font-size:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;
+  }
+  .part-title .weight{background:var(--aws-orange);color:var(--aws-dark);font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;}
+  .intro{color:var(--text-muted); font-size:14px; margin:10px 0 18px; padding:12px 16px; background:#fff8ef; border-left:4px solid var(--aws-orange); border-radius:0 6px 6px 0;}
+  h3.sub{font-size:15px; margin:22px 0 8px; color:var(--aws-dark); border-bottom:2px solid var(--border); padding-bottom:4px;}
+  h4.subsub{font-size:13.5px; margin:16px 0 6px; color:var(--text);}
+  .table-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:20px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.06); background:#fff;}
+  table{width:100%; min-width:640px; table-layout:fixed; border-collapse:collapse; font-size:13px; background:#fff;}
+  th:first-child, td.servicio{width:22%; word-wrap:break-word; overflow-wrap:break-word;}
+  th,td{padding:9px 11px; text-align:left; vertical-align:top; border-bottom:1px solid var(--border);}
+  th{background:#eef1f4; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--text-muted);}
+  tr:last-child td{border-bottom:none;}
+  td.servicio{font-weight:700;}
+  .prio{display:inline-block; font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap;}
+  .prio-alta{background:var(--alta-bg); color:var(--alta);}
+  .prio-media{background:var(--media-bg); color:var(--media);}
+  .prio-baja{background:var(--baja-bg); color:var(--baja);}
+  .top-link{font-size:11.5px; color:var(--baja); text-decoration:none;}
+  .callout{background:#fff; border:1px solid var(--border); border-left:4px solid var(--baja); border-radius:0 8px 8px 0; padding:12px 16px; font-size:13.5px; margin:14px 0;}
+  .callout.warn{border-left-color:var(--media); }
+  .checklist{list-style:none; padding:0; margin:0;}
+  .checklist li{padding:6px 0 6px 26px; position:relative; font-size:14px; border-bottom:1px dashed var(--border);}
+  .checklist li:before{content:"☐"; position:absolute; left:0; color:var(--aws-orange); font-size:16px;}
+  code{background:#eef1f4; padding:1px 5px; border-radius:4px; font-size:12px;}
+  .keyword{background:var(--aws-dark); color:#fff; padding:2px 8px; border-radius:5px; font-weight:700; font-size:12px;}
+  .toc-toggle{display:none;}
+  @media (max-width: 900px){
+    .toc-toggle{
+      display:block; margin:14px 14px 0; background:var(--aws-orange); color:var(--aws-dark);
+      border:none; padding:12px 16px; border-radius:8px; font-weight:700; font-size:14px;
+      cursor:pointer; width:calc(100% - 28px);
+    }
+    .layout{flex-direction:column;}
+    nav#toc{
+      display:none; width:100%; position:static; max-height:none;
+      border-right:none; border-bottom:1px solid var(--border);
+    }
+    nav#toc.open{display:block;}
+    main{padding:18px 14px 60px;}
+    table{font-size:12px; min-width:560px;}
+    th,td{padding:7px 8px;}
+    header h1{font-size:19px;}
+    .part-title{font-size:16px; padding:10px 14px;}
+  }
+  @media (max-width: 480px){
+    header{padding:16px 14px;}
+    header h1{font-size:17px;}
+    main{padding:14px 10px 50px;}
+    .part-title{font-size:14.5px; flex-direction:column; align-items:flex-start; gap:4px;}
+    table{font-size:11.5px; min-width:520px;}
+    th,td{padding:6px 7px;}
+    .intro, .callout{font-size:13px; padding:10px 12px;}
+  }
+</style>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23232F3E'/%3E%3Ctext x='12' y='17' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='14' font-weight='700' fill='%23FF9900'%3EF%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div style="background:#14141f;padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px;">
+  <a href="../index-en.html" style="color:#fff;font-size:12.5px;text-decoration:none;font-weight:600;letter-spacing:.02em;">&larr; Back to home &middot; franciscojeg.github.io</a>
+  <span style="display:inline-flex;gap:8px;">
+    <a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A66C2"/><text x="12" y="16" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="700" fill="#fff">in</text></svg></a>
+    <a href="https://github.com/franciscojeg" target="_blank" rel="noopener" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#181717"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="8.5" font-weight="700" fill="#fff">GH</text></svg></a>
+    <a href="https://dev.to/franciscojeg78" target="_blank" rel="noopener" aria-label="dev.to"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A0A0A"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="6.5" font-weight="700" fill="#fff">DEV</text></svg></a>
+    <a href="https://builder.aws.com/community/@franciscojeg?tab=badges" target="_blank" rel="noopener" aria-label="AWS Builder Center"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF9900"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" fill="#232F3E">AWS</text></svg></a>
+    <a href="https://www.instagram.com/franciscojeg.tech/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24"><defs><linearGradient id="igg-bar" x1="0" y1="24" x2="24" y2="0"><stop offset="0%" stop-color="#FEDA75"/><stop offset="35%" stop-color="#D62976"/><stop offset="70%" stop-color="#962FBF"/><stop offset="100%" stop-color="#4F5BD5"/></linearGradient></defs><circle cx="12" cy="12" r="12" fill="url(#igg-bar)"/><rect x="6.5" y="7.5" width="11" height="10.5" rx="3" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="12" cy="12.7" r="2.7" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="15.2" cy="9.6" r="0.6" fill="#fff"/></svg></a>
+    <a href="https://www.youtube.com/@ugwelcomebuilders" target="_blank" rel="noopener" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF0000"/><path d="M9.5 8.5 L16 12 L9.5 15.5 Z" fill="#fff"/></svg></a>
+  </span>
+</div>
+
+
+<header>
+  <div class="lang-switch"><a href="material-aip-c01.html">ES</a><a href="material-aip-c01-en.html" class="active">EN</a></div>
+  <h1>📘 Study Material: AWS Certified Generative AI Developer Professional (AIP-C01)</h1>
+  <p>Prepared by Francisco Escobar, AWS Community Builder (Networking & Content Delivery) · Organized by the exam's official domains</p>
+  <p style="margin-top:6px;"><a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" style="color:#FF9900;text-decoration:none;font-weight:600;">linkedin.com/in/franciscojeg</a></p>
+</header>
+
+<button class="toc-toggle" id="tocToggle" aria-expanded="false" aria-controls="toc">☰ View index</button>
+
+<div class="layout">
+<nav id="toc">
+  <h4>Navigation</h4>
+  <a href="#fundamentos">0. Exam fundamentals</a>
+  <a href="#dominio1">1. Foundation Model Integration, Data Management and Compliance (31%)</a>
+  <a href="#dominio2">2. Implementation and Integration (26%)</a>
+  <a href="#dominio3">3. AI Safety, Security and Governance (20%)</a>
+  <a href="#dominio4">4. Operational Efficiency and Optimization (12%)</a>
+  <a href="#dominio5">5. Testing, Validation and Troubleshooting (11%)</a>
+  <a href="#comparaciones">6. Critical comparisons</a>
+  <a href="#senales">7. Scenario patterns (trigger words)</a>
+  <a href="#checklist">8. Final checklist</a>
+</nav>
+
+<main>
+
+<section id="fundamentos" class="part">
+  <div class="part-title">0. Before you start: what this exam is like</div>
+  <div class="intro">This is a Professional-level exam, not a foundational one: it doesn't ask "what is an embedding", it asks "given this business scenario with these constraints, what AWS architecture would you implement". AWS launched this certification in November 2025, so it's one of the newest in the catalog, and it covers very recent capabilities like Bedrock AgentCore and the MCP protocol.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Fact</th><th>Value</th></tr>
+    <tr><td class="servicio">Exam code</td><td>AIP-C01</td></tr>
+    <tr><td class="servicio">Questions</td><td>75, combining multiple choice, multiple response, ordering, matching, and case-study questions (a scenario with 2 or more related questions)</td></tr>
+    <tr><td class="servicio">Duration</td><td>180 minutes</td></tr>
+    <tr><td class="servicio">Score</td><td>100 to 1000, with 750 as the minimum to pass, using a compensatory scoring model: you don't need to pass each domain separately, but you do need the total score</td></tr>
+    <tr><td class="servicio">Cost</td><td>300 USD per attempt, no limit on attempts, but a mandatory 14-day wait between attempts if you don't pass</td></tr>
+    <tr><td class="servicio">Prerequisites</td><td>None formal, though it's designed for people with at least 1 year of hands-on experience with Bedrock, SageMaker AI, and other generative AI tools</td></tr>
+  </table>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Domain</th><th>Content</th><th>Weight</th></tr>
+    <tr><td class="servicio">Domain 1</td><td>Foundation Model Integration, Data Management, and Compliance</td><td><span class="prio prio-alta">31%, the heaviest weight</span></td></tr>
+    <tr><td class="servicio">Domain 2</td><td>Implementation and Integration</td><td><span class="prio prio-alta">26%</span></td></tr>
+    <tr><td class="servicio">Domain 3</td><td>AI Safety, Security, and Governance</td><td><span class="prio prio-media">20%</span></td></tr>
+    <tr><td class="servicio">Domain 4</td><td>Operational Efficiency and Optimization for Generative AI Applications</td><td><span class="prio prio-baja">12%</span></td></tr>
+    <tr><td class="servicio">Domain 5</td><td>Testing, Validation, and Troubleshooting</td><td><span class="prio prio-baja">11%</span></td></tr>
+  </table>
+  </div>
+
+  <div class="callout">
+    <strong>How to think about this exam versus AIF-C01:</strong> if you already studied AIF-C01 (foundational level), think of AIP-C01 as its hands-on continuation. AIF-C01 asked you "what is RAG?". This exam gives you a complete scenario, with business constraints, regulation, budget, and scale, and asks you to design, implement, secure, optimize, and debug the full solution. You'll see the same core concepts (RAG, fine-tuning, embeddings, prompt engineering) but taken into real production architectures: multiple regions, CI/CD, observability, governance, and multi-agent systems.
+  </div>
+
+  <div class="callout warn">
+    <strong>Note on currency:</strong> because this is a newly launched certification, the services and capabilities it covers (especially everything related to agentic AI, Bedrock AgentCore, and the MCP protocol) are evolving very fast. Always check the official Exam Guide and the latest Bedrock documentation before your exam.
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="dominio1" class="part">
+  <div class="part-title">1. Foundation Model Integration, Data Management and Compliance <span class="weight">31% of the exam</span></div>
+  <div class="intro">The largest domain in the exam. It covers everything from the initial architectural design of a GenAI solution to vector databases and prompt engineering. If you master this domain, you've got nearly a third of the exam solved.</div>
+
+  <h3 class="sub">1.1 Analyze requirements and design GenAI solutions</h3>
+  <div class="callout">
+    <strong>The most fundamental design decision in the whole exam: direct FM API vs. RAG.</strong> When you connect your application directly to a foundation model's API (for example, invoking Bedrock directly), the model can only respond with what it learned during training. When you add a RAG architecture (your own documents → embeddings → vector store → context retrieval → enriched prompt → model), the model can respond with up-to-date information specific to your company. The key question for choosing between the two: does the answer depend on private or up-to-date knowledge the model doesn't have? If so, you need RAG.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr>
+      <td class="servicio">Architectural designs for GenAI solutions</td>
+      <td>Designing a typical RAG assistant combining Amazon Bedrock (model and invocation), API Gateway (exposing the app as an API), and CloudWatch (observability across the whole flow).</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Proof of Concept (PoC) maturity levels</td>
+      <td>Different maturity levels of a GenAI proof of concept, from experimenting in the Bedrock Playground or a SageMaker AI notebook, to a measurable PoC with CloudWatch metrics before moving to production.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Standardized technical components</td>
+      <td>Turning Bedrock invocation patterns into reusable components via CloudFormation or CDK, evaluated against the AWS Well-Architected Tool, and centrally managing prompts with Bedrock Prompt Management, so different teams don't reinvent the wheel each time.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">1.2 Select and configure Foundation Models</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr>
+      <td class="servicio">Model evaluation and selection</td>
+      <td>Comparing models available in the Bedrock catalog by cost, modality, latency, and response quality for a specific use case, such as a chat assistant.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Flexible model routing architectures</td>
+      <td>Designing systems that dynamically choose which model to invoke based on business rules, for example using AWS AppConfig to manage external configuration and Lambda to run the routing logic, enabling A/B testing between models without redeploying code.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Designing resilient AI systems</td>
+      <td>GenAI-specific resilience patterns: <strong>Fallback Model</strong> (if the primary model fails or is saturated, redirect to a secondary model), <strong>Multi-Region / Cross-Region Inference</strong> (serve the model from multiple regions), and <strong>Circuit Breaker</strong> (stop invoking a service that's failing repeatedly, instead of retrying and overloading it further). Implemented with CloudWatch Alarms to detect the problem, Route 53 health checks to redirect traffic, and Step Functions to orchestrate the fallback.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">FM customization lifecycle</td>
+      <td>Managing the full lifecycle of a customized model (for example, a specialized financial summarization model) using SageMaker Model Registry to version it, SageMaker endpoint configuration to deploy it, and AWS CodePipeline to automate the rollout from one version to the next.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">1.3 Implement data validation and processing for FM consumption</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr>
+      <td class="servicio">Data validation flows</td>
+      <td>Act as a "gatekeeper" before a document reaches a RAG pipeline: for example, using AWS Glue Data Quality to check document quality in S3 before indexing, with CloudWatch metrics.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Processing complex (multimodal) data types</td>
+      <td>Pipelines that combine multiple data types, such as summarizing support calls using Amazon Transcribe (audio to text) followed by Bedrock (summarization), orchestrated with a SageMaker Processing Job.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Formatting input data for inference</td>
+      <td>The full backend orchestration from when the user's request arrives to when the model is invoked, including the use of prompt templating for RAG-based question answering.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Improving input data quality</td>
+      <td>Normalizing noisy user queries with typos or inconsistent formatting before sending them to the model, to improve the quality of the generated response.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">1.4 Design and implement vector database solutions</h3>
+  <div class="callout">
+    <strong>The three vector store architectures in AWS, explained from scratch:</strong> a vector database stores embeddings (numeric vectors representing meaning) so you can search "by meaning" instead of by exact word. AWS offers three main ways to implement this:
+    <ol style="margin:10px 0 0; padding-left:20px;">
+      <li style="margin-bottom:8px;"><strong>Managed RAG with Amazon Bedrock Knowledge Bases:</strong> the simplest option. You point it at your documents (for example, in S3) and Bedrock automatically handles chunking, embeddings, and vector search under the hood.</li>
+      <li style="margin-bottom:8px;"><strong>OpenSearch-based architecture:</strong> you use Amazon OpenSearch Service as the vector search engine, with more control over index configuration and the search algorithm (like k-NN), in exchange for more configuration work.</li>
+      <li><strong>RDS/DynamoDB plus external vector store pattern:</strong> you keep your transactional data in an existing relational or NoSQL database and add vector capability to it, for example with the pgvector extension on Amazon Aurora PostgreSQL. Useful when you need to combine strict relational filters (like clinical metadata) with semantic search in the same query.</li>
+    </ol>
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Metadata frameworks for better search</td><td>Designing metadata schemas (for example, category, date, department) stored alongside each embedding, to filter results before or after semantic search.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">High-performance vector architectures</td><td>Optimizing a vector store to scale to millions of embeddings without degrading search latency.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Integration with existing data systems</td><td>Connecting the vector store with data sources and knowledge systems the company already has, instead of creating an isolated data silo.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Vector store maintenance and updates</td><td>Designing systems to keep embeddings in sync when the original documents change, are added, or are removed.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">1.5 Design retrieval mechanisms to augment the FM</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Document segmentation (chunking)</td><td>Defining how to split long documents into fragments, balancing chunks that are too small (lose context) against ones that are too large (dilute relevance and consume more tokens).</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Embedding selection and configuration</td><td>Choosing the right embedding model based on language, domain, and vector dimensionality, since not all embedding models are interchangeable.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Vector search deployment and configuration</td><td>Configuring the chosen vector search engine (Knowledge Bases, OpenSearch, or pgvector) for production.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Hybrid search and reranking</td><td>Combining keyword (lexical) search with semantic (vector) search to get better results than either alone, then using a reranking model to reorder results by true relevance before sending them to the FM.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Sophisticated query handling</td><td>Rewriting or decomposing complex user questions into more effective sub-queries for vector search.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Consistent access mechanisms (MCP)</td><td>Using the Model Context Protocol to expose the vector store as a standardized tool that any agent can consistently query, instead of a custom integration per client.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">1.6 Implement prompt engineering and governance strategies</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Model instruction frameworks</td><td>Structuring clear, consistent system prompts that define the model's role, tone, and limits.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Context and memory in interactive systems</td><td>Maintaining the thread of a multi-turn conversation, deciding which part of the history to keep within the context window and what to summarize or discard.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Prompt management and governance</td><td>Centrally versioning, approving, and controlling access to production prompts, typically with Bedrock Prompt Management, to prevent anyone from editing a critical prompt without review.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Quality assurance for prompts</td><td>Systematically testing prompts against test cases before deploying them, similar to unit tests but for prompts.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Advanced prompting techniques</td><td>Zero-shot, few-shot, chain-of-thought, and other techniques to improve response quality without changing the model (carried over from AIF-C01, but applied here to more complex production scenarios).</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Complex prompt systems (Prompt Flows)</td><td>Chaining multiple prompts and processing steps into a visual flow, where one step's output feeds the next, typically with Bedrock Prompt Flows.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="dominio2" class="part">
+  <div class="part-title">2. Implementation and Integration <span class="weight">26% of the exam</span></div>
+  <div class="intro">The second-heaviest domain, and the newest conceptually: it covers agentic AI (agents that reason and execute actions), the MCP protocol, and enterprise integration patterns. If AIF-C01 didn't cover agents in depth, this is the domain where you'll run into the most new terminology.</div>
+
+  <h3 class="sub">2.1 Implement agentic AI solutions and tool integrations</h3>
+  <div class="callout">
+    <strong>Chain-of-Thought vs. ReAct, the central distinction in this domain:</strong> Chain-of-Thought (CoT) is a prompting technique where you ask the model to "think step by step" before answering, but it all happens within a single call to the model, without the model interacting with the outside world. <strong>ReAct (Reasoning and Acting)</strong> is different: it's a true agentic loop, where the agent repeats a cycle of <em>Thought</em> (reason about what to do), <em>Action</em> (decide which tool to invoke and with what parameters), and <em>Observation</em> (receive that tool's result), repeating the cycle until the goal is solved. Because this loop is failure-prone and long-running, the exam specifically points to <strong>AWS Step Functions</strong> as the robust way to implement it, instead of handling it inside a single Lambda function, which would be fragile.
+  </div>
+  <div class="callout">
+    <strong>Model Context Protocol (MCP), explained simply:</strong> it's a standardized protocol that separates the agent (the "MCP client") from the tools it invokes (the "MCP server"), such as APIs or databases. Instead of coding a custom integration every time an agent needs to use a new tool, MCP defines a common way to connect, making the tool ecosystem more modular and reusable across different agents.
+  </div>
+  <div class="callout">
+    <strong>Multi-agent orchestration with Amazon Bedrock AgentCore:</strong> when a problem is too complex for a single agent, the work can be split across several specialized agents. AgentCore acts as the reasoning and orchestration layer: it receives a complex goal, breaks it down into sub-tasks, and routes them to specialized agents (for example, a "research agent" and a "writing agent"), keeping the session context in a store such as Amazon DynamoDB.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Intelligent autonomous systems</td><td>Fundamentals of what makes a system "agentic": the ability to plan, act, and adapt without explicit step-by-step instructions for every action.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Advanced problem-solving systems</td><td>Chain-of-Thought vs. ReAct, already explained above.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">AI workflows with safeguards</td><td>Adding checkpoints and validation inside the agentic loop, so an agent doesn't execute irreversible actions without verification.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Sophisticated model coordination systems</td><td>Multi-agent orchestration with AgentCore, and related frameworks for building specialist agents and coordinating them with each other.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Collaborative systems (Human-in-the-Loop)</td><td>Inserting a human review point inside the agent's flow before executing a sensitive action, like approving a refund.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Intelligent tool integrations</td><td>Connecting agents to APIs, databases, and other external systems as "tools" the agent can invoke.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Model extension frameworks (MCP servers)</td><td>Building your own MCP servers, for example to expose a legacy SQL database as a standardized tool any agent can use.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">2.2 Implement model deployment strategies</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Deploying FMs based on application needs</td><td>Choosing between real-time, serverless, batch, or asynchronous inference in SageMaker, based on the application's traffic pattern and latency tolerance.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Unique LLM deployment challenges</td><td>Problems specific to large language models: long load times, high GPU memory consumption, and costly cold starts compared to traditional ML models.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Optimized deployment (performance/cost balance)</td><td>Techniques to serve a large model more cheaply without sacrificing too much quality, a topic covered in depth in Domain 4.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">2.3 Design and implement enterprise integration architectures</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Enterprise connectivity solutions</td><td>Integrating the GenAI solution with existing enterprise systems (ERPs, CRMs) using standard integration patterns.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Embedded AI capabilities</td><td>Incorporating generative capabilities into existing business applications, instead of building a standalone GenAI application.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Secure access frameworks</td><td>Securely controlling who and which systems can invoke generative AI components within the enterprise architecture.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Multi-environment AI solutions</td><td>Hybrid architectures that connect cloud AI workloads with on-premises systems.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">CI/CD and GenAI Gateway</td><td>Automating the deployment lifecycle of GenAI components with CI/CD pipelines, and centralizing access to different models and providers through a common gateway.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">2.4 Implement Foundation Model API integrations</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Flexible model interaction systems</td><td>Designing the integration layer so that switching from one model or provider to another doesn't require rewriting the whole application.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Real-time interaction systems</td><td>Streaming responses token by token to reduce perceived latency for users in chat applications.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Resilient FM systems</td><td>Applying the same Domain 1 resilience patterns (fallback, multi-region, circuit breaker) specifically at the API integration layer.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Intelligent model routing systems</td><td>Dynamically routing each request to the most suitable model based on task type, cost, or current load.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">2.5 Implement application integration patterns and developer tools</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">API interfaces for FMs</td><td>Designing the API layer that exposes generative capabilities to other systems or teams.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Accessible AI interfaces</td><td>Building user interfaces for GenAI solutions that are usable by people with different abilities.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Business system enhancements</td><td>Concrete use cases where GenAI improves an existing business process, such as automating summaries or ticket classification.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Developer productivity</td><td>Tools and practices that speed up GenAI application development, such as code assistants.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Advanced GenAI applications</td><td>More sophisticated application patterns combining several of the previous capabilities.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Troubleshooting efficiency</td><td>Tools and practices to diagnose GenAI application problems faster (covered in depth in Domain 5).</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="dominio3" class="part">
+  <div class="part-title">3. AI Safety, Security and Governance <span class="weight">20% of the exam</span></div>
+  <div class="intro">This domain extends the responsible AI principles from AIF-C01 into concrete technical controls: guardrails, hallucination verification, regulatory compliance, and traceability.</div>
+
+  <h3 class="sub">3.1 Implement input and output security controls</h3>
+  <div class="callout">
+    <strong>Guardrails vs. Automated Reasoning Checks:</strong> Bedrock guardrails filter input and output content according to policies (blocking topics, filtering PII, avoiding toxicity). <strong>Automated reasoning checks</strong> go a step further: they mathematically verify that a claim generated by the model is consistent with known rules or facts, useful in highly regulated domains where a hallucination can't just "sound reasonable" but must be verifiable — for example, validating that a response about compliance rules doesn't contradict the company's actual policy.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Content security systems</td><td>Filtering harmful, toxic, or out-of-policy content before it reaches the end user, typically with Bedrock Guardrails.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Output mitigation frameworks</td><td>Strategies to correct or block a response that's already been generated before delivering it, when upstream validation wasn't enough.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Verification systems to reduce hallucinations</td><td>Automated reasoning checks and other fact-verification techniques applied to the model's responses before delivery, especially in regulated domains like finance or healthcare.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Defense-in-depth security systems</td><td>Combining multiple layers of control (guardrails, input validation, human review, monitoring) instead of relying on a single security mechanism.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Threat detection and adversarial defense</td><td>Identifying and mitigating prompt injection, jailbreaking, and other attacks specifically aimed at manipulating the model's behavior.</td><td><span class="prio prio-alta">High</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.2 Implement data security and privacy controls</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Protected AI environments</td><td>Isolating and protecting the infrastructure where models run and data is processed, using IAM, VPC, and encryption, just as with any sensitive AWS workload.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Privacy-preserving systems</td><td>Techniques to keep sensitive data used by the AI system from being unnecessarily exposed, including PII detection with Amazon Macie or Amazon Comprehend.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Privacy-centric architectures</td><td>Designing the full data flow with the goal of minimizing which sensitive data touches each system component.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.3 Implement AI governance and compliance mechanisms</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Compliance frameworks and documentation</td><td>Aligning the solution with relevant regulatory frameworks, such as GDPR, HIPAA, or SOC 2, and documenting how they're met.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Traceability and source attribution</td><td>Being able to trace which document or source the information used to generate a response came from (especially critical in RAG), and citing that source when needed.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Organizational governance systems</td><td>Internal processes, such as review committees, to approve and oversee new generative AI use cases before launch.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Continuous monitoring and remediation</td><td>Constantly watching compliance with governance policies, and correcting deviations as soon as they're detected, instead of auditing only periodically.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.4 Implement responsible AI principles</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Transparent AI systems for FM outputs</td><td>Clearly communicating when a response comes from a generative model, and how reliable that response is.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Fairness evaluations for unbiased outputs</td><td>Systematically testing that the model's responses don't disproportionately harm any group; typical tool: Amazon SageMaker Clarify.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Policy-compliant AI systems</td><td>Ensuring the system's behavior, not just the model itself, stays within the organization's defined responsible AI policies.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="dominio4" class="part">
+  <div class="part-title">4. Operational Efficiency and Optimization for GenAI <span class="weight">12% of the exam</span></div>
+  <div class="intro">This domain is about making sure the GenAI solution doesn't just work, but is fast and economical at scale. Focus especially on quantization and distillation, and the difference between optimizing for cost and optimizing for performance, because they sometimes pull in opposite directions.</div>
+
+  <h3 class="sub">4.1 Implement cost optimization and resource efficiency</h3>
+  <div class="callout">
+    <strong>Quantization vs. Distillation, the two most-tested optimization techniques:</strong> <strong>quantization</strong> reduces the numeric precision used to store the model's weights (for example, from 32 bits to 8 bits), making the model smaller and faster to run, with generally small accuracy loss. It's the right technique when minimizing compute cost is the main KPI, or when you need to deploy on a device with limited memory (cameras, robots, edge). <strong>Distillation</strong> trains a smaller ("student") model to imitate the behavior of a large ("teacher") model, producing a lighter model that retains much of the original's capability.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Token efficiency systems</td><td>Reducing the number of tokens sent and received per invocation (more concise prompts, bounded responses), since most generative models are billed per token.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Cost-effective model selection frameworks</td><td>Choosing the cheapest model that still meets the quality bar required for the task, instead of defaulting to the largest available model.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">High-performance (cost-optimized) FM systems</td><td>Applying quantization and distillation to reduce compute cost without discarding the model entirely.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Intelligent caching systems</td><td>Caching responses to frequent questions or repeated vector search results, to avoid invoking the model or the vector store again when the answer is already known.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">4.2 Optimize application performance</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Responsive AI systems</td><td>Techniques to reduce perceived latency for users, such as streaming responses token by token.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Retrieval performance improvement (RAG)</td><td>Optimizing the speed of vector search and context retrieval, which is usually the latency bottleneck in RAG systems.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">FM throughput optimization</td><td>Increasing the number of requests the system can process per second, for example using Provisioned Throughput in Bedrock for steady, predictable loads.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Performance improvement through model configuration</td><td>Tuning inference parameters (such as maximum response length or temperature) to balance speed and quality.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Efficient resource allocation systems</td><td>Correctly sizing the compute assigned to each system component, without over-provisioning or under-provisioning.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">End-to-end flow optimization</td><td>Looking at system performance end to end, not optimizing one component in isolation if that just moves the bottleneck somewhere else.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">4.3 Implement monitoring systems for GenAI applications</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Holistic observability systems</td><td>Monitoring the full GenAI system (model, retrieval, tools, infrastructure) as a whole, not just each piece separately.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Comprehensive GenAI monitoring</td><td>Generative-AI-specific metrics on top of traditional infrastructure metrics: inference latency, detected hallucination rate, response quality.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Integrated observability solutions</td><td>Unifying GenAI monitoring with the observability tools already used by the rest of the organization, such as CloudWatch.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Tool performance frameworks</td><td>Specifically monitoring how well the tools an agent invokes are performing (response times, error rate per tool).</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Vector store operational management</td><td>Monitoring the health, latency, and data freshness of the vector store in production.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">FM-specific troubleshooting frameworks</td><td>Methodologies to quickly diagnose whether a problem comes from the model, the prompt, retrieval, or infrastructure (covered in depth in Domain 5).</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="dominio5" class="part">
+  <div class="part-title">5. Testing, Validation and Troubleshooting <span class="weight">11% of the exam</span></div>
+  <div class="intro">The smallest domain, but with a key concept that doesn't exist in traditional AWS exams: how to evaluate the quality of something as subjective as a model-generated response.</div>
+
+  <h3 class="sub">5.1 Implement evaluation systems for GenAI</h3>
+  <div class="callout">
+    <strong>LLM-as-a-Judge, a concept that doesn't appear in AIF-C01:</strong> manually evaluating thousands of generated responses doesn't scale. The LLM-as-a-Judge technique uses a second language model, generally larger or specialized, to automatically score the first model's responses against defined criteria (accuracy, relevance, tone), speeding up evaluation at scale without relying solely on human review.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Systematic model evaluation frameworks</td><td>Defining objective, repeatable criteria to compare the performance of different models or versions of the same model.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">User-centered Human-in-the-Loop evaluation</td><td>Complementing automated evaluation with real human review, especially to judge subjective quality.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Deployment validation and quality assurance</td><td>Verifying that a new version of the system meets quality standards before replacing the production version.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Systematic QA processes</td><td>Standardizing the quality control process so it's repeatable on each new iteration of the system, not an ad hoc manual effort.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Comprehensive evaluation for RAG and LLM-as-a-Judge</td><td>Evaluating not just the final response, but also the quality of what was retrieved from the vector store before reaching the model.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Retrieval quality testing</td><td>Specifically measuring whether the vector search system is returning the correct, relevant chunks, regardless of how well the model responds afterward.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Agent performance frameworks</td><td>Specifically evaluating whether an agent correctly completed a multi-step task, not just whether it generated coherent text.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Comprehensive reporting systems</td><td>Consolidating evaluation results into clear reports for different audiences, from the technical team to the business.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Deployment validation systems</td><td>Automating quality verification as part of the CI/CD pipeline, before a change reaches production.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">5.2 Troubleshoot GenAI applications</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Subtopic</th><th>What it covers</th><th>Priority</th></tr>
+    <tr><td class="servicio">Content and integration troubleshooting</td><td>Diagnosing whether a poor-quality response comes from the model itself, from integration with other systems, or from a configuration error.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">RAG troubleshooting and retrieval effectiveness</td><td>Determining whether a response-quality problem comes from poor context retrieval (the right chunk was never found) rather than the generative model itself.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Prompt engineering troubleshooting and maintenance</td><td>Identifying when a prompt that used to work well stopped working, for example after a model update, and adjusting accordingly.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Retrieval system troubleshooting</td><td>Diagnosing infrastructure or configuration failures in the vector store itself, such as stale indexes or poorly generated embeddings.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="comparaciones" class="part">
+  <div class="part-title">6. Critical comparisons (memorize, no excuses)</div>
+  <div class="intro">These are the distinctions most likely to cause confusion on a professional-level exam, where several options can sound reasonable at once.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Comparison</th><th>Key distinction</th></tr>
+    <tr><td class="servicio">Direct FM API vs RAG</td><td>Answering only from the model's training knowledge, vs enriching the response with context retrieved from your own documents at query time.</td></tr>
+    <tr><td class="servicio">Chain-of-Thought vs ReAct</td><td>Step-by-step reasoning within a single model call, vs a real agentic loop that alternates between thinking, acting on external tools, and observing the result.</td></tr>
+    <tr><td class="servicio">Model Context Protocol (MCP) vs custom integration</td><td>A standardized, reusable protocol for any agent to use any tool, vs an integration built specifically for one case, hard to reuse.</td></tr>
+    <tr><td class="servicio">Bedrock Guardrails vs Automated Reasoning Checks</td><td>Filtering input and output content against content policies, vs mathematically verifying that a generated statement is consistent with known rules or facts.</td></tr>
+    <tr><td class="servicio">Quantization vs Distillation</td><td>Reducing the numeric precision of a single model's weights to make it lighter, vs training a new, smaller model that mimics the behavior of a larger one.</td></tr>
+    <tr><td class="servicio">Fallback Model vs Circuit Breaker</td><td>Automatically redirecting to a secondary model when the primary one fails, vs stopping invocations entirely to a service that keeps failing so it isn't overloaded further.</td></tr>
+    <tr><td class="servicio">Multi-Agent Orchestration vs a single agent with tools</td><td>Splitting a complex goal across several specialized agents coordinated by a supervisor, vs a single agent invoking multiple tools on its own.</td></tr>
+    <tr><td class="servicio">Provisioned Throughput vs pay-per-token (on-demand)</td><td>Reserved, guaranteed capacity for steady, predictable load, vs paying only for what you consume, better for variable load.</td></tr>
+    <tr><td class="servicio">Lexical search vs vector search vs hybrid search</td><td>Exact word matching, vs matching by semantic meaning, vs combining both with reranking afterward for better results.</td></tr>
+    <tr><td class="servicio">LLM-as-a-Judge vs human evaluation</td><td>A model automatically scores another model's responses at scale, vs people manually reviewing a sample of responses.</td></tr>
+    <tr><td class="servicio">Amazon Bedrock Knowledge Bases vs a vector architecture on OpenSearch vs pgvector on Aurora/RDS</td><td>Managed RAG with minimal configuration, vs more control over the vector search engine, vs combining existing relational data with vector capability in the same database.</td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="senales" class="part">
+  <div class="part-title">7. Scenario patterns (trigger words)</div>
+  <div class="intro">On a professional-level exam, scenarios are long and full of noise. These patterns, taken from real examples in your guides, help you quickly identify which architecture is being described.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>If the scenario describes...</th><th>Think first of...</th></tr>
+    <tr><td class="servicio">"Large-scale semantic search over millions of embeddings"</td><td>Amazon OpenSearch Service with the k-NN plugin</td></tr>
+    <tr><td class="servicio">"More accurate answers using the company's private data, without retraining the model"</td><td>Amazon Bedrock Knowledge Bases (managed RAG)</td></tr>
+    <tr><td class="servicio">"Combining strict relational metadata with similarity search, while keeping transactional consistency"</td><td>Amazon Aurora PostgreSQL with pgvector</td></tr>
+    <tr><td class="servicio">"The model must reason in clear steps, reliably coordinating retries and error handling"</td><td>AWS Step Functions orchestrating a ReAct pattern</td></tr>
+    <tr><td class="servicio">"Prevent the model from giving incorrect advice, leaking personal data, or being manipulated by prompt injection in a regulated domain"</td><td>Amazon Bedrock Guardrails with automated reasoning checks</td></tr>
+    <tr><td class="servicio">"An assistant that reasons, plans, and executes actions while keeping conversation context"</td><td>Amazon Bedrock AgentCore with Amazon DynamoDB for session persistence</td></tr>
+    <tr><td class="servicio">"Ingest documents from S3 and offer ready-to-use enterprise semantic search"</td><td>Amazon Kendra with the S3 connector</td></tr>
+    <tr><td class="servicio">"Transcribe audio with specialized terminology and translate into multiple languages"</td><td>Amazon Transcribe with custom vocabularies, followed by Amazon Translate</td></tr>
+    <tr><td class="servicio">"Minimize the model's compute bill as the main KPI" or "deploy on a memory-constrained device"</td><td>Quantization</td></tr>
+    <tr><td class="servicio">"Get a smaller model that retains the capability of a larger one"</td><td>Distillation</td></tr>
+    <tr><td class="servicio">"Evaluate thousands of generated responses without being able to review them all manually"</td><td>LLM-as-a-Judge</td></tr>
+    <tr><td class="servicio">"The application fails in cascade when the primary model saturates or fails"</td><td>Fallback Model or Circuit Breaker, with CloudWatch Alarms and Route 53 health checks</td></tr>
+    <tr><td class="servicio">"An agent needs to use different tools or APIs in a modular, reusable way"</td><td>Model Context Protocol (MCP)</td></tr>
+    <tr><td class="servicio">"A goal too complex for a single agent, broken down into sub-tasks"</td><td>Multi-agent orchestration (Bedrock AgentCore and related frameworks)</td></tr>
+    <tr><td class="servicio">"Audit where the information used to generate a response came from"</td><td>Traceability and source attribution (source citation)</td></tr>
+    <tr><td class="servicio">"Switch between models or providers without rewriting the application"</td><td>Flexible model-interaction systems / GenAI Gateway</td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="checklist" class="part">
+  <div class="part-title">8. Final review checklist</div>
+
+  <h3 class="sub">Foundational concepts this exam assumes you already know</h3>
+  <ul class="checklist">
+    <li>Everything from AIF-C01: tokens, embeddings, RAG, fine-tuning, basic prompt engineering</li>
+    <li>The difference between Bedrock and SageMaker AI, and when the two are combined in the same solution</li>
+    <li>AWS's general security principles: IAM, KMS, VPC, now applied to AI</li>
+  </ul>
+
+  <h3 class="sub">New concepts specific to this exam</h3>
+  <ul class="checklist">
+    <li>The three vector store architectures: managed Knowledge Bases, OpenSearch, and RDS/DynamoDB plus an external vector store</li>
+    <li>Chain-of-Thought vs ReAct, and why ReAct is implemented with Step Functions</li>
+    <li>What the Model Context Protocol (MCP) is and the difference between an MCP client and server</li>
+    <li>What Amazon Bedrock AgentCore does in a multi-agent architecture</li>
+    <li>Guardrails vs Automated Reasoning Checks</li>
+    <li>Quantization vs Distillation, and when to use each</li>
+    <li>LLM-as-a-Judge as an evaluation method at scale</li>
+    <li>GenAI-specific resilience patterns: Fallback Model, Multi-Region Inference, Circuit Breaker</li>
+  </ul>
+
+  <h3 class="sub">Exam-day strategy</h3>
+  <ul class="checklist">
+    <li>75 questions in 180 minutes, with varied question types: multiple choice, multiple response, ordering, matching, and case studies</li>
+    <li>750 out of 1000 points to pass, with compensatory scoring across domains: you don't need to pass each domain individually</li>
+    <li>Scenarios are long: first identify which business constraint is the priority (cost, latency, regulatory compliance, resilience) before evaluating the options</li>
+    <li>In case-study questions, later questions on the same case can offer additional clues about the scenario; read them together when possible</li>
+    <li>When two solutions are technically correct, favor the one that uses the managed service over the one requiring more code or custom infrastructure, unless the question explicitly asks for more control</li>
+  </ul>
+
+  <div class="callout warn">
+    <strong>Keep in mind:</strong> because this is such a new certification, the volume of third-party practice exams and candidate-reported experiences is still limited compared to more established certifications like SAA-C03. Supplement this material with the official Bedrock AgentCore and Guardrails documentation, and the latest Exam Guide, before you sit the exam.
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+</main>
+</div>
+
+<script>
+  (function(){
+    var toggle = document.getElementById('tocToggle');
+    var toc = document.getElementById('toc');
+    if(!toggle || !toc) return;
+    toggle.addEventListener('click', function(){
+      var isOpen = toc.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    var links = toc.querySelectorAll('a');
+    for(var i=0;i<links.length;i++){
+      links[i].addEventListener('click', function(){
+        toc.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    }
+  })();
+</script>
+</body>
+</html>

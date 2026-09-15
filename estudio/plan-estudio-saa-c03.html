@@ -163,6 +163,9 @@
   .dom-chev{transition:transform .2s ease;color:var(--text3);font-size:12px;}
   .dom-chev.rot{transform:rotate(180deg);}
   @media (max-width:600px){ .pairs-grid{grid-template-columns:1fr;} }
+  .lang-switch{display:inline-flex;background:rgba(255,255,255,.2);border-radius:20px;overflow:hidden;font-size:11px;font-weight:700;float:right;margin-top:2px;}
+  .lang-switch a{padding:4px 10px;color:rgba(255,255,255,.85);text-decoration:none;}
+  .lang-switch a.active{background:#fff;color:var(--accent-blue);}
 </style>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23232F3E'/%3E%3Ctext x='12' y='17' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='14' font-weight='700' fill='%23FF9900'%3EF%3C/text%3E%3C/svg%3E">
 </head>
@@ -181,6 +184,7 @@
 
 
 <div class="header">
+  <div class="lang-switch"><a href="plan-estudio-saa-c03.html" class="active">ES</a><a href="plan-estudio-saa-c03-en.html">EN</a></div>
   <h1>Plan de Estudio SAA-C03</h1>
   <p>Francisco Escobar, 8 semanas hacia la certificacion</p>
   <span class="badge">AWS Community Builder · Networking &amp; Content Delivery</span>

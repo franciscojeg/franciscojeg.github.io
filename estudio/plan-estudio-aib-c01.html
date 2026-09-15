@@ -78,6 +78,10 @@
   .res-name{font-weight:600;font-size:14px;margin-bottom:2px;}
   .res-desc{font-size:12px;color:var(--text2);}
   .res-tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:20px;background:var(--amber-light);color:var(--amber);font-weight:500;white-space:nowrap;}
+  .lang-switch{position:absolute;top:16px;right:20px;display:flex;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;overflow:hidden;font-size:11px;font-weight:700;}
+  .lang-switch a{padding:4px 10px;color:rgba(255,255,255,.8);text-decoration:none;}
+  .lang-switch a.active{background:#fff;color:var(--amber);}
+  .header{position:relative;}
   footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 16px 32px; font-size: 12px; color: var(--text3); text-align: center; }
   @media (max-width: 600px) {
     .metrics { grid-template-columns: repeat(2,1fr); }
@@ -101,6 +105,7 @@
 
 
 <div class="header">
+  <div class="lang-switch"><a href="plan-estudio-aib-c01.html" class="active">ES</a><a href="plan-estudio-aib-c01-en.html">EN</a></div>
   <h1>Plan Estudio AIB-C01 - AWS Certified AI Business Strategist</h1>
   <p>Francisco Escobar, 5 semanas hacia la certificación</p>
   <span class="badge">AWS Community Builder · Networking &amp; Content Delivery</span>

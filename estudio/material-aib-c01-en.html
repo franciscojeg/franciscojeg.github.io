@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Material: AWS AIB-C01</title>
+<style>
+  :root{
+    --aws-orange:#FF9900;
+    --aws-dark:#232F3E;
+    --bg:#f4f6f8;
+    --card:#ffffff;
+    --text:#1c2530;
+    --text-muted:#5b6b7a;
+    --border:#e1e6eb;
+    --alta:#d93025; --alta-bg:#fce8e6;
+    --media:#b7791f; --media-bg:#fef3e0;
+    --baja:#1a73e8; --baja-bg:#e8f0fe;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--text); margin:0; line-height:1.55;
+  }
+  header{
+    background:var(--aws-dark); color:#fff; padding:22px 24px; text-align:center;
+  }
+  header h1{margin:0 0 4px;font-size:22px;}
+  header p{margin:0;color:#c8d1db;font-size:13.5px;}
+  header{position:relative;}
+  .lang-switch{position:absolute;top:14px;right:16px;display:flex;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;overflow:hidden;font-size:11px;font-weight:700;}
+  .lang-switch a{padding:4px 10px;color:rgba(255,255,255,.8);text-decoration:none;}
+  .lang-switch a.active{background:#fff;color:var(--aws-dark);}
+  .layout{display:flex; max-width:1200px; margin:0 auto;}
+  nav#toc{
+    width:270px; flex-shrink:0; padding:20px 14px; position:sticky; top:0; align-self:flex-start;
+    max-height:100vh; overflow-y:auto; font-size:13px; border-right:1px solid var(--border); background:#fff;
+  }
+  nav#toc h4{margin:14px 0 6px;color:var(--aws-dark);font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
+  nav#toc h4:first-child{margin-top:0;}
+  nav#toc a{display:block;color:var(--text-muted);text-decoration:none;padding:3px 0 3px 6px;border-left:2px solid transparent;}
+  nav#toc a:hover{color:var(--aws-dark);border-left-color:var(--aws-orange);}
+  main{flex:1; padding:24px 32px 80px; min-width:0;}
+  .part{margin-bottom:44px;}
+  .part-title{
+    background:var(--aws-dark); color:#fff; padding:12px 18px; border-radius:8px; margin-bottom:6px;
+    font-size:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;
+  }
+  .part-title .weight{background:var(--aws-orange);color:var(--aws-dark);font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;}
+  .intro{color:var(--text-muted); font-size:14px; margin:10px 0 18px; padding:12px 16px; background:#fff8ef; border-left:4px solid var(--aws-orange); border-radius:0 6px 6px 0;}
+  h3.sub{font-size:15px; margin:22px 0 8px; color:var(--aws-dark); border-bottom:2px solid var(--border); padding-bottom:4px;}
+  h4.subsub{font-size:13.5px; margin:16px 0 6px; color:var(--text);}
+  .table-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:20px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.06); background:#fff;}
+  table{width:100%; min-width:640px; table-layout:fixed; border-collapse:collapse; font-size:13px; background:#fff;}
+  th:first-child, td.servicio{width:22%; word-wrap:break-word; overflow-wrap:break-word;}
+  th,td{padding:9px 11px; text-align:left; vertical-align:top; border-bottom:1px solid var(--border);}
+  th{background:#eef1f4; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--text-muted);}
+  tr:last-child td{border-bottom:none;}
+  td.servicio{font-weight:700;}
+  .prio{display:inline-block; font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap;}
+  .prio-alta{background:var(--alta-bg); color:var(--alta);}
+  .prio-media{background:var(--media-bg); color:var(--media);}
+  .prio-baja{background:var(--baja-bg); color:var(--baja);}
+  .top-link{font-size:11.5px; color:var(--baja); text-decoration:none;}
+  .callout{background:#fff; border:1px solid var(--border); border-left:4px solid var(--baja); border-radius:0 8px 8px 0; padding:12px 16px; font-size:13.5px; margin:14px 0;}
+  .callout.warn{border-left-color:var(--media); }
+  .checklist{list-style:none; padding:0; margin:0;}
+  .checklist li{padding:6px 0 6px 26px; position:relative; font-size:14px; border-bottom:1px dashed var(--border);}
+  .checklist li:before{content:"☐"; position:absolute; left:0; color:var(--aws-orange); font-size:16px;}
+  code{background:#eef1f4; padding:1px 5px; border-radius:4px; font-size:12px;}
+  .keyword{background:var(--aws-dark); color:#fff; padding:2px 8px; border-radius:5px; font-weight:700; font-size:12px;}
+  .toc-toggle{display:none;}
+  .beta-note{background:#fff4ce;border:1px solid #f0d375;border-radius:8px;padding:12px 16px;font-size:13.5px;margin:14px 0;color:#5c4a06;}
+  @media (max-width: 900px){
+    .toc-toggle{
+      display:block; margin:14px 14px 0; background:var(--aws-orange); color:var(--aws-dark);
+      border:none; padding:12px 16px; border-radius:8px; font-weight:700; font-size:14px;
+      cursor:pointer; width:calc(100% - 28px);
+    }
+    .layout{flex-direction:column;}
+    nav#toc{
+      display:none; width:100%; position:static; max-height:none;
+      border-right:none; border-bottom:1px solid var(--border);
+    }
+    nav#toc.open{display:block;}
+    main{padding:18px 14px 60px;}
+    table{font-size:12px; min-width:560px;}
+    th,td{padding:7px 8px;}
+    header h1{font-size:19px;}
+    .part-title{font-size:16px; padding:10px 14px;}
+  }
+  @media (max-width: 480px){
+    header{padding:16px 14px;}
+    header h1{font-size:17px;}
+    main{padding:14px 10px 50px;}
+    .part-title{font-size:14.5px; flex-direction:column; align-items:flex-start; gap:4px;}
+    table{font-size:11.5px; min-width:520px;}
+    th,td{padding:6px 7px;}
+    .intro, .callout{font-size:13px; padding:10px 12px;}
+  }
+</style>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23232F3E'/%3E%3Ctext x='12' y='17' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='14' font-weight='700' fill='%23FF9900'%3EF%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div style="background:#14141f;padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px;">
+  <a href="../index-en.html" style="color:#fff;font-size:12.5px;text-decoration:none;font-weight:600;letter-spacing:.02em;">&larr; Back to home &middot; franciscojeg.github.io</a>
+  <span style="display:inline-flex;gap:8px;">
+    <a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A66C2"/><text x="12" y="16" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="700" fill="#fff">in</text></svg></a>
+    <a href="https://github.com/franciscojeg" target="_blank" rel="noopener" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#181717"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="8.5" font-weight="700" fill="#fff">GH</text></svg></a>
+    <a href="https://dev.to/franciscojeg78" target="_blank" rel="noopener" aria-label="dev.to"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A0A0A"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="6.5" font-weight="700" fill="#fff">DEV</text></svg></a>
+    <a href="https://builder.aws.com/community/@franciscojeg?tab=badges" target="_blank" rel="noopener" aria-label="AWS Builder Center"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF9900"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" fill="#232F3E">AWS</text></svg></a>
+    <a href="https://www.instagram.com/franciscojeg.tech/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24"><defs><linearGradient id="igg-bar" x1="0" y1="24" x2="24" y2="0"><stop offset="0%" stop-color="#FEDA75"/><stop offset="35%" stop-color="#D62976"/><stop offset="70%" stop-color="#962FBF"/><stop offset="100%" stop-color="#4F5BD5"/></linearGradient></defs><circle cx="12" cy="12" r="12" fill="url(#igg-bar)"/><rect x="6.5" y="7.5" width="11" height="10.5" rx="3" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="12" cy="12.7" r="2.7" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="15.2" cy="9.6" r="0.6" fill="#fff"/></svg></a>
+    <a href="https://www.youtube.com/@ugwelcomebuilders" target="_blank" rel="noopener" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF0000"/><path d="M9.5 8.5 L16 12 L9.5 15.5 Z" fill="#fff"/></svg></a>
+  </span>
+</div>
+
+
+<header>
+  <div class="lang-switch"><a href="material-aib-c01.html">ES</a><a href="material-aib-c01-en.html" class="active">EN</a></div>
+  <h1>📘 Study Material: AWS Certified AI Business Strategist (AIB-C01)</h1>
+  <p>Prepared by Francisco Escobar, AWS Community Builder (Networking &amp; Content Delivery) · Organized by official exam domains</p>
+  <p style="margin-top:6px;"><a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" style="color:#FF9900;text-decoration:none;font-weight:600;">linkedin.com/in/franciscojeg</a></p>
+</header>
+
+<button class="toc-toggle" id="tocToggle" aria-expanded="false" aria-controls="toc">☰ View index</button>
+
+<div class="layout">
+<nav id="toc">
+  <h4>Navigation</h4>
+  <a href="#fundamentos">0. Exam fundamentals</a>
+  <a href="#dominio1">1. AI Fundamentals and Literacy (24%)</a>
+  <a href="#dominio2">2. AI Strategy and Business Value Creation (28%)</a>
+  <a href="#dominio3">3. AI Governance and Responsible AI Leadership (24%)</a>
+  <a href="#dominio4">4. Business Readiness, Leadership and AI Transformation (24%)</a>
+  <a href="#servicios">5. AWS services in and out of scope</a>
+  <a href="#comparaciones">6. Critical comparisons</a>
+  <a href="#checklist">7. Final checklist</a>
+</nav>
+
+<main>
+
+<section id="fundamentos" class="part">
+  <div class="part-title">0. Before you start: what this exam looks like</div>
+  <div class="intro">This is a Business-level exam, not a technical one. It doesn't ask how to configure Bedrock or how to train a model: it asks whether, given a business scenario, you know how to evaluate the right AI strategy, measure its value, govern it responsibly, and lead the transformation that adopting it involves. No coding experience or hands-on AWS implementation is required.</div>
+
+  <div class="beta-note"><strong>Note on the exam's status:</strong> AIB-C01 is a very new AWS certification. AWS's marketing page lists a beta version of 85 questions and 170 minutes for USD 50, while the official exam guide already documents the standard 130-minute format with a 700/1000 minimum score. Before scheduling your exam, confirm in your AWS Certification account which of the two versions you'll be taking, since it changes the time available per question.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Fact</th><th>Value</th></tr>
+    <tr><td class="servicio">Exam code</td><td>AIB-C01</td></tr>
+    <tr><td class="servicio">Duration (official guide)</td><td>130 minutes · current beta version: 170 minutes</td></tr>
+    <tr><td class="servicio">Questions</td><td>Multiple choice (1 correct, 3 distractors) and multiple response (2 or more correct out of 5 or more options, you must select all correct ones for the point) · beta version: 85 questions</td></tr>
+    <tr><td class="servicio">Score</td><td>From 100 to 1000, with 700 as the minimum to pass, using a compensatory model: you don't need to pass each domain separately, only the total score</td></tr>
+    <tr><td class="servicio">Cost</td><td>USD 50 during the beta period · USD 100 in its standard version</td></tr>
+    <tr><td class="servicio">Prerequisites</td><td>None formal. Basic knowledge of AI concepts and about 6 months of exposure to teams adopting AI are recommended. No code or hands-on AWS implementation experience required</td></tr>
+    <tr><td class="servicio">Target audience</td><td>Product/program managers, sales and business development professionals, business line leaders, consultants, business and marketing analysts</td></tr>
+    <tr><td class="servicio">Languages</td><td>English and Japanese</td></tr>
+  </table>
+  </div>
+</section>
+
+<section id="dominio1" class="part">
+  <div class="part-title">1. AI Fundamentals and Literacy <span class="weight">24%</span></div>
+  <div class="intro">The baseline vocabulary and concepts that everything else rests on: what AI is, how it differs from ML and GenAI, and what makes an AI solution the right fit for a business problem.</div>
+
+  <h3 class="sub">1.1 Basic AI concepts and terminology</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Concept</th><th>In simple words</th></tr>
+    <tr><td class="servicio">AI vs ML vs GenAI</td><td>AI is the general field. ML is a subset that learns patterns from data. GenAI is a subset of ML that generates new content (text, image, code) from those patterns.</td></tr>
+    <tr><td class="servicio">Training and inference</td><td>Training is when the model learns from historical data. Inference is when that already-trained model produces a prediction or response in production.</td></tr>
+    <tr><td class="servicio">Structured vs unstructured data</td><td>Structured: rows and columns, like a spreadsheet or database. Unstructured: free text, images, audio. Data quality and type determine how good an AI solution can be.</td></tr>
+    <tr><td class="servicio">Global vocabulary frameworks</td><td>Standards such as ISO/IEC 23053 (ML framework) and ISO/IEC 42001 (AI management system) give organizations a common language.</td></tr>
+  </table>
+  </div>
+  <div class="callout"><strong>Exam clue:</strong> if the scenario describes a system that "generates" new content (drafts, draws, summarizes in its own words), it's GenAI. If it only predicts a category or a number from existing data, it's traditional ML.</div>
+
+  <h3 class="sub">1.2 Choosing the right type of AI solution</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Situation</th><th>What to recognize</th></tr>
+    <tr><td class="servicio">Fixed, predictable rule</td><td>Rules-based automation (if/then) is usually simpler, cheaper and more explainable than AI. Not every problem needs a model.</td></tr>
+    <tr><td class="servicio">AI agent</td><td>An agent acts autonomously, uses tools and can coordinate with other agents (agent-to-agent communication, orchestration). It's distinct from a simple chatbot or a model that just answers a question.</td></tr>
+    <tr><td class="servicio">Continuous monitoring</td><td>Every AI system in production needs monitoring and updating to detect <em>drift</em> (model degradation over time) and performance changes.</td></tr>
+    <tr><td class="servicio">Shadow AI</td><td>Unauthorized use of AI tools by employees, outside the organization's control. It's mitigated with a transparent tool classification: approved, blocked, under evaluation.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">1.3 GenAI concepts and techniques</h3>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li><strong>Basic prompt engineering:</strong> designing the instruction to get the desired output from a generative model.</li>
+    <li><strong>Context window and token limits:</strong> how much information the model can "remember" in a single interaction; if it's exceeded, the system loses context or fails.</li>
+    <li><strong>RAG (Retrieval Augmented Generation):</strong> the model looks up up-to-date or company-specific information before responding, without needing to be retrained.</li>
+    <li><strong>Fine-tuning:</strong> adjusting the model's behavior more permanently using your own data, when RAG isn't enough.</li>
+  </ul>
+  <div class="callout warn"><strong>Typical trap:</strong> RAG solves "the model doesn't know my current data"; fine-tuning solves "the model doesn't behave or speak the way I need it to." They're not interchangeable.</div>
+</section>
+
+<section id="dominio2" class="part">
+  <div class="part-title">2. AI Strategy and Business Value Creation <span class="weight">28%</span></div>
+  <div class="intro">The heaviest-weighted domain. It's the "business" heart of the exam: how to decide which AI initiatives to pursue, how to measure whether they're working, and how to use them to gain competitive advantage.</div>
+
+  <h3 class="sub">2.1 Developing AI strategies aligned to the business</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Decision</th><th>What to evaluate</th></tr>
+    <tr><td class="servicio">Mapping use cases</td><td>Identifying where AI creates the most impact: customer service, sales and marketing, research and development, software development, and connecting each AI capability to a concrete business outcome.</td></tr>
+    <tr><td class="servicio">Build vs buy vs partner</td><td>Building, buying or partnering, weighing budget, timelines, internal capabilities, vendor proposals and regulatory compliance.</td></tr>
+    <tr><td class="servicio">Prioritizing initiatives</td><td>By business value, feasibility, sustainability and strategic alignment, deciding whether to scale, pause or terminate each initiative.</td></tr>
+    <tr><td class="servicio">When NOT to use AI</td><td>Recognizing when a business problem doesn't need AI as the solution.</td></tr>
+    <tr><td class="servicio">Transitions</td><td>When migrating a process to an AI solution, or between AI platforms, considering business continuity, cost, data maturity and performance impact.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">2.2 Measuring and demonstrating the business value of AI</h3>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li><strong>Tangible and intangible KPIs:</strong> cost reduction and revenue growth are tangible; customer satisfaction and employee productivity are intangible, but equally valid.</li>
+    <li><strong>Baseline:</strong> measured before implementing the AI solution, so the real effect can be attributed to it afterward.</li>
+    <li><strong>AI ROI:</strong> calculated with frameworks that consider time savings, cost reduction, revenue growth and productivity gains together, not a single isolated metric.</li>
+    <li><strong>Leading indicators:</strong> signals that predict the success of an AI project before the final outcome is seen.</li>
+    <li><strong>Cost control:</strong> basic planning and optimization of the spend associated with implementation.</li>
+  </ul>
+
+  <h3 class="sub">2.3 Positioning AI as a competitive advantage</h3>
+  <div class="callout"><strong>Exam clue:</strong> when the scenario asks "how should the company decide how much to invest in AI," the correct answer almost always depends on the industry's maturity and the sector's competitive dynamics, not on a fixed amount.</div>
+  <p style="font-size:13.5px;color:var(--text-muted);margin:0;">This includes assessing the competitive landscape, identifying opportunities to transform the business model with AI, and explaining how AI creates sustainable advantages and real, not just perceived, operational improvements.</p>
+</section>
+
+<section id="dominio3" class="part">
+  <div class="part-title">3. AI Governance and Responsible AI Leadership <span class="weight">24%</span></div>
+  <div class="intro">How to apply responsible AI principles to business decisions, how to structure governance, and how to identify and mitigate the risks that come with using AI at enterprise scale.</div>
+
+  <h3 class="sub">3.1 Responsible AI principles applied to business</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Principle</th><th>What it covers</th></tr>
+    <tr><td class="servicio">Fairness</td><td>That the system doesn't unfairly harm a group of people.</td></tr>
+    <tr><td class="servicio">Explainability</td><td>Being able to explain why the system arrived at a given result.</td></tr>
+    <tr><td class="servicio">Privacy</td><td>Protecting the personal data used by the system.</td></tr>
+    <tr><td class="servicio">Safety</td><td>That the system doesn't cause harm, even with unexpected inputs.</td></tr>
+    <tr><td class="servicio">Transparency</td><td>Clearly communicating what the system does and what its limits are.</td></tr>
+    <tr><td class="servicio">Robustness</td><td>That the system keeps working reliably under variations in input data.</td></tr>
+  </table>
+  </div>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li>Recognizing when business goals come into tension with these principles and how that trade-off is negotiated.</li>
+    <li>Building responsible AI in from project planning ("governance by design"), not as a patch at the end.</li>
+    <li>Identifying when an AI system needs human oversight, and which safeguards to apply: hallucination detection, guardrails, clear escalation criteria.</li>
+  </ul>
+
+  <h3 class="sub">3.2 Governance structures and regulatory compliance</h3>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li>Governance with cross-functional representation (legal, business, technology, compliance) and clear responsibilities.</li>
+    <li>Identifying regulatory risks of business processes that use AI.</li>
+    <li>Defining access controls and data security measures appropriate for AI systems.</li>
+    <li>Applying AI risk classification frameworks to prioritize governance decisions across the entire lifecycle.</li>
+  </ul>
+
+  <h3 class="sub">3.3 Enterprise AI risks and mitigation</h3>
+  <div class="callout warn"><strong>Typical trap:</strong> bias doesn't only show up in the trained model; it can be introduced at any stage of the lifecycle (data, design, deployment), which is why continuous "bias drift" monitoring is required, not a single initial review.</div>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li>Risk controls and monitoring for AI systems in production.</li>
+    <li>Managing harmful content and intellectual property generated by AI.</li>
+    <li>Reliability risks: hallucinations, data quality degradation, model drift.</li>
+  </ul>
+</section>
+
+<section id="dominio4" class="part">
+  <div class="part-title">4. Business Readiness, Leadership and AI Transformation <span class="weight">24%</span></div>
+  <div class="intro">The "change management" domain: how ready an organization is to adopt AI, how to build the data and infrastructure foundations, and how to lead the transformation from a pilot all the way to scaled deployment.</div>
+
+  <h3 class="sub">4.1 Assessing maturity and readiness to adopt AI</h3>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li>Assessing business readiness across critical dimensions: leadership alignment, data quality, cultural readiness, technical infrastructure and governance frameworks.</li>
+    <li>Applying AI maturity models to place the company on its journey: from experimentation to enterprise-scale deployment.</li>
+    <li>Identifying capability gaps in people, process, technology and governance that hold back transformation.</li>
+    <li>Prioritizing development investments and creating progression paths based on strategic goals and current maturity level.</li>
+  </ul>
+
+  <h3 class="sub">4.2 Data and infrastructure foundations</h3>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li>Assessing data availability, quality and accessibility, and the effect of data silos on AI initiatives.</li>
+    <li>Explaining why data strategy, data ownership and data-sharing frameworks matter as a foundation for AI.</li>
+    <li>Assessing foundational technology and infrastructure requirements to sustain the initiatives.</li>
+  </ul>
+
+  <h3 class="sub">4.3 Leading change and building workforce capabilities</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Area</th><th>What it involves</th></tr>
+    <tr><td class="servicio">Executive sponsorship</td><td>Aligning leadership and designating AI "champions" who sustain momentum across the organization.</td></tr>
+    <tr><td class="servicio">Cross-functional teams</td><td>Business, technical, legal and compliance, with clear responsibilities.</td></tr>
+    <tr><td class="servicio">Transparent communication</td><td>Addressing team concerns about timelines, expected outcomes and effects on their roles.</td></tr>
+    <tr><td class="servicio">Cultural barriers</td><td>Risk aversion, resistance to change, fear of failure, and which leadership interventions address them.</td></tr>
+    <tr><td class="servicio">Capability development</td><td>Proof-of-concept (POC) programs, hackathons, responsible AI training, to speed up AI literacy across the company.</td></tr>
+    <tr><td class="servicio">Role transition</td><td>From manual operation to oversight and collaboration with AI, balancing human strengths (critical thinking, empathy, creativity) with the system's capabilities.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">4.4 Scaling from pilots to enterprise deployments</h3>
+  <ul class="checklist" style="margin-bottom:10px;">
+    <li>Iterative transformation phases: envision, experiment, launch, scale.</li>
+    <li>Starting with short-term early wins before scaling company-wide.</li>
+    <li>Establishing AI centers of excellence (COE) and cross-functional collaboration mechanisms.</li>
+    <li>Defining continuous feedback mechanisms and long-term success metrics.</li>
+    <li>Managing the transition from experimental to production, including governance and operational requirements.</li>
+    <li>Assessing multiple factors during scaling to ensure business continuity and performance.</li>
+  </ul>
+</section>
+
+<section id="servicios" class="part">
+  <div class="part-title">5. AWS services in and out of scope</div>
+  <div class="intro">Unlike a technical exam, this one doesn't ask how to configure these services: it only expects you to recognize what each one is for at a strategic level.</div>
+
+  <h3 class="sub">In scope (strategic knowledge, not implementation)</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Service or framework</th><th>What it's for, at a business level</th></tr>
+    <tr><td class="servicio">Amazon Bedrock</td><td>Managed GenAI platform: pricing tiers, Guardrails and Knowledge Bases, at a conceptual level.</td></tr>
+    <tr><td class="servicio">Amazon SageMaker AI</td><td>When a custom ML solution makes sense versus an already-managed solution.</td></tr>
+    <tr><td class="servicio">Amazon Quick (BI)</td><td>Basic business intelligence application.</td></tr>
+    <tr><td class="servicio">AWS Cloud Adoption Framework (CAF)</td><td>Framework to guide the transformation toward the cloud and, by extension, toward AI.</td></tr>
+    <tr><td class="servicio">Shared responsibility model</td><td>Which responsibilities belong to AWS and which to the company in an AI workload.</td></tr>
+    <tr><td class="servicio">AWS Well-Architected (Responsible AI Lens)</td><td>Responsible AI best practices within the Well-Architected framework.</td></tr>
+    <tr><td class="servicio">AWS Pricing Calculator, Cost Explorer, Marketplace</td><td>Estimating and controlling the cost of AI initiatives, and pricing structures (consumption-based, per instance, per seat).</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Out of scope</h3>
+  <div class="callout warn"><strong>You're not expected to know how to:</strong> configure, deploy or manage any AWS service. Out of scope are compute and infrastructure services (Amazon EC2, AWS Lambda), networking (Amazon VPC, CloudFront), databases and storage (Amazon RDS, Amazon S3), containers (ECS, EKS), DevOps (CodePipeline, CloudFormation), security configuration (IAM policies, AWS KMS), IoT and specialized media services. The exam also doesn't ask about model development or code, data engineering, hyperparameter tuning, or mathematical or statistical analysis of models.</div>
+</section>
+
+<section id="comparaciones" class="part">
+  <div class="part-title">6. Comparisons that decide questions</div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Pair</th><th>Quick decision</th></tr>
+    <tr><td>RAG vs fine-tuning</td><td>External or updatable data vs persistent change in the model's behavior.</td></tr>
+    <tr><td>Build vs buy vs partner</td><td>Depends on budget, timelines, internal capacity and compliance, not on a technical preference.</td></tr>
+    <tr><td>Tangible vs intangible KPI</td><td>Cost/revenue vs satisfaction/productivity. Both are valid for measuring AI value.</td></tr>
+    <tr><td>Guardrails/human oversight vs governance</td><td>Operational controls on a system in use vs the organizational structure that decides and audits.</td></tr>
+    <tr><td>Pilot vs scale</td><td>A successful pilot doesn't scale automatically: it needs a COE, governance and success metrics before growing.</td></tr>
+    <tr><td>AI maturity vs readiness</td><td>Maturity is where the company is on its journey; readiness is whether it has the conditions (data, culture, leadership) to move forward.</td></tr>
+  </table>
+  </div>
+</section>
+
+<section id="checklist" class="part">
+  <div class="part-title">7. Final checklist before the exam</div>
+  <ul class="checklist">
+    <li>I can differentiate AI, ML and GenAI, and explain RAG vs fine-tuning with a business example.</li>
+    <li>I can justify a build vs buy vs partner decision with at least three factors.</li>
+    <li>I can describe how ROI of an AI initiative is calculated using more than one type of benefit.</li>
+    <li>I can name the six principles of responsible AI and give an example of tension with business goals.</li>
+    <li>I can explain what an AI Center of Excellence is and why it appears when scaling from pilot to production.</li>
+    <li>I can distinguish which AWS services are in scope (Bedrock, SageMaker AI at a conceptual level) from those that aren't (EC2, S3, IAM, etc).</li>
+    <li>I confirmed whether my exam is the beta version (170 min, 85 questions) or the standard one (130 min) before scheduling it.</li>
+  </ul>
+</section>
+
+</main>
+</div>
+
+<script>
+document.getElementById('tocToggle')?.addEventListener('click', function(){
+  var nav = document.getElementById('toc');
+  var open = nav.classList.toggle('open');
+  this.setAttribute('aria-expanded', open ? 'true':'false');
+});
+</script>
+</body>
+</html>

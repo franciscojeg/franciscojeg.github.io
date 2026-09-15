@@ -28,6 +28,10 @@
   }
   header h1{margin:0 0 4px;font-size:22px;}
   header p{margin:0;color:#c8d1db;font-size:13.5px;}
+  .lang-switch{position:absolute;top:14px;right:16px;display:flex;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;overflow:hidden;font-size:11px;font-weight:700;}
+  .lang-switch a{padding:4px 10px;color:rgba(255,255,255,.8);text-decoration:none;}
+  .lang-switch a.active{background:#fff;color:var(--aws-dark);}
+  header{position:relative;}
   .layout{display:flex; max-width:1200px; margin:0 auto;}
   nav#toc{
     width:270px; flex-shrink:0; padding:20px 14px; position:sticky; top:0; align-self:flex-start;
@@ -111,6 +115,7 @@
 
 
 <header>
+  <div class="lang-switch"><a href="material-aif-c01.html" class="active">ES</a><a href="material-aif-c01-en.html">EN</a></div>
   <h1>📘 Material de Estudio: AWS Certified AI Practitioner (AIF-C01)</h1>
   <p>Preparado por Francisco Escobar, AWS Community Builder (Networking & Content Delivery) · Organizado por dominios oficiales del examen</p>
   <p style="margin-top:6px;"><a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" style="color:#FF9900;text-decoration:none;font-weight:600;">linkedin.com/in/franciscojeg</a></p>

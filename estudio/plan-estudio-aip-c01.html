@@ -36,8 +36,6 @@
   .header h1{font-size:22px;font-weight:600;color:#fff;margin-bottom:4px;}
   .header p{font-size:14px;color:rgba(255,255,255,.8);}
   .badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:12px;color:#fff;margin:6px 4px 0 0;}
-  .dual-notice{background:rgba(83,74,183,.1);border:1px solid rgba(83,74,183,.25);border-radius:var(--rl);padding:12px 16px;font-size:13px;margin:20px 0 16px;color:var(--text);}
-  .dual-notice strong{color:var(--purple-d);}
   .container{max-width:900px;margin:0 auto;padding:28px 24px 60px;}
   .section-title{font-size:18px;font-weight:600;margin:32px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
   .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
@@ -111,6 +109,10 @@
   .final-date{font-size:12px;width:68px;flex-shrink:0;color:var(--text3);font-weight:600;}
   footer{text-align:center;font-size:12px;color:var(--text3);padding:20px;border-top:1px solid var(--border);margin-top:40px;}
   @media(max-width:600px){.metrics{grid-template-columns:repeat(2,1fr);}.day-grid{grid-template-columns:1fr;}.p-grid{grid-template-columns:1fr;}}
+  .lang-switch{position:absolute;top:16px;right:20px;display:flex;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;overflow:hidden;font-size:11px;font-weight:700;}
+  .lang-switch a{padding:4px 10px;color:rgba(255,255,255,.8);text-decoration:none;}
+  .lang-switch a.active{background:#fff;color:var(--purple-d);}
+  .header{position:relative;}
 </style>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23232F3E'/%3E%3Ctext x='12' y='17' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='14' font-weight='700' fill='%23FF9900'%3EF%3C/text%3E%3C/svg%3E">
 </head>
@@ -129,17 +131,13 @@
 
 
 <div class="header">
+  <div class="lang-switch"><a href="plan-estudio-aip-c01.html" class="active">ES</a><a href="plan-estudio-aip-c01-en.html">EN</a></div>
   <h1>Plan Estudio AIP-C01 — AWS Certified Generative AI Developer</h1>
-  <p>Francisco Escobar — Examen: 29 de mayo de 2026</p>
+  <p>Francisco Escobar</p>
   <span class="badge">AWS Community Builder · Networking &amp; Content Delivery</span>
-  <span class="badge">SAA-C03: 30 mayo (dia siguiente)</span>
 </div>
 
 <div class="container">
-
-<div class="dual-notice">
-  <strong>Examen doble en dias consecutivos:</strong> AIP-C01 el 29 mayo (205 min) y SAA-C03 el 30 mayo (130 min). Lambda, Step Functions, API Gateway, IAM y CloudWatch aparecen en AMBOS — estudiarlos una sola vez en semana 3. La semana final dosifica carga entre los dos examenes.
-</div>
 
 <div class="metrics">
   <div class="metric"><div class="metric-num" style="color:var(--purple)">38</div><div class="metric-lbl">dias al examen</div></div>
@@ -164,7 +162,7 @@
   <button class="tab-btn" onclick="showW(2,this)"><span class="wnum">Semana 3</span><span class="wdate">5–11 may</span></button>
   <button class="tab-btn" onclick="showW(3,this)"><span class="wnum">Semana 4</span><span class="wdate">12–18 may</span></button>
   <button class="tab-btn" onclick="showW(4,this)"><span class="wnum">Semana 5</span><span class="wdate">19–25 may</span></button>
-  <button class="tab-btn" onclick="showW(5,this)"><span class="wnum">Final dual</span><span class="wdate">26–30 may</span></button>
+  <button class="tab-btn" onclick="showW(5,this)"><span class="wnum">Semana final</span><span class="wdate">26–30 may</span></button>
 </div>
 
 <!-- S1 -->
@@ -205,21 +203,21 @@
 
 <!-- S3 -->
 <div id="w2" class="panel">
-  <div class="card"><div class="card-label">Semana 3 — Agentic AI + Implementacion + Integracion (overlap SAA-C03)</div>
+  <div class="card"><div class="card-label">Semana 3 — Agentic AI + Implementacion + Integracion</div>
     <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>Bedrock Agents</strong><div class="td">Action groups, knowledge bases, lambda tools. ReAct pattern (Reasoning + Acting). Strands Agents y AWS Agent Squad para multi-agent. Stopping conditions, timeout mechanisms. Human-in-the-loop con approval workflows.</div></div></div>
     <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>MCP (Model Context Protocol)</strong><div class="td">MCP servers estateless en Lambda, complejos en ECS. MCP client libraries para acceso estandarizado. Funcion: dar a FMs acceso estandar a herramientas externas.</div></div></div>
-    <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>Step Functions + Lambda para GenAI</strong><div class="td">Circuit breaker patterns. Prompt chaining. ReAct implementation. Manejo de errores y retries. — Estos servicios tambien aparecen en SAA-C03, estudiarlos una sola vez.</div></div></div>
+    <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>Step Functions + Lambda para GenAI</strong><div class="td">Circuit breaker patterns. Prompt chaining. ReAct implementation. Manejo de errores y retries.</div></div></div>
     <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>FM API integrations: streaming</strong><div class="td">Bedrock Streaming APIs para real-time. WebSockets vs Server-Sent Events (SSE). API Gateway para chunked transfer encoding. Exponential backoff con AWS SDK. X-Ray para tracing.</div></div></div>
     <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>Model deployment y fine-tuning</strong><div class="td">On-demand vs Provisioned Throughput vs SageMaker. Fine-tuning en Bedrock: cuando usarlo. LoRA/adapters (parameter-efficient). SageMaker Model Registry. CI/CD para modelos con CodePipeline.</div></div></div>
     <div class="topic-row"><span class="pill d2">D2 · 26%</span><div><strong>Amazon Q Developer + Q Business</strong><div class="td">Q Developer: asistente de codigo, generacion, refactor. Q Business: chatbot empresarial con fuentes internas. Bedrock Data Automation para workflows. Enterprise integration con EventBridge.</div></div></div>
   </div>
   <div class="day-grid">
     <div class="day-card"><div class="day-label">Lun–Mar</div>Bedrock Agents + MCP + multi-agent<div class="day-sub">3h — patron mas frecuente de D2</div></div>
-    <div class="day-card"><div class="day-label">Mie</div>Step Functions + Lambda (overlap SAA-C03)<div class="day-sub">1.5h — util para ambos examenes</div></div>
+    <div class="day-card"><div class="day-label">Mie</div>Step Functions + Lambda para GenAI<div class="day-sub">1.5h — circuit breakers y retries</div></div>
     <div class="day-card"><div class="day-label">Jue</div>Streaming + API integrations + deployment<div class="day-sub">1.5h — sync vs async vs streaming</div></div>
     <div class="day-card"><div class="day-label">Sab–Dom</div>Q Developer + fine-tuning + quiz D1+D2 (40 preguntas)<div class="day-sub">6h — primer quiz multidomain</div></div>
   </div>
-  <div class="tip-box">Step Functions, Lambda, API Gateway, IAM y CloudWatch aparecen tanto en AIP-C01 como en SAA-C03. Estudiarlos esta semana ahorra tiempo para ambos examenes.</div>
+  <div class="tip-box">Step Functions, Lambda y API Gateway son la base de la orquestacion de agentes en D2. Dominarlos bien esta semana porque reaparecen en los patrones de deployment de D4.</div>
 </div>
 
 <!-- S4 -->
@@ -268,12 +266,11 @@
 
 <!-- FINAL -->
 <div id="w5" class="panel">
-  <div class="card"><div class="card-label">Semana final — Doble examen 29 y 30 de mayo</div>
+  <div class="card"><div class="card-label">Semana final — Recta final antes del examen (29 de mayo)</div>
     <div class="final-row"><span class="final-date">Mar 26</span><div><strong>Repaso AIP-C01: pares de decision</strong><div class="td">RAG vs fine-tuning · Guardrails vs Comprehend · Bedrock Agents vs Step Functions · Knowledge Bases vs OpenSearch · Semantic cache vs invocacion directa · On-demand vs Provisioned Throughput.</div></div></div>
-    <div class="final-row"><span class="final-date">Mie 27</span><div><strong>Repaso SAA-C03: pares de decision</strong><div class="td">Multi-AZ vs Read Replica · VPC Endpoint Gateway vs Interface · CloudFront vs Global Accelerator · SQS standard vs FIFO. Solo 1.5h — no saturar.</div></div></div>
-    <div class="final-row"><span class="final-date">Jue 28</span><div><strong>Repaso ligero AIP-C01 + descanso activo</strong><div class="td">Maximo 45 min de Anki AIP-C01. El examen de manana es 205 min, el mas largo. Duerme 8h. Cerebro fresco > ultima hora de estudio.</div></div></div>
-    <div class="final-row"><span class="final-date" style="color:var(--purple);">Vie 29</span><div><strong style="color:var(--purple);">Examen AIP-C01 — AWS Certified Generative AI Developer Professional</strong><div class="td">205 minutos, 75 preguntas. Score minimo: 750/1000. Hay preguntas de tipo ordering y matching — no solo multiple choice. Reserva 15 min al final para revision. Despues: descansa, NO estudies SAA-C03.</div></div></div>
-    <div class="final-row"><span class="final-date" style="color:var(--blue);">Sab 30</span><div><strong style="color:var(--blue);">Examen SAA-C03 — Solutions Architect Associate</strong><div class="td">130 minutos, 65 preguntas. Llegas con ventaja: Lambda, Step Functions, CloudWatch, IAM ya los dominaste para AIP-C01.</div></div></div>
+    <div class="final-row"><span class="final-date">Mie 27</span><div><strong>Repaso de errores: simulacro 3 + Anki</strong><div class="td">Revisa cada pregunta fallada del simulacro 3. Refuerza con Anki los temas de menor dominio. Solo 1.5h — sin contenido nuevo.</div></div></div>
+    <div class="final-row"><span class="final-date">Jue 28</span><div><strong>Repaso ligero AIP-C01 + descanso activo</strong><div class="td">Maximo 45 min de Anki AIP-C01. El examen de manana es de 205 minutos. Duerme 8h. Cerebro fresco > ultima hora de estudio.</div></div></div>
+    <div class="final-row"><span class="final-date" style="color:var(--purple);">Vie 29</span><div><strong style="color:var(--purple);">Examen AIP-C01 — AWS Certified Generative AI Developer Professional</strong><div class="td">205 minutos, 75 preguntas. Score minimo: 750/1000. Hay preguntas de tipo ordering y matching — no solo multiple choice. Reserva 15 min al final para revision. Despues: descansa, has terminado la certificacion.</div></div></div>
   </div>
   <div class="alert-box"><strong>Estrategia de tiempo en AIP-C01:</strong> 205 min / 75 preguntas = 2.7 min/pregunta. Las preguntas ordering y matching toman mas tiempo. Si una es dificil, marcala y vuelve al final.</div>
 </div>

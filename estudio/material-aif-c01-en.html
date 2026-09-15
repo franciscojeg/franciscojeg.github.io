@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Material: AWS AIF-C01</title>
+<style>
+  :root{
+    --aws-orange:#FF9900;
+    --aws-dark:#232F3E;
+    --bg:#f4f6f8;
+    --card:#ffffff;
+    --text:#1c2530;
+    --text-muted:#5b6b7a;
+    --border:#e1e6eb;
+    --alta:#d93025; --alta-bg:#fce8e6;
+    --media:#b7791f; --media-bg:#fef3e0;
+    --baja:#1a73e8; --baja-bg:#e8f0fe;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--text); margin:0; line-height:1.55;
+  }
+  header{
+    background:var(--aws-dark); color:#fff; padding:22px 24px; text-align:center;
+  }
+  header h1{margin:0 0 4px;font-size:22px;}
+  header p{margin:0;color:#c8d1db;font-size:13.5px;}
+  .lang-switch{position:absolute;top:14px;right:16px;display:flex;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;overflow:hidden;font-size:11px;font-weight:700;}
+  .lang-switch a{padding:4px 10px;color:rgba(255,255,255,.8);text-decoration:none;}
+  .lang-switch a.active{background:#fff;color:var(--aws-dark);}
+  header{position:relative;}
+  .layout{display:flex; max-width:1200px; margin:0 auto;}
+  nav#toc{
+    width:270px; flex-shrink:0; padding:20px 14px; position:sticky; top:0; align-self:flex-start;
+    max-height:100vh; overflow-y:auto; font-size:13px; border-right:1px solid var(--border); background:#fff;
+  }
+  nav#toc h4{margin:14px 0 6px;color:var(--aws-dark);font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
+  nav#toc h4:first-child{margin-top:0;}
+  nav#toc a{display:block;color:var(--text-muted);text-decoration:none;padding:3px 0 3px 6px;border-left:2px solid transparent;}
+  nav#toc a:hover{color:var(--aws-dark);border-left-color:var(--aws-orange);}
+  main{flex:1; padding:24px 32px 80px; min-width:0;}
+  .part{margin-bottom:44px;}
+  .part-title{
+    background:var(--aws-dark); color:#fff; padding:12px 18px; border-radius:8px; margin-bottom:6px;
+    font-size:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;
+  }
+  .part-title .weight{background:var(--aws-orange);color:var(--aws-dark);font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;}
+  .intro{color:var(--text-muted); font-size:14px; margin:10px 0 18px; padding:12px 16px; background:#fff8ef; border-left:4px solid var(--aws-orange); border-radius:0 6px 6px 0;}
+  h3.sub{font-size:15px; margin:22px 0 8px; color:var(--aws-dark); border-bottom:2px solid var(--border); padding-bottom:4px;}
+  .table-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:20px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.06); background:#fff;}
+  table{width:100%; min-width:640px; table-layout:fixed; border-collapse:collapse; font-size:13px; background:#fff;}
+  th:first-child, td.servicio{width:22%; word-wrap:break-word; overflow-wrap:break-word;}
+  th,td{padding:9px 11px; text-align:left; vertical-align:top; border-bottom:1px solid var(--border);}
+  th{background:#eef1f4; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--text-muted);}
+  tr:last-child td{border-bottom:none;}
+  td.servicio{font-weight:700;}
+  .prio{display:inline-block; font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap;}
+  .prio-alta{background:var(--alta-bg); color:var(--alta);}
+  .prio-media{background:var(--media-bg); color:var(--media);}
+  .prio-baja{background:var(--baja-bg); color:var(--baja);}
+  .top-link{font-size:11.5px; color:var(--baja); text-decoration:none;}
+  .callout{background:#fff; border:1px solid var(--border); border-left:4px solid var(--baja); border-radius:0 8px 8px 0; padding:12px 16px; font-size:13.5px; margin:14px 0;}
+  .callout.warn{border-left-color:var(--media); }
+  .checklist{list-style:none; padding:0; margin:0;}
+  .checklist li{padding:6px 0 6px 26px; position:relative; font-size:14px; border-bottom:1px dashed var(--border);}
+  .checklist li:before{content:"☐"; position:absolute; left:0; color:var(--aws-orange); font-size:16px;}
+  code{background:#eef1f4; padding:1px 5px; border-radius:4px; font-size:12px;}
+  .keyword{background:var(--aws-dark); color:#fff; padding:2px 8px; border-radius:5px; font-weight:700; font-size:12px;}
+  .toc-toggle{display:none;}
+  @media (max-width: 900px){
+    .toc-toggle{
+      display:block; margin:14px 14px 0; background:var(--aws-orange); color:var(--aws-dark);
+      border:none; padding:12px 16px; border-radius:8px; font-weight:700; font-size:14px;
+      cursor:pointer; width:calc(100% - 28px);
+    }
+    .layout{flex-direction:column;}
+    nav#toc{
+      display:none; width:100%; position:static; max-height:none;
+      border-right:none; border-bottom:1px solid var(--border);
+    }
+    nav#toc.open{display:block;}
+    main{padding:18px 14px 60px;}
+    table{font-size:12px; min-width:560px;}
+    th,td{padding:7px 8px;}
+    header h1{font-size:19px;}
+    .part-title{font-size:16px; padding:10px 14px;}
+  }
+  @media (max-width: 480px){
+    header{padding:16px 14px;}
+    header h1{font-size:17px;}
+    main{padding:14px 10px 50px;}
+    .part-title{font-size:14.5px; flex-direction:column; align-items:flex-start; gap:4px;}
+    table{font-size:11.5px; min-width:520px;}
+    th,td{padding:6px 7px;}
+    .intro, .callout{font-size:13px; padding:10px 12px;}
+  }
+</style>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23232F3E'/%3E%3Ctext x='12' y='17' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='14' font-weight='700' fill='%23FF9900'%3EF%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div style="background:#14141f;padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px;">
+  <a href="../index-en.html" style="color:#fff;font-size:12.5px;text-decoration:none;font-weight:600;letter-spacing:.02em;">&larr; Back to home &middot; franciscojeg.github.io</a>
+  <span style="display:inline-flex;gap:8px;">
+    <a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A66C2"/><text x="12" y="16" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="700" fill="#fff">in</text></svg></a>
+    <a href="https://github.com/franciscojeg" target="_blank" rel="noopener" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#181717"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="8.5" font-weight="700" fill="#fff">GH</text></svg></a>
+    <a href="https://dev.to/franciscojeg78" target="_blank" rel="noopener" aria-label="dev.to"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A0A0A"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="6.5" font-weight="700" fill="#fff">DEV</text></svg></a>
+    <a href="https://builder.aws.com/community/@franciscojeg?tab=badges" target="_blank" rel="noopener" aria-label="AWS Builder Center"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF9900"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" fill="#232F3E">AWS</text></svg></a>
+    <a href="https://www.instagram.com/franciscojeg.tech/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24"><defs><linearGradient id="igg-bar" x1="0" y1="24" x2="24" y2="0"><stop offset="0%" stop-color="#FEDA75"/><stop offset="35%" stop-color="#D62976"/><stop offset="70%" stop-color="#962FBF"/><stop offset="100%" stop-color="#4F5BD5"/></linearGradient></defs><circle cx="12" cy="12" r="12" fill="url(#igg-bar)"/><rect x="6.5" y="7.5" width="11" height="10.5" rx="3" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="12" cy="12.7" r="2.7" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="15.2" cy="9.6" r="0.6" fill="#fff"/></svg></a>
+    <a href="https://www.youtube.com/@ugwelcomebuilders" target="_blank" rel="noopener" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF0000"/><path d="M9.5 8.5 L16 12 L9.5 15.5 Z" fill="#fff"/></svg></a>
+  </span>
+</div>
+
+
+<header>
+  <div class="lang-switch"><a href="material-aif-c01.html">ES</a><a href="material-aif-c01-en.html" class="active">EN</a></div>
+  <h1>📘 Study Material: AWS Certified AI Practitioner (AIF-C01)</h1>
+  <p>Prepared by Francisco Escobar, AWS Community Builder (Networking &amp; Content Delivery) · Organized by the exam's official domains</p>
+  <p style="margin-top:6px;"><a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" style="color:#FF9900;text-decoration:none;font-weight:600;">linkedin.com/in/franciscojeg</a></p>
+</header>
+
+<button class="toc-toggle" id="tocToggle" aria-expanded="false" aria-controls="toc">☰ View index</button>
+
+<div class="layout">
+<nav id="toc">
+  <h4>Navigation</h4>
+  <a href="#fundamentos">0. Exam basics</a>
+  <a href="#dominio1">1. Fundamentals of AI and ML (20%)</a>
+  <a href="#dominio2">2. Fundamentals of Generative AI (24%)</a>
+  <a href="#dominio3">3. Foundation Model Applications (28%)</a>
+  <a href="#dominio4">4. Guidelines for Responsible AI (14%)</a>
+  <a href="#dominio5">5. Security, Compliance and Governance (14%)</a>
+  <a href="#comparaciones">6. Critical comparisons</a>
+  <a href="#senales">7. Trigger words</a>
+  <a href="#checklist">8. Roadmap and final checklist</a>
+</nav>
+
+<main>
+
+<section id="fundamentos" class="part">
+  <div class="part-title">0. Before you start: what this exam is like</div>
+  <div class="intro">AIF-C01 is a foundational-level exam. It doesn't ask you to write code, train models by hand, or tune hyperparameters. It asks you to understand what AI, machine learning, and generative AI are, which AWS service solves each type of problem, and how to use them responsibly and securely.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Fact</th><th>Value</th></tr>
+    <tr><td class="servicio">Questions</td><td>65 (50 scored, 15 unscored for calibration, with no way to tell which is which)</td></tr>
+    <tr><td class="servicio">Duration</td><td>90 minutes, so less than a minute and a half per question: a tighter pace than SAA-C03</td></tr>
+    <tr><td class="servicio">Score</td><td>100 to 1000, with 700 as the minimum to pass</td></tr>
+    <tr><td class="servicio">Cost</td><td>USD 100</td></tr>
+    <tr><td class="servicio">Prerequisites</td><td>None formally required</td></tr>
+  </table>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Domain</th><th>Content</th><th>Weight</th></tr>
+    <tr><td class="servicio">Domain 1</td><td>Fundamentals of AI and ML</td><td><span class="prio prio-media">20%</span></td></tr>
+    <tr><td class="servicio">Domain 2</td><td>Fundamentals of Generative AI</td><td><span class="prio prio-alta">24%</span></td></tr>
+    <tr><td class="servicio">Domain 3</td><td>Foundation Model Applications</td><td><span class="prio prio-alta">28%, the heaviest</span></td></tr>
+    <tr><td class="servicio">Domain 4</td><td>Guidelines for Responsible AI</td><td><span class="prio prio-baja">14%</span></td></tr>
+    <tr><td class="servicio">Domain 5</td><td>Security, Compliance and Governance for AI Solutions</td><td><span class="prio prio-baja">14%</span></td></tr>
+  </table>
+  </div>
+
+  <div class="callout">
+    <strong>The most important mindset shift:</strong> on this exam there's almost never a single option "that works." A chatbot that needs company-specific knowledge can be solved with fine-tuning or with RAG, and both technically work. The option with lower cost and lower maintenance effort is usually RAG, unless the question explicitly asks for the model's underlying behavior to change. The question to always ask yourself isn't "does this work?" but "is this the most appropriate option given what the question asks for: cost, effort, implementation speed, or accuracy?"
+  </div>
+
+  <div class="callout">
+    <strong>How to approach every question, in two rounds:</strong> first rule out the options that don't solve the type of problem posed, for example a computer vision service doesn't help with a text task. Then, if several viable options remain, decide based on the specific constraint in the question: cheapest, least maintenance effort, shortest implementation time, or highest accuracy. Pay special attention to whether the scenario describes a business use case, which points to a specialized AI Service or Bedrock, or a need to build and train your own model from the data, which points to SageMaker.
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="dominio1" class="part">
+  <div class="part-title">1. Fundamentals of AI and ML <span class="weight">20% of the exam</span></div>
+  <div class="intro">This is where the base vocabulary for the whole exam gets built. If you find the terms AI, ML, Deep Learning, and Generative AI confusing, start here before moving on to anything else.</div>
+
+  <div class="callout">
+    <strong>The concept hierarchy, explained as Russian nesting dolls:</strong><br><br>
+    Picture four circles, one inside the other. The biggest circle is <strong>Artificial Intelligence (AI)</strong>: any system that mimics human capabilities, like recognizing a face or translating a language, no matter how it pulls it off internally.<br><br>
+    Inside that circle sits <strong>Machine Learning (ML)</strong>: the part of AI where, instead of programming explicit rules ("if the email contains word X, it's spam"), the system learns patterns from data examples ("I show it thousands of emails already labeled spam or not spam, and the system learns on its own what tells them apart").<br><br>
+    Inside ML sits <strong>Deep Learning (DL)</strong>: a way of doing ML using neural networks with many stacked layers, loosely inspired by how neurons in the brain work. It's the technique that lets a system recognize objects in photos or understand natural language with far more accuracy than simpler ML techniques.<br><br>
+    And inside Deep Learning sits <strong>Generative AI</strong>: deep learning models trained on so much data that, instead of just classifying or predicting, they can generate new content (text, images, audio, code) that didn't exist before.<br><br>
+    In short: all Generative AI is Deep Learning, all Deep Learning is Machine Learning, and all Machine Learning is Artificial Intelligence, but not the other way around.
+  </div>
+
+  <h3 class="sub">Neural networks: the engine behind Deep Learning</h3>
+  <div class="callout">
+    A neural network is, at its core, a chain of layers of simple mathematical calculations that, combined, can learn complex patterns. You don't need to do the math, but you do need to recognize the pieces and what each one is for, because the exam names them directly.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Component</th><th>What it is, in plain words</th><th>Priority</th></tr>
+    <tr><td class="servicio">Neuron</td><td>The network's smallest unit of computation; it receives numbers, combines them, and produces an output number.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Layers</td><td>Groups of neurons organized into levels. The <strong>input layer</strong> receives the raw data, the <strong>hidden layers</strong> do the intermediate processing, and the <strong>output layer</strong> delivers the final result.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Weights and biases</td><td>The "adjustable numbers" the network keeps tweaking during training to improve its predictions. Training a model is, literally, finding the best values for these numbers.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Activation function</td><td>A mathematical rule that decides whether a neuron "fires" or not based on its input, which lets the network learn complex relationships instead of only straight lines.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Forward pass and Backpropagation</td><td>Forward pass is when data moves through the network to produce a prediction. Backpropagation is the process where the network compares that prediction to the correct answer and adjusts the weights backward to improve next time.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Gradient Descent</td><td>The method the network uses to decide which direction to adjust each weight in, aiming to reduce the error step by step.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Vanishing / Exploding Gradients</td><td>Technical problems where the adjustments during training become too small (vanishing, the network stops learning) or too large (exploding, the network becomes unstable).</td><td><span class="prio prio-baja">Low</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Types of neural network architectures</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Architecture</th><th>What it's for</th><th>Priority</th></tr>
+    <tr><td class="servicio">FNN (Feedforward)</td><td>The most basic architecture, where data flows in a single direction, from input to output.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">RNN (Recurrent)</td><td>Designed for sequential data, where order matters, such as time series or text word by word.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">CNN (Convolutional)</td><td>Specialized for images and video, detects visual patterns like edges, textures, and shapes.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">GAN (Generative Adversarial Network)</td><td>Two networks competing against each other, one generating fake content and the other trying to detect it, both improving over time. Used to generate realistic images.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Transformer</td><td>The architecture behind modern LLMs (GPT, Claude, Titan). Processes the whole text at once instead of word by word, "paying attention" to which parts of the text are most relevant to each other.</td><td><span class="prio prio-alta">High</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Key domains within AI</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Domain</th><th>What it covers</th></tr>
+    <tr><td class="servicio">Computer Vision</td><td>Interpreting images and video: detecting objects, faces, text in images.</td></tr>
+    <tr><td class="servicio">NLP (Natural Language Processing)</td><td>Understanding and generating human language: sentiment, entities, translation, summarization.</td></tr>
+    <tr><td class="servicio">LLM (Large Language Model)</td><td>A language model trained on huge volumes of text, capable of conversing, reasoning, and generating text across multiple tasks.</td></tr>
+    <tr><td class="servicio">SLM (Small Language Model)</td><td>A smaller, lighter version of a language model, with lower cost and latency, useful when you don't need the full capability of an LLM.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Learning types (Machine Learning Paradigms)</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Type</th><th>Question it answers</th><th>Example</th></tr>
+    <tr>
+      <td class="servicio">Supervised learning</td>
+      <td>"I have examples where the correct answer is already known, can I learn to predict it?"</td>
+      <td>Predicting a house's price from historical data where the actual sale price is already known.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Unsupervised learning</td>
+      <td>"I don't have known answers, can the system find structure in the data on its own?"</td>
+      <td>Segmenting customers into groups based on purchasing behavior, without telling it beforehand what the groups are.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Reinforcement learning</td>
+      <td>"Can the system learn by trial and error, receiving a reward or penalty based on its actions?"</td>
+      <td>An agent that learns to play a video game, improving every time it scores points.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Self-supervised learning</td>
+      <td>"Can I generate my own labels from the data without human intervention?"</td>
+      <td>This is the technique behind most of the training of modern LLMs: the model learns to predict the next word of a text using the text itself as the source of the correct answer.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Data types</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Type</th><th>Example</th></tr>
+    <tr><td class="servicio">Structured data</td><td>Tables with well-defined rows and columns, like a spreadsheet or a relational database.</td></tr>
+    <tr><td class="servicio">Semi-structured data</td><td>Has some organization but no rigid schema, like JSON or XML files.</td></tr>
+    <tr><td class="servicio">Unstructured data</td><td>No predefined organization: free text, images, audio, video.</td></tr>
+  </table>
+  </div>
+  <div class="callout">
+    In any dataset, <strong>features</strong> are the input variables the model uses to learn (for example, a house's square footage and location), and the <strong>label</strong> is the answer you want to predict (the house's price). Only supervised learning needs labels.
+  </div>
+
+  <h3 class="sub">Model fit: overfitting, underfitting, bias, and variance</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Concept</th><th>What it means</th><th>Priority</th></tr>
+    <tr>
+      <td class="servicio">Overfitting</td>
+      <td>The model "memorizes" the training data, noise included, and performs very well on that data but poorly on new data. It's like a student who memorizes the exact answers to a practice exam but doesn't understand the concept, so they fail the real exam with different questions.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Underfitting</td>
+      <td>The model is too simple and doesn't even learn the training data well. It's like a student who barely studied: they fail both the practice run and the real exam.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Bias (model bias)</td>
+      <td>Error that comes from the model being too simple to capture the real relationship in the data, which usually produces underfitting.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Variance</td>
+      <td>Error that comes from the model being too sensitive to small changes in the training data, which usually produces overfitting.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Inference: how an already-trained model gets used</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Type</th><th>When to use it</th></tr>
+    <tr><td class="servicio">Real-time inference</td><td>When an immediate response is needed, like a chatbot answering a live user.</td></tr>
+    <tr><td class="servicio">Batch inference</td><td>When a lot of data is processed at once with no need for an immediate response, like generating overnight classification reports for thousands of documents.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Machine Learning project lifecycle</h3>
+  <div class="callout">
+    Business problem definition → data collection and cleaning → exploratory data analysis (EDA) → feature engineering → model training → model evaluation → deployment → continuous monitoring. Monitoring is key because models suffer <strong>drift</strong>: they perform worse over time because real-world data changes and stops resembling the data the model was trained on.
+  </div>
+
+  <h3 class="sub">Basic evaluation metrics</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Metric</th><th>What it measures</th><th>Priority</th></tr>
+    <tr>
+      <td class="servicio">Accuracy</td>
+      <td>Of all the predictions made, what percentage was correct. Easy to understand but misleading when classes are imbalanced.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Precision</td>
+      <td>Of everything the model flagged as positive, how much was actually positive. Matters when the cost of a false positive is high.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Recall</td>
+      <td>Of all the actual positive cases that existed, how many the model caught. Matters when the cost of missing a real positive case is high.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">F1 Score</td>
+      <td>A balance between precision and recall, useful when both matter and you can't pick just one.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+  </table>
+  </div>
+  <div class="callout">
+    The exam doesn't require calculating these metrics by hand, just recognizing which scenario each one matters most in. Classic example: in fraud detection, <span class="keyword">recall</span> matters more, because letting a real fraud slip through is far more costly than over-investigating a transaction that turns out to be legitimate, even if that generates more false positives.
+  </div>
+
+  <h3 class="sub">Amazon SageMaker: components by ML pipeline stage</h3>
+  <div class="callout">
+    SageMaker isn't a single button, it's a platform with modules for every stage of building your own model from scratch. You don't need to know how to use them, but you do need to recognize the name and which pipeline stage each one fits into.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Component</th><th>Pipeline stage</th><th>What it does</th></tr>
+    <tr><td class="servicio">SageMaker Data Wrangler</td><td>Data preparation</td><td>Cleans and transforms data through a visual interface, without hand-writing all the code.</td></tr>
+    <tr><td class="servicio">SageMaker Feature Store</td><td>Data preparation</td><td>Centralized repository of reusable features shared across different models and teams.</td></tr>
+    <tr><td class="servicio">SageMaker Studio</td><td>Building</td><td>Integrated development environment (IDE) for the full ML workflow.</td></tr>
+    <tr><td class="servicio">SageMaker JumpStart</td><td>Building</td><td>Catalog of pretrained models ready to use or fine-tune, no need to start from zero.</td></tr>
+    <tr><td class="servicio">SageMaker Canvas</td><td>Building</td><td>No-code ML, built for business users with no technical programming background.</td></tr>
+    <tr><td class="servicio">SageMaker Model Training / MLflow / HyperPod</td><td>Training</td><td>Train models at scale, track experiments (MLflow), and train very large models in a distributed way (HyperPod).</td></tr>
+    <tr><td class="servicio">SageMaker Endpoints: Real-Time, Serverless, Batch Transform, Asynchronous</td><td>Deployment</td><td>Different ways to serve a model depending on latency needs and traffic pattern: live, without managing infrastructure, in batches, or asynchronously for long-running jobs.</td></tr>
+    <tr><td class="servicio">SageMaker Model Monitor</td><td>Monitoring</td><td>Detects drift and quality violations in a model already deployed to production.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">When AI isn't the right solution</h3>
+  <div class="callout">
+    The exam also asks when NOT to use AI. Warning signs: the problem has an exact, deterministic answer that can be solved with simple business logic (you don't need a probabilistic model for that), the cost of building and maintaining a model outweighs the expected benefit, or the domain is highly regulated and sensitive, where a model error has serious legal or safety consequences and full, explainable control over every decision is required.
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="dominio2" class="part">
+  <div class="part-title">2. Fundamentals of Generative AI <span class="weight">24% of the exam</span></div>
+  <div class="intro">This is where the generative AI-specific vocabulary gets built: tokens, embeddings, context window, temperature. These terms reappear throughout Domains 3, 4, and 5, so it pays to master them here.</div>
+
+  <h3 class="sub">Core concepts, explained from the ground up</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Concept</th><th>Plain-language explanation</th><th>Priority</th></tr>
+    <tr>
+      <td class="servicio">Foundation Model</td>
+      <td>A large-scale model, trained on huge amounts of general data, that serves as an adaptable base for many different tasks without having to train a new model from scratch for each one. It's like a person with broad general knowledge: they can write, summarize, translate, or answer questions without having specifically studied each of those tasks separately.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Token</td>
+      <td>The smallest unit of text a language model processes, roughly a word or a word fragment. The cost of using a generative model and the limits on how much text it can handle at once are measured in tokens, not words or characters.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Chunking</td>
+      <td>Splitting a long document into smaller fragments (chunks) before converting it into embeddings, because a model can't process unlimited amounts of text at once. Chunk size affects the quality of later searches in RAG.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Embedding</td>
+      <td>Converting text, an image, or other data into a list of numbers (a vector) that represents its meaning. Two texts with similar meanings will have similar vectors, even if they use different words. This lets you search "by meaning" instead of by exact word matching.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Context window</td>
+      <td>The maximum number of tokens a model can factor into a single interaction, counting the input prompt plus the generated response. If the conversation or document exceeds that limit, the model simply can't "see" what fell outside it.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Temperature</td>
+      <td>A parameter that controls how predictable or creative the model's response is. Low temperature produces more consistent, repeatable responses across different runs, useful for tasks where accuracy matters. High temperature produces more varied, creative responses, useful for creative content generation.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Limitations you need to recognize</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Limitation</th><th>What it means</th></tr>
+    <tr><td class="servicio">Hallucination</td><td>The model generates information that sounds convincing and confident, but is incorrect or outright made up.</td></tr>
+    <tr><td class="servicio">Non-determinism</td><td>The same prompt can produce different responses across different runs, even at the same temperature.</td></tr>
+    <tr><td class="servicio">Bias</td><td>The model can reproduce biases present in the data it was trained on.</td></tr>
+    <tr><td class="servicio">Toxicity</td><td>The model can generate offensive, harmful, or inappropriate content if it isn't controlled with guardrails.</td></tr>
+    <tr><td class="servicio">Intellectual property</td><td>Risk that the generated content resembles protected works used in training too closely, or that using the generated content carries unclear legal implications.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Amazon Bedrock</h3>
+  <div class="callout">
+    Bedrock is the service that gives you access, through a single API, to foundation models from different providers (Anthropic, Meta, Amazon, and others), without having to manage servers or your own compute infrastructure. Think of it as a store carrying several brands of already-trained models, ready to use right away.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Bedrock component</th><th>What it does</th><th>Priority</th></tr>
+    <tr><td class="servicio">Knowledge Bases</td><td>Connects a foundation model to your own documents to implement RAG, without building the vector store yourself from scratch.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Agents</td><td>Lets the model carry out multi-step tasks by invoking external tools, such as functions or APIs, instead of only replying with text.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Guardrails</td><td>Applies content and safety policies to the model's inputs and outputs, blocking unwanted topics or sensitive information.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">PartyRock</td><td>A free environment for experimenting with and building simple generative apps on top of Bedrock, no full AWS account required.</td><td><span class="prio prio-baja">Low</span></td></tr>
+  </table>
+  </div>
+
+  <div class="callout">
+    <strong>Bedrock vs SageMaker, this domain's most-asked distinction:</strong> Bedrock is for quickly consuming and adapting already-trained foundation models, without managing infrastructure. SageMaker is for building and training your own machine learning models from the data, including training or fine-tuning foundation models when you need more technical control than Bedrock offers.
+  </div>
+
+  <h3 class="sub">Other generative services</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Service</th><th>What it is</th></tr>
+    <tr><td class="servicio">Amazon Q</td><td>AWS's generative assistant, with variants aimed at developers (helps with code) and at business (answers questions about enterprise data).</td></tr>
+    <tr><td class="servicio">AWS App Studio</td><td>Tool for building internal business applications using generative AI, with little code.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Cost models in generative AI</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Model</th><th>When it makes sense</th></tr>
+    <tr><td class="servicio">Pay per token (on-demand)</td><td>Ideal when usage is variable or unpredictable; you pay for what you actually consume, no commitment.</td></tr>
+    <tr><td class="servicio">Provisioned Throughput</td><td>Reserves guaranteed capacity for a period, makes sense when usage is constant and high and you need predictable latency.</td></tr>
+    <tr><td class="servicio">Custom models</td><td>Involve an additional training or fine-tuning cost, but can be more efficient long-term for a very specific use case.</td></tr>
+  </table>
+  </div>
+  <div class="callout">
+    Other cost and performance factors to consider when choosing a model: responsiveness (response latency), availability and redundancy, overall throughput, and regional coverage (not every model is available in every AWS region).
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="dominio3" class="part">
+  <div class="part-title">3. Foundation Model Applications <span class="weight">28% of the exam, the heaviest</span></div>
+  <div class="intro">This is the domain with the most questions. Master RAG especially, prompt engineering techniques, and the specialized AI services table, since a large share of the whole exam comes from there.</div>
+
+  <h3 class="sub">Criteria for choosing a pretrained model</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Criterion</th><th>What it evaluates</th></tr>
+    <tr><td class="servicio">Cost</td><td>Price per token or per hour of use; the biggest model isn't always the right answer if the requirement calls for the most cost-effective option for a simple task.</td></tr>
+    <tr><td class="servicio">Modality</td><td>Whether the model supports only text, or also images, audio, or other modalities (multimodal).</td></tr>
+    <tr><td class="servicio">Latency</td><td>How fast the model responds, critical in real-time applications like chatbots.</td></tr>
+    <tr><td class="servicio">Multilingual support</td><td>Whether the model handles well the language the application needs.</td></tr>
+    <tr><td class="servicio">Model size and complexity</td><td>Bigger models are usually more capable but also slower and more expensive.</td></tr>
+    <tr><td class="servicio">Customization</td><td>How easy it is to adapt the model to a specific use case, whether through prompting, RAG, or fine-tuning.</td></tr>
+    <tr><td class="servicio">Input/output length</td><td>How large a context window the model supports.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">RAG (Retrieval Augmented Generation), explained step by step</h3>
+  <div class="callout">
+    <strong>The problem RAG solves:</strong> a foundation model only "knows" what it learned during training, which has a cutoff date, and doesn't know your company's internal documents. Retraining the entire model every time your documents change would be very expensive and slow.<br><br>
+    <strong>How RAG works, end to end:</strong> your documents are split into fragments (chunking) → each fragment is converted into an embedding (a numeric vector representing its meaning) → those embeddings are stored in a vector database → when a user asks a question, that question is also converted into an embedding → the system searches the vector database for the fragments with meaning closest to the question → those fragments are added as context to the prompt sent to the model → the model generates the answer using that retrieved context, instead of only its general knowledge.<br><br>
+    The result: the model can answer with up-to-date, company-specific information, without having been retrained, and without changing a single internal weight of the model.
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Vector database service</th><th>What it is</th></tr>
+    <tr><td class="servicio">Amazon OpenSearch Service</td><td>Search engine that also works as a vector database, widely used as the backend for Bedrock Knowledge Bases.</td></tr>
+    <tr><td class="servicio">Amazon Aurora / RDS PostgreSQL with pgvector</td><td>Extension that adds the ability to store and search embeddings directly on top of an existing PostgreSQL relational database.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Ways to customize a model, from lowest to highest cost</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Technique</th><th>What it does</th><th>Cost and speed</th><th>When to use it</th></tr>
+    <tr>
+      <td class="servicio">In-Context Learning / Prompting</td>
+      <td>Guide the model by giving instructions or examples directly in the prompt, without modifying the model.</td>
+      <td>The cheapest and fastest, immediate results.</td>
+      <td>Simple tasks where explaining what's needed clearly is enough.</td>
+    </tr>
+    <tr>
+      <td class="servicio">RAG</td>
+      <td>Add relevant external context at query time, retrieved from a knowledge base.</td>
+      <td>Cheap, requires preparing the vector database but doesn't retrain the model.</td>
+      <td>You need the model to know specific or up-to-date information about your company.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Fine-Tuning</td>
+      <td>Retrains and adjusts the model's internal weights using your own labeled data.</td>
+      <td>More expensive and slower than RAG.</td>
+      <td>You need the model to persistently change its underlying behavior, style, or domain, not just its access to specific information.</td>
+    </tr>
+    <tr>
+      <td class="servicio">Pre-Training</td>
+      <td>Train a foundation model completely from scratch, with massive amounts of data.</td>
+      <td>The most expensive of all, requires infrastructure and data at massive scale.</td>
+      <td>Almost never the right answer on the exam for an individual company; done by the large model providers.</td>
+    </tr>
+  </table>
+  </div>
+  <div class="callout">
+    <strong>Golden rule for the exam:</strong> if two options technically solve the problem, the one with lower cost and less maintenance effort usually wins, unless the question explicitly asks for the model's base behavior to change persistently, in which case the correct answer is fine-tuning.
+  </div>
+
+  <h3 class="sub">Prompt Engineering techniques</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Technique</th><th>What it involves</th><th>Priority</th></tr>
+    <tr><td class="servicio">Zero-shot</td><td>Ask for the task directly, with no prior example in the prompt.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">One-shot</td><td>Include exactly one example of the desired input and output before the actual task.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Few-shot</td><td>Include several examples of desired input and output, to better guide the style and format of the response.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Chain-of-Thought</td><td>Ask the model to reason step by step before giving the final answer, useful in logic or calculation tasks.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Tree-of-Thought</td><td>Extends chain-of-thought by exploring several reasoning paths in parallel before picking the best one.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Self-Refine</td><td>The model generates a response, critiques it itself, and improves it in a second pass.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Negative prompt</td><td>Explicitly state what the model must NOT do or include in its response.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Prompt template</td><td>A reusable template with variable placeholders, to standardize prompts that repeat with different input data.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Prompt engineering risks</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Risk</th><th>What it means</th></tr>
+    <tr><td class="servicio">Exposure</td><td>The prompt or response reveals sensitive information that shouldn't be disclosed.</td></tr>
+    <tr><td class="servicio">Poisoning</td><td>Inserting malicious content into the data or context to manipulate the model's responses.</td></tr>
+    <tr><td class="servicio">Hijacking</td><td>A user redirects the prompt's original purpose toward a different, unauthorized task.</td></tr>
+    <tr><td class="servicio">Jailbreaking</td><td>Trying to make the model ignore its safety or content restrictions through clever instructions.</td></tr>
+    <tr><td class="servicio">Prompt Injection</td><td>A user tries to manipulate the system instructions through the prompt itself, so the model ignores its original rules.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Training and fine-tuning foundation models</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Concept</th><th>What it is</th></tr>
+    <tr><td class="servicio">Pre-Training</td><td>Massive initial training of a foundation model from scratch, using general data from the internet and other sources.</td></tr>
+    <tr><td class="servicio">Continuous Pre-Training</td><td>Continuing to train an already pretrained model with additional data, generally from a specific domain, before moving to fine-tuning.</td></tr>
+    <tr><td class="servicio">Instruction Tuning</td><td>Adjusting the model with examples of instructions and desired responses, so it better follows user commands.</td></tr>
+    <tr><td class="servicio">Transfer Learning</td><td>Leveraging knowledge a model already learned on one task, to adapt it faster to a different, related task.</td></tr>
+    <tr><td class="servicio">RLHF (Reinforcement Learning from Human Feedback)</td><td>Adjusting the model using human feedback about which responses are better, instead of only fixed labeled data.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Preparing data for fine-tuning</h3>
+  <div class="callout">
+    Four factors determine the quality of a fine-tuning dataset: <strong>curation</strong> (cleaning and selecting the right data), <strong>governance</strong> (controlling who can use and modify that data), <strong>size</strong> (enough examples for the fine-tuning to be effective), and <strong>representativeness</strong> (the data should reflect the diversity of cases the model will face in production, to avoid bias).
+  </div>
+
+  <h3 class="sub">How to evaluate foundation model performance</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Method or metric</th><th>What it measures</th><th>Priority</th></tr>
+    <tr><td class="servicio">Human evaluation</td><td>People directly review and rate the model's responses, useful for judging subjective quality like tone or usefulness.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Benchmark datasets</td><td>Standardized datasets for comparing the performance of different models under the same conditions.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">ROUGE</td><td>Measures how well a summary generated by the model overlaps with a human-written reference summary.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">BLEU</td><td>Measures the quality of a machine translation by comparing it against one or more reference translations.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">BERTScore</td><td>Compares the semantic meaning of two texts using embeddings, instead of only comparing exact words the way ROUGE and BLEU do.</td><td><span class="prio prio-baja">Low</span></td></tr>
+  </table>
+  </div>
+  <div class="callout">
+    Beyond technical metrics, the exam may ask about business metrics: whether the model increases team <strong>productivity</strong>, improves user <strong>engagement</strong>, or whether it's worth redesigning the whole task around the model's capabilities (task engineering) instead of just inserting it into an already existing process.
+  </div>
+
+  <h3 class="sub">Specialized AI Services</h3>
+  <div class="intro">The typical question pattern describes a business use case and asks you to identify the right service. The key is recognizing the input data type (text, image, audio, document, time series) and the task type (classify, extract, translate, recommend, forecast) before looking at the service names.</div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Service</th><th>Main use case</th><th>Priority</th></tr>
+    <tr><td class="servicio">Amazon Comprehend</td><td>Text analysis: sentiment, entities, key topics in natural language.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Amazon Rekognition</td><td>Image and video analysis: object detection, faces, content moderation.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Amazon Textract</td><td>Extracting text and structured data from scanned documents.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Amazon Transcribe</td><td>Converting audio to text (speech-to-text).</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Amazon Polly</td><td>Converting text to speech (text-to-speech).</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Amazon Translate</td><td>Automatic translation between languages.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Amazon Lex</td><td>Building chatbots and conversational assistants.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Amazon Kendra</td><td>Intelligent enterprise search over internal documents.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Amazon Personalize</td><td>Personalized product or content recommendations.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Amazon Forecast</td><td>Time-series forecasting, like future demand or sales.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Amazon Fraud Detector</td><td>Fraud detection in payments and accounts, using pretrained models built for this specific purpose.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Amazon Augmented AI (A2I)</td><td>Inserts human review into a model's prediction flow, when prediction confidence is low or the case is critical.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Amazon Connect</td><td>Cloud contact center that integrates AI capabilities, like Transcribe and Lex, for customer service.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Amazon Q</td><td>Generative assistant for business and for developers within the AWS ecosystem.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="dominio4" class="part">
+  <div class="part-title">4. Guidelines for Responsible AI <span class="weight">14% of the exam</span></div>
+  <div class="intro">This domain tests whether you understand the ethical and practical implications of using AI, not just the technology. Most questions ask you to recognize a principle or a tool from a described situation.</div>
+
+  <h3 class="sub">Core principles of responsible AI</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Principle</th><th>Question it answers</th><th>Example</th></tr>
+    <tr><td class="servicio">Fairness</td><td>"Does the model treat all groups fairly?"</td><td>A credit approval model shouldn't systematically reject a demographic group for factors unrelated to actual risk.</td></tr>
+    <tr><td class="servicio">Inclusivity</td><td>"Does the system work well for the real diversity of users who will use it?"</td><td>A speech recognition system trained and tested with different accents and languages, not just one.</td></tr>
+    <tr><td class="servicio">Veracity and Robustness</td><td>"Does the model stay reliable with unexpected inputs or inputs unlike its training data?"</td><td>The model doesn't fail completely when faced with a question phrased in an unusual way.</td></tr>
+    <tr><td class="servicio">Safety</td><td>"Does the system avoid causing harm to the people who use it or are affected by it?"</td><td>A medical chatbot that doesn't give advice that could put someone's health at risk.</td></tr>
+    <tr><td class="servicio">Explainability</td><td>"Can I understand and communicate why the model reached that decision?"</td><td>Being able to explain to a customer why they were denied a loan, instead of just saying "the algorithm decided it."</td></tr>
+    <tr><td class="servicio">Privacy and Security</td><td>"Is the data used to train or query the model protected?"</td><td>Not exposing users' personal information in the model's responses.</td></tr>
+    <tr><td class="servicio">Controllability</td><td>"Can I intervene, adjust, or stop the system if something goes wrong?"</td><td>Having an emergency switch or a human review process before an automated decision executes.</td></tr>
+    <tr><td class="servicio">Transparency</td><td>"Do I clearly communicate to users what the system can and can't do?"</td><td>Letting users know they're talking to an AI chatbot and not a person.</td></tr>
+    <tr><td class="servicio">Governance</td><td>"Are there organizational processes to oversee how AI is used?"</td><td>An internal committee that reviews and approves new AI use cases before launching them to production.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Types of bias</h3>
+  <div class="callout">
+    It's worth distinguishing two sources of bias: <strong>data bias</strong>, already present in the training data before the model is even touched (for example, if 90% of the historical "good employee" examples belong to a single demographic group), and <strong>model or process bias</strong>, introduced by how the system was designed or trained, even if the original data was reasonably balanced.
+  </div>
+
+  <h3 class="sub">Tools for detecting and monitoring</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Tool</th><th>What it does</th><th>Priority</th></tr>
+    <tr><td class="servicio">Amazon SageMaker Clarify</td><td>Detects potential bias in training data and in the predictions of your own model, and helps explain which factors most influenced a given prediction.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Amazon SageMaker Model Monitor</td><td>Watches a model already in production to detect drift or quality violations against what's expected.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Amazon Bedrock Guardrails</td><td>Filters input and output content on an already-consumed generative model (not your own), blocking unwanted topics or sensitive information.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">Amazon Augmented AI (A2I)</td><td>Inserts human review into the automated decision flow when the model's confidence is low.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+  <div class="callout">
+    <strong>SageMaker Clarify vs. Bedrock Guardrails, the key comparison in this domain:</strong> Clarify detects bias and explains predictions for a model you trained or are training yourself. Guardrails filters the input and output content of a generative model you're consuming, without access to its internal training data.
+  </div>
+
+  <h3 class="sub">Transparency and explainability</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Concept</th><th>What it is</th></tr>
+    <tr><td class="servicio">Transparent model</td><td>It's easy to understand how it reaches its decisions, like a simple decision tree.</td></tr>
+    <tr><td class="servicio">Opaque model (black box)</td><td>Its decisions are hard to interpret directly, as is often the case with large deep neural networks.</td></tr>
+    <tr><td class="servicio">SageMaker Model Cards</td><td>Structured documentation about the purpose, limitations, training data, and expected performance of your own model.</td></tr>
+    <tr><td class="servicio">AWS AI Service Cards</td><td>The equivalent of Model Cards, but published by AWS for its own managed AI services, reporting their capabilities and limitations.</td></tr>
+  </table>
+  </div>
+  <div class="callout">
+    There's a frequent trade-off between <strong>interpretability and performance</strong>: simpler models tend to be easier to explain but less accurate, while more complex models tend to be more accurate but harder to interpret. Choosing one or the other depends on how critical it is to be able to explain each decision the system makes.
+  </div>
+
+  <h3 class="sub">Additional considerations</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Topic</th><th>What to consider</th></tr>
+    <tr><td class="servicio">Environmental impact</td><td>Training large models consumes a lot of energy; AWS promotes sustainability practices when selecting and using models.</td></tr>
+    <tr><td class="servicio">Human-in-the-loop</td><td>Keeping human oversight on high-impact decisions, instead of fully automating without review.</td></tr>
+    <tr><td class="servicio">Legal risks</td><td>Intellectual property infringement claims, biased model outputs, loss of customer trust, and end-user risks stemming from model hallucinations.</td></tr>
+    <tr><td class="servicio">Characteristics of a good dataset</td><td>Inclusivity and diversity in the data, curated and verified sources, and datasets balanced across the relevant categories or groups.</td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="dominio5" class="part">
+  <div class="part-title">5. Security, Compliance and Governance for AI Solutions <span class="weight">14% of the exam</span></div>
+  <div class="intro">A good part of this domain is the same general AWS security principles (IAM, encryption, auditing), applied specifically to the context of AI services like Bedrock and SageMaker.</div>
+
+  <h3 class="sub">Data and identity security</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Service or concept</th><th>Applied to AI</th><th>Priority</th></tr>
+    <tr>
+      <td class="servicio">AWS IAM</td>
+      <td>Controls who can invoke a model in Bedrock, who can train or deploy a model in SageMaker, and with what level of permissions.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">AWS PrivateLink</td>
+      <td>Lets you connect to AI services like Bedrock or SageMaker privately, without exposing traffic to the public internet.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Shared Responsibility Model</td>
+      <td>AWS is responsible for the security of the infrastructure that runs the AI services; the customer remains responsible for what data it uses to train or query the models, and for configuring permissions correctly.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Encryption at rest and in transit</td>
+      <td>The same KMS and TLS principles that apply to the rest of AWS also protect training data and model queries.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Data traceability: where it comes from and what was done to it</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Concept</th><th>What it is</th></tr>
+    <tr><td class="servicio">Data Lineage</td><td>Being able to trace where a piece of data came from and what transformations it went through before reaching the model, important for auditing and for diagnosing problems.</td></tr>
+    <tr><td class="servicio">Data Cataloging</td><td>Keeping an organized inventory of what data exists, where it is, and what it contains, to know what can be used and for what.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Secure data engineering best practices</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Practice</th><th>What it covers</th></tr>
+    <tr><td class="servicio">Data quality</td><td>Verifying that the data used is correct, complete, and consistent before using it to train or query a model.</td></tr>
+    <tr><td class="servicio">Privacy-enhancing technologies (PETs)</td><td>Techniques that let you work with sensitive data while reducing exposure risk, like anonymization or specialized encryption.</td></tr>
+    <tr><td class="servicio">Data access control</td><td>Restricting who can view or use certain data, especially data containing personally identifiable information (PII).</td></tr>
+    <tr><td class="servicio">Data integrity</td><td>Ensuring data isn't altered without authorization between its source and its use.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Threats specific to AI systems</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Threat</th><th>What it involves</th><th>Priority</th></tr>
+    <tr>
+      <td class="servicio">Prompt Injection</td>
+      <td>A user tries to manipulate the system instructions through the prompt itself so the model ignores its original restrictions.</td>
+      <td><span class="prio prio-alta">High</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Data Poisoning</td>
+      <td>Deliberately manipulating training data to bias or degrade a model's future behavior.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+    <tr>
+      <td class="servicio">Model Inversion / Extraction</td>
+      <td>Trying to recover sensitive training information from the responses given by the already-trained model.</td>
+      <td><span class="prio prio-media">Medium</span></td>
+    </tr>
+  </table>
+  </div>
+  <div class="callout">
+    The same general application security concepts apply here too: <strong>threat detection</strong> (identifying abnormal behavior around the AI system), <strong>vulnerability management</strong> (keeping the system's components up to date), and <strong>infrastructure protection</strong> (securing the network and compute resources that support the model).
+  </div>
+
+  <h3 class="sub">Regulatory compliance standards</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Standard</th><th>What it is</th></tr>
+    <tr><td class="servicio">ISO</td><td>Family of international quality management and information security standards, also applicable to AI systems.</td></tr>
+    <tr><td class="servicio">SOC (System and Organization Controls)</td><td>Audit reports on an organization's internal controls related to security, availability, and privacy.</td></tr>
+    <tr><td class="servicio">Algorithm Accountability Act</td><td>Regulatory framework aimed at requiring impact assessments of automated decision-making systems, including potential bias.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">AWS services for governance and compliance</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Service</th><th>Role in AI governance</th><th>Priority</th></tr>
+    <tr><td class="servicio">AWS Config</td><td>Audits and evaluates the configuration of resources used by your AI systems over time.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">Amazon Inspector</td><td>Scans for vulnerabilities in the infrastructure that supports your AI workloads.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">AWS Audit Manager</td><td>Automates evidence collection for compliance audits, including AI-related frameworks.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">AWS Artifact</td><td>Repository of AWS compliance reports and certifications (like ISO or SOC), downloadable on demand.</td><td><span class="prio prio-media">Medium</span></td></tr>
+    <tr><td class="servicio">AWS CloudTrail</td><td>Audits who invoked which model or AI service, and when, the same way it audits any other API call in AWS.</td><td><span class="prio prio-alta">High</span></td></tr>
+    <tr><td class="servicio">AWS Trusted Advisor</td><td>Recommends cost, security, and performance improvements, also applicable to the resources supporting your AI systems.</td><td><span class="prio prio-baja">Low</span></td></tr>
+    <tr><td class="servicio">Amazon CloudWatch</td><td>Monitors operational metrics for SageMaker endpoints or Bedrock usage, the same way it monitors any other AWS service.</td><td><span class="prio prio-media">Medium</span></td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="comparaciones" class="part">
+  <div class="part-title">6. Critical comparisons (memorize, no exceptions)</div>
+  <div class="intro">These are the comparisons that most often show up as distractors on the real exam, based on the patterns in your guides. If you know this table by heart, you'll solve a big share of the "trap" questions.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Comparison</th><th>Point of distinction</th></tr>
+    <tr><td class="servicio">RAG vs. Fine-tuning</td><td>Context added at query time, without touching the model, vs. persistently retraining the model with your own data.</td></tr>
+    <tr><td class="servicio">Bedrock vs. SageMaker</td><td>Consuming and adapting already-trained foundation models, without managing infrastructure, vs. building and training your own machine learning models from the data.</td></tr>
+    <tr><td class="servicio">Supervised vs. unsupervised learning</td><td>Data labeled with a known answer vs. patterns discovered in unlabeled data.</td></tr>
+    <tr><td class="servicio">Precision vs. Recall</td><td>Of what was flagged as positive, how much was correct, vs. of all the real positives, how many were detected.</td></tr>
+    <tr><td class="servicio">Zero-shot vs. Few-shot</td><td>No examples in the prompt vs. guiding examples included in the prompt.</td></tr>
+    <tr><td class="servicio">Overfitting vs. Underfitting</td><td>The model memorizes the noise in the training data and fails on new data, vs. the model is too simple and fails even on the training data.</td></tr>
+    <tr><td class="servicio">Comprehend vs. Rekognition</td><td>Text analysis vs. image and video analysis.</td></tr>
+    <tr><td class="servicio">Transcribe vs. Polly</td><td>Speech to text vs. text to speech.</td></tr>
+    <tr><td class="servicio">Lex vs. Kendra</td><td>Conversational chatbot vs. enterprise search over documents.</td></tr>
+    <tr><td class="servicio">Personalize vs. Forecast</td><td>Personalized recommendations vs. time-series forecasting.</td></tr>
+    <tr><td class="servicio">Foundation model vs. traditional ML model</td><td>Pretrained, multitask, and general-purpose, vs. trained specifically for a single concrete task.</td></tr>
+    <tr><td class="servicio">Data bias vs. model bias</td><td>Already present in the training data, vs. introduced by the system's design or training process.</td></tr>
+    <tr><td class="servicio">SageMaker Clarify vs. Bedrock Guardrails</td><td>Detects bias and explains predictions for your own model, vs. filters input and output content on a consumed generative model.</td></tr>
+    <tr><td class="servicio">Transparent model vs. opaque model</td><td>Easy to interpret how it reaches its decisions, vs. works like a black box that's hard to explain.</td></tr>
+    <tr><td class="servicio">Real-time vs. batch inference</td><td>Immediate response for an individual case, vs. massive processing of lots of data with no need for an instant response.</td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="senales" class="part">
+  <div class="part-title">7. Trigger words: what to look for in the question</div>
+  <div class="intro">Just like in SAA-C03, learning to translate the question's phrasing into a concept or service saves you time. Here's the version for AIF-C01.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>If the question says...</th><th>Think first of...</th></tr>
+    <tr><td class="servicio">"Company-specific knowledge, without retraining the model"</td><td>RAG with Bedrock Knowledge Bases</td></tr>
+    <tr><td class="servicio">"Persistently change the model's base behavior or style"</td><td>Fine-tuning</td></tr>
+    <tr><td class="servicio">"Quickly consume an already-trained model, without managing infrastructure"</td><td>Amazon Bedrock</td></tr>
+    <tr><td class="servicio">"Build, train, or deploy your own model from the data"</td><td>Amazon SageMaker</td></tr>
+    <tr><td class="servicio">"Classify sentiment or extract entities from text"</td><td>Amazon Comprehend</td></tr>
+    <tr><td class="servicio">"Detect objects, faces, or inappropriate content in images or video"</td><td>Amazon Rekognition</td></tr>
+    <tr><td class="servicio">"Extract text or data from scanned documents"</td><td>Amazon Textract</td></tr>
+    <tr><td class="servicio">"Convert audio to text" or "text to audio"</td><td>Amazon Transcribe or Amazon Polly, respectively</td></tr>
+    <tr><td class="servicio">"Build a conversational chatbot"</td><td>Amazon Lex</td></tr>
+    <tr><td class="servicio">"Intelligent search over the company's internal documents"</td><td>Amazon Kendra</td></tr>
+    <tr><td class="servicio">"Recommend personalized products or content"</td><td>Amazon Personalize</td></tr>
+    <tr><td class="servicio">"Forecast future demand or sales"</td><td>Amazon Forecast</td></tr>
+    <tr><td class="servicio">"Prevent harmful content in a generative model's responses"</td><td>Bedrock Guardrails</td></tr>
+    <tr><td class="servicio">"Detect bias in your own model or explain a prediction"</td><td>SageMaker Clarify</td></tr>
+    <tr><td class="servicio">"Document a model's limitations and expected performance"</td><td>Model Cards (your own) or AI Service Cards (AWS service)</td></tr>
+    <tr><td class="servicio">"Human review before accepting a low-confidence prediction"</td><td>Amazon Augmented AI (A2I)</td></tr>
+    <tr><td class="servicio">"Cheaper for a simple task"</td><td>A smaller model, simple prompting, or RAG instead of fine-tuning</td></tr>
+    <tr><td class="servicio">"Audit who invoked which model and when"</td><td>AWS CloudTrail</td></tr>
+    <tr><td class="servicio">"The model gets worse over time in production"</td><td>Drift, monitored with SageMaker Model Monitor</td></tr>
+  </table>
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+<section id="checklist" class="part">
+  <div class="part-title">8. 4-week roadmap and final checklist</div>
+
+  <h3 class="sub">Suggested roadmap</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Week</th><th>Focus</th></tr>
+    <tr><td class="servicio">1: Fundamentals</td><td>Domain 1 in full (AI/ML concepts, learning types, ML lifecycle, SageMaker at a general level) and half of Domain 2 (generative AI concepts: tokens, embeddings, foundation models).</td></tr>
+    <tr><td class="servicio">2: Generative AI and Bedrock</td><td>Finish Domain 2 and move into Domain 3: Amazon Bedrock in depth, RAG, fine-tuning, Bedrock Agents, and hands-on practice in the Bedrock playground.</td></tr>
+    <tr><td class="servicio">3: AI Services and governance</td><td>Finish Domain 3 (specialized AI services, model selection), and cover Domains 4 and 5 (responsible AI, security and governance).</td></tr>
+    <tr><td class="servicio">4: Practice and closing gaps</td><td>Full practice runs in real-exam mode, reviewing mistakes by identifying topic, cause, and what to remember, reviewing the comparison table, and the final days with no new content, only review and rest.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Recommended materials</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Material</th><th>Use</th></tr>
+    <tr><td class="servicio">AWS Skill Builder</td><td>The free official "AWS Certified AI Practitioner Official Practice Question Set" course and base AI content on AWS.</td></tr>
+    <tr><td class="servicio">Official AIF-C01 Exam Guide</td><td>Checklist of the exam's scope, useful throughout your studying, not just at the start.</td></tr>
+    <tr><td class="servicio">Bedrock and SageMaker documentation</td><td>Point-in-time technical verification of concepts and service limits, which change frequently.</td></tr>
+    <tr><td class="servicio">Specialized AI Services documentation</td><td>Comprehend, Rekognition, Textract, Transcribe, Polly, Translate, Lex, Kendra, Personalize, Forecast.</td></tr>
+    <tr><td class="servicio">Third-party practice exams</td><td>Practice by domain first, then full exams in timed mode.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Core concepts</h3>
+  <ul class="checklist">
+    <li>The AI, ML, Deep Learning, and Generative AI hierarchy, from memory</li>
+    <li>The three main types of learning: supervised, unsupervised, and reinforcement</li>
+    <li>What overfitting, underfitting, bias, and variance are</li>
+    <li>What tokens, embeddings, context window, and temperature are</li>
+    <li>The full RAG flow, step by step, without skipping any</li>
+    <li>Prompt engineering techniques: zero-shot, few-shot, chain-of-thought at minimum</li>
+  </ul>
+
+  <h3 class="sub">Key services you should know without hesitation</h3>
+  <ul class="checklist">
+    <li>Bedrock vs. SageMaker, when to use each</li>
+    <li>The full table of specialized AI Services and their main use case</li>
+    <li>Bedrock Guardrails vs. SageMaker Clarify</li>
+    <li>Precision vs. Recall, and in which scenario each matters more</li>
+    <li>RAG vs. Fine-tuning vs. Pre-training, in order of cost</li>
+  </ul>
+
+  <h3 class="sub">Exam-day strategy</h3>
+  <ul class="checklist">
+    <li>65 questions in 90 minutes, a tighter pace than SAA-C03, and 700 out of 1000 points to pass</li>
+    <li>First round: rule out options that don't solve the type of problem posed</li>
+    <li>Second round: among the viable options, choose based on the specific constraint in the question: cost, effort, speed, or accuracy</li>
+    <li>Identify whether the scenario describes a business use case (points to an AI Service or Bedrock) or a need to build your own model (points to SageMaker)</li>
+    <li>Answer every question, since there's no penalty for a wrong answer</li>
+    <li>The last few days before the exam: no new content, only review and rest</li>
+  </ul>
+
+  <div class="callout warn">
+    <strong>Note on content currency:</strong> AWS AI services evolve very fast, faster than the infrastructure services in SAA-C03. Always check the official AIF-C01 Exam Guide and the Bedrock and SageMaker documentation before your exam, since component names, limits, and prices can change between when this material was prepared and the date you take it.
+  </div>
+  <a class="top-link" href="#toc">↑ back to index</a>
+</section>
+
+</main>
+</div>
+<script>
+  (function(){
+    var toggle = document.getElementById('tocToggle');
+    var toc = document.getElementById('toc');
+    if(!toggle || !toc) return;
+    toggle.addEventListener('click', function(){
+      var isOpen = toc.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    var links = toc.querySelectorAll('a');
+    for(var i=0;i<links.length;i++){
+      links[i].addEventListener('click', function(){
+        toc.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    }
+  })();
+</script>
+</body>
+</html>

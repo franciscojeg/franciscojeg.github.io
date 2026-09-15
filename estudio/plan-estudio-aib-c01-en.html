@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIB-C01 Study Plan · Francisco Escobar</title>
+<style>
+  :root {
+    --amber: #B7791F; --amber-light: #FBF0DC; --amber-mid: #D99B33;
+    --blue: #185FA5; --blue-light: #E6F1FB;
+    --green: #3B6D11; --green-light: #EAF3DE;
+    --red: #A32D2D; --red-light: #FCEBEB;
+    --purple: #534AB7; --purple-light: #EEEDFE;
+    --coral: #993C1D; --coral-light: #FAECE7;
+    --teal: #0F6E56; --teal-light: #E1F5EE;
+    --text: #1a1a18; --text2: #5f5e5a; --text3: #9c9a92;
+    --bg: #ffffff; --bg2: #f7f6f2; --bg3: #f1efe8;
+    --border: rgba(0,0,0,.1); --border2: rgba(0,0,0,.18);
+    --radius: 8px; --radius-lg: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text: #e8e6de; --text2: #b4b2a9; --text3: #73726c;
+      --bg: #1c1c1a; --bg2: #242420; --bg3: #2c2c28;
+      --border: rgba(255,255,255,.1); --border2: rgba(255,255,255,.18);
+      --amber-light: rgba(183,121,31,.2); --blue-light: rgba(24,95,165,.2);
+      --green-light: rgba(59,109,17,.2); --red-light: rgba(162,45,45,.2);
+      --purple-light: rgba(83,74,183,.2); --coral-light: rgba(153,60,29,.2);
+      --teal-light: rgba(15,110,86,.2);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+  .header { background: linear-gradient(135deg,#3a2c05 0%,#B7791F 100%); padding: 28px 32px 24px; }
+  .header h1 { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .header p { font-size: 14px; color: rgba(255,255,255,.85); }
+  .header .badge { display: inline-block; background: rgba(255,255,255,.2); border-radius: 20px; padding: 3px 10px; font-size: 12px; color: #fff; margin-top: 8px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 28px 24px 60px; }
+  .beta-notice{background:rgba(183,121,31,.1);border:1px solid rgba(183,121,31,.28);border-radius:var(--radius-lg);padding:12px 16px;font-size:13px;margin:0 0 20px;color:var(--text);}
+  .beta-notice strong{color:var(--amber);}
+  .section-title { font-size: 18px; font-weight: 600; color: var(--text); margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+  .metric { background: var(--bg2); border-radius: var(--radius); padding: 12px 14px; text-align: center; }
+  .metric-num { font-size: 22px; font-weight: 600; }
+  .metric-lbl { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .tab-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tab-btn { background: none; border: 1px solid var(--border2); border-radius: var(--radius); padding: 8px 14px; font-size: 12px; cursor: pointer; color: var(--text2); transition: all .15s; line-height: 1.3; text-align: center; }
+  .tab-btn.active { background: var(--amber); border-color: var(--amber); color: #fff; font-weight: 500; }
+  .tab-btn:hover:not(.active) { background: var(--bg2); }
+  .tab-btn .wnum { display: block; font-weight: 500; font-size: 13px; }
+  .tab-btn .wdate { display: block; font-size: 10px; opacity: .7; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 12px; background: var(--bg); }
+  .card-label { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 5px; }
+  .topic-row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .topic-row:last-child { border-bottom: none; }
+  .pill { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+  .pill-d1 { background: var(--blue-light); color: var(--blue); }
+  .pill-d2 { background: var(--amber-light); color: var(--amber); }
+  .pill-d3 { background: var(--purple-light); color: var(--purple); }
+  .pill-d4 { background: var(--teal-light); color: var(--teal); }
+  .topic-detail { color: var(--text2); font-size: 12px; margin-top: 3px; }
+  .day-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+  .day-card { background: var(--bg2); border-radius: var(--radius); padding: 10px 12px; font-size: 13px; }
+  .day-label { font-weight: 600; font-size: 11px; color: var(--text3); margin-bottom: 4px; text-transform: uppercase; }
+  .day-sub { font-size: 11px; color: var(--text3); margin-top: 3px; }
+  .tip-box { border-left: 3px solid var(--amber); background: var(--amber-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-size: 13px; margin: 12px 0; color: var(--text); }
+  .warn-box { border-left: 3px solid var(--coral); background: var(--coral-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-size: 13px; margin: 12px 0; color: var(--text); }
+  .trap-box { border-left: 3px solid #E24B4A; background: var(--red-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-size: 13px; margin: 10px 0; color: var(--text); }
+  .trap-box strong { color: var(--red); }
+  .mock-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .mock-label { font-size: 12px; width: 100px; color: var(--text2); }
+  .mock-track { flex: 1; height: 8px; border-radius: 4px; background: var(--bg3); overflow: hidden; }
+  .mock-fill { height: 8px; border-radius: 4px; }
+  .mock-pct { font-size: 12px; width: 50px; text-align: right; }
+  .res-card{border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+  .res-name{font-weight:600;font-size:14px;margin-bottom:2px;}
+  .res-desc{font-size:12px;color:var(--text2);}
+  .res-tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:20px;background:var(--amber-light);color:var(--amber);font-weight:500;white-space:nowrap;}
+  .lang-switch{position:absolute;top:16px;right:20px;display:flex;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;overflow:hidden;font-size:11px;font-weight:700;}
+  .lang-switch a{padding:4px 10px;color:rgba(255,255,255,.8);text-decoration:none;}
+  .lang-switch a.active{background:#fff;color:var(--amber);}
+  .header{position:relative;}
+  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 16px 32px; font-size: 12px; color: var(--text3); text-align: center; }
+  @media (max-width: 600px) {
+    .metrics { grid-template-columns: repeat(2,1fr); }
+    .day-grid { grid-template-columns: 1fr; }
+  }
+</style>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23232F3E'/%3E%3Ctext x='12' y='17' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='14' font-weight='700' fill='%23FF9900'%3EF%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div style="background:#14141f;padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px;">
+  <a href="../index-en.html" style="color:#fff;font-size:12.5px;text-decoration:none;font-weight:600;letter-spacing:.02em;">&larr; Back to home &middot; franciscojeg.github.io</a>
+  <span style="display:inline-flex;gap:8px;">
+    <a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A66C2"/><text x="12" y="16" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="700" fill="#fff">in</text></svg></a>
+    <a href="https://github.com/franciscojeg" target="_blank" rel="noopener" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#181717"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="8.5" font-weight="700" fill="#fff">GH</text></svg></a>
+    <a href="https://dev.to/franciscojeg78" target="_blank" rel="noopener" aria-label="dev.to"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A0A0A"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="6.5" font-weight="700" fill="#fff">DEV</text></svg></a>
+    <a href="https://builder.aws.com/community/@franciscojeg?tab=badges" target="_blank" rel="noopener" aria-label="AWS Builder Center"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF9900"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" fill="#232F3E">AWS</text></svg></a>
+    <a href="https://www.instagram.com/franciscojeg.tech/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24"><defs><linearGradient id="igg-bar" x1="0" y1="24" x2="24" y2="0"><stop offset="0%" stop-color="#FEDA75"/><stop offset="35%" stop-color="#D62976"/><stop offset="70%" stop-color="#962FBF"/><stop offset="100%" stop-color="#4F5BD5"/></linearGradient></defs><circle cx="12" cy="12" r="12" fill="url(#igg-bar)"/><rect x="6.5" y="7.5" width="11" height="10.5" rx="3" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="12" cy="12.7" r="2.7" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="15.2" cy="9.6" r="0.6" fill="#fff"/></svg></a>
+    <a href="https://www.youtube.com/@ugwelcomebuilders" target="_blank" rel="noopener" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF0000"/><path d="M9.5 8.5 L16 12 L9.5 15.5 Z" fill="#fff"/></svg></a>
+  </span>
+</div>
+
+
+<div class="header">
+  <div class="lang-switch"><a href="plan-estudio-aib-c01.html">ES</a><a href="plan-estudio-aib-c01-en.html" class="active">EN</a></div>
+  <h1>AIB-C01 Study Plan - AWS Certified AI Business Strategist</h1>
+  <p>Francisco Escobar, 5 weeks to certification</p>
+  <span class="badge">AWS Community Builder · Networking &amp; Content Delivery</span>
+  <span class="badge">Business level · no code or implementation</span>
+</div>
+
+<div class="container">
+
+<div class="beta-notice"><strong>Before you lock in dates:</strong> AIB-C01 is a brand-new AWS certification. The official exam guide documents 130 minutes and 700/1000 as the passing score, but AWS is also currently offering a beta version of 85 questions and 170 minutes for USD 50. Check your AWS Certification account to see which version applies to you before scheduling the exam; this plan is generic (week 1 through week 5) so you can adapt it to your own date.</div>
+
+<div class="metrics">
+  <div class="metric"><div class="metric-num" style="color:var(--amber)">5</div><div class="metric-lbl">weeks of plan</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--blue)">~25h</div><div class="metric-lbl">estimated hours</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--teal)">700</div><div class="metric-lbl">minimum score /1000</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--coral)">80%</div><div class="metric-lbl">target on practice exams</div></div>
+</div>
+
+<div class="section-title">Week-by-week plan</div>
+<div class="tab-row">
+  <button class="tab-btn active" onclick="showW(0,this)"><span class="wnum">Week 1</span><span class="wdate">Domain 1</span></button>
+  <button class="tab-btn" onclick="showW(1,this)"><span class="wnum">Week 2</span><span class="wdate">Domain 2</span></button>
+  <button class="tab-btn" onclick="showW(2,this)"><span class="wnum">Week 3</span><span class="wdate">Domain 3</span></button>
+  <button class="tab-btn" onclick="showW(3,this)"><span class="wnum">Week 4</span><span class="wdate">Domain 4</span></button>
+  <button class="tab-btn" onclick="showW(4,this)"><span class="wnum">Week 5</span><span class="wdate">Final review</span></button>
+</div>
+
+<!-- S1 -->
+<div id="w0" class="panel active">
+  <div class="card"><div class="card-label">Week 1 — Domain 1: AI Fundamentals and Literacy (24%)</div>
+    <div class="topic-row"><span class="pill pill-d1">1.1</span><div><strong>Basic concepts and terminology</strong><div class="topic-detail">AI vs ML vs GenAI, training vs inference, structured vs unstructured data, why data quality matters, global frameworks such as ISO/IEC 23053 and 42001.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d1">1.2</span><div><strong>Choosing the right type of AI solution</strong><div class="topic-detail">Rules-based automation vs AI, what distinguishes an AI agent (autonomy, tool use, agent-to-agent communication), continuous monitoring and drift, shadow AI classification.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d1">1.3</span><div><strong>GenAI concepts and techniques</strong><div class="topic-detail">Basic prompt engineering, context window and token limits, RAG vs fine-tuning to adapt a model to business needs.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Days 1–3</div>AI vs ML vs GenAI + solution types<div class="day-sub">2h — the vocabulary foundation for the whole exam</div></div>
+    <div class="day-card"><div class="day-label">Days 4–5</div>RAG, fine-tuning, basic prompt engineering<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Weekend</div>Review + AWS Skill Builder Exam Prep Plan<div class="day-sub">2h — activate AWS's official free course</div></div>
+  </div>
+  <div class="tip-box">Activate the <strong>official Exam Prep Plan on AWS Skill Builder</strong> for AIB-C01 right now. You get free access as a Community Builder, and it brings content structured by domain.</div>
+</div>
+
+<!-- S2 -->
+<div id="w1" class="panel">
+  <div class="card"><div class="card-label">Week 2 — Domain 2: AI Strategy and Business Value Creation (28%, the heaviest)</div>
+    <div class="topic-row"><span class="pill pill-d2">2.1</span><div><strong>AI strategies aligned to the business</strong><div class="topic-detail">Mapping high-impact use cases, build vs buy vs partner decisions, prioritizing initiatives (scale, pause, terminate), recognizing when AI is not the solution, evaluating transitions between solutions.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d2">2.2</span><div><strong>Measuring and demonstrating business value</strong><div class="topic-detail">Tangible and intangible KPIs, baselines before implementation, ROI calculation with comprehensive frameworks, early success indicators, basic cost control.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d2">2.3</span><div><strong>Positioning AI as a competitive advantage</strong><div class="topic-detail">Assessing the competitive landscape, transforming business models with AI, sustainable advantages, investment level based on industry maturity.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Days 1–2</div>Use cases, build vs buy vs partner<div class="day-sub">2h</div></div>
+    <div class="day-card"><div class="day-label">Days 3–4</div>KPIs, baseline and ROI calculation<div class="day-sub">2h — the most tested topic in this domain</div></div>
+    <div class="day-card"><div class="day-label">Day 5</div>Competitive advantage and industry maturity<div class="day-sub">1h</div></div>
+    <div class="day-card"><div class="day-label">Weekend</div>Review + 15-question domain mini quiz<div class="day-sub">2h</div></div>
+  </div>
+  <div class="warn-box">This domain carries 28% weight, more than any other. If you're short on time this week, prioritize ROI and KPIs over everything else: they come up again and again across scenarios.</div>
+</div>
+
+<!-- S3 -->
+<div id="w2" class="panel">
+  <div class="card"><div class="card-label">Week 3 — Domain 3: AI Governance and Responsible AI Leadership (24%)</div>
+    <div class="topic-row"><span class="pill pill-d3">3.1</span><div><strong>Principles of responsible AI</strong><div class="topic-detail">Fairness, explainability, privacy, safety, transparency, robustness. Tensions between business goals and these principles. When human oversight is needed: hallucination detection, guardrails, escalation criteria.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d3">3.2</span><div><strong>Governance and regulatory compliance</strong><div class="topic-detail">Cross-functional structures with clear accountability, regulatory risks of AI-driven processes, access controls and data security, lifecycle-based risk classification frameworks.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d3">3.3</span><div><strong>Enterprise risks and mitigation</strong><div class="topic-detail">Controls and monitoring in production, bias across multiple lifecycle stages and bias drift, harmful content and intellectual property, hallucinations and model drift.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Days 1–2</div>The six principles of responsible AI<div class="day-sub">1.5h — memorize them</div></div>
+    <div class="day-card"><div class="day-label">Days 3–4</div>Governance, compliance and risk classification<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Day 5</div>Bias, hallucinations and harmful content<div class="day-sub">1h</div></div>
+    <div class="day-card"><div class="day-label">Weekend</div>Review + combined quiz on domains 1 through 3<div class="day-sub">2h</div></div>
+  </div>
+  <div class="trap-box"><strong>Recurring trap:</strong> bias isn't detected or fixed just once when the model is trained. The exam expects you to recognize it requires continuous monitoring for "bias drift" throughout the system's entire life.</div>
+</div>
+
+<!-- S4 -->
+<div id="w3" class="panel">
+  <div class="card"><div class="card-label">Week 4 — Domain 4: Business Readiness, Leadership and AI Transformation (24%)</div>
+    <div class="topic-row"><span class="pill pill-d4">4.1</span><div><strong>Maturity and readiness to adopt AI</strong><div class="topic-detail">Readiness dimensions (leadership, data, culture, infrastructure, governance), AI maturity models, capability gaps, investment prioritization.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d4">4.2</span><div><strong>Data foundations and infrastructure</strong><div class="topic-detail">Data quality and accessibility, data silos, data strategy and ownership, foundational infrastructure requirements.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d4">4.3</span><div><strong>Leading change and workforce capabilities</strong><div class="topic-detail">Executive sponsorship, cross-functional teams, transparent communication, cultural barriers, development programs (POC, hackathons), transition of human roles.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d4">4.4</span><div><strong>Scaling from pilots to enterprise deployments</strong><div class="topic-detail">Envision/experiment/launch/scale phases, early wins, AI centers of excellence (COE), continuous feedback, transition from experimental to production.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Days 1–2</div>Maturity, readiness and capability gaps<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Days 3–4</div>Change leadership and workforce<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Day 5</div>Scaling: from pilot to COE<div class="day-sub">1h</div></div>
+    <div class="day-card"><div class="day-label">Weekend</div><strong style="color:var(--amber);">Full practice exam 1</strong><div class="day-sub">AWS Skill Builder practice questions or Tutorials Dojo</div></div>
+  </div>
+  <div class="tip-box">This domain is easy to confuse with domain 2: domain 2 is "which AI initiative to choose and how to measure it," domain 4 is "how ready the organization is to adopt it and how to lead that change."</div>
+</div>
+
+<!-- S5 -->
+<div id="w4" class="panel">
+  <div class="card"><div class="card-label">Week 5 — General review, comparisons and practice exams</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:10px;">No new content. This week is only active review, comparisons and timed practice exams.</p>
+  </div>
+  <div style="margin-bottom:16px;">
+    <div class="mock-row"><span class="mock-label">Practice exam 1</span><div class="mock-track"><div class="mock-fill" style="width:60%;background:#EF9F27;"></div></div><span class="mock-pct" style="color:var(--amber);">~600/1000</span></div>
+    <div class="mock-row"><span class="mock-label">Practice exam 2</span><div class="mock-track"><div class="mock-fill" style="width:72%;background:#EF9F27;"></div></div><span class="mock-pct" style="color:var(--amber);">~720/1000</span></div>
+    <div class="mock-row"><span class="mock-label">Practice exam 3</span><div class="mock-track"><div class="mock-fill" style="width:80%;background:#3B6D11;"></div></div><span class="mock-pct" style="color:var(--green);">750+ target</span></div>
+    <div class="mock-row"><span class="mock-label">Real exam</span><div class="mock-track"><div class="mock-fill" style="width:82%;background:#B7791F;"></div></div><span class="mock-pct" style="color:var(--amber);font-weight:600;">PASS</span></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Days 1–2</div>Review of critical comparisons (see table below)<div class="day-sub">2h</div></div>
+    <div class="day-card"><div class="day-label">Day 3</div><strong style="color:var(--amber);">Practice exam 2</strong><div class="day-sub">2.5h exam + error review</div></div>
+    <div class="day-card"><div class="day-label">Day 4</div>Targeted review of practice exam 2 mistakes<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Day 5</div><strong style="color:var(--amber);">Practice exam 3</strong><div class="day-sub">2.5h — target: beat 750/1000</div></div>
+    <div class="day-card"><div class="day-label">Day before the exam</div>Light review, no new content, sleep well<div class="day-sub">45 min max</div></div>
+  </div>
+  <div class="tip-box"><strong>Comparisons that decide questions:</strong> RAG vs fine-tuning · build vs buy vs partner · tangible vs intangible KPI · governance vs guardrails/human oversight · pilot vs scale (COE) · AI maturity vs readiness.</div>
+</div>
+
+<div class="section-title">Essential resources</div>
+<div class="res-card"><div><div class="res-name">AWS Skill Builder — Exam Prep Plan AIB-C01</div><div class="res-desc">Official course structured by domain, with official AWS practice questions. It's the most reliable resource since it's the newest of the four certifications.</div></div><span class="res-tag">Official</span></div>
+<div class="res-card"><div><div class="res-name">Official exam guide (PDF, AIB-C01)</div><div class="res-desc">AWS Certification document with the exact task statements and skills for each domain. Go back to it whenever a practice question leaves you unsure about scope.</div></div><span class="res-tag">Reference</span></div>
+<div class="res-card"><div><div class="res-name">Tutorials Dojo — AIB-C01 Practice Exams</div><div class="res-desc">Third-party practice sets with explanations, useful once you already master the official content.</div></div><span class="res-tag">Practice exams</span></div>
+
+</div>
+
+<footer>
+  AIB-C01 study plan — AWS Certified AI Business Strategist<br>
+  Francisco Escobar · AWS Community Builder · Networking &amp; Content Delivery
+</footer>
+
+<script>
+function showW(i,b){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('w'+i).classList.add('active');
+  b.classList.add('active');
+}
+</script>
+</body>
+</html>
