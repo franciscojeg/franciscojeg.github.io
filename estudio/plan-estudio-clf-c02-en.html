@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Plan CLF-C02 · Francisco Escobar</title>
+<style>
+  :root {
+    --amber: #B7791F; --amber-light: #FBF0DC; --amber-mid: #D99B33;
+    --blue: #185FA5; --blue-light: #E6F1FB;
+    --green: #1F7A5C; --green-light: #E1F3EC;
+    --red: #A32D2D; --red-light: #FCEBEB;
+    --purple: #534AB7; --purple-light: #EEEDFE;
+    --coral: #993C1D; --coral-light: #FAECE7;
+    --teal: #0F6E56; --teal-light: #E1F5EE;
+    --text: #1a1a18; --text2: #5f5e5a; --text3: #9c9a92;
+    --bg: #ffffff; --bg2: #f7f6f2; --bg3: #f1efe8;
+    --border: rgba(0,0,0,.1); --border2: rgba(0,0,0,.18);
+    --radius: 8px; --radius-lg: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text: #e8e6de; --text2: #b4b2a9; --text3: #73726c;
+      --bg: #1c1c1a; --bg2: #242420; --bg3: #2c2c28;
+      --border: rgba(255,255,255,.1); --border2: rgba(255,255,255,.18);
+      --amber-light: rgba(183,121,31,.2); --blue-light: rgba(24,95,165,.2);
+      --green-light: rgba(31,122,92,.2); --red-light: rgba(162,45,45,.2);
+      --purple-light: rgba(83,74,183,.2); --coral-light: rgba(153,60,29,.2);
+      --teal-light: rgba(15,110,86,.2);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+  .header { background: linear-gradient(135deg,#0B3D2E 0%,#1F7A5C 60%,#2FA87D 100%); padding: 28px 32px 24px; }
+  .header h1 { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .header p { font-size: 14px; color: rgba(255,255,255,.85); }
+  .header .badge { display: inline-block; background: rgba(255,255,255,.2); border-radius: 20px; padding: 3px 10px; font-size: 12px; color: #fff; margin-top: 8px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 28px 24px 60px; }
+  .section-title { font-size: 18px; font-weight: 600; color: var(--text); margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+  .metric { background: var(--bg2); border-radius: var(--radius); padding: 12px 14px; text-align: center; }
+  .metric-num { font-size: 22px; font-weight: 600; }
+  .metric-lbl { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .tab-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tab-btn { background: none; border: 1px solid var(--border2); border-radius: var(--radius); padding: 8px 14px; font-size: 12px; cursor: pointer; color: var(--text2); transition: all .15s; line-height: 1.3; text-align: center; }
+  .tab-btn.active { background: var(--green); border-color: var(--green); color: #fff; font-weight: 500; }
+  .tab-btn:hover:not(.active) { background: var(--bg2); }
+  .tab-btn .wnum { display: block; font-weight: 500; font-size: 13px; }
+  .tab-btn .wdate { display: block; font-size: 10px; opacity: .7; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 12px; background: var(--bg); }
+  .card-label { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 5px; }
+  .topic-row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .topic-row:last-child { border-bottom: none; }
+  .pill { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+  .pill-d1 { background: var(--blue-light); color: var(--blue); }
+  .pill-d2 { background: var(--amber-light); color: var(--amber); }
+  .pill-d3 { background: var(--purple-light); color: var(--purple); }
+  .pill-d4 { background: var(--teal-light); color: var(--teal); }
+  .topic-detail { color: var(--text2); font-size: 12px; margin-top: 3px; }
+  .day-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+  .day-card { background: var(--bg2); border-radius: var(--radius); padding: 10px 12px; font-size: 13px; }
+  .day-label { font-weight: 600; font-size: 11px; color: var(--text3); margin-bottom: 4px; text-transform: uppercase; }
+  .day-sub { font-size: 11px; color: var(--text3); margin-top: 3px; }
+  .tip-box { border-left: 3px solid var(--green); background: var(--green-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-size: 13px; margin: 12px 0; color: var(--text); }
+  .warn-box { border-left: 3px solid var(--coral); background: var(--coral-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-size: 13px; margin: 12px 0; color: var(--text); }
+  .trap-box { border-left: 3px solid #E24B4A; background: var(--red-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-size: 13px; margin: 10px 0; color: var(--text); }
+  .trap-box strong { color: var(--red); }
+  .mock-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .mock-label { font-size: 12px; width: 100px; color: var(--text2); }
+  .mock-track { flex: 1; height: 8px; border-radius: 4px; background: var(--bg3); overflow: hidden; }
+  .mock-fill { height: 8px; border-radius: 4px; }
+  .mock-pct { font-size: 12px; width: 50px; text-align: right; }
+  .res-card{border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+  .res-name{font-weight:600;font-size:14px;margin-bottom:2px;}
+  .res-desc{font-size:12px;color:var(--text2);}
+  .res-tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:500;white-space:nowrap;}
+  .lang-switch{position:absolute;top:16px;right:20px;display:flex;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;overflow:hidden;font-size:11px;font-weight:700;}
+  .lang-switch a{padding:4px 10px;color:rgba(255,255,255,.8);text-decoration:none;}
+  .lang-switch a.active{background:#fff;color:var(--green);}
+  .header{position:relative;}
+  .filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+  .f-btn{background:none;border:1px solid var(--border2);border-radius:20px;padding:6px 12px;font-size:11.5px;cursor:pointer;color:var(--text2);}
+  .f-btn.on{background:var(--bg2);border-color:var(--text3);color:var(--text);font-weight:600;}
+  .f-btn .dot{display:inline-block;width:8px;height:8px;border-radius:50%;}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .svc-card{border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px;}
+  .svc-name{font-size:14px;font-weight:700;margin-bottom:4px;}
+  .svc-use{font-size:12px;color:var(--text2);}
+  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 16px 32px; font-size: 12px; color: var(--text3); text-align: center; }
+  @media (max-width: 600px) {
+    .metrics { grid-template-columns: repeat(2,1fr); }
+    .day-grid, .svc-grid { grid-template-columns: 1fr; }
+  }
+</style>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23232F3E'/%3E%3Ctext x='12' y='17' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='14' font-weight='700' fill='%23FF9900'%3EF%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div style="background:#14141f;padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px;">
+  <a href="../index-en.html" style="color:#fff;font-size:12.5px;text-decoration:none;font-weight:600;letter-spacing:.02em;">&larr; Back to home &middot; franciscojeg.github.io</a>
+  <span style="display:inline-flex;gap:8px;">
+    <a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A66C2"/><text x="12" y="16" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="700" fill="#fff">in</text></svg></a>
+    <a href="https://github.com/franciscojeg" target="_blank" rel="noopener" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#181717"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="8.5" font-weight="700" fill="#fff">GH</text></svg></a>
+    <a href="https://dev.to/franciscojeg78" target="_blank" rel="noopener" aria-label="dev.to"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A0A0A"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="6.5" font-weight="700" fill="#fff">DEV</text></svg></a>
+    <a href="https://builder.aws.com/community/@franciscojeg?tab=badges" target="_blank" rel="noopener" aria-label="AWS Builder Center"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF9900"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" fill="#232F3E">AWS</text></svg></a>
+    <a href="https://www.instagram.com/franciscojeg.tech/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24"><defs><linearGradient id="igg-bar" x1="0" y1="24" x2="24" y2="0"><stop offset="0%" stop-color="#FEDA75"/><stop offset="35%" stop-color="#D62976"/><stop offset="70%" stop-color="#962FBF"/><stop offset="100%" stop-color="#4F5BD5"/></linearGradient></defs><circle cx="12" cy="12" r="12" fill="url(#igg-bar)"/><rect x="6.5" y="7.5" width="11" height="10.5" rx="3" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="12" cy="12.7" r="2.7" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="15.2" cy="9.6" r="0.6" fill="#fff"/></svg></a>
+    <a href="https://www.youtube.com/@ugwelcomebuilders" target="_blank" rel="noopener" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF0000"/><path d="M9.5 8.5 L16 12 L9.5 15.5 Z" fill="#fff"/></svg></a>
+  </span>
+</div>
+
+
+<div class="header">
+  <div class="lang-switch"><a href="plan-estudio-clf-c02.html">ES</a><a href="plan-estudio-clf-c02-en.html" class="active">EN</a></div>
+  <h1>Study Plan CLF-C02 - AWS Certified Cloud Practitioner</h1>
+  <p>Francisco Escobar, 5 weeks to certification</p>
+  <span class="badge">AWS Community Builder · Networking &amp; Content Delivery</span>
+  <span class="badge">Foundational level · no code, no implementation</span>
+</div>
+
+<div class="container">
+
+<div class="metrics">
+  <div class="metric"><div class="metric-num" style="color:var(--green)">5</div><div class="metric-lbl">weeks in this plan</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--blue)">~20h</div><div class="metric-lbl">estimated hours</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--teal)">700</div><div class="metric-lbl">minimum score /1000</div></div>
+  <div class="metric"><div class="metric-num" style="color:var(--coral)">80%</div><div class="metric-lbl">target on practice exams</div></div>
+</div>
+
+<div class="section-title">Week-by-week plan</div>
+<div class="tab-row">
+  <button class="tab-btn active" onclick="showW(0,this)"><span class="wnum">Week 1</span><span class="wdate">Domain 1</span></button>
+  <button class="tab-btn" onclick="showW(1,this)"><span class="wnum">Week 2</span><span class="wdate">Domain 2</span></button>
+  <button class="tab-btn" onclick="showW(2,this)"><span class="wnum">Week 3</span><span class="wdate">Domain 3 (part 1)</span></button>
+  <button class="tab-btn" onclick="showW(3,this)"><span class="wnum">Week 4</span><span class="wdate">Domain 3 (part 2) + Domain 4</span></button>
+  <button class="tab-btn" onclick="showW(4,this)"><span class="wnum">Week 5</span><span class="wdate">Final review</span></button>
+</div>
+
+<!-- S1 -->
+<div id="w0" class="panel active">
+  <div class="card"><div class="card-label">Week 1 — Domain 1: Cloud Concepts (24%)</div>
+    <div class="topic-row"><span class="pill pill-d1">1.1</span><div><strong>What cloud computing is and its benefits</strong><div class="topic-detail">Trade capital for variable expense, economies of scale, stop guessing capacity, speed and agility, stop investing in your own infrastructure, go global in minutes.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d1">1.2</span><div><strong>AWS Cloud Adoption Framework (CAF)</strong><div class="topic-detail">Six perspectives: business, people, governance, platform, security, and operations. Not sequential steps.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d1">1.3</span><div><strong>Well-Architected Framework</strong><div class="topic-detail">Six pillars: operational excellence, security, reliability, performance efficiency, cost optimization, and sustainability.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d1">1.4</span><div><strong>Migration strategies (the 7 R's)</strong><div class="topic-detail">Rehost, replatform, repurchase, refactor, retire, retain, and relocate.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Days 1–2</div>Cloud benefits + AWS CAF<div class="day-sub">2h — the conceptual base for the whole exam</div></div>
+    <div class="day-card"><div class="day-label">Days 3–4</div>Well-Architected (6 pillars) + the 7 R's of migration<div class="day-sub">2h</div></div>
+    <div class="day-card"><div class="day-label">Weekend</div>Review + AWS Skill Builder Exam Prep Plan<div class="day-sub">2h — activate the official free AWS course</div></div>
+  </div>
+  <div class="tip-box">Activate the <strong>official Exam Prep Plan on AWS Skill Builder</strong> for CLF-C02 right now. You get free access as a Community Builder, and it comes structured by domain.</div>
+</div>
+
+<!-- S2 -->
+<div id="w1" class="panel">
+  <div class="card"><div class="card-label">Week 2 — Domain 2: Security and Compliance (30%)</div>
+    <div class="topic-row"><span class="pill pill-d2">2.1</span><div><strong>Shared responsibility model</strong><div class="topic-detail">AWS secures the cloud (physical infrastructure, virtualization). The customer secures what they put in the cloud (data, access, configuration), in different proportions depending on the service.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d2">2.2</span><div><strong>AWS IAM</strong><div class="topic-detail">Root user, users, groups, roles, policies, MFA, principle of least privilege, IAM Identity Center.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d2">2.3</span><div><strong>Compliance, audit, and governance</strong><div class="topic-detail">AWS Artifact, Audit Manager, Config, CloudTrail, Organizations, Control Tower.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d2">2.4</span><div><strong>Specialized security services</strong><div class="topic-detail">GuardDuty, Inspector, Macie, KMS, Secrets Manager, Shield, WAF, Security Hub.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Days 1–2</div>Shared responsibility + IAM<div class="day-sub">2h — the most tested topic in this domain</div></div>
+    <div class="day-card"><div class="day-label">Days 3–4</div>Compliance, audit, and security services<div class="day-sub">2h</div></div>
+    <div class="day-card"><div class="day-label">Weekend</div>Review + 15-question domain mini quiz<div class="day-sub">2h</div></div>
+  </div>
+  <div class="warn-box">This domain carries 30%, the second heaviest. Learn to tell apart CloudTrail (who did what), AWS Config (how configuration changed), and CloudWatch (performance and health): it's the most repeated trap in the exam.</div>
+</div>
+
+<!-- S3 -->
+<div id="w2" class="panel">
+  <div class="card"><div class="card-label">Week 3 — Domain 3: Cloud Technology and Services, part 1 (34% total)</div>
+    <div class="topic-row"><span class="pill pill-d3">3.1</span><div><strong>Ways to interact with AWS + global infrastructure</strong><div class="topic-detail">Console, CLI, SDK, infrastructure as code. Regions, Availability Zones, edge locations, Local Zones, and Outposts.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d3">3.2</span><div><strong>Compute and containers</strong><div class="topic-detail">EC2, Lambda, Elastic Beanstalk, Lightsail, Batch. ECS, EKS, ECR, Fargate.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d3">3.3</span><div><strong>Storage</strong><div class="topic-detail">S3 and its storage classes, EBS, EFS, FSx, Storage Gateway, Backup.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d3">3.4</span><div><strong>Databases</strong><div class="topic-detail">RDS, Aurora, DynamoDB, ElastiCache, Neptune, DocumentDB.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Days 1–2</div>Global infrastructure + compute and containers<div class="day-sub">2.5h</div></div>
+    <div class="day-card"><div class="day-label">Days 3–4</div>Storage (memorize S3 classes) + databases<div class="day-sub">2.5h</div></div>
+    <div class="day-card"><div class="day-label">Weekend</div>Review + service catalog (see below)<div class="day-sub">2h</div></div>
+  </div>
+  <div class="tip-box">This domain carries 34%, the heaviest in the whole exam, which is why it's split across two weeks. Focus on recognizing WHAT each service does and which category it falls into, not how to configure it.</div>
+</div>
+
+<!-- S4 -->
+<div id="w3" class="panel">
+  <div class="card"><div class="card-label">Week 4 — Domain 3 part 2 + Domain 4: Billing, Pricing, and Support (12%)</div>
+    <div class="topic-row"><span class="pill pill-d3">3.5</span><div><strong>Networking and content delivery</strong><div class="topic-detail">VPC, Route 53, CloudFront, Direct Connect, VPN, Transit Gateway, ELB, Global Accelerator, API Gateway.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d3">3.6</span><div><strong>Integration, analytics, and machine learning</strong><div class="topic-detail">SQS, SNS, EventBridge, Step Functions, Athena, Redshift, QuickSight, Glue. AI/ML services at a conceptual level: SageMaker AI, Rekognition, Textract, Transcribe, Polly, Translate, Lex, Comprehend, Amazon Q.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d3">3.7</span><div><strong>Management, monitoring, and governance</strong><div class="topic-detail">CloudWatch, CloudFormation, Systems Manager, Auto Scaling, AWS Health Dashboard, Trusted Advisor.</div></div></div>
+    <div class="topic-row"><span class="pill pill-d4">4.1</span><div><strong>Billing, pricing, and support</strong><div class="topic-detail">Pricing models (On-Demand, Reserved, Savings Plans, Spot), Pricing Calculator, Cost Explorer, Budgets, support plans, AWS Marketplace.</div></div></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Days 1–2</div>Networking and content delivery<div class="day-sub">2h</div></div>
+    <div class="day-card"><div class="day-label">Day 3</div>Integration, analytics, ML, and governance<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Days 4–5</div>Pricing models and support plans<div class="day-sub">2h — note the support plan naming transition</div></div>
+    <div class="day-card"><div class="day-label">Weekend</div><strong style="color:var(--green);">Full practice exam 1</strong><div class="day-sub">AWS Skill Builder practice questions or Tutorials Dojo</div></div>
+  </div>
+  <div class="trap-box"><strong>Recurring trap:</strong> Reserved Instances and Savings Plans require a time commitment but guarantee capacity and a discount. Spot is the cheapest but can be interrupted. On-Demand requires no commitment but is the most expensive option per hour.</div>
+</div>
+
+<!-- S5 -->
+<div id="w4" class="panel">
+  <div class="card"><div class="card-label">Week 5 — General review, comparisons, and practice exams</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:10px;">No new content. This week is entirely active review, comparisons, and timed practice exams.</p>
+  </div>
+  <div style="margin-bottom:16px;">
+    <div class="mock-row"><span class="mock-label">Practice 1</span><div class="mock-track"><div class="mock-fill" style="width:60%;background:#3CA372;"></div></div><span class="mock-pct" style="color:var(--green);">~600/1000</span></div>
+    <div class="mock-row"><span class="mock-label">Practice 2</span><div class="mock-track"><div class="mock-fill" style="width:72%;background:#3CA372;"></div></div><span class="mock-pct" style="color:var(--green);">~720/1000</span></div>
+    <div class="mock-row"><span class="mock-label">Practice 3</span><div class="mock-track"><div class="mock-fill" style="width:80%;background:#1F7A5C;"></div></div><span class="mock-pct" style="color:var(--green);">750+ goal</span></div>
+    <div class="mock-row"><span class="mock-label">Real exam</span><div class="mock-track"><div class="mock-fill" style="width:82%;background:#0B3D2E;"></div></div><span class="mock-pct" style="color:var(--green);font-weight:600;">PASS</span></div>
+  </div>
+  <div class="day-grid">
+    <div class="day-card"><div class="day-label">Days 1–2</div>Review critical comparisons (see study material)<div class="day-sub">2h</div></div>
+    <div class="day-card"><div class="day-label">Day 3</div><strong style="color:var(--green);">Practice exam 2</strong><div class="day-sub">1.5h exam + review mistakes</div></div>
+    <div class="day-card"><div class="day-label">Day 4</div>Targeted review of practice exam 2 mistakes<div class="day-sub">1.5h</div></div>
+    <div class="day-card"><div class="day-label">Day 5</div><strong style="color:var(--green);">Practice exam 3</strong><div class="day-sub">1.5h — goal: break 750/1000</div></div>
+    <div class="day-card"><div class="day-label">Day before the exam</div>Light review, no new content, sleep well<div class="day-sub">45 min max</div></div>
+  </div>
+  <div class="tip-box"><strong>Comparisons that decide questions:</strong> Region vs. Availability Zone · S3 vs. EBS vs. EFS · RDS vs. DynamoDB · CloudTrail vs. CloudWatch vs. Config · On-Demand vs. Reserved vs. Savings Plans vs. Spot · Direct Connect vs. VPN.</div>
+</div>
+
+<div class="section-title">Service catalog by domain · quick reference</div>
+<p style="font-size:13px;color:var(--text2);margin-bottom:12px;">Filter by domain to review only the services you need for each week. This exam only requires recognizing each service's "job title."</p>
+
+<div id="svcwrap">
+<div class="filter-row">
+  <button class="f-btn on" onclick="filterSvc('all',this)">All</button>
+  <button class="f-btn" onclick="filterSvc('d1',this)"><span class="dot" style="background:#185FA5;margin-right:4px;"></span>D1 Concepts</button>
+  <button class="f-btn" onclick="filterSvc('d2',this)"><span class="dot" style="background:#B7791F;margin-right:4px;"></span>D2 Security</button>
+  <button class="f-btn" onclick="filterSvc('d3',this)"><span class="dot" style="background:#534AB7;margin-right:4px;"></span>D3 Technology</button>
+  <button class="f-btn" onclick="filterSvc('d4',this)"><span class="dot" style="background:#0F6E56;margin-right:4px;"></span>D4 Billing</button>
+</div>
+
+<div class="svc-grid" id="svcgrid">
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--blue)">AWS CAF</div><div class="svc-use">Six perspectives for organizing the transformation toward the cloud: business, people, governance, platform, security, operations.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--blue)">AWS Well-Architected Tool</div><div class="svc-use">Evaluates workloads against the framework's six pillars and suggests improvements.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--blue)">AWS Snow Family</div><div class="svc-use">Physical devices for migrating large volumes of data to AWS when the network isn't enough.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--blue)">AWS Application Discovery Service</div><div class="svc-use">Discovers and collects information from on-premises servers to plan a migration.</div></div>
+  <div class="svc-card" data-dom="d1"><div class="svc-name" style="color:var(--blue)">AWS Migration Hub</div><div class="svc-use">Central dashboard for tracking migration progress across different AWS tools.</div></div>
+
+  <div class="svc-card" data-dom="d2"><div class="svc-name" style="color:var(--amber)">AWS IAM</div><div class="svc-use">Users, groups, roles, and policies for controlling who can do what to which resource.</div></div>
+  <div class="svc-card" data-dom="d2"><div class="svc-name" style="color:var(--amber)">AWS Organizations</div><div class="svc-use">Centralized management of multiple accounts, with service control policies and consolidated billing.</div></div>
+  <div class="svc-card" data-dom="d2"><div class="svc-name" style="color:var(--amber)">Amazon GuardDuty</div><div class="svc-use">Intelligent threat detection that analyzes account logs for malicious activity.</div></div>
+  <div class="svc-card" data-dom="d2"><div class="svc-name" style="color:var(--amber)">Amazon Macie</div><div class="svc-use">Discovers and classifies sensitive data stored in Amazon S3 buckets.</div></div>
+  <div class="svc-card" data-dom="d2"><div class="svc-name" style="color:var(--amber)">AWS KMS</div><div class="svc-use">Creates and manages the keys used to encrypt data at rest.</div></div>
+  <div class="svc-card" data-dom="d2"><div class="svc-name" style="color:var(--amber)">AWS Artifact</div><div class="svc-use">Self-service portal for downloading AWS compliance reports (SOC, ISO).</div></div>
+  <div class="svc-card" data-dom="d2"><div class="svc-name" style="color:var(--amber)">AWS CloudTrail</div><div class="svc-use">Records every API call made in the account: who did what, when, and from where.</div></div>
+  <div class="svc-card" data-dom="d2"><div class="svc-name" style="color:var(--amber)">AWS Shield / WAF</div><div class="svc-use">Shield protects against DDoS attacks. WAF filters malicious traffic to a web application.</div></div>
+
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">Amazon EC2</div><div class="svc-use">Resizable virtual servers with full control over the operating system.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">AWS Lambda</div><div class="svc-use">Runs code without provisioning servers, billing only for execution time.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">Amazon ECS / EKS</div><div class="svc-use">Container orchestration: ECS is AWS's own option, EKS is managed Kubernetes.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">Amazon S3</div><div class="svc-use">Object storage with high durability, for any type and volume of file.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">Amazon EBS / EFS</div><div class="svc-use">EBS is a disk for a single EC2 instance. EFS is a file system shared across multiple instances.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">Amazon RDS / Aurora</div><div class="svc-use">Managed relational databases. Aurora is AWS's higher-performance version.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">Amazon DynamoDB</div><div class="svc-use">Fully managed NoSQL key-value database, with millisecond latency at any scale.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">Amazon VPC</div><div class="svc-use">An isolated, private virtual network within AWS, where resources are deployed.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">Amazon CloudFront</div><div class="svc-use">Content delivery network that distributes content from edge locations close to the user.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">Amazon Route 53</div><div class="svc-use">Managed DNS service, also used for traffic routing and health checks.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">AWS Direct Connect</div><div class="svc-use">Dedicated, private network connection between an on-premises data center and AWS.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">Amazon CloudWatch</div><div class="svc-use">Monitors metrics, logs, and alarms across AWS resources and applications.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">AWS CloudFormation</div><div class="svc-use">Provisions infrastructure as code through repeatable templates.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">AWS Trusted Advisor</div><div class="svc-use">Automated recommendations on cost, security, performance, and resilience best practices.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">Amazon SageMaker AI</div><div class="svc-use">Platform for building, training, and deploying your own machine learning models.</div></div>
+  <div class="svc-card" data-dom="d3"><div class="svc-name" style="color:var(--purple)">Amazon Q</div><div class="svc-use">AWS's generative assistant: Q Developer for code, Q Business for company data.</div></div>
+
+  <div class="svc-card" data-dom="d4"><div class="svc-name" style="color:var(--teal)">AWS Pricing Calculator</div><div class="svc-use">Estimates the cost of an architecture before deploying it.</div></div>
+  <div class="svc-card" data-dom="d4"><div class="svc-name" style="color:var(--teal)">AWS Cost Explorer</div><div class="svc-use">Visualizes and analyzes spend and usage patterns over time.</div></div>
+  <div class="svc-card" data-dom="d4"><div class="svc-name" style="color:var(--teal)">AWS Budgets</div><div class="svc-use">Sets budgets and alerts when spend approaches or exceeds a defined limit.</div></div>
+  <div class="svc-card" data-dom="d4"><div class="svc-name" style="color:var(--teal)">AWS Marketplace</div><div class="svc-use">Catalog of third-party software ready to run on AWS.</div></div>
+  <div class="svc-card" data-dom="d4"><div class="svc-name" style="color:var(--teal)">Business Support+ / Enterprise Support</div><div class="svc-use">Paid support plans with different response times and levels of technical guidance.</div></div>
+</div>
+</div>
+
+<div class="section-title">Essential resources</div>
+<div class="res-card"><div><div class="res-name">AWS Skill Builder — Exam Prep Plan CLF-C02</div><div class="res-desc">Official course structured by domain, with official AWS practice questions.</div></div><span class="res-tag">Official</span></div>
+<div class="res-card"><div><div class="res-name">Official exam guide (PDF, CLF-C02)</div><div class="res-desc">AWS Certification document with the exact task statements and skills for each domain, and the full list of services in and out of scope.</div></div><span class="res-tag">Reference</span></div>
+<div class="res-card"><div><div class="res-name">Tutorials Dojo — CLF-C02 Practice Exams</div><div class="res-desc">Third-party practice sets with explanations, useful once you already know the official content well.</div></div><span class="res-tag">Practice exams</span></div>
+
+</div>
+
+<footer>
+  Study plan CLF-C02 — AWS Certified Cloud Practitioner<br>
+  Francisco Escobar · AWS Community Builder · Networking &amp; Content Delivery
+</footer>
+
+<script>
+function showW(i,b){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('w'+i).classList.add('active');
+  b.classList.add('active');
+}
+function filterSvc(dom,btn){
+  document.querySelectorAll('#svcwrap .f-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('#svcgrid .svc-card').forEach(c=>{
+    c.style.display=(dom==='all'||c.dataset.dom===dom)?'':'none';
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Material de Estudio: AWS CLF-C02</title>
+<style>
+  :root{
+    --aws-orange:#FF9900;
+    --aws-dark:#232F3E;
+    --bg:#f4f6f8;
+    --card:#ffffff;
+    --text:#1c2530;
+    --text-muted:#5b6b7a;
+    --border:#e1e6eb;
+    --alta:#d93025; --alta-bg:#fce8e6;
+    --media:#b7791f; --media-bg:#fef3e0;
+    --baja:#1a73e8; --baja-bg:#e8f0fe;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--text); margin:0; line-height:1.55;
+  }
+  header{
+    background:var(--aws-dark); color:#fff; padding:22px 24px; text-align:center;
+  }
+  header h1{margin:0 0 4px;font-size:22px;}
+  header p{margin:0;color:#c8d1db;font-size:13.5px;}
+  header{position:relative;}
+  .lang-switch{position:absolute;top:14px;right:16px;display:flex;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;overflow:hidden;font-size:11px;font-weight:700;}
+  .lang-switch a{padding:4px 10px;color:rgba(255,255,255,.8);text-decoration:none;}
+  .lang-switch a.active{background:#fff;color:var(--aws-dark);}
+  .layout{display:flex; max-width:1200px; margin:0 auto;}
+  nav#toc{
+    width:270px; flex-shrink:0; padding:20px 14px; position:sticky; top:0; align-self:flex-start;
+    max-height:100vh; overflow-y:auto; font-size:13px; border-right:1px solid var(--border); background:#fff;
+  }
+  nav#toc h4{margin:14px 0 6px;color:var(--aws-dark);font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
+  nav#toc h4:first-child{margin-top:0;}
+  nav#toc a{display:block;color:var(--text-muted);text-decoration:none;padding:3px 0 3px 6px;border-left:2px solid transparent;}
+  nav#toc a:hover{color:var(--aws-dark);border-left-color:var(--aws-orange);}
+  main{flex:1; padding:24px 32px 80px; min-width:0;}
+  .part{margin-bottom:44px;}
+  .part-title{
+    background:var(--aws-dark); color:#fff; padding:12px 18px; border-radius:8px; margin-bottom:6px;
+    font-size:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;
+  }
+  .part-title .weight{background:var(--aws-orange);color:var(--aws-dark);font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;}
+  .intro{color:var(--text-muted); font-size:14px; margin:10px 0 18px; padding:12px 16px; background:#fff8ef; border-left:4px solid var(--aws-orange); border-radius:0 6px 6px 0;}
+  h3.sub{font-size:15px; margin:22px 0 8px; color:var(--aws-dark); border-bottom:2px solid var(--border); padding-bottom:4px;}
+  h4.subsub{font-size:13.5px; margin:16px 0 6px; color:var(--text);}
+  .table-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:20px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.06); background:#fff;}
+  table{width:100%; min-width:640px; table-layout:fixed; border-collapse:collapse; font-size:13px; background:#fff;}
+  th:first-child, td.servicio{width:22%; word-wrap:break-word; overflow-wrap:break-word;}
+  th,td{padding:9px 11px; text-align:left; vertical-align:top; border-bottom:1px solid var(--border);}
+  th{background:#eef1f4; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--text-muted);}
+  tr:last-child td{border-bottom:none;}
+  td.servicio{font-weight:700;}
+  .prio{display:inline-block; font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap;}
+  .prio-alta{background:var(--alta-bg); color:var(--alta);}
+  .prio-media{background:var(--media-bg); color:var(--media);}
+  .prio-baja{background:var(--baja-bg); color:var(--baja);}
+  .top-link{font-size:11.5px; color:var(--baja); text-decoration:none;}
+  .callout{background:#fff; border:1px solid var(--border); border-left:4px solid var(--baja); border-radius:0 8px 8px 0; padding:12px 16px; font-size:13.5px; margin:14px 0;}
+  .callout.warn{border-left-color:var(--media); }
+  .checklist{list-style:none; padding:0; margin:0;}
+  .checklist li{padding:6px 0 6px 26px; position:relative; font-size:14px; border-bottom:1px dashed var(--border);}
+  .checklist li:before{content:"☐"; position:absolute; left:0; color:var(--aws-orange); font-size:16px;}
+  code{background:#eef1f4; padding:1px 5px; border-radius:4px; font-size:12px;}
+  .keyword{background:var(--aws-dark); color:#fff; padding:2px 8px; border-radius:5px; font-weight:700; font-size:12px;}
+  .toc-toggle{display:none;}
+  .beta-note{background:#fff4ce;border:1px solid #f0d375;border-radius:8px;padding:12px 16px;font-size:13.5px;margin:14px 0;color:#5c4a06;}
+  @media (max-width: 900px){
+    .toc-toggle{
+      display:block; margin:14px 14px 0; background:var(--aws-orange); color:var(--aws-dark);
+      border:none; padding:12px 16px; border-radius:8px; font-weight:700; font-size:14px;
+      cursor:pointer; width:calc(100% - 28px);
+    }
+    .layout{flex-direction:column;}
+    nav#toc{
+      display:none; width:100%; position:static; max-height:none;
+      border-right:none; border-bottom:1px solid var(--border);
+    }
+    nav#toc.open{display:block;}
+    main{padding:18px 14px 60px;}
+    table{font-size:12px; min-width:560px;}
+    th,td{padding:7px 8px;}
+    header h1{font-size:19px;}
+    .part-title{font-size:16px; padding:10px 14px;}
+  }
+  @media (max-width: 480px){
+    header{padding:16px 14px;}
+    header h1{font-size:17px;}
+    main{padding:14px 10px 50px;}
+    .part-title{font-size:14.5px; flex-direction:column; align-items:flex-start; gap:4px;}
+    table{font-size:11.5px; min-width:520px;}
+    th,td{padding:6px 7px;}
+    .intro, .callout{font-size:13px; padding:10px 12px;}
+  }
+</style>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23232F3E'/%3E%3Ctext x='12' y='17' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='14' font-weight='700' fill='%23FF9900'%3EF%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div style="background:#14141f;padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px;">
+  <a href="../index.html" style="color:#fff;font-size:12.5px;text-decoration:none;font-weight:600;letter-spacing:.02em;">&larr; Volver al inicio &middot; franciscojeg.github.io</a>
+  <span style="display:inline-flex;gap:8px;">
+    <a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A66C2"/><text x="12" y="16" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="700" fill="#fff">in</text></svg></a>
+    <a href="https://github.com/franciscojeg" target="_blank" rel="noopener" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#181717"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="8.5" font-weight="700" fill="#fff">GH</text></svg></a>
+    <a href="https://dev.to/franciscojeg78" target="_blank" rel="noopener" aria-label="dev.to"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A0A0A"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="6.5" font-weight="700" fill="#fff">DEV</text></svg></a>
+    <a href="https://builder.aws.com/community/@franciscojeg?tab=badges" target="_blank" rel="noopener" aria-label="AWS Builder Center"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF9900"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" fill="#232F3E">AWS</text></svg></a>
+    <a href="https://www.instagram.com/franciscojeg.tech/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24"><defs><linearGradient id="igg-bar" x1="0" y1="24" x2="24" y2="0"><stop offset="0%" stop-color="#FEDA75"/><stop offset="35%" stop-color="#D62976"/><stop offset="70%" stop-color="#962FBF"/><stop offset="100%" stop-color="#4F5BD5"/></linearGradient></defs><circle cx="12" cy="12" r="12" fill="url(#igg-bar)"/><rect x="6.5" y="7.5" width="11" height="10.5" rx="3" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="12" cy="12.7" r="2.7" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="15.2" cy="9.6" r="0.6" fill="#fff"/></svg></a>
+    <a href="https://www.youtube.com/@ugwelcomebuilders" target="_blank" rel="noopener" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF0000"/><path d="M9.5 8.5 L16 12 L9.5 15.5 Z" fill="#fff"/></svg></a>
+  </span>
+</div>
+
+
+<header>
+  <div class="lang-switch"><a href="material-clf-c02.html" class="active">ES</a><a href="material-clf-c02-en.html">EN</a></div>
+  <h1>📘 Material de Estudio: AWS Certified Cloud Practitioner (CLF-C02)</h1>
+  <p>Preparado por Francisco Escobar, AWS Community Builder (Networking &amp; Content Delivery) · Organizado por dominios oficiales del examen</p>
+  <p style="margin-top:6px;"><a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" style="color:#FF9900;text-decoration:none;font-weight:600;">linkedin.com/in/franciscojeg</a></p>
+</header>
+
+<button class="toc-toggle" id="tocToggle" aria-expanded="false" aria-controls="toc">☰ Ver índice</button>
+
+<div class="layout">
+<nav id="toc">
+  <h4>Navegación</h4>
+  <a href="#fundamentos">0. Fundamentos del examen</a>
+  <a href="#dominio1">1. Conceptos de la nube (24%)</a>
+  <a href="#dominio2">2. Seguridad y cumplimiento (30%)</a>
+  <a href="#dominio3">3. Tecnología y servicios en la nube (34%)</a>
+  <a href="#dominio4">4. Facturación, precios y soporte (12%)</a>
+  <a href="#servicios">5. Servicios AWS dentro y fuera de alcance</a>
+  <a href="#comparaciones">6. Comparaciones críticas</a>
+  <a href="#gatillo">7. Palabras gatillo</a>
+  <a href="#checklist">8. Checklist final</a>
+</nav>
+
+<main>
+
+<section id="fundamentos" class="part">
+  <div class="part-title">0. Antes de empezar: cómo es este examen</div>
+  <div class="intro">CLF-C02 es el examen fundacional más amplio de AWS en cuanto a cobertura de servicios, pero también el más conceptual. No se espera que sepas configurar nada: se espera que reconozcas qué hace cada categoría de servicio, cómo funciona el modelo de responsabilidad compartida, cómo se factura la nube y dónde buscar ayuda. El candidato ideal tiene hasta seis meses de exposición a AWS, en cualquier rol, técnico o no técnico.</div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Dato</th><th>Valor</th></tr>
+    <tr><td class="servicio">Código del examen</td><td>CLF-C02</td></tr>
+    <tr><td class="servicio">Duración</td><td>90 minutos</td></tr>
+    <tr><td class="servicio">Preguntas</td><td>50 preguntas puntuadas más 15 no puntuadas (65 en total, mezcladas sin que puedas distinguirlas), en dos formatos: opción múltiple (1 correcta, 3 distractores) y respuesta múltiple (2 o más correctas de 5 o más opciones)</td></tr>
+    <tr><td class="servicio">Puntaje</td><td>De 100 a 1000, con 700 como mínimo para aprobar, con modelo compensatorio: no necesitas aprobar cada dominio por separado, solo el puntaje total</td></tr>
+    <tr><td class="servicio">Costo</td><td>USD 100</td></tr>
+    <tr><td class="servicio">Prerrequisitos</td><td>Ninguno formal. Perfil recomendado: hasta 6 meses de exposición a AWS, sin necesidad de escribir código, diseñar arquitecturas, hacer troubleshooting, implementar soluciones ni ejecutar pruebas de carga</td></tr>
+    <tr><td class="servicio">Público objetivo</td><td>Roles no técnicos y técnicos que necesitan un panorama general de la nube: ventas, marketing, finanzas, gestión de proyectos, y también quienes recién empiezan en tecnología</td></tr>
+  </table>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Dominio</th><th>Peso</th></tr>
+    <tr><td class="servicio">1. Conceptos de la nube</td><td>24%</td></tr>
+    <tr><td class="servicio">2. Seguridad y cumplimiento</td><td>30%</td></tr>
+    <tr><td class="servicio">3. Tecnología y servicios en la nube</td><td>34% (el de mayor peso)</td></tr>
+    <tr><td class="servicio">4. Facturación, precios y soporte</td><td>12%</td></tr>
+  </table>
+  </div>
+</section>
+
+<section id="dominio1" class="part">
+  <div class="part-title">1. Conceptos de la nube <span class="weight">24%</span></div>
+  <div class="intro">El "por qué" de la nube: qué es cloud computing, qué beneficios trae frente a infraestructura on-premises, y los marcos oficiales de AWS para adoptarla y operarla bien (CAF, Well-Architected, estrategias de migración).</div>
+
+  <h3 class="sub">1.1 Qué es cloud computing y sus beneficios</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Beneficio</th><th>En palabras simples</th></tr>
+    <tr><td class="servicio">Gasto variable en vez de capital</td><td>Pagas por lo que usas en vez de invertir grandes sumas por adelantado en centros de datos e infraestructura.</td></tr>
+    <tr><td class="servicio">Economías de escala</td><td>Al agregar el uso de miles de clientes, AWS logra precios más bajos que si cada empresa operara su propia infraestructura.</td></tr>
+    <tr><td class="servicio">Dejar de adivinar capacidad</td><td>Escalas hacia arriba o hacia abajo según la demanda real, en vez de sobredimensionar "por si acaso" o quedarte corto.</td></tr>
+    <tr><td class="servicio">Velocidad y agilidad</td><td>Recursos disponibles en minutos, lo que acelera la experimentación y reduce el costo de probar ideas nuevas.</td></tr>
+    <tr><td class="servicio">Dejar de invertir en infraestructura</td><td>Enfocas tiempo y dinero en lo que diferencia a tu negocio, no en operar servidores.</td></tr>
+    <tr><td class="servicio">Ir global en minutos</td><td>Despliegas aplicaciones en múltiples regiones del mundo con unos pocos clics, acercando la aplicación a los usuarios finales.</td></tr>
+  </table>
+  </div>
+  <div class="callout"><strong>Pista de examen:</strong> si el enunciado contrasta "comprar servidores por adelantado" contra "pagar solo por lo que se usa", casi siempre apunta al beneficio de gasto variable o a dejar de invertir en infraestructura propia (CapEx a OpEx).</div>
+
+  <h3 class="sub">1.2 AWS Cloud Adoption Framework (AWS CAF)</h3>
+  <p style="font-size:13.5px;color:var(--text-muted);margin:0 0 10px;">El CAF organiza la transformación hacia la nube en seis perspectivas. No son pasos secuenciales: son áreas de la organización que deben avanzar juntas.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Perspectiva</th><th>Foco</th></tr>
+    <tr><td class="servicio">Negocio (Business)</td><td>Que la inversión en la nube acelere los resultados de negocio y la transformación digital.</td></tr>
+    <tr><td class="servicio">Personas (People)</td><td>Evolucionar la cultura y las capacidades del equipo hacia el aprendizaje continuo en la nube.</td></tr>
+    <tr><td class="servicio">Gobernanza (Governance)</td><td>Orquestar las iniciativas de nube maximizando el beneficio organizacional y minimizando el riesgo.</td></tr>
+    <tr><td class="servicio">Plataforma (Platform)</td><td>Construir una plataforma híbrida escalable y modernizar cargas de trabajo existentes.</td></tr>
+    <tr><td class="servicio">Seguridad (Security)</td><td>Lograr confidencialidad, integridad y disponibilidad de los datos y cargas de trabajo en la nube.</td></tr>
+    <tr><td class="servicio">Operaciones (Operations)</td><td>Asegurar que los servicios de nube se entreguen al nivel que el negocio necesita.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">1.3 AWS Well-Architected Framework</h3>
+  <p style="font-size:13.5px;color:var(--text-muted);margin:0 0 10px;">Seis pilares para evaluar si una arquitectura está bien construida. El examen espera que reconozcas el nombre del pilar detrás de cada preocupación de diseño, no que apliques las prácticas técnicamente.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Pilar</th><th>Pregunta que responde</th></tr>
+    <tr><td class="servicio">Excelencia operacional</td><td>¿Puedo operar y monitorear el sistema, y mejorar procesos continuamente?</td></tr>
+    <tr><td class="servicio">Seguridad</td><td>¿Cómo protejo información y sistemas de accesos no autorizados?</td></tr>
+    <tr><td class="servicio">Fiabilidad</td><td>¿El sistema se recupera rápido de fallas y cumple su función de forma consistente?</td></tr>
+    <tr><td class="servicio">Eficiencia de rendimiento</td><td>¿Estoy usando los recursos de cómputo de la forma más eficiente posible?</td></tr>
+    <tr><td class="servicio">Optimización de costos</td><td>¿Estoy entregando valor de negocio al menor precio posible?</td></tr>
+    <tr><td class="servicio">Sostenibilidad</td><td>¿Estoy minimizando el impacto ambiental y el consumo de energía de mis cargas de trabajo?</td></tr>
+  </table>
+  </div>
+  <div class="callout warn"><strong>Trampa típica:</strong> "sostenibilidad" es el pilar más nuevo y el más fácil de olvidar. Si el enunciado habla de reducir huella de carbono o consumo energético, es este pilar, no optimización de costos.</div>
+
+  <h3 class="sub">1.4 Estrategias de migración (las 7 R)</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Estrategia</th><th>Qué implica</th></tr>
+    <tr><td class="servicio">Rehost (lift and shift)</td><td>Mover la aplicación a la nube tal como está, sin cambios. La más rápida de ejecutar.</td></tr>
+    <tr><td class="servicio">Replatform (lift, tinker and shift)</td><td>Mover con algunas optimizaciones puntuales, como cambiar a una base de datos administrada, sin rediseñar la app.</td></tr>
+    <tr><td class="servicio">Repurchase (drop and shop)</td><td>Reemplazar la aplicación por otra versión o producto, típicamente pasando de licencias tradicionales a un modelo SaaS.</td></tr>
+    <tr><td class="servicio">Refactor / Re-architect</td><td>Rediseñar la aplicación para aprovechar capacidades nativas de la nube. La de mayor esfuerzo, no recomendada para migraciones grandes por su complejidad.</td></tr>
+    <tr><td class="servicio">Retire</td><td>Eliminar aplicaciones que ya no aportan valor de negocio.</td></tr>
+    <tr><td class="servicio">Retain</td><td>Mantener la aplicación en su entorno actual o posponer su migración.</td></tr>
+    <tr><td class="servicio">Relocate</td><td>Trasladar servidores o instancias a una versión en la nube de la misma plataforma, a otra VPC, región o cuenta, con el mínimo cambio posible.</td></tr>
+  </table>
+  </div>
+  <div class="callout">Para migraciones grandes, AWS Prescriptive Guidance recomienda priorizar rehost, replatform, relocate y retire, dejando refactor para después de completada la migración, cuando ya se tiene experiencia operando en la nube.</div>
+</section>
+
+<section id="dominio2" class="part">
+  <div class="part-title">2. Seguridad y cumplimiento <span class="weight">30%</span></div>
+  <div class="intro">El dominio con mayor peso después del de tecnología. Cubre quién es responsable de qué en la nube, cómo se administra el acceso, y qué servicios existen para gobernar, auditar y proteger una cuenta de AWS.</div>
+
+  <h3 class="sub">2.1 Modelo de responsabilidad compartida</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Responsable</th><th>De qué se encarga</th></tr>
+    <tr><td class="servicio">AWS: seguridad "de" la nube</td><td>Hardware, instalaciones físicas, red y virtualización que sostienen todos los servicios. Sistemas operativos host y capa de virtualización.</td></tr>
+    <tr><td class="servicio">Cliente: seguridad "en" la nube</td><td>Depende del servicio elegido. En servicios IaaS como EC2, el cliente administra el sistema operativo huésped, parches, software de aplicación y configuración de firewall (grupos de seguridad).</td></tr>
+  </table>
+  </div>
+  <div class="callout"><strong>Pista de examen:</strong> a mayor nivel de abstracción del servicio (de EC2 hacia S3 o DynamoDB), más responsabilidad asume AWS y menos administra el cliente. El cliente siempre es responsable de clasificar sus datos, cifrarlos si corresponde y administrar los permisos de acceso (IAM), sin importar el servicio.</div>
+
+  <h3 class="sub">2.2 AWS Identity and Access Management (IAM)</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Concepto</th><th>Qué es</th></tr>
+    <tr><td class="servicio">Usuario raíz (root)</td><td>La identidad creada al abrir la cuenta, con acceso total. AWS recomienda no usarla para el día a día y protegerla con MFA.</td></tr>
+    <tr><td class="servicio">Usuario IAM</td><td>Identidad individual dentro de la cuenta, con credenciales propias, para una persona o aplicación.</td></tr>
+    <tr><td class="servicio">Grupo IAM</td><td>Conjunto de usuarios que comparten los mismos permisos, para administrar accesos de forma más simple.</td></tr>
+    <tr><td class="servicio">Rol IAM</td><td>Identidad temporal que puede asumir un usuario, servicio o aplicación, sin credenciales de larga duración.</td></tr>
+    <tr><td class="servicio">Política</td><td>Documento JSON que define qué acciones están permitidas o denegadas sobre qué recursos.</td></tr>
+    <tr><td class="servicio">MFA</td><td>Autenticación multifactor: un segundo factor de verificación además de la contraseña.</td></tr>
+    <tr><td class="servicio">AWS IAM Identity Center</td><td>Administración centralizada de acceso a múltiples cuentas de AWS y aplicaciones, con inicio de sesión único (SSO).</td></tr>
+  </table>
+  </div>
+  <div class="callout warn"><strong>Trampa típica:</strong> "principio de privilegio mínimo" significa dar solo los permisos estrictamente necesarios, nunca acceso amplio "por si acaso". Es de los conceptos más preguntados del dominio.</div>
+
+  <h3 class="sub">2.3 Cumplimiento, auditoría y gobernanza</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Para qué sirve</th></tr>
+    <tr><td class="servicio">AWS Artifact</td><td>Portal de autoservicio para descargar reportes de cumplimiento de AWS (SOC, ISO) y aceptar acuerdos como el BAA de HIPAA.</td></tr>
+    <tr><td class="servicio">AWS Audit Manager</td><td>Recolecta evidencia de forma continua para simplificar cómo se evalúa el riesgo y el cumplimiento normativo.</td></tr>
+    <tr><td class="servicio">AWS Config</td><td>Registra y evalúa la configuración de los recursos a lo largo del tiempo, y avisa si se desvían de las reglas definidas.</td></tr>
+    <tr><td class="servicio">AWS CloudTrail</td><td>Registra cada llamada a la API de la cuenta: quién hizo qué, cuándo y desde dónde. Es el servicio de auditoría por excelencia.</td></tr>
+    <tr><td class="servicio">AWS Organizations</td><td>Administra de forma centralizada múltiples cuentas de AWS, con políticas de control de servicios (SCP) y facturación consolidada.</td></tr>
+    <tr><td class="servicio">AWS Control Tower</td><td>Automatiza la creación de un entorno multicuenta con buenas prácticas de gobernanza ya aplicadas.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">2.4 Servicios de seguridad especializados</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Para qué sirve</th></tr>
+    <tr><td class="servicio">Amazon GuardDuty</td><td>Detección inteligente de amenazas, analizando logs en busca de actividad maliciosa o no autorizada.</td></tr>
+    <tr><td class="servicio">Amazon Inspector</td><td>Escaneo automatizado de vulnerabilidades en cargas de trabajo, como instancias EC2 e imágenes de contenedores.</td></tr>
+    <tr><td class="servicio">Amazon Macie</td><td>Usa machine learning para descubrir y clasificar datos sensibles (como información personal) almacenados en Amazon S3.</td></tr>
+    <tr><td class="servicio">AWS Key Management Service (KMS)</td><td>Crea y controla las llaves de cifrado usadas para proteger datos en reposo.</td></tr>
+    <tr><td class="servicio">AWS Secrets Manager</td><td>Almacena y rota credenciales, contraseñas y llaves de API de forma segura.</td></tr>
+    <tr><td class="servicio">AWS Shield</td><td>Protección administrada contra ataques de denegación de servicio distribuido (DDoS).</td></tr>
+    <tr><td class="servicio">AWS WAF</td><td>Firewall de aplicaciones web que filtra tráfico malicioso hacia CloudFront, API Gateway o un balanceador de carga.</td></tr>
+    <tr><td class="servicio">AWS Security Hub</td><td>Consolida y prioriza en un solo lugar las alertas de seguridad de múltiples servicios de AWS.</td></tr>
+  </table>
+  </div>
+</section>
+
+<section id="dominio3" class="part">
+  <div class="part-title">3. Tecnología y servicios en la nube <span class="weight">34%</span></div>
+  <div class="intro">El dominio de mayor peso. Aquí se prueba si reconoces qué hace cada categoría de servicios de AWS y cuándo usarla, sin necesidad de saber configurarla.</div>
+
+  <h3 class="sub">3.1 Formas de interactuar con AWS</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Método</th><th>Cuándo se usa</th></tr>
+    <tr><td class="servicio">Consola de administración de AWS</td><td>Interfaz web gráfica, ideal para explorar servicios y tareas puntuales.</td></tr>
+    <tr><td class="servicio">AWS CLI</td><td>Línea de comandos para automatizar tareas y hacer scripting contra cualquier servicio de AWS.</td></tr>
+    <tr><td class="servicio">AWS SDK</td><td>Bibliotecas de código para integrar servicios de AWS directamente en una aplicación, en varios lenguajes de programación.</td></tr>
+    <tr><td class="servicio">Infraestructura como código (IaC)</td><td>Definir y desplegar infraestructura mediante plantillas versionables en vez de pasos manuales, por ejemplo con AWS CloudFormation.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.2 Infraestructura global de AWS</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Concepto</th><th>Qué es</th></tr>
+    <tr><td class="servicio">Región</td><td>Ubicación geográfica independiente con múltiples centros de datos, elegida por cercanía al usuario, cumplimiento normativo o disponibilidad de servicios.</td></tr>
+    <tr><td class="servicio">Zona de disponibilidad (AZ)</td><td>Uno o más centros de datos discretos dentro de una región, con energía, refrigeración y red independientes, para tolerancia a fallas.</td></tr>
+    <tr><td class="servicio">Ubicación de borde (edge location)</td><td>Punto de presencia usado por Amazon CloudFront y Route 53 para acercar contenido y resolución DNS al usuario final.</td></tr>
+    <tr><td class="servicio">AWS Local Zones y Outposts</td><td>Extienden la infraestructura de AWS más cerca de grandes ciudades o directamente dentro del centro de datos del cliente.</td></tr>
+  </table>
+  </div>
+  <div class="callout"><strong>Pista de examen:</strong> si el escenario pide alta disponibilidad dentro de una misma región, la respuesta suele ser desplegar en múltiples zonas de disponibilidad. Si pide cercanía a usuarios en distintos países, la respuesta suele ser múltiples regiones o CloudFront.</div>
+
+  <h3 class="sub">3.3 Cómputo</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Para qué sirve</th></tr>
+    <tr><td class="servicio">Amazon EC2</td><td>Servidores virtuales redimensionables, con control total sobre el sistema operativo. La base del cómputo en AWS.</td></tr>
+    <tr><td class="servicio">AWS Lambda</td><td>Ejecuta código sin aprovisionar servidores, cobrando solo por el tiempo de ejecución. El servicio sin servidor por excelencia.</td></tr>
+    <tr><td class="servicio">AWS Elastic Beanstalk</td><td>Despliega y administra aplicaciones web automáticamente, sin gestionar la infraestructura subyacente en detalle.</td></tr>
+    <tr><td class="servicio">Amazon Lightsail</td><td>Servidores virtuales simplificados con precio fijo mensual, pensados para proyectos pequeños y quienes empiezan en la nube.</td></tr>
+    <tr><td class="servicio">AWS Outposts</td><td>Lleva infraestructura y servicios de AWS al centro de datos del propio cliente.</td></tr>
+    <tr><td class="servicio">AWS Batch</td><td>Ejecuta trabajos de procesamiento por lotes a cualquier escala, gestionando el aprovisionamiento de cómputo automáticamente.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.4 Contenedores</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Para qué sirve</th></tr>
+    <tr><td class="servicio">Amazon ECS</td><td>Orquestador de contenedores propio de AWS, simple de operar dentro del ecosistema AWS.</td></tr>
+    <tr><td class="servicio">Amazon EKS</td><td>Kubernetes administrado por AWS, para equipos que ya usan o quieren usar el estándar de la industria.</td></tr>
+    <tr><td class="servicio">Amazon ECR</td><td>Registro administrado para almacenar y distribuir imágenes de contenedores.</td></tr>
+    <tr><td class="servicio">AWS Fargate</td><td>Motor de cómputo sin servidor para contenedores, usable con ECS o EKS, sin administrar instancias EC2 subyacentes.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.5 Almacenamiento</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Para qué sirve</th></tr>
+    <tr><td class="servicio">Amazon S3</td><td>Almacenamiento de objetos con durabilidad muy alta, para cualquier tipo y volumen de archivo.</td></tr>
+    <tr><td class="servicio">Amazon S3 Glacier</td><td>Clases de almacenamiento de S3 para archivo de largo plazo, con distintos tiempos de recuperación y costo mucho menor.</td></tr>
+    <tr><td class="servicio">Amazon EBS</td><td>Volúmenes de bloque persistentes que se conectan a una instancia EC2, como un disco duro virtual.</td></tr>
+    <tr><td class="servicio">Amazon EFS</td><td>Sistema de archivos administrado y compartido, montable simultáneamente desde múltiples instancias EC2.</td></tr>
+    <tr><td class="servicio">Amazon FSx</td><td>Sistemas de archivos administrados de terceros (Windows File Server, Lustre, NetApp ONTAP), para cargas específicas.</td></tr>
+    <tr><td class="servicio">AWS Storage Gateway</td><td>Conecta entornos on-premises con almacenamiento en la nube, como una puerta de enlace híbrida.</td></tr>
+    <tr><td class="servicio">AWS Backup</td><td>Centraliza y automatiza copias de respaldo de distintos servicios de AWS desde un solo lugar.</td></tr>
+  </table>
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Clase de almacenamiento S3</th><th>Cuándo usarla</th></tr>
+    <tr><td class="servicio">S3 Standard</td><td>Acceso frecuente, propósito general: sitios web, aplicaciones, analítica.</td></tr>
+    <tr><td class="servicio">S3 Intelligent-Tiering</td><td>Cuando el patrón de acceso es impredecible: mueve automáticamente los datos entre niveles de costo.</td></tr>
+    <tr><td class="servicio">S3 Standard-IA / One Zone-IA</td><td>Datos de acceso infrecuente que igual necesitan disponibilidad en milisegundos, como respaldos.</td></tr>
+    <tr><td class="servicio">S3 Glacier Instant Retrieval</td><td>Archivo de largo plazo accedido pocas veces al año, pero que necesita recuperación instantánea.</td></tr>
+    <tr><td class="servicio">S3 Glacier Flexible Retrieval</td><td>Respaldo y archivo de bajo costo, con recuperación en minutos u horas.</td></tr>
+    <tr><td class="servicio">S3 Glacier Deep Archive</td><td>La opción más económica, para datos casi nunca accedidos, con recuperación de 12 a 48 horas.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.6 Bases de datos</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Para qué sirve</th></tr>
+    <tr><td class="servicio">Amazon RDS</td><td>Bases de datos relacionales administradas (MySQL, PostgreSQL, SQL Server, entre otras), con parches y respaldos automatizados.</td></tr>
+    <tr><td class="servicio">Amazon Aurora</td><td>Base de datos relacional compatible con MySQL y PostgreSQL, diseñada por AWS para mayor rendimiento y disponibilidad.</td></tr>
+    <tr><td class="servicio">Amazon DynamoDB</td><td>Base de datos NoSQL de clave-valor y documentos, totalmente administrada, con latencia de milisegundos a cualquier escala.</td></tr>
+    <tr><td class="servicio">Amazon ElastiCache</td><td>Caché en memoria administrado, para acelerar aplicaciones reduciendo la carga sobre la base de datos principal.</td></tr>
+    <tr><td class="servicio">Amazon Neptune</td><td>Base de datos de grafos administrada, para relaciones altamente conectadas como redes sociales o motores de recomendación.</td></tr>
+    <tr><td class="servicio">Amazon DocumentDB</td><td>Base de datos de documentos compatible con MongoDB.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.7 Redes y entrega de contenido</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Para qué sirve</th></tr>
+    <tr><td class="servicio">Amazon VPC</td><td>Red virtual aislada y privada dentro de AWS, donde se despliegan los recursos.</td></tr>
+    <tr><td class="servicio">Amazon Route 53</td><td>Servicio de DNS administrado, también usado para enrutamiento de tráfico y verificación de salud (health checks).</td></tr>
+    <tr><td class="servicio">Amazon CloudFront</td><td>Red de entrega de contenido (CDN) que distribuye contenido desde ubicaciones de borde cercanas al usuario final.</td></tr>
+    <tr><td class="servicio">AWS Direct Connect</td><td>Conexión de red dedicada y privada entre un centro de datos on-premises y AWS, sin pasar por internet pública.</td></tr>
+    <tr><td class="servicio">AWS VPN (Site-to-Site y Client VPN)</td><td>Conexión cifrada sobre internet pública entre una red on-premises o un usuario individual y AWS.</td></tr>
+    <tr><td class="servicio">AWS Transit Gateway</td><td>Hub central para conectar múltiples VPC y redes on-premises, simplificando la topología de red.</td></tr>
+    <tr><td class="servicio">Elastic Load Balancing (ELB)</td><td>Distribuye tráfico entrante automáticamente entre múltiples instancias o servicios para mayor disponibilidad.</td></tr>
+    <tr><td class="servicio">AWS Global Accelerator</td><td>Mejora el rendimiento y la disponibilidad de aplicaciones globales usando la red privada de AWS en vez de internet pública.</td></tr>
+    <tr><td class="servicio">Amazon API Gateway</td><td>Crea, publica y administra APIs a cualquier escala, actuando como puerta de entrada hacia servicios backend.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.8 Integración de aplicaciones y analítica</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Para qué sirve</th></tr>
+    <tr><td class="servicio">Amazon SQS</td><td>Colas de mensajes totalmente administradas para desacoplar componentes de una aplicación.</td></tr>
+    <tr><td class="servicio">Amazon SNS</td><td>Servicio de notificaciones para enviar mensajes a múltiples suscriptores (correo, SMS, otros sistemas) a la vez.</td></tr>
+    <tr><td class="servicio">Amazon EventBridge</td><td>Bus de eventos administrado para conectar aplicaciones usando datos de eventos en tiempo real.</td></tr>
+    <tr><td class="servicio">AWS Step Functions</td><td>Orquesta múltiples servicios de AWS en flujos de trabajo visuales, paso a paso.</td></tr>
+    <tr><td class="servicio">Amazon Athena</td><td>Consulta datos directamente en Amazon S3 usando SQL estándar, sin necesidad de cargar los datos a una base de datos.</td></tr>
+    <tr><td class="servicio">Amazon Redshift</td><td>Almacén de datos (data warehouse) administrado para analítica a gran escala.</td></tr>
+    <tr><td class="servicio">Amazon QuickSight</td><td>Servicio de inteligencia de negocio (BI) para crear paneles y visualizaciones interactivas.</td></tr>
+    <tr><td class="servicio">AWS Glue</td><td>Servicio de integración de datos que descubre, prepara y combina datos para analítica y machine learning.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.9 Machine learning e inteligencia artificial</h3>
+  <p style="font-size:13.5px;color:var(--text-muted);margin:0 0 10px;">CLF-C02 solo exige reconocer qué hace cada servicio a nivel de nombre y propósito, no cómo entrenarlo ni ajustarlo.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Para qué sirve</th></tr>
+    <tr><td class="servicio">Amazon SageMaker AI</td><td>Plataforma completa para construir, entrenar y desplegar modelos de machine learning propios.</td></tr>
+    <tr><td class="servicio">Amazon Rekognition</td><td>Análisis de imágenes y video: reconocimiento de objetos, rostros y escenas.</td></tr>
+    <tr><td class="servicio">Amazon Textract</td><td>Extrae texto y datos estructurados de documentos escaneados.</td></tr>
+    <tr><td class="servicio">Amazon Transcribe / Polly</td><td>Transcribe convierte voz a texto. Polly convierte texto a voz. Son procesos opuestos.</td></tr>
+    <tr><td class="servicio">Amazon Translate</td><td>Traducción automática de texto entre idiomas.</td></tr>
+    <tr><td class="servicio">Amazon Lex</td><td>Construye interfaces conversacionales y chatbots con comprensión de lenguaje natural.</td></tr>
+    <tr><td class="servicio">Amazon Comprehend</td><td>Procesamiento de lenguaje natural para extraer entidades, sentimiento y frases clave de un texto.</td></tr>
+    <tr><td class="servicio">Amazon Q</td><td>Asistente generativo de AWS: Amazon Q Developer para código y Amazon Q Business para datos de la empresa.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">3.10 Administración, monitoreo y gobernanza</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Servicio</th><th>Para qué sirve</th></tr>
+    <tr><td class="servicio">Amazon CloudWatch</td><td>Monitoreo de métricas, logs y alarmas sobre los recursos y aplicaciones de AWS.</td></tr>
+    <tr><td class="servicio">AWS CloudFormation</td><td>Aprovisiona infraestructura como código mediante plantillas, de forma repetible y versionable.</td></tr>
+    <tr><td class="servicio">AWS Systems Manager</td><td>Panel único para ver y controlar la infraestructura, con automatización de tareas operativas.</td></tr>
+    <tr><td class="servicio">AWS Auto Scaling</td><td>Ajusta automáticamente la capacidad de cómputo según la demanda, manteniendo rendimiento al menor costo.</td></tr>
+    <tr><td class="servicio">Panel de AWS Health</td><td>Visibilidad personalizada sobre eventos que pueden afectar la infraestructura del cliente.</td></tr>
+    <tr><td class="servicio">AWS Trusted Advisor</td><td>Recomendaciones automáticas en costo, seguridad, rendimiento, resiliencia y límites de servicio.</td></tr>
+  </table>
+  </div>
+</section>
+
+<section id="dominio4" class="part">
+  <div class="part-title">4. Facturación, precios y soporte <span class="weight">12%</span></div>
+  <div class="intro">El dominio más pequeño en peso, pero muy concreto: modelos de precio, herramientas para estimar y controlar costos, y qué plan de soporte corresponde a cada tipo de cliente.</div>
+
+  <h3 class="sub">4.1 Modelos de precios de AWS</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Modelo</th><th>Cuándo conviene</th></tr>
+    <tr><td class="servicio">On-Demand</td><td>Pago por hora o segundo, sin compromiso. Ideal para cargas impredecibles o de corta duración.</td></tr>
+    <tr><td class="servicio">Reserved Instances</td><td>Descuento de hasta 72% frente a On-Demand a cambio de comprometerse a un uso constante por 1 o 3 años.</td></tr>
+    <tr><td class="servicio">Savings Plans</td><td>Descuento similar a Reserved Instances, pero comprometiendo un monto de gasto por hora en vez de un tipo de instancia específico, con más flexibilidad.</td></tr>
+    <tr><td class="servicio">Spot Instances</td><td>Usa capacidad no utilizada de AWS con descuentos de hasta 90%, pero puede ser interrumpida por AWS con poco aviso. Ideal para cargas tolerantes a fallas.</td></tr>
+  </table>
+  </div>
+  <div class="callout warn"><strong>Trampa típica:</strong> Spot es la opción más barata pero menos confiable (puede interrumpirse). Reserved y Savings Plans requieren compromiso de tiempo pero garantizan la capacidad. On-Demand no requiere compromiso pero es la opción más cara por hora.</div>
+
+  <h3 class="sub">4.2 Estimar y controlar costos</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Herramienta</th><th>Para qué sirve</th></tr>
+    <tr><td class="servicio">AWS Pricing Calculator</td><td>Estima el costo de una arquitectura antes de desplegarla, sumando los servicios planeados.</td></tr>
+    <tr><td class="servicio">AWS Cost Explorer</td><td>Visualiza y analiza patrones de gasto e uso a lo largo del tiempo, con proyecciones.</td></tr>
+    <tr><td class="servicio">AWS Budgets</td><td>Define presupuestos y recibe alertas cuando el gasto o uso se acerca o supera el límite definido.</td></tr>
+    <tr><td class="servicio">Informes de costo y uso de AWS</td><td>El reporte más detallado y granular disponible sobre costos y uso de la cuenta.</td></tr>
+    <tr><td class="servicio">AWS Organizations (facturación consolidada)</td><td>Une la facturación de varias cuentas en una sola factura, y permite compartir descuentos por volumen entre ellas.</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">4.3 Planes de soporte de AWS</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Plan</th><th>Para quién</th></tr>
+    <tr><td class="servicio">Basic Support</td><td>Incluido sin costo adicional en toda cuenta de AWS: acceso a documentación, foros, verificación de estado del servicio y soporte de cuenta y facturación.</td></tr>
+    <tr><td class="servicio">Business Support+</td><td>Acceso 24/7 a ingenieros de soporte por chat, teléfono y web, con más de 500 verificaciones de AWS Trusted Advisor y tiempo de respuesta de menos de 30 minutos para casos críticos. Pensado para cargas de producción.</td></tr>
+    <tr><td class="servicio">Enterprise Support</td><td>Todo lo anterior más un Technical Account Manager (TAM) dedicado, respuesta de hasta 15 minutos para casos críticos y revisiones estratégicas con expertos de AWS. Pensado para organizaciones con cargas críticas de negocio.</td></tr>
+  </table>
+  </div>
+  <div class="beta-note"><strong>Nota sobre nombres de planes:</strong> la guía oficial del examen CLF-C02 todavía menciona los nombres históricos de los planes (Developer Support, Business Support y Enterprise On-Ramp Support, además de Enterprise Support). AWS anunció que Developer Support y Business Support se retiran el 1 de enero de 2027 en favor de un plan único llamado Business Support+, y que Enterprise On-Ramp pasa automáticamente a Enterprise Support en la renovación de contrato. Si tu examen todavía pregunta por los nombres antiguos, ubícalos como una versión previa de Business Support+ y Enterprise Support respectivamente: la lógica de "quién necesita cada plan" no cambia.</div>
+
+  <h3 class="sub">4.4 Otros recursos de soporte y marketplace</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Recurso</th><th>Para qué sirve</th></tr>
+    <tr><td class="servicio">AWS re:Post</td><td>Comunidad de preguntas y respuestas impulsada por AWS y sus expertos, gratuita para cualquier cliente.</td></tr>
+    <tr><td class="servicio">AWS Knowledge Center</td><td>Respuestas oficiales a las preguntas más frecuentes de soporte.</td></tr>
+    <tr><td class="servicio">AWS Marketplace</td><td>Catálogo digital de software de terceros ya listo para ejecutarse en AWS, con administración de costos, gobernanza y derechos centralizada.</td></tr>
+    <tr><td class="servicio">AWS Professional Services y arquitectos de soluciones</td><td>Asistencia experta directa de AWS para diseñar, planificar e implementar proyectos en la nube.</td></tr>
+    <tr><td class="servicio">Red de socios de AWS (APN)</td><td>Proveedores de software independientes e integradores de sistemas certificados por AWS, con beneficios de formación y descuentos por volumen.</td></tr>
+  </table>
+  </div>
+</section>
+
+<section id="servicios" class="part">
+  <div class="part-title">5. Servicios AWS dentro y fuera de alcance</div>
+  <div class="intro">La guía oficial de examen lista los servicios por categoría. Aquí están agrupados junto a un resumen de qué se espera reconocer de cada categoría.</div>
+
+  <h3 class="sub">Dentro de alcance, por categoría</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Categoría</th><th>Servicios representativos</th></tr>
+    <tr><td class="servicio">Análisis</td><td>Amazon Athena, Amazon EMR, AWS Glue, Amazon Kinesis, Amazon OpenSearch Service, Amazon QuickSight, Amazon Redshift</td></tr>
+    <tr><td class="servicio">Integración de aplicaciones</td><td>Amazon EventBridge, Amazon SNS, Amazon SQS, AWS Step Functions</td></tr>
+    <tr><td class="servicio">Aplicaciones empresariales</td><td>Amazon Connect, Amazon SES</td></tr>
+    <tr><td class="servicio">Administración financiera en la nube</td><td>AWS Budgets, Informes de costo y uso, AWS Cost Explorer, AWS Marketplace</td></tr>
+    <tr><td class="servicio">Cómputo</td><td>AWS Batch, Amazon EC2, AWS Elastic Beanstalk, Amazon Lightsail, AWS Outposts</td></tr>
+    <tr><td class="servicio">Contenedores</td><td>Amazon ECR, Amazon ECS, Amazon EKS</td></tr>
+    <tr><td class="servicio">Habilitación del cliente</td><td>AWS Support</td></tr>
+    <tr><td class="servicio">Base de datos</td><td>Amazon Aurora, Amazon DocumentDB, Amazon DynamoDB, Amazon ElastiCache, Amazon Neptune, Amazon RDS</td></tr>
+    <tr><td class="servicio">Herramientas para desarrolladores</td><td>AWS CLI, AWS CodeBuild, AWS CodePipeline, AWS X-Ray</td></tr>
+    <tr><td class="servicio">Computación para usuarios finales</td><td>Amazon AppStream 2.0, Amazon WorkSpaces, Navegador seguro de Amazon WorkSpaces</td></tr>
+    <tr><td class="servicio">Frontend web y móvil</td><td>AWS Amplify, AWS AppSync</td></tr>
+    <tr><td class="servicio">Internet de las cosas (IoT)</td><td>AWS IoT Core</td></tr>
+    <tr><td class="servicio">Machine learning</td><td>Amazon Comprehend, Amazon Kendra, Amazon Lex, Amazon Polly, Amazon Q, Amazon Rekognition, Amazon SageMaker AI, Amazon Textract, Amazon Transcribe, Amazon Translate</td></tr>
+    <tr><td class="servicio">Administración y gobernanza</td><td>AWS Auto Scaling, AWS CloudFormation, AWS CloudTrail, Amazon CloudWatch, AWS Config, AWS Control Tower, Panel de AWS Health, AWS Organizations, Consola de administración, AWS Systems Manager, AWS Trusted Advisor, Well-Architected Tool</td></tr>
+    <tr><td class="servicio">Migración y transferencia</td><td>AWS Application Discovery Service, AWS DMS, Migration Evaluator, AWS Migration Hub, AWS SCT, AWS Snow Family</td></tr>
+    <tr><td class="servicio">Redes y entrega de contenido</td><td>Amazon API Gateway, Amazon CloudFront, AWS Direct Connect, AWS Global Accelerator, AWS PrivateLink, Amazon Route 53, AWS Transit Gateway, Amazon VPC, AWS VPN</td></tr>
+    <tr><td class="servicio">Seguridad, identidad y cumplimiento</td><td>AWS Artifact, AWS Audit Manager, ACM, AWS CloudHSM, Amazon Cognito, Amazon Detective, AWS Directory Service, AWS Firewall Manager, Amazon GuardDuty, IAM, IAM Identity Center, Amazon Inspector, AWS KMS, Amazon Macie, AWS RAM, AWS Secrets Manager, AWS Security Hub, AWS Shield, AWS WAF</td></tr>
+    <tr><td class="servicio">Sin servidor</td><td>AWS Fargate, AWS Lambda</td></tr>
+    <tr><td class="servicio">Almacenamiento</td><td>AWS Backup, Amazon EBS, Amazon EFS, Recuperación elástica ante desastres, Amazon FSx, Amazon S3, Amazon S3 Glacier, AWS Storage Gateway</td></tr>
+  </table>
+  </div>
+
+  <h3 class="sub">Fuera de alcance</h3>
+  <div class="callout warn"><strong>No se espera que reconozcas ni configures:</strong> servicios de nicho o muy especializados como tecnología de juegos (Amazon GameLift), servicios multimedia (familia AWS Elemental), robótica (AWS RoboMaker), herramientas de desarrollo avanzadas (AWS CodeArtifact, AWS CodeDeploy, Amazon CodeGuru), bases de datos especializadas (Amazon Keyspaces, Amazon MemoryDB), y servicios de red más avanzados (AWS Cloud Map, AWS Network Firewall, Amazon VPC Lattice). Tampoco se espera código, diseño de arquitecturas, troubleshooting técnico, implementación ni pruebas de carga.</div>
+</section>
+
+<section id="comparaciones" class="part">
+  <div class="part-title">6. Comparaciones que deciden preguntas</div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Par</th><th>Decisión rápida</th></tr>
+    <tr><td>Región vs zona de disponibilidad</td><td>Región es la ubicación geográfica completa. AZ es un centro de datos independiente dentro de esa región.</td></tr>
+    <tr><td>S3 vs EBS vs EFS</td><td>S3 almacena objetos accesibles por internet. EBS es un disco para una sola instancia EC2. EFS es un sistema de archivos compartido entre múltiples instancias.</td></tr>
+    <tr><td>RDS vs DynamoDB</td><td>RDS es relacional (tablas con esquema fijo). DynamoDB es NoSQL (clave-valor o documentos, sin esquema fijo).</td></tr>
+    <tr><td>On-Demand vs Reserved vs Savings Plans vs Spot</td><td>Sin compromiso y caro por hora vs compromiso de instancia vs compromiso de gasto flexible vs capacidad sobrante barata pero interrumpible.</td></tr>
+    <tr><td>CloudTrail vs CloudWatch</td><td>CloudTrail registra QUIÉN hizo QUÉ (auditoría de API). CloudWatch monitorea RENDIMIENTO y SALUD (métricas, logs, alarmas).</td></tr>
+    <tr><td>AWS Config vs CloudTrail</td><td>Config rastrea CÓMO cambia la configuración de un recurso en el tiempo. CloudTrail registra CADA llamada a la API.</td></tr>
+    <tr><td>Direct Connect vs Site-to-Site VPN</td><td>Direct Connect es una conexión física dedicada y privada. VPN es una conexión cifrada sobre internet pública, más rápida de implementar.</td></tr>
+    <tr><td>Responsabilidad de AWS vs del cliente</td><td>AWS asegura la infraestructura física y la virtualización. El cliente siempre es responsable de sus datos y de administrar el acceso (IAM), sin importar el servicio.</td></tr>
+  </table>
+  </div>
+</section>
+
+<section id="gatillo" class="part">
+  <div class="part-title">7. Palabras gatillo del examen</div>
+  <div class="intro">Frases que suelen apuntar directo a un servicio o concepto específico dentro del enunciado de una pregunta.</div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Si el enunciado dice...</th><th>Piensa en...</th></tr>
+    <tr><td>"pagar solo por lo que se usa", "sin inversión inicial"</td><td>Gasto variable / modelo OpEx sobre CapEx</td></tr>
+    <tr><td>"tolerante a interrupciones", "el precio más bajo posible"</td><td>Spot Instances</td></tr>
+    <tr><td>"carga de trabajo constante y predecible por 1 a 3 años"</td><td>Reserved Instances o Savings Plans</td></tr>
+    <tr><td>"sin administrar servidores", "cobrar solo por ejecución"</td><td>AWS Lambda</td></tr>
+    <tr><td>"acercar contenido a usuarios de todo el mundo"</td><td>Amazon CloudFront</td></tr>
+    <tr><td>"conexión dedicada y privada a mi centro de datos"</td><td>AWS Direct Connect</td></tr>
+    <tr><td>"quién hizo qué cambio y cuándo"</td><td>AWS CloudTrail</td></tr>
+    <tr><td>"detectar información personal en mis buckets"</td><td>Amazon Macie</td></tr>
+    <tr><td>"recomendaciones automáticas de mejores prácticas y costos"</td><td>AWS Trusted Advisor</td></tr>
+    <tr><td>"un solo punto de contacto técnico dedicado"</td><td>Technical Account Manager, Enterprise Support</td></tr>
+    <tr><td>"factura única para varias cuentas de la empresa"</td><td>AWS Organizations, facturación consolidada</td></tr>
+    <tr><td>"recuperación en 12 a 48 horas, el costo más bajo posible"</td><td>S3 Glacier Deep Archive</td></tr>
+    <tr><td>"mover la aplicación tal cual, sin cambios"</td><td>Rehost (lift and shift)</td></tr>
+    <tr><td>"reemplazar por una versión SaaS del mismo producto"</td><td>Repurchase (drop and shop)</td></tr>
+  </table>
+  </div>
+</section>
+
+<section id="checklist" class="part">
+  <div class="part-title">8. Checklist final antes del examen</div>
+  <ul class="checklist">
+    <li>Puedo nombrar los seis beneficios de la nube y dar un ejemplo de cada uno.</li>
+    <li>Puedo nombrar las seis perspectivas del AWS CAF y los seis pilares de Well-Architected sin confundirlos entre sí.</li>
+    <li>Puedo explicar las 7 R de migración con un ejemplo de cada una.</li>
+    <li>Puedo explicar el modelo de responsabilidad compartida y cómo cambia según el servicio (EC2 frente a S3).</li>
+    <li>Puedo distinguir usuario, grupo, rol y política de IAM.</li>
+    <li>Puedo ubicar al menos tres servicios representativos de cada una de las categorías de la guía oficial (analítica, cómputo, base de datos, redes, seguridad, almacenamiento, entre otras).</li>
+    <li>Puedo explicar la diferencia entre On-Demand, Reserved, Savings Plans y Spot.</li>
+    <li>Puedo explicar qué plan de soporte corresponde a una carga de producción crítica frente a una cuenta personal.</li>
+    <li>Sé que la guía oficial usa nombres de planes de soporte que AWS está migrando a Business Support+ y Enterprise Support.</li>
+  </ul>
+</section>
+
+</main>
+</div>
+
+<script>
+document.getElementById('tocToggle')?.addEventListener('click', function(){
+  var nav = document.getElementById('toc');
+  var open = nav.classList.toggle('open');
+  this.setAttribute('aria-expanded', open ? 'true':'false');
+});
+</script>
+</body>
+</html>
