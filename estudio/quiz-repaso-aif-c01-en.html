@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interactive Study Guide AWS Certified AI Practitioner AIF-C01</title>
+<style>
+:root {
+  --bg:#f6f8fb; --card:#fff; --text:#172033; --muted:#667085; --line:#dce3ec;
+  --accent:#ff9900; --accent2:#232f3e; --good:#e8f5e9; --warn:#fff8e1;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+header{background:linear-gradient(135deg,#232f3e,#37475a);color:white;padding:28px 24px;position:relative}.lang-switch{position:absolute;top:16px;right:20px;display:flex;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:20px;overflow:hidden;font-size:11px;font-weight:700;}.lang-switch a{padding:4px 10px;color:rgba(255,255,255,.85);text-decoration:none;}.lang-switch a.active{background:#fff;color:#232f3e;}.byline-brand{margin-top:14px;font-size:.85rem;color:#cdd6e2}.byline-brand a{color:#fff;font-weight:700;text-decoration-color:#8fa3bd;text-underline-offset:3px}
+header h1{margin:0 0 8px;font-size:clamp(1.6rem,4vw,2.5rem)}
+header p{margin:0;max-width:900px;color:#eef2f6}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:20px;max-width:1500px;margin:0 auto;padding:20px}
+aside{position:sticky;top:12px;align-self:start;max-height:calc(100vh - 24px);overflow:auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+.navlink{display:block;padding:9px 10px;border-radius:9px;color:var(--text);text-decoration:none;font-size:.9rem}
+.navlink:hover{background:#f1f4f8}
+main{min-width:0}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+input[type="search"]{flex:1;min-width:240px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:1rem}
+button{border:1px solid var(--line);background:#fff;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:650}
+button:hover{background:#f6f8fb}
+.section{scroll-margin-top:14px;margin-bottom:22px}
+.section h2{font-size:1.25rem;margin:0 0 12px;color:var(--accent2)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px}
+.card-title{font-weight:800;margin-bottom:7px}
+.card p{margin:0;line-height:1.55}
+.hero{background:#fff;border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;padding:16px;margin-bottom:20px}
+.hero strong{color:var(--accent2)}
+.tip-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;justify-content:space-between;gap:12px}
+.tip span{color:var(--muted)}
+.quizbox{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.answers{display:grid;gap:10px;margin-top:12px}
+.answer{text-align:left}
+.correct{background:#e8f5e9!important;border-color:#8bc48d!important}
+.wrong{background:#ffebee!important;border-color:#ef9a9a!important}
+.feedback{margin-top:12px;font-weight:650}
+.score{display:inline-block;margin-left:10px;color:var(--muted)}
+.hidden{display:none!important}
+.badge{display:inline-block;background:#fff3e0;color:#8a4b00;border:1px solid #ffd9a0;padding:4px 8px;border-radius:999px;font-size:.78rem;margin:0 6px 6px 0}
+footer{max-width:1500px;margin:0 auto;padding:0 20px 30px;color:var(--muted);font-size:.9rem}
+@media(max-width:900px){.layout{grid-template-columns:1fr}aside{position:relative;max-height:none}.grid,.tip-grid{grid-template-columns:1fr}}
+@media print{aside,.toolbar,#quizSection{display:none}body{background:white}.layout{display:block;max-width:none}.card,.hero{break-inside:avoid}}
+</style>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23232F3E'/%3E%3Ctext x='12' y='17' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='14' font-weight='700' fill='%23FF9900'%3EF%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div style="background:#14141f;padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px;">
+  <a href="../index.html" style="color:#fff;font-size:12.5px;text-decoration:none;font-weight:600;letter-spacing:.02em;">&larr; Back to home &middot; franciscojeg.github.io</a>
+  <span style="display:inline-flex;gap:8px;">
+    <a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A66C2"/><text x="12" y="16" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="700" fill="#fff">in</text></svg></a>
+    <a href="https://github.com/franciscojeg" target="_blank" rel="noopener" aria-label="GitHub"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#181717"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="8.5" font-weight="700" fill="#fff">GH</text></svg></a>
+    <a href="https://dev.to/franciscojeg78" target="_blank" rel="noopener" aria-label="dev.to"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A0A0A"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="6.5" font-weight="700" fill="#fff">DEV</text></svg></a>
+    <a href="https://builder.aws.com/community/@franciscojeg?tab=badges" target="_blank" rel="noopener" aria-label="AWS Builder Center"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF9900"/><text x="12" y="15" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="7" font-weight="700" fill="#232F3E">AWS</text></svg></a>
+    <a href="https://www.instagram.com/franciscojeg.tech/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24"><defs><linearGradient id="igg-bar" x1="0" y1="24" x2="24" y2="0"><stop offset="0%" stop-color="#FEDA75"/><stop offset="35%" stop-color="#D62976"/><stop offset="70%" stop-color="#962FBF"/><stop offset="100%" stop-color="#4F5BD5"/></linearGradient></defs><circle cx="12" cy="12" r="12" fill="url(#igg-bar)"/><rect x="6.5" y="7.5" width="11" height="10.5" rx="3" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="12" cy="12.7" r="2.7" fill="none" stroke="#fff" stroke-width="1.4"/><circle cx="15.2" cy="9.6" r="0.6" fill="#fff"/></svg></a>
+    <a href="https://www.youtube.com/@ugwelcomebuilders" target="_blank" rel="noopener" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF0000"/><path d="M9.5 8.5 L16 12 L9.5 15.5 Z" fill="#fff"/></svg></a>
+  </span>
+</div>
+
+<header>
+  <div class="lang-switch"><a href="quiz-repaso-aif-c01.html">ES</a><a href="quiz-repaso-aif-c01-en.html" class="active">EN</a></div>
+  <div class="badge">AWS Certified AI Practitioner</div>
+  <div class="badge">AIF-C01</div>
+  <div class="badge">Cumulative guide v6</div>
+  <h1>AIF-C01 Interactive Study Guide</h1>
+  <p>A summary of every question worked through, with quick associations, common traps, and a review quiz.</p>
+  <p class="byline-brand">Prepared by Francisco Escobar &middot; AWS Community Builder, Networking &amp; Content Delivery &middot; <a href="https://www.linkedin.com/in/franciscojeg/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+</header>
+
+<div class="layout">
+<aside>
+  <strong>Index</strong>
+  <div style="height:8px"></div>
+  <a href="#s1" class="navlink">1. Generative AI, Foundation Models and LLMs</a><a href="#s2" class="navlink">2. How Models Learn</a><a href="#s3" class="navlink">3. Reinforcement Learning</a><a href="#s4" class="navlink">4. Transfer Learning</a><a href="#s5" class="navlink">5. Transformers</a><a href="#s6" class="navlink">6. Tokens and Context Window</a><a href="#s7" class="navlink">7. Temperature, Top K, Top P and Stop Sequences</a><a href="#s8" class="navlink">8. Prompt Engineering</a><a href="#s9" class="navlink">9. RAG, Embeddings and Vector Search</a><a href="#s10" class="navlink">10. Knowledge Bases for Amazon Bedrock</a><a href="#s11" class="navlink">11. Agents for Amazon Bedrock</a><a href="#s12" class="navlink">12. Amazon Bedrock: Customization</a><a href="#s13" class="navlink">13. Amazon Bedrock: Security and Auditing</a><a href="#s14" class="navlink">14. Amazon Bedrock: Pricing and Cost</a><a href="#s15" class="navlink">15. Amazon Q</a><a href="#s16" class="navlink">16. SageMaker JumpStart, Canvas, Clarify, MLflow, Dashboard, Monitor, Ground Truth</a><a href="#s17" class="navlink">17. Explainability: SHAP vs PDP</a><a href="#s18" class="navlink">18. Interpretability vs Explainability</a><a href="#s19" class="navlink">19. Model Inference vs Model Evaluation</a><a href="#s20" class="navlink">20. SageMaker Inference</a><a href="#s21" class="navlink">21. AWS AI Services: Mind Map</a><a href="#s22" class="navlink">22. Typical Combinations</a><a href="#s23" class="navlink">23. Overfitting, Data Augmentation and Bias</a><a href="#s24" class="navlink">24. Responsible AI and Risks</a><a href="#s25" class="navlink">25. Model Evaluation</a><a href="#s26" class="navlink">26. Model Selection</a><a href="#s27" class="navlink">27. Governance, Auditing and AWS Optimization</a><a href="#s28" class="navlink">28. ML Infrastructure</a>
+
+  <a href="#s29" class="navlink">29. Tokens, Embeddings and Representations</a>
+  <a href="#s30" class="navlink">30. Metrics by Task Type</a>
+  <a href="#s31" class="navlink">31. Sentiment Analysis on AWS</a>
+  <a href="#s32" class="navlink">32. Shared Responsibility Model</a>
+  <a href="#s33" class="navlink">33. Additional Prompting</a>
+  <a href="#s34" class="navlink">34. Exploratory Data Analysis</a>
+  <a href="#s35" class="navlink">35. Supervised Learning</a>
+  <a href="#s36" class="navlink">36. AWS Global Infrastructure</a>
+  <a href="#s37" class="navlink">37. Hyperparameters</a>
+  <a href="#quick" class="navlink"><b>Quick hints</b></a>
+  <a href="#quizSection" class="navlink"><b>Quiz</b></a>
+</aside>
+
+<main>
+  <div class="hero">
+    <strong>Method for answering quickly:</strong> first identify what the scenario wants to do: generate, retrieve, act, explain, monitor, label, translate, or evaluate. Then look for the keyword and rule out services that only "seem similar".
+  </div>
+
+  <div class="toolbar">
+    <input id="searchBox" type="search" placeholder="Search concept or service...">
+    <button onclick="window.print()">Print / Save PDF</button>
+  </div>
+
+  <section id="s1" class="section"><h2>1. Generative AI, Foundation Models and LLMs</h2><div class="grid"><div class="card"><div class="card-title">Generative AI</div><p>Learns patterns from existing data and creates new content: text, images, audio, video, code, or music. Rule: Generative AI doesn't just analyze, it generates.</p></div><div class="card"><div class="card-title">Foundation Model vs LLM</div><p>Foundation Model is the broad category. An LLM is a type of Foundation Model focused mainly on language. Memorize: LLM ⊂ Foundation Models.</p></div><div class="card"><div class="card-title">Typical advantages</div><p>Productivity, automation, personalization, innovation, accelerated research, and synthetic data generation.</p></div></div></section><section id="s2" class="section"><h2>2. How Models Learn</h2><div class="grid"><div class="card"><div class="card-title">Self-supervised learning</div><p>Common in the pre-training of Foundation Models. The data itself generates implicit signals or labels without massive human labeling.</p></div><div class="card"><div class="card-title">Supervised learning</div><p>Uses labeled examples. In the AIF-C01 context, fine-tuning is associated with supervised learning.</p></div><div class="card"><div class="card-title">Unsupervised learning</div><p>Looks for patterns and relationships without explicit labels.</p></div><div class="card"><div class="card-title">Reinforcement learning</div><p>An agent interacts with an environment, takes actions, and receives rewards or penalties. It learns a policy to maximize cumulative reward.</p></div></div></section><section id="s3" class="section"><h2>3. Reinforcement Learning</h2><div class="grid"><div class="card"><div class="card-title">Concepts</div><p>Agent, environment, state, action, reward, cumulative reward, and policy.</p></div><div class="card"><div class="card-title">Exploration vs exploitation</div><p>Exploration = trying new actions. Exploitation = using known actions that already work.</p></div><div class="card"><div class="card-title">Exam hint</div><p>Continuous feedback + rewards/penalties + improvement based on interaction → Reinforcement Learning.</p></div><div class="card"><div class="card-title">Chatbot that improves with feedback</div><p>If customers give positive/negative feedback and it's used as a reward to optimize responses, the expected answer is RL.</p></div></div></section><section id="s4" class="section"><h2>4. Transfer Learning</h2><div class="grid"><div class="card"><div class="card-title">Definition</div><p>Reuses knowledge learned in one task or model to improve a new but related task.</p></div><div class="card"><div class="card-title">Typical steps</div><p>Select a pre-trained model, keep or freeze useful layers, replace/add task-specific layers, and train for the new domain or task.</p></div><div class="card"><div class="card-title">Don't confuse</div><p>Incremental training updates the same model with new data. Transfer learning reuses prior knowledge for another related task.</p></div><div class="card"><div class="card-title">Hint</div><p>Pre-trained model + reuse knowledge + new related task → Transfer Learning.</p></div></div></section><section id="s5" class="section"><h2>5. Transformers</h2><div class="grid"><div class="card"><div class="card-title">Self-attention</div><p>Determines which parts of the text are relevant to each other.</p></div><div class="card"><div class="card-title">Contextual embeddings</div><p>A word's representation depends on context.</p></div><div class="card"><div class="card-title">Multi-head attention</div><p>Multiple heads learn different relationships in parallel.</p></div><div class="card"><div class="card-title">Positional encoding</div><p>Adds information about token order.</p></div></div></section><section id="s6" class="section"><h2>6. Tokens and Context Window</h2><div class="grid"><div class="card"><div class="card-title">Token</div><p>Unit of text processed by the model. It can be a word, part of a word, punctuation, or a fragment.</p></div><div class="card"><div class="card-title">Context Window</div><p>Maximum number of tokens the model can consider at once. Prompt + history + RAG documents + output all consume context.</p></div><div class="card"><div class="card-title">Hint</div><p>Maximum amount of text the model can consider at once → Context Window.</p></div></div></section><section id="s7" class="section"><h2>7. Temperature, Top K, Top P and Stop Sequences</h2><div class="grid"><div class="card"><div class="card-title">Temperature</div><p>Controls randomness/creativity. Low = more deterministic. High = more diverse.</p></div><div class="card"><div class="card-title">Top K</div><p>Controls the number of candidates for the next token. K = quantity.</p></div><div class="card"><div class="card-title">Top P</div><p>Controls the cumulative probability percentage considered. P = probability.</p></div><div class="card"><div class="card-title">Stop sequences</div><p>Sequences that make the model stop generating more tokens.</p></div><div class="card"><div class="card-title">Trap</div><p>number of candidates → Top K. percentage of most-likely candidates → Top P.</p></div></div></section><section id="s8" class="section"><h2>8. Prompt Engineering</h2><div class="grid"><div class="card"><div class="card-title">Structure of a good prompt</div><p>Instructions + Context + Input data + Output Indicator. Rule: task + context + data + format.</p></div><div class="card"><div class="card-title">Zero-shot</div><p>Includes no examples.</p></div><div class="card"><div class="card-title">One-shot</div><p>Includes one example.</p></div><div class="card"><div class="card-title">Few-shot</div><p>Includes several input + expected output examples. For intent classification: user query + correct intent.</p></div><div class="card"><div class="card-title">Cost</div><p>More examples usually mean more input tokens; if the goal is to lower cost in Bedrock, shorten prompts and examples.</p></div></div></section><section id="s9" class="section"><h2>9. RAG, Embeddings and Vector Search</h2><div class="grid"><div class="card"><div class="card-title">RAG</div><p>Retrieves relevant external information and adds it to the context before the LLM generates the response.</p></div><div class="card"><div class="card-title">Embeddings</div><p>Numeric representations used to compare semantic similarity.</p></div><div class="card"><div class="card-title">OpenSearch</div><p>Indexing, full-text search, similarity search, vector search, and relevance ranking.</p></div><div class="card"><div class="card-title">RAG vs Fine-tuning</div><p>Private or frequently updated knowledge, PDFs, and catalogs → RAG. Specific behavior/task → Fine-tuning.</p></div><div class="card"><div class="card-title">Hallucinations</div><p>RAG helps reduce them by grounding responses in relevant external sources.</p></div></div></section><section id="s10" class="section"><h2>10. Knowledge Bases for Amazon Bedrock</h2><div class="grid"><div class="card"><div class="card-title">Definition</div><p>Fully managed capability for implementing an end-to-end RAG flow.</p></div><div class="card"><div class="card-title">What it manages</div><p>Ingestion, chunking, embeddings, vector store, retrieval, and prompt augmentation.</p></div><div class="card"><div class="card-title">Vector DB</div><p>If you don't have a vector database, it can create an Amazon OpenSearch Serverless vector store.</p></div><div class="card"><div class="card-title">Hint</div><p>Fully managed RAG + Bedrock + proprietary data → Knowledge Bases for Amazon Bedrock.</p></div></div></section><section id="s11" class="section"><h2>11. Agents for Amazon Bedrock</h2><div class="grid"><div class="card"><div class="card-title">Definition</div><p>Let you create autonomous or semi-autonomous agents that orchestrate Foundation Models, data, applications, and conversations.</p></div><div class="card"><div class="card-title">What they do</div><p>They understand requests, break tasks into steps, gather information, consult sources, invoke APIs, and execute actions.</p></div><div class="card"><div class="card-title">Knowledge Base vs Agent</div><p>Knowledge Bases retrieve. Agents reason and act.</p></div><div class="card"><div class="card-title">Hint</div><p>Automate tasks + multi-step workflow + call APIs + take actions → Agents for Amazon Bedrock.</p></div></div></section><section id="s12" class="section"><h2>12. Amazon Bedrock: Customization</h2><div class="grid"><div class="card"><div class="card-title">Fine-tuning</div><p>Uses labeled data. Specializes the model for a specific task or behavior.</p></div><div class="card"><div class="card-title">Continued Pre-Training</div><p>Uses unlabeled domain data. Expands domain knowledge, terminology, and context.</p></div><div class="card"><div class="card-title">Domain expert</div><p>Domain Adaptation Fine-Tuning and Continued Pre-Training can complement each other.</p></div><div class="card"><div class="card-title">Provisioned Throughput</div><p>Custom models may require provisioned capacity to run.</p></div></div></section><section id="s13" class="section"><h2>13. Amazon Bedrock: Security and Auditing</h2><div class="grid"><div class="card"><div class="card-title">Guardrails</div><p>Mask hides/redacts PII or sensitive information. Block blocks content or requests.</p></div><div class="card"><div class="card-title">Model Invocation Logging</div><p>Logs requests, responses, and metadata. Can send logs to CloudWatch Logs and/or S3. Disabled by default.</p></div><div class="card"><div class="card-title">Watermark detection</div><p>Used to identify certain images generated by compatible models, not for RAG or agents.</p></div></div></section><section id="s14" class="section"><h2>14. Amazon Bedrock: Pricing and Cost</h2><div class="grid"><div class="card"><div class="card-title">On-Demand</div><p>Ideal for uncertain or variable usage, experimentation, and no long-term commitments. Pay for what you use.</p></div><div class="card"><div class="card-title">Provisioned Throughput</div><p>Suited for stable/predictable workloads and guaranteed capacity.</p></div><div class="card"><div class="card-title">Batch</div><p>Non-immediate processing of large sets of prompts; can be more cost-effective in compatible scenarios.</p></div><div class="card"><div class="card-title">Tokens and cost</div><p>For text models, input/output tokens impact cost. Reducing tokens reduces spend.</p></div><div class="card"><div class="card-title">Distractors</div><p>Spot Instances and Reserved Instances are EC2 concepts, not Bedrock pricing models.</p></div></div></section><section id="s15" class="section"><h2>15. Amazon Q</h2><div class="grid"><div class="card"><div class="card-title">Amazon Q Developer</div><p>Generative assistant for software development and AWS. Powered by Amazon Bedrock.</p></div><div class="card"><div class="card-title">Amazon Q Business</div><p>Enterprise assistant that can combine LLM + RAG to answer using internal knowledge.</p></div><div class="card"><div class="card-title">Q vs Bedrock</div><p>Q = ready-made assistant. Bedrock = platform for building GenAI applications and choosing FMs.</p></div><div class="card"><div class="card-title">Hint</div><p>Amazon Q Business workflow → LLM + RAG.</p></div></div></section><section id="s16" class="section"><h2>16. SageMaker JumpStart, Canvas, Clarify, MLflow, Dashboard, Monitor, Ground Truth</h2><div class="grid"><div class="card"><div class="card-title">JumpStart</div><p>ML hub with pre-trained models, FMs, pre-built solutions, comparison, and customization.</p></div><div class="card"><div class="card-title">Canvas</div><p>No-code ML through a visual interface.</p></div><div class="card"><div class="card-title">Clarify</div><p>Bias detection and explainability. Uses SHAP and feature attribution.</p></div><div class="card"><div class="card-title">MLflow</div><p>Track, organize, analyze, and compare ML experiments, runs, metrics, parameters, and versions.</p></div><div class="card"><div class="card-title">Model Dashboard</div><p>Central view of deployed models, endpoints, and usage.</p></div><div class="card"><div class="card-title">Model Monitor</div><p>Monitors quality and behavior in production, including drift.</p></div><div class="card"><div class="card-title">Ground Truth</div><p>Creates high-quality labeled datasets using a human workforce and automation.</p></div><div class="card"><div class="card-title">Feature Store</div><p>Repository for storing, sharing, and managing ML features.</p></div></div></section><section id="s17" class="section"><h2>17. Explainability: SHAP vs PDP</h2><div class="grid"><div class="card"><div class="card-title">Shapley values / SHAP</div><p>Local explanation. Quantifies how much each feature contributed to a specific prediction.</p></div><div class="card"><div class="card-title">Partial Dependence Plot</div><p>Global explanation. Shows a feature's marginal effect on predictions across the dataset.</p></div><div class="card"><div class="card-title">Hint</div><p>Why THIS case? → SHAP. How does this feature affect predictions IN GENERAL? → PDP.</p></div></div></section><section id="s18" class="section"><h2>18. Interpretability vs Explainability</h2><div class="grid"><div class="card"><div class="card-title">Interpretability</div><p>The model is understandable by design.</p></div><div class="card"><div class="card-title">Decision Trees</div><p>Highly interpretable. Let you follow a decision path and see which features influenced it.</p></div><div class="card"><div class="card-title">Explainability</div><p>Uses additional techniques to explain complex models, such as SHAP, PDP, or SageMaker Clarify.</p></div><div class="card"><div class="card-title">Hint</div><p>Transparent, easy to visualize decision path, interpretable by design → Decision Tree.</p></div></div></section><section id="s19" class="section"><h2>19. Model Inference vs Model Evaluation</h2><div class="grid"><div class="card"><div class="card-title">Inference</div><p>Input/prompt → model → output. Inference = generate.</p></div><div class="card"><div class="card-title">Evaluation</div><p>Measures and compares outputs/models to determine which best fits the use case. Evaluation = measure/judge.</p></div></div></section><section id="s20" class="section"><h2>20. SageMaker Inference</h2><div class="grid"><div class="card"><div class="card-title">Real-time</div><p>You need an immediate response.</p></div><div class="card"><div class="card-title">Asynchronous</div><p>You can wait; it's queued and processed later. Useful for large payloads or long processing.</p></div><div class="card"><div class="card-title">Batch Transform</div><p>Processes an entire dataset as a batch job.</p></div><div class="card"><div class="card-title">Serverless</div><p>Intermittent or unpredictable traffic without managing servers.</p></div></div></section><section id="s21" class="section"><h2>21. AWS AI Services: Mind Map</h2><div class="grid"><div class="card"><div class="card-title">Amazon Transcribe</div><p>Audio → text. &#x27;Listens and writes&#x27;.</p></div><div class="card"><div class="card-title">Amazon Polly</div><p>Text → speech. &#x27;Speaks&#x27;.</p></div><div class="card"><div class="card-title">Amazon Comprehend</div><p>Sentiment, entities, key phrases, and NLP. &#x27;Understands text&#x27;.</p></div><div class="card"><div class="card-title">Amazon Lex</div><p>Conversational interfaces and chatbots. &#x27;Converses&#x27;.</p></div><div class="card"><div class="card-title">Amazon Rekognition</div><p>Computer vision for images and video. &#x27;Sees&#x27;.</p></div><div class="card"><div class="card-title">Amazon Textract</div><p>Extracts text, handwriting, forms, and tables from documents. &#x27;Extracts&#x27;.</p></div><div class="card"><div class="card-title">Amazon Translate</div><p>Language translation and multilingual experiences. &#x27;Translates&#x27;.</p></div><div class="card"><div class="card-title">Amazon Personalize</div><p>Personalized recommendations. &#x27;What to show this user&#x27;.</p></div><div class="card"><div class="card-title">Amazon Kendra</div><p>Enterprise search over internal repositories.</p></div><div class="card"><div class="card-title">Amazon Forecast</div><p>Time-series forecasting for demand, resources, and capacity.</p></div></div></section><section id="s22" class="section"><h2>22. Typical Combinations</h2><div class="grid"><div class="card"><div class="card-title">Call sentiment</div><p>Transcribe → Comprehend.</p></div><div class="card"><div class="card-title">LLM solution development</div><p>Amazon Bedrock + SageMaker JumpStart.</p></div><div class="card"><div class="card-title">Enterprise search</div><p>Amazon Kendra.</p></div><div class="card"><div class="card-title">Computer Vision</div><p>Amazon Rekognition.</p></div><div class="card"><div class="card-title">Fully managed RAG</div><p>Knowledge Bases for Amazon Bedrock.</p></div></div></section><section id="s23" class="section"><h2>23. Overfitting, Data Augmentation and Bias</h2><div class="grid"><div class="card"><div class="card-title">Overfitting</div><p>Very good with training data, poor with new data. Solutions: regularization, dropout, early stopping, tuning, more data.</p></div><div class="card"><div class="card-title">Data augmentation</div><p>Generates or adds additional examples to increase diversity and representation.</p></div><div class="card"><div class="card-title">Sampling bias</div><p>The sample doesn't represent the population well. Groups are overrepresented or underrepresented.</p></div><div class="card"><div class="card-title">Measurement bias</div><p>A problem in how the data was measured/captured.</p></div><div class="card"><div class="card-title">Observer bias</div><p>Human subjectivity in observation or labeling.</p></div><div class="card"><div class="card-title">Confirmation bias</div><p>Evidence that confirms prior beliefs is favored.</p></div></div></section><section id="s24" class="section"><h2>24. Responsible AI and Risks</h2><div class="grid"><div class="card"><div class="card-title">Hallucination</div><p>A plausible, convincing response that is false or fabricated.</p></div><div class="card"><div class="card-title">Plagiarism</div><p>Non-original content presented as one's own.</p></div><div class="card"><div class="card-title">Bias</div><p>Systematically unfair or unbalanced results.</p></div><div class="card"><div class="card-title">Misinterpretation</div><p>The meaning or intent is interpreted incorrectly.</p></div></div></section><section id="s25" class="section"><h2>25. Model Evaluation</h2><div class="grid"><div class="card"><div class="card-title">Classification</div><p>Confusion Matrix, Accuracy, Precision, Recall, and F1.</p></div><div class="card"><div class="card-title">Confusion Matrix</div><p>Shows true positives, true negatives, false positives, and false negatives; lets you see which classes get confused.</p></div><div class="card"><div class="card-title">Regression</div><p>MAE, MSE, and RMSE for continuous values.</p></div><div class="card"><div class="card-title">Correlation Matrix</div><p>Analyzes relationships between variables; does not directly evaluate classification performance.</p></div></div></section><section id="s26" class="section"><h2>26. Model Selection</h2><div class="grid"><div class="card"><div class="card-title">Define the use case narrowly</div><p>A specific case helps you choose the right model, data, metrics, and constraints.</p></div><div class="card"><div class="card-title">Churn example</div><p>Better: &#x27;identify customers likely to churn in the next six months&#x27; than &#x27;predict customer behavior&#x27;.</p></div></div></section><section id="s27" class="section"><h2>27. Governance, Auditing and AWS Optimization</h2><div class="grid"><div class="card"><div class="card-title">AWS Trusted Advisor</div><p>Best-practice recommendations for cost, performance, security, and resilience.</p></div><div class="card"><div class="card-title">AWS Config</div><p>Evaluates and records resource configurations.</p></div><div class="card"><div class="card-title">AWS Audit Manager</div><p>Auditing and compliance.</p></div><div class="card"><div class="card-title">AWS CloudTrail</div><p>Logs API calls and activity. Trick: &#x27;who did what?&#x27;.</p></div></div></section><section id="s28" class="section"><h2>28. ML Infrastructure</h2><div class="grid"><div class="card"><div class="card-title">AWS Trainium</div><p>Chip/accelerator for deep learning training.</p></div><div class="card"><div class="card-title">AWS Inferentia</div><p>Chip/accelerator for inference.</p></div></div></section>
+
+
+  <section id="s29" class="section">
+    <h2>29. Tokens, Embeddings and Representations</h2>
+    <div class="grid">
+      <div class="card"><div class="card-title">Tokens</div><p>The discrete units of text the model processes: words, sub-words, characters, or symbols.</p></div>
+      <div class="card"><div class="card-title">Embeddings</div><p>Dense numeric representations of tokens, words, phrases, or other data used to capture meaning and similarity.</p></div>
+      <div class="card"><div class="card-title">Word2Vec</div><p>Generates static embeddings: a word usually keeps the same vector even when context changes.</p></div>
+      <div class="card"><div class="card-title">BERT</div><p>Generates contextual embeddings. The same word can have different representations depending on the sentence.</p></div>
+      <div class="card"><div class="card-title">PCA</div><p>Dimensionality reduction technique. Simplifies high-dimensional data while preserving as much variance as possible.</p></div>
+      <div class="card"><div class="card-title">SVD</div><p>Decomposes matrices and can be used for compression and latent representations.</p></div>
+    </div>
+  </section>
+
+  <section id="s30" class="section">
+    <h2>30. Metrics by Task Type</h2>
+    <div class="grid">
+      <div class="card"><div class="card-title">BLEU</div><p>Classic metric for evaluating machine translation by comparing the output with one or more reference translations.</p></div>
+      <div class="card"><div class="card-title">ROUGE</div><p>Mainly used to evaluate automatic summaries by comparing overlap with reference summaries.</p></div>
+      <div class="card"><div class="card-title">Classification</div><p>Accuracy, Precision, Recall, F1, and Confusion Matrix.</p></div>
+      <div class="card"><div class="card-title">Regression</div><p>MAE, MSE, and RMSE.</p></div>
+      <div class="card"><div class="card-title">Hint</div><p>Translation → BLEU. Summarization → ROUGE.</p></div>
+      <div class="card"><div class="card-title">BERTScore</div><p>Evaluates semantic similarity using contextual embeddings; may appear as a more semantic alternative.</p></div>
+    </div>
+  </section>
+
+  <section id="s31" class="section">
+    <h2>31. Sentiment Analysis on AWS</h2>
+    <div class="grid">
+      <div class="card"><div class="card-title">Amazon Comprehend</div><p>Service specialized in NLP for sentiment, entities, key phrases, and language detection.</p></div>
+      <div class="card"><div class="card-title">Amazon Bedrock</div><p>Can also perform sentiment analysis using Foundation Models with prompts or customization.</p></div>
+      <div class="card"><div class="card-title">Hint</div><p>Written customer reviews + sentiment → Comprehend. If two options are requested and Bedrock appears, Comprehend + Bedrock.</p></div>
+      <div class="card"><div class="card-title">Categories</div><p>Comprehend can return Positive, Negative, Neutral, or Mixed.</p></div>
+    </div>
+  </section>
+
+  <section id="s32" class="section">
+    <h2>32. AWS Shared Responsibility Model</h2>
+    <div class="grid">
+      <div class="card"><div class="card-title">AWS: security OF the cloud</div><p>AWS protects physical infrastructure, hardware, data centers, the global network, Regions, Availability Zones, and Edge Locations.</p></div>
+      <div class="card"><div class="card-title">Customer: security IN the cloud</div><p>The customer manages data, IAM, access, applications, configurations, and security controls depending on the service.</p></div>
+      <div class="card"><div class="card-title">Rule</div><p>AWS = OF the cloud. Customer = IN the cloud.</p></div>
+      <div class="card"><div class="card-title">Hint</div><p>Physical infrastructure → AWS. Customer data / IAM / permissions → Customer.</p></div>
+    </div>
+  </section>
+
+  <section id="s33" class="section">
+    <h2>33. Additional Prompting Techniques</h2>
+    <div class="grid">
+      <div class="card"><div class="card-title">Negative prompting</div><p>Explicitly states what the model should avoid: brands, topics, words, or behaviors.</p></div>
+      <div class="card"><div class="card-title">Chain-of-thought</div><p>Breaks a complex problem into intermediate logical steps.</p></div>
+      <div class="card"><div class="card-title">Tree-of-thought</div><p>Explores multiple possible paths and evaluates alternatives.</p></div>
+      <div class="card"><div class="card-title">Self-refine</div><p>The model generates a response, critiques it, and improves it iteratively.</p></div>
+      <div class="card"><div class="card-title">Generated knowledge</div><p>First generates relevant facts, then answers using that knowledge.</p></div>
+      <div class="card"><div class="card-title">Directional stimulus</div><p>Uses hints or keywords to guide the desired output.</p></div>
+    </div>
+  </section>
+
+  <section id="s34" class="section">
+    <h2>34. Exploratory Data Analysis (EDA)</h2>
+    <div class="grid">
+      <div class="card"><div class="card-title">EDA</div><p>Phase for exploring and understanding data through statistics, visualizations, patterns, anomalies, and outliers before modeling.</p></div>
+      <div class="card"><div class="card-title">Data Preparation</div><p>Cleans and transforms data: missing values, duplicates, encoding, and preprocessing.</p></div>
+      <div class="card"><div class="card-title">Rule</div><p>Preparation cleans. EDA understands. Evaluation measures.</p></div>
+      <div class="card"><div class="card-title">Hint</div><p>Calculate statistics + visualize trends + identify patterns → EDA.</p></div>
+    </div>
+  </section>
+
+  <section id="s35" class="section">
+    <h2>35. Supervised Learning: Examples</h2>
+    <div class="grid">
+      <div class="card"><div class="card-title">Linear Regression</div><p>Supervised learning for predicting continuous values.</p></div>
+      <div class="card"><div class="card-title">Neural Networks</div><p>Can be trained in a supervised way with labeled data for classification or regression.</p></div>
+      <div class="card"><div class="card-title">Other examples</div><p>Logistic Regression and Decision Trees are also typical supervised techniques.</p></div>
+      <div class="card"><div class="card-title">Don't confuse</div><p>Clustering and Association Rule Learning are unsupervised.</p></div>
+    </div>
+  </section>
+
+  <section id="s36" class="section">
+    <h2>36. AWS Global Infrastructure</h2>
+    <div class="grid">
+      <div class="card"><div class="card-title">AWS Region</div><p>Each Region has a minimum of three Availability Zones.</p></div>
+      <div class="card"><div class="card-title">Availability Zone</div><p>Each AZ contains one or more discrete data centers with redundant power, networking, and connectivity.</p></div>
+      <div class="card"><div class="card-title">Hierarchy</div><p>Region → Availability Zones → Data Centers.</p></div>
+      <div class="card"><div class="card-title">Edge Locations</div><p>Not part of the definition of an AZ; they bring services and content closer to end users.</p></div>
+    </div>
+  </section>
+
+  <section id="s37" class="section">
+    <h2>37. Hyperparameters: Epochs, Learning Rate, Batch Size and Regularization</h2>
+    <div class="grid">
+      <div class="card"><div class="card-title">Epochs</div><p>An epoch is one complete pass through the entire dataset. More epochs can improve learning up to a point.</p></div>
+      <div class="card"><div class="card-title">Learning rate</div><p>Defines the size of the weight adjustments during training.</p></div>
+      <div class="card"><div class="card-title">Batch size</div><p>How many examples are processed before updating the weights.</p></div>
+      <div class="card"><div class="card-title">Regularization</div><p>Penalizes complexity to reduce overfitting.</p></div>
+      <div class="card"><div class="card-title">Hint</div><p>Needs more opportunities to learn from training data → increase epochs.</p></div>
+      <div class="card"><div class="card-title">Warning</div><p>Too many epochs can cause overfitting; it's worth watching validation performance.</p></div>
+    </div>
+  </section>
+
+  <section id="quick" class="section">
+    <h2>Quick Exam Hints</h2>
+    <div class="tip-grid"><div class="tip"><span>create new content</span><strong>→ Generative AI</strong></div><div class="tip"><span>self-supervised FM pre-training</span><strong>→ Foundation Models</strong></div><div class="tip"><span>labeled task-specific data</span><strong>→ Fine-tuning</strong></div><div class="tip"><span>unlabeled domain data</span><strong>→ Continued Pre-Training</strong></div><div class="tip"><span>pre-trained model + related new task</span><strong>→ Transfer Learning</strong></div><div class="tip"><span>reward / penalty / feedback loop</span><strong>→ Reinforcement Learning</strong></div><div class="tip"><span>number of candidates</span><strong>→ Top K</strong></div><div class="tip"><span>percentage of probability mass</span><strong>→ Top P</strong></div><div class="tip"><span>randomness / creativity</span><strong>→ Temperature</strong></div><div class="tip"><span>maximum text considered at once</span><strong>→ Context Window</strong></div><div class="tip"><span>similarity / vector search</span><strong>→ OpenSearch</strong></div><div class="tip"><span>fully managed RAG</span><strong>→ Knowledge Bases for Amazon Bedrock</strong></div><div class="tip"><span>multi-step actions / call APIs</span><strong>→ Agents for Amazon Bedrock</strong></div><div class="tip"><span>PII redaction</span><strong>→ Guardrails Mask</strong></div><div class="tip"><span>audit model requests/responses</span><strong>→ Model Invocation Logging</strong></div><div class="tip"><span>uncertain Bedrock usage</span><strong>→ On-Demand</strong></div><div class="tip"><span>reduce Bedrock inference cost</span><strong>→ Reduce input/output tokens</strong></div><div class="tip"><span>LLM + RAG enterprise assistant</span><strong>→ Amazon Q Business</strong></div><div class="tip"><span>powered by Bedrock developer assistant</span><strong>→ Amazon Q Developer</strong></div><div class="tip"><span>SHAP / feature attribution</span><strong>→ SageMaker Clarify</strong></div><div class="tip"><span>local explanation</span><strong>→ Shapley values</strong></div><div class="tip"><span>global marginal feature effect</span><strong>→ PDP</strong></div><div class="tip"><span>track ML runs</span><strong>→ MLflow</strong></div><div class="tip"><span>deployed models/endpoints portal</span><strong>→ Model Dashboard</strong></div><div class="tip"><span>production drift</span><strong>→ Model Monitor</strong></div><div class="tip"><span>labeled training dataset</span><strong>→ Ground Truth</strong></div><div class="tip"><span>interpretable by design</span><strong>→ Decision Tree</strong></div><div class="tip"><span>speech to text</span><strong>→ Transcribe</strong></div><div class="tip"><span>text to speech</span><strong>→ Polly</strong></div><div class="tip"><span>sentiment / entities</span><strong>→ Comprehend</strong></div><div class="tip"><span>enterprise repositories search</span><strong>→ Kendra</strong></div><div class="tip"><span>recommendations</span><strong>→ Personalize</strong></div><div class="tip"><span>multilingual experience</span><strong>→ Translate</strong></div><div class="tip"><span>image/video analysis</span><strong>→ Rekognition</strong></div><div class="tip"><span>plausible but false</span><strong>→ Hallucination</strong></div><div class="tip"><span>over/underrepresented sample</span><strong>→ Sampling bias</strong></div><div class="tip"><span>best-practice recommendations</span><strong>→ Trusted Advisor</strong></div>
+<div class="tip"><span>words / sub-words / characters</span><strong>→ Tokens</strong></div>
+<div class="tip"><span>contextual word meaning</span><strong>→ BERT</strong></div>
+<div class="tip"><span>translation metric</span><strong>→ BLEU</strong></div>
+<div class="tip"><span>summarization metric</span><strong>→ ROUGE</strong></div>
+<div class="tip"><span>written sentiment analysis</span><strong>→ Comprehend</strong></div>
+<div class="tip"><span>security OF the cloud</span><strong>→ AWS</strong></div>
+<div class="tip"><span>security IN the cloud</span><strong>→ Customer</strong></div>
+<div class="tip"><span>avoid / exclude content</span><strong>→ Negative prompting</strong></div>
+<div class="tip"><span>statistics + visualizations before modeling</span><strong>→ EDA</strong></div>
+<div class="tip"><span>minimum 3 AZs</span><strong>→ AWS Region</strong></div>
+<div class="tip"><span>one or more data centers</span><strong>→ Availability Zone</strong></div>
+<div class="tip"><span>more full passes over dataset</span><strong>→ Increase epochs</strong></div>
+</div>
+  </section>
+
+  <section id="quizSection" class="section">
+    <h2>Cumulative Quiz</h2>
+    <div class="quizbox">
+      <div id="qText" style="font-weight:800"></div>
+      <div id="answers" class="answers"></div>
+      <div id="feedback" class="feedback"></div>
+      <div style="margin-top:14px">
+        <button id="nextBtn" disabled>Next</button>
+        <button id="resetBtn">Reset</button>
+        <span id="score" class="score">0 / 0</span>
+      </div>
+    </div>
+  </section>
+</main>
+</div>
+
+<footer style="max-width:1500px;margin:0 auto;padding:0 20px 30px;color:var(--muted);font-size:.9rem">
+  Living study guide. Each new question can be added into this same structure.
+  <div style="text-align:center;font-size:12px;color:#6b7280;padding:20px 16px 0;border-top:1px solid #e5e7eb;margin-top:16px;">&copy; 2026 Francisco Escobar. Content licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">Creative Commons BY-NC-ND 4.0</a>: you may share it with attribution, for non-commercial use, unmodified.</div>
+</footer>
+
+<script>
+const search = document.getElementById('searchBox');
+search.addEventListener('input', () => {
+  const term = search.value.toLowerCase().trim();
+  document.querySelectorAll('.section .card, .tip').forEach(el => {
+    el.classList.toggle('hidden', term && !el.innerText.toLowerCase().includes(term));
+  });
+  document.querySelectorAll('.section').forEach(sec => {
+    if (sec.id === 'quizSection') return;
+    const visible = [...sec.querySelectorAll('.card, .tip')].some(el => !el.classList.contains('hidden'));
+    sec.classList.toggle('hidden', term && !visible && !sec.innerText.toLowerCase().includes(term));
+  });
+});
+
+const quiz = [{"q": "Which technique creates new content from learned patterns?", "a": ["Generative AI", "Kendra", "CloudTrail", "PDP"], "c": 0, "e": "Generative AI creates new content."}, {"q": "Which type of learning is associated with FM pre-training?", "a": ["Supervised", "Self-supervised", "Reinforcement", "Manual"], "c": 1, "e": "FMs are usually pre-trained with self-supervised learning."}, {"q": "Which method reuses knowledge from one task for another related task?", "a": ["Transfer Learning", "Incremental Training", "Top P", "Ground Truth"], "c": 0, "e": "Transfer learning reuses prior knowledge."}, {"q": "Which approach uses rewards and penalties?", "a": ["Unsupervised", "Reinforcement Learning", "Transfer Learning", "Fine-tuning"], "c": 1, "e": "RL learns through feedback and rewards."}, {"q": "Which parameter controls the number of candidates?", "a": ["Top P", "Top K", "Temperature", "Stop Sequence"], "c": 1, "e": "Top K = quantity."}, {"q": "Which parameter controls cumulative probability?", "a": ["Top P", "Top K", "Temperature", "Batch Size"], "c": 0, "e": "Top P = cumulative probability."}, {"q": "What defines how much text the model considers at once?", "a": ["Context Window", "Epoch", "Learning Rate", "Batch"], "c": 0, "e": "Context Window."}, {"q": "Which technique is ideal for updated PDFs without retraining?", "a": ["Fine-tuning", "RAG", "Dropout", "PDP"], "c": 1, "e": "RAG retrieves up-to-date knowledge."}, {"q": "Which capability offers fully managed RAG in Bedrock?", "a": ["Guardrails", "Knowledge Bases", "Watermark Detection", "Clarify"], "c": 1, "e": "Knowledge Bases for Amazon Bedrock."}, {"q": "Which Bedrock capability runs multi-step workflows and calls APIs?", "a": ["Knowledge Bases", "Agents", "Guardrails", "Invocation Logging"], "c": 1, "e": "Agents reason and act."}, {"q": "What does fine-tuning use?", "a": ["Labeled data", "Unlabeled data only", "No data", "Only rewards"], "c": 0, "e": "Fine-tuning uses labeled data."}, {"q": "What does Continued Pre-Training use?", "a": ["Labeled task pairs", "Unlabeled domain data", "Only prompts", "RL rewards"], "c": 1, "e": "Continued pre-training uses unlabeled domain data."}, {"q": "Which Bedrock pricing model suits uncertain usage?", "a": ["Provisioned Throughput", "On-Demand", "Reserved Instances", "Spot"], "c": 1, "e": "On-Demand lets you pay only for what you use."}, {"q": "What reduces per-text cost in Bedrock?", "a": ["Lower Temperature", "Lower Top P", "Reduce tokens", "Increase Top K"], "c": 2, "e": "Fewer input/output tokens reduce cost."}, {"q": "Which combination describes Amazon Q Business?", "a": ["GAN + VAE", "LLM + RAG", "Diffusion + SVM", "PDP + SHAP"], "c": 1, "e": "Q Business can use LLM and RAG."}, {"q": "Which service labels high-quality datasets?", "a": ["Ground Truth", "Canvas", "Feature Store", "JumpStart"], "c": 0, "e": "Ground Truth = data labeling."}, {"q": "Which tool tracks ML experiments?", "a": ["MLflow", "Ground Truth", "Textract", "Lex"], "c": 0, "e": "MLflow manages experiments."}, {"q": "Which portal centralizes deployed models and endpoints?", "a": ["Model Dashboard", "Clarify", "Kendra", "Polly"], "c": 0, "e": "SageMaker Model Dashboard."}, {"q": "What explains an individual prediction?", "a": ["PDP", "Shapley values", "RMSE", "Kendra"], "c": 1, "e": "SHAP/Shapley = local explanation."}, {"q": "What shows a feature's global effect?", "a": ["PDP", "Top K", "Ground Truth", "Transcribe"], "c": 0, "e": "PDP = global explanation."}, {"q": "Which algorithm is especially interpretable by design?", "a": ["Neural Network", "Decision Tree", "SVM", "GAN"], "c": 1, "e": "Decision Tree lets you follow the decision path."}, {"q": "Which service converts audio to text?", "a": ["Polly", "Transcribe", "Comprehend", "Translate"], "c": 1, "e": "Transcribe."}, {"q": "Which service analyzes sentiment in text?", "a": ["Comprehend", "Polly", "Rekognition", "Kendra"], "c": 0, "e": "Comprehend."}, {"q": "Which service creates recommendations?", "a": ["Personalize", "Forecast", "Kendra", "Textract"], "c": 0, "e": "Amazon Personalize."}, {"q": "Which service is enterprise search?", "a": ["Kendra", "Comprehend", "Lex", "Polly"], "c": 0, "e": "Amazon Kendra."}, {"q": "Which service translates languages?", "a": ["Translate", "Rekognition", "Textract", "Clarify"], "c": 0, "e": "Amazon Translate."}, {"q": "What describes a convincing but false response?", "a": ["Sampling bias", "Hallucination", "Plagiarism", "Underfitting"], "c": 1, "e": "Hallucination."}, {"q": "Which bias appears when groups are over/underrepresented?", "a": ["Measurement bias", "Sampling bias", "Observer bias", "Confirmation bias"], "c": 1, "e": "Sampling bias."}, {"q": "Which tool gives cost, performance, and security recommendations?", "a": ["Trusted Advisor", "CloudTrail", "Audit Manager", "Config"], "c": 0, "e": "Trusted Advisor."}, {"q": "Which tool logs API calls?", "a": ["Trusted Advisor", "CloudTrail", "Canvas", "Kendra"], "c": 1, "e": "CloudTrail."}, {"q": "Which tool is used for per-class classification errors?", "a": ["RMSE", "Confusion Matrix", "MAE", "PDP"], "c": 1, "e": "Confusion Matrix."}, {"q": "What should you do first to correctly choose a model?", "a": ["Choose the largest one", "Define the use case narrowly", "Increase Top P", "Buy more GPUs"], "c": 1, "e": "Define the use case narrowly."},
+    {"q":"Which concept represents words, sub-words, or characters processed by the model?","a":["Embeddings","Tokens","Vectors","Context Window"],"c":1,"e":"Tokens are the discrete units of text."},
+    {"q":"Which model distinguishes a word's contextual meaning?","a":["Word2Vec","PCA","BERT","SVD"],"c":2,"e":"BERT produces contextual embeddings."},
+    {"q":"Which metric is associated with machine translation?","a":["ROUGE","BLEU","RMSE","Accuracy"],"c":1,"e":"BLEU is the classic translation metric."},
+    {"q":"Which AWS service analyzes sentiment in text?","a":["Rekognition","Textract","Comprehend","Personalize"],"c":2,"e":"Amazon Comprehend performs sentiment analysis."},
+    {"q":"Who is responsible for security OF the cloud?","a":["Customer","AWS","Both equally","Third-party vendor"],"c":1,"e":"AWS is responsible for the security of the cloud."},
+    {"q":"Which technique specifies what the model should avoid?","a":["Few-shot","Negative prompting","Zero-shot","Chain-of-thought"],"c":1,"e":"Negative prompting states what should not be included."},
+    {"q":"Which phase uses statistics and visualizations before modeling?","a":["Model Evaluation","EDA","Data Augmentation","Deployment"],"c":1,"e":"Exploratory Data Analysis."},
+    {"q":"Which of these is an example of supervised learning?","a":["Clustering","Association rules","Linear regression","PCA"],"c":2,"e":"Linear regression is supervised."},
+    {"q":"According to this guide, how many AZs does an AWS Region have at minimum?","a":["1","2","3","5"],"c":2,"e":"Minimum three Availability Zones."},
+    {"q":"Which best describes an Availability Zone?","a":["A whole geographic region","One or more discrete data centers","An Edge Location","A VPC"],"c":1,"e":"An AZ contains one or more data centers."},
+    {"q":"Which hyperparameter represents complete passes over the entire dataset?","a":["Batch size","Learning rate","Epochs","Regularization"],"c":2,"e":"An epoch is one complete pass over the dataset."},
+];
+let qi=0, score=0, answered=0;
+const qText=document.getElementById('qText');
+const answers=document.getElementById('answers');
+const feedback=document.getElementById('feedback');
+const nextBtn=document.getElementById('nextBtn');
+const resetBtn=document.getElementById('resetBtn');
+const scoreEl=document.getElementById('score');
+
+function renderQuiz(){
+  const item=quiz[qi];
+  qText.textContent=(qi+1)+'. '+item.q;
+  answers.innerHTML='';
+  feedback.textContent='';
+  nextBtn.disabled=true;
+  item.a.forEach((txt,idx)=>{
+    const b=document.createElement('button');
+    b.className='answer';
+    b.textContent=txt;
+    b.onclick=()=>answerQuiz(idx,b);
+    answers.appendChild(b);
+  });
+  scoreEl.textContent=score+' / '+answered;
+}
+function answerQuiz(idx,btn){
+  if(!nextBtn.disabled) return;
+  const item=quiz[qi];
+  answered++;
+  [...answers.children].forEach(x=>x.disabled=true);
+  if(idx===item.c){
+    score++; btn.classList.add('correct');
+    feedback.textContent='Correct. '+item.e;
+  } else {
+    btn.classList.add('wrong');
+    answers.children[item.c].classList.add('correct');
+    feedback.textContent='Check this hint: '+item.e;
+  }
+  scoreEl.textContent=score+' / '+answered;
+  nextBtn.disabled=false;
+}
+nextBtn.onclick=()=>{ qi=(qi+1)%quiz.length; renderQuiz(); };
+resetBtn.onclick=()=>{ qi=0; score=0; answered=0; renderQuiz(); };
+renderQuiz();
+</script>
+</body>
+</html>
